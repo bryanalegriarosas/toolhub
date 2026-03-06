@@ -1,0 +1,65 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: toolhub_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - toolhub
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: toolhub_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - .docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - toolhub
+
+  db:
+    image: postgres:16
+    container_name: toolhub_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: toolhub
+      POSTGRES_USER: toolhub
+      POSTGRES_PASSWORD: toolhub
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - toolhub
+
+  node:
+    image: node:24.13.1-alpine
+    container_name: toolhub_node
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "5173:5173"
+    command: sh -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    networks:
+      - toolhub
+
+networks:
+  toolhub:
+
+volumes:
+  postgres_data:
