@@ -1,4 +1,12 @@
 <template>
+    <Head>
+        <title>ToolHub - Free Online Developer Tools</title>
+
+        <meta
+            name="description"
+            content="Free online tools for developers including JSON formatter, UUID generator, password generator and more."
+        />
+    </Head>
     <MainLayout :tools="tools">
         <div class="space-y-8">
             <!-- HERO -->
@@ -57,6 +65,7 @@ import MainLayout from "@/Layouts/MainLayout.vue";
 import ToolCard from "@/Components/ToolCard.vue";
 import ToolIcon from "@/Components/ToolIcon.vue";
 import { Link } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
 
 const props = defineProps({
     tools: Array,

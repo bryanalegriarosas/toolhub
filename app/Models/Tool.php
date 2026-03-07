@@ -12,7 +12,10 @@ class Tool extends Model
         'slug',
         'icon',
         'description',
-        'active'
+        'active',
+        'category_id',
+        'seo_title',
+        'seo_description',
     ];
 
     public function category(): BelongsTo
