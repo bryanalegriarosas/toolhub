@@ -2,38 +2,32 @@
     <MainLayout :tools="tools">
         <div class="space-y-8">
             <!-- HERO -->
-            <div class="bg-white p-2 rounded-xl shadow text-center">
-                <h1 class="text-4xl font-bold text-gray-800 mb-3">
-                    Online Developer Tools
+            <div
+                class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-12 rounded-xl shadow text-center"
+            >
+                <h1 class="text-4xl font-bold mb-4">
+                    Developer Tools in One Place
                 </h1>
 
-                <p class="text-gray-500 mb-6">
-                    Free tools for developers, designers and creators.
+                <p class="opacity-90 mb-6">
+                    Free online tools for developers, designers and creators.
                 </p>
 
                 <input
                     v-model="search"
                     placeholder="Search a tool..."
-                    class="border rounded-lg px-2 py-2 w-full max-w-xl"
+                    class="text-black border rounded-lg px-4 py-3 w-full max-w-xl"
                 />
             </div>
 
-            <!-- TOOLS GRID -->
-            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-                <Link
+            <div
+                class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
+                <ToolCard
                     v-for="tool in filteredTools"
                     :key="tool.id"
-                    :href="'/tools/' + tool.slug"
-                    class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition"
-                >
-                    <h3 class="font-bold text-lg mb-2">
-                        {{ tool.name }}
-                    </h3>
-
-                    <p class="text-gray-500 text-sm">
-                        {{ tool.description }}
-                    </p>
-                </Link>
+                    :tool="tool"
+                />
             </div>
 
             <!-- ADS SPACE -->
@@ -47,7 +41,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
-import { Link } from "@inertiajs/vue3";
+import ToolCard from "@/Components/ToolCard.vue";
 
 const props = defineProps({
     tools: Array,
