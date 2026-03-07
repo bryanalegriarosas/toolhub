@@ -4,7 +4,9 @@
         class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition group"
     >
         <div class="flex items-center gap-3 mb-3">
-            <div class="bg-blue-100 text-blue-600 p-2 rounded-lg">🧰</div>
+            <div class="bg-blue-100 text-blue-600 p-2 rounded-lg">
+                <ToolIcon :name="tool.icon" />
+            </div>
 
             <h3 class="font-bold text-lg group-hover:text-blue-600">
                 {{ tool.name }}
@@ -19,10 +21,9 @@
 
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import ToolIcon from "@/Components/ToolIcon.vue";
 
 const props = defineProps({
     tool: Object,
 });
 </script>
-
-

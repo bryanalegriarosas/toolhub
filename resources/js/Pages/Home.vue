@@ -21,13 +21,26 @@
             </div>
 
             <div
-                class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                v-for="category in categories"
+                :key="category.id"
+                class="mb-10"
             >
-                <ToolCard
-                    v-for="tool in filteredTools"
-                    :key="tool.id"
-                    :tool="tool"
-                />
+                <Link
+                    :href="'/category/' + category.slug"
+                    class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600"
+                >
+                    <ToolIcon :name="category.icon" />
+
+                    {{ category.name }}
+                </Link>
+
+                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <ToolCard
+                        v-for="tool in category.tools"
+                        :key="tool.id"
+                        :tool="tool"
+                    />
+                </div>
             </div>
 
             <!-- ADS SPACE -->
@@ -42,9 +55,12 @@
 import { ref, computed } from "vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ToolCard from "@/Components/ToolCard.vue";
+import ToolIcon from "@/Components/ToolIcon.vue";
+import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({
     tools: Array,
+    categories: Array,
 });
 
 const search = ref("");

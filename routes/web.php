@@ -1,28 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Category;
 use App\Models\Tool;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
 Route::get('/', function () {
-
     return Inertia::render('Home', [
         'tools' => Tool::where('active', true)->get()
     ]);
-
 });
-
-/*Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});*/
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -44,4 +32,15 @@ Route::get('/tools/{slug}', function ($slug) {
         'tool' => $tool
     ]);
 
+});
+
+Route::get('/category/{slug}', function ($slug) {
+
+    $category = Category::where('slug', $slug)
+        ->with('tools')
+        ->firstOrFail();
+
+    return Inertia::render('Category', [
+        'category' => $category
+    ]);
 });

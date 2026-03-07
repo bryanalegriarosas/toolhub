@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Tool;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Vite::prefetch(concurrency: 3);
         Inertia::share([
-            'tools' => Tool::where('active', true)->get()
+            'tools' => Tool::where('active', true)->get(),
+            'categories' => Category::with('tools')->get()
         ]);
     }
 }

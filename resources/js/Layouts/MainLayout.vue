@@ -40,7 +40,7 @@
                             :href="'/tools/' + tool.slug"
                             class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 text-gray-700"
                         >
-                            <span class="mr-2">🛠</span>
+                            <ToolIcon :name="tool.icon" class="mr-2" />
 
                             {{ tool.name }}
                         </Link>
@@ -58,6 +58,7 @@
 
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import ToolIcon from "@/Components/ToolIcon.vue";
 
 const props = defineProps({
     tools: Array,
