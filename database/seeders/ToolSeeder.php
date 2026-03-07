@@ -27,7 +27,17 @@ class ToolSeeder extends Seeder
                 'name' => 'Password Generator',
                 'slug' => 'password-generator',
                 'description' => 'Generate secure passwords'
-            ]
+            ],
+            [
+                'name' => 'Base64 Encoder',
+                'slug' => 'base64-encoder',
+                'description' => 'Encode text to Base64'
+            ],
+            [
+                'name' => 'URL Encoder',
+                'slug' => 'url-encoder',
+                'description' => 'Encode text for use in URLs'
+            ],
         ]);
     }
 }
