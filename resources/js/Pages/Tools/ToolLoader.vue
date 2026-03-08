@@ -13,10 +13,6 @@
     </Head>
 
     <MainLayout>
-        <h1 class="text-3xl font-bold mb-6">
-            {{ tool.name }}
-        </h1>
-
         <component :is="component" />
     </MainLayout>
 </template>
