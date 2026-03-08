@@ -35,7 +35,7 @@
                 <input
                     v-model="search"
                     placeholder="Search a tool..."
-                    class="text-black border rounded-lg px-4 py-3 w-full max-w-xl"
+                    class="text-black border rounded-lg px-4 py-3 w-full max-w-xl mt-3"
                 />
 
                 <div
@@ -70,7 +70,7 @@
 
                 <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
                     <ToolCard
-                        v-for="tool in category.tools.slice(0, 4)"
+                        v-for="tool in category.tools"
                         :key="tool.id"
                         :tool="tool"
                     />

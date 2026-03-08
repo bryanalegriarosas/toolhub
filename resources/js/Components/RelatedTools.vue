@@ -17,7 +17,9 @@
 <script setup>
 const tools = [
     { name: "Base64 Encoder", slug: "base64-encoder" },
+    { name: "Base64 Decoder", slug: "base64-decoder" },
     { name: "URL Encoder", slug: "url-encoder" },
+    { name: "URL Decoder", slug: "url-decoder" },
     { name: "Password Generator", slug: "password-generator" },
 ];
 </script>

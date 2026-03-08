@@ -16,7 +16,13 @@
     <loc>http://localhost/tools/base64-encoder</loc>
             </url>
     <url>
+    <loc>http://localhost/tools/base64-decoder</loc>
+            </url>
+    <url>
     <loc>http://localhost/tools/url-encoder</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/url-decoder</loc>
             </url>
     <url>
     <loc>http://localhost/category/developer-tools</loc>

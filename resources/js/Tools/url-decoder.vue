@@ -2,12 +2,12 @@
     <Head>
         <meta
             name="description"
-            content="Encode text to Base64 with optional auto processing and file support."
+            content="Decode URL-encoded text back to its original form with optional auto processing and file support."
         />
     </Head>
 
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Base64 Encoder</h2>
+        <h2 class="text-2xl font-bold">URL Decoder</h2>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label class="flex items-center gap-2">
@@ -22,7 +22,7 @@
 
         <textarea
             v-model="input"
-            placeholder="Paste text here..."
+            placeholder="Paste URL-encoded text here..."
             class="w-full h-40 p-4 border rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
         ></textarea>
 
@@ -32,7 +32,7 @@
                 :disabled="!input"
                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
             >
-                Encode
+                Decode
             </button>
 
             <button
@@ -101,8 +101,8 @@
         </div>
 
         <ToolSeoContent
-            title="Base64 Encoder"
-            description="Convert text to Base64 encoding quickly."
+            title="URL Decoder"
+            description="Convert URL-encoded text back to original quickly."
             :steps="steps"
             :faqs="faqs"
         />
@@ -115,13 +115,14 @@ import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [
-    "Enter or load text",
-    "Click encode (or use auto)",
+    "Enter or load URL-encoded text",
+    "Click decode (or use auto)",
     "Copy or download the result",
 ];
 
 const faqs = [
-    { question: "What is Base64?", answer: "A way to encode binary data as ASCII text, often used for embedding images or transmitting data." },
+    { question: "What is URL encoding?", answer: "It converts characters into a format that can be transmitted over the Internet by replacing unsafe ASCII characters with a '%' followed by two hexadecimal digits." },
+    { question: "Why encode?", answer: "To safely include text in URLs or HTTP requests." },
 ];
 
 const input = ref("");
@@ -133,11 +134,8 @@ const fileInput = ref(null);
 
 const process = () => {
     error.value = "";
-
     try {
-        // always encode in this component
-    // handle unicode correctly
-    output.value = btoa(unescape(encodeURIComponent(input.value)));
+        output.value = decodeURIComponent(input.value);
         if (output.value) history.value.unshift(output.value);
     } catch (e) {
         error.value = `Error: ${e.message}`;
@@ -160,7 +158,7 @@ const downloadOutput = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "base64.txt";
+    a.download = "url-decoded.txt";
     a.click();
     URL.revokeObjectURL(url);
 };

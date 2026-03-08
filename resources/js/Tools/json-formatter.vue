@@ -19,7 +19,13 @@
             <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
                 <label class="flex items-center gap-2">
                     <span class="text-gray-700">Load file:</span>
-                    <input ref="fileInput" type="file" accept=".json" @change="loadFile" class="form-input" />
+                    <input
+                        ref="fileInput"
+                        type="file"
+                        accept=".json"
+                        @change="loadFile"
+                        class="form-input"
+                    />
                 </label>
                 <label class="flex items-center gap-2">
                     <span class="text-gray-700">Indent:</span>
@@ -42,7 +48,13 @@
                     <textarea
                         v-model="input"
                         placeholder="Paste your JSON here..."
-                        :class="['w-full h-80 p-4 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200', { 'border-red-500': error, 'border-gray-300': !error } ]"
+                        :class="[
+                            'w-full h-80 p-4 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200',
+                            {
+                                'border-red-500': error,
+                                'border-gray-300': !error,
+                            },
+                        ]"
                     ></textarea>
                 </div>
 
@@ -103,14 +115,13 @@
                     Clear
                 </button>
             </div>
+            <ToolSeoContent
+                title="JSON Formatter"
+                description="A JSON formatter allows you to beautify and validate JSON data to make it easier to read and debug."
+                :steps="steps"
+                :faqs="faqs"
+            />
         </div>
-
-        <ToolSeoContent
-            title="JSON Formatter"
-            description="A JSON formatter allows you to beautify and validate JSON data to make it easier to read and debug."
-            :steps="steps"
-            :faqs="faqs"
-        />
     </div>
 </template>
 
@@ -146,7 +157,7 @@ const output = ref("");
 const error = ref("");
 const indent = ref(2);
 const autoFormat = ref(false);
-const fileInput = ref(null);  // to reset file chooser
+const fileInput = ref(null); // to reset file chooser
 
 // helper computed
 const isValidJson = computed(() => {

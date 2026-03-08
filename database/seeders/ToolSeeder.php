@@ -38,10 +38,22 @@ class ToolSeeder extends Seeder
                 'description' => 'Encode text to Base64'
             ],
             [
+                'name' => 'Base64 Decoder',
+                'slug' => 'base64-decoder',
+                'icon' => 'Binary',
+                'description' => 'Decode Base64 text'
+            ],
+            [
                 'name' => 'URL Encoder',
                 'slug' => 'url-encoder',
                 'icon' => 'Link',
                 'description' => 'Encode text for use in URLs'
+            ],
+            [
+                'name' => 'URL Decoder',
+                'slug' => 'url-decoder',
+                'icon' => 'Link',
+                'description' => 'Decode URL-encoded text'
             ],
         ]);
     }
