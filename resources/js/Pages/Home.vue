@@ -3,15 +3,20 @@
         <title>ToolHub - Free Online Developer Tools</title>
 
         <meta
-            name="description"
-            content="Free online tools for developers including JSON formatter, UUID generator, password generator and more."
+            property="og:title"
+            content="ToolHub - Free Online Developer Tools"
         />
+        <meta
+            property="og:description"
+            content="Free online tools for developers including JSON formatter, UUID generator and password generator."
+        />
+        <meta property="og:type" content="website" />
     </Head>
     <MainLayout :tools="tools">
         <div class="space-y-8">
             <!-- HERO -->
             <div
-                class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-12 rounded-xl shadow text-center"
+                class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-14 rounded-2xl shadow-xl text-center"
             >
                 <h1 class="text-4xl font-bold mb-4">
                     Developer Tools in One Place
@@ -21,11 +26,32 @@
                     Free online tools for developers, designers and creators.
                 </p>
 
+                <div class="flex justify-center gap-6 text-sm opacity-90 mt-4">
+                    <span>⚡ Fast</span>
+                    <span>🔒 Secure</span>
+                    <span>🆓 Free</span>
+                </div>
+
                 <input
                     v-model="search"
                     placeholder="Search a tool..."
                     class="text-black border rounded-lg px-4 py-3 w-full max-w-xl"
                 />
+
+                <div
+                    v-if="search.length > 0"
+                    class="bg-white text-black rounded-xl shadow mt-4 max-w-xl mx-auto"
+                >
+                    <div
+                        v-for="tool in filteredTools"
+                        :key="tool.id"
+                        class="p-3 border-b hover:bg-gray-100"
+                    >
+                        <Link :href="`/tools/${tool.slug}`">
+                            {{ tool.name }}
+                        </Link>
+                    </div>
+                </div>
             </div>
 
             <div
@@ -44,7 +70,7 @@
 
                 <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
                     <ToolCard
-                        v-for="tool in category.tools"
+                        v-for="tool in category.tools.slice(0, 4)"
                         :key="tool.id"
                         :tool="tool"
                     />
@@ -52,8 +78,10 @@
             </div>
 
             <!-- ADS SPACE -->
-            <div class="bg-gray-200 rounded-xl p-8 text-center text-gray-500">
-                Ad Space
+            <div
+                class="bg-gray-100 border rounded-xl p-10 text-center text-gray-400"
+            >
+                Advertisement
             </div>
         </div>
     </MainLayout>

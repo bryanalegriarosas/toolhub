@@ -1,4 +1,11 @@
 <template>
+    <Head>
+        <meta
+            name="description"
+            content="Format and beautify JSON instantly with this free JSON formatter tool."
+        />
+    </Head>
+
     <div class="max-w-6xl mx-auto p-6">
         <div class="bg-white shadow-lg rounded-xl p-6">
             <h1 class="text-3xl font-bold mb-6 text-gray-800">
@@ -61,17 +68,43 @@
                 </button>
             </div>
         </div>
+
+        <ToolSeoContent
+            title="JSON Formatter"
+            description="A JSON formatter allows you to beautify and validate JSON data to make it easier to read and debug."
+            :steps="steps"
+            :faqs="faqs"
+        />
     </div>
 </template>
 
 <script setup>
+import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
+import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const steps = [
+    "Paste your JSON into the editor",
+    "Click the format button",
+    "Copy the formatted JSON",
+];
+
+const faqs = [
+    {
+        question: "What is JSON?",
+        answer: "JSON is a lightweight data format used for APIs and web applications.",
+    },
+    {
+        question: "Why format JSON?",
+        answer: "Formatting JSON makes it easier to read and debug.",
+    },
+];
 
 const input = ref("");
 const output = ref("");
 const error = ref("");
 
-function formatJson() {
+const formatJson = () => {
     error.value = "";
 
     try {
@@ -81,9 +114,9 @@ function formatJson() {
         error.value = "Invalid JSON format";
         output.value = "";
     }
-}
+};
 
-function minifyJson() {
+const minifyJson = () => {
     error.value = "";
 
     try {
@@ -93,9 +126,9 @@ function minifyJson() {
         error.value = "Invalid JSON format";
         output.value = "";
     }
-}
+};
 
-function copyResult() {
+const copyResult = () => {
     navigator.clipboard.writeText(output.value);
-}
+};
 </script>
