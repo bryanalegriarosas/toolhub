@@ -24,9 +24,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+
+        // share lazily so the query runs after migrations (important for tests)
         Inertia::share([
-            'tools' => Tool::where('active', true)->get(),
-            'categories' => Category::with('tools')->get()
+            'tools' => function () {
+                return \Illuminate\Support\Facades\Schema::hasTable('tools')
+                    ? Tool::where('active', true)->get()
+                    : [];
+            },
+            'categories' => function () {
+                return \Illuminate\Support\Facades\Schema::hasTable('categories')
+                    ? Category::with('tools')->get()
+                    : [];
+            },
         ]);
     }
 }

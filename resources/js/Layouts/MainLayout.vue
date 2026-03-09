@@ -13,16 +13,21 @@
                     <nav class="hidden md:flex gap-6 text-gray-600">
                         <a href="/" class="hover:text-blue-600"> Home </a>
 
-                        <a href="#" class="hover:text-blue-600"> Tools </a>
+                        <a href="/tools" class="hover:text-blue-600"> Tools </a>
                     </nav>
                 </div>
-
                 <div class="flex items-center gap-3">
-                    <input
-                        type="text"
-                        placeholder="Search tools..."
-                        class="border rounded-lg px-4 py-2 w-64 focus:ring focus:ring-blue-200"
-                    />
+                    <div class="relative">
+                        <label for="layout-search" class="sr-only">Buscar herramientas</label>
+                        <input
+                            id="layout-search"
+                            v-model="search"
+                            @input="filterTools"
+                            type="text"
+                            placeholder="Search tools..."
+                            class="border rounded-lg px-4 py-2 w-64 focus:ring focus:ring-blue-200"
+                        />
+                    </div>
                 </div>
             </div>
         </header>
@@ -35,7 +40,7 @@
                 </h2>
 
                 <ul class="space-y-1">
-                    <li v-for="tool in tools" :key="tool.id">
+                    <li v-for="tool in filteredTools" :key="tool.id">
                         <Link
                             :href="'/tools/' + tool.slug"
                             class="flex items-center px-3 py-2 rounded-lg hover:bg-blue-50 text-gray-700"
@@ -57,10 +62,31 @@
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
+import { Link, usePage } from "@inertiajs/vue3";
 import ToolIcon from "@/Components/ToolIcon.vue";
 
 const props = defineProps({
     tools: Array,
 });
+
+const page = usePage();
+
+const search = ref("");
+
+// unify tools from prop or shared page props
+const allTools = computed(() => {
+    return props.tools ?? page.props.tools ?? [];
+});
+
+const filteredTools = computed(() => {
+    if (!search.value.trim()) {
+        return allTools.value;
+    }
+    const q = search.value.toLowerCase();
+    return allTools.value.filter((t) =>
+        t.name.toLowerCase().includes(q),
+    );
+});
+
 </script>

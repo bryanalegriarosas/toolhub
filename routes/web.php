@@ -12,6 +12,13 @@ Route::get('/', function () {
     ]);
 });
 
+// list all tools (used by the "Ver todas las herramientas" link)
+Route::get('/tools', function () {
+    return Inertia::render('Tools/Index', [
+        'tools' => Tool::where('active', true)->get(),
+    ]);
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
