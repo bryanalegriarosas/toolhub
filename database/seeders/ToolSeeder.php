@@ -97,6 +97,62 @@ class ToolSeeder extends Seeder
                 "description" => "Decode and inspect JSON Web Tokens (JWT) to view header, payload and signature.",
                 "category_id" => 1
             ],
+            [
+                "name" => "Random String Generator",
+                "slug" => "random-string-generator",
+                "icon" => "Shuffle",
+                "description" => "Generate random strings for API keys, tokens or passwords with customizable length and characters.",
+                "category_id" => 2
+            ],
+            [
+                "name" => "Text Case Converter",
+                "slug" => "text-case-converter",
+                "icon" => "CaseSensitive",
+                "description" => "Convert text to uppercase, lowercase, camelCase, snake_case or kebab-case instantly.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "HTML Encoder",
+                "slug" => "html-encoder",
+                "icon" => "Code",
+                "description" => "Encode HTML characters into safe HTML entities to display code without executing it.",
+                "category_id" => 3
+            ],
+            [
+                "name" => "HTML Decoder",
+                "slug" => "html-decoder",
+                "icon" => "Code2",
+                "description" => "Decode HTML entities back into normal characters instantly.",
+                "category_id" => 3
+            ],
+            [
+                "name" => "Regex Tester",
+                "slug" => "regex-tester",
+                "icon" => "Search",
+                "description" => "Test regular expressions against text and instantly see matching results.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "HTTP Status Code Lookup",
+                "slug" => "http-status-codes",
+                "icon" => "Server",
+                "description" => "Lookup HTTP status codes and learn what each response code means for web requests.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "URL Parser",
+                "slug" => "url-parser",
+                "icon" => "Link",
+                "description" => "Parse and analyze URLs to view protocol, host, path and query parameters.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "Color Converter",
+                "slug" => "color-converter",
+                "icon" => "Palette",
+                "description" => "Convert colors between HEX and RGB formats for web development and design.",
+                "category_id" => 1
+            ],
         ]);
     }
 }
