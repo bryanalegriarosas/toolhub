@@ -12,7 +12,7 @@ class ToolSeeder extends Seeder
      */
     public function run(): void
     {
-        Tool::insert([
+        $tools = [
             [
                 'name' => 'JSON Formatter',
                 'slug' => 'json-formatter',
@@ -188,6 +188,10 @@ class ToolSeeder extends Seeder
                 "description" => "Check the HTTP headers returned by any website or URL.",
                 "category_id" => 1
             ]
-        ]);
+        ];
+
+        foreach ($tools as $tool) {
+            Tool::firstOrCreate(['slug' => $tool['slug']], $tool);
+        }
     }
 }
