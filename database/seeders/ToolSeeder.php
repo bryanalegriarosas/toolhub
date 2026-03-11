@@ -153,6 +153,41 @@ class ToolSeeder extends Seeder
                 "description" => "Convert colors between HEX and RGB formats for web development and design.",
                 "category_id" => 1
             ],
+            [
+                "name" => "Diff Checker",
+                "slug" => "diff-checker",
+                "icon" => "GitCompare",
+                "description" => "Compare two pieces of text and highlight the differences instantly.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "Markdown to HTML",
+                "slug" => "markdown-to-html",
+                "icon" => "FileCode",
+                "description" => "Convert Markdown text into HTML instantly.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "SQL Formatter",
+                "slug" => "sql-formatter",
+                "icon" => "Database",
+                "description" => "Format and beautify SQL queries to improve readability.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "IP Lookup",
+                "slug" => "ip-lookup",
+                "icon" => "Globe",
+                "description" => "Lookup information about an IP address including location and ISP.",
+                "category_id" => 2
+            ],
+            [
+                "name" => "HTTP Header Checker",
+                "slug" => "http-header-checker",
+                "icon" => "Server",
+                "description" => "Check the HTTP headers returned by any website or URL.",
+                "category_id" => 1
+            ]
         ]);
     }
 }

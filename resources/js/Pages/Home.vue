@@ -33,7 +33,7 @@
                 </p>
 
                 <p class="opacity-90 mb-2">
-                    Más de {{ props.tools.length }} herramientas disponibles
+                    More than {{ props.tools.length }} tools available
                 </p>
 
                 <div class="flex justify-center gap-6 text-sm opacity-90 mt-4">
@@ -44,7 +44,7 @@
 
                 <!-- call to action -->
                 <Link href="/tools" class="inline-block mt-6 px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100">
-                    Ver todas las herramientas
+                    Show All Tools
                 </Link>
 
                 <div class="mt-4 max-w-xl mx-auto">
