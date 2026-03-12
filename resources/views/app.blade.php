@@ -12,6 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
+    <meta name="google-site-verification" content="qBGbBbpHDy49mGSuxzXG1ZGzGZATWWw19JPkTnNdFhw" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NTP4YMLNVL"></script>
     <script>
