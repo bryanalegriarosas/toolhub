@@ -51,3 +51,53 @@ Route::get('/category/{slug}', function ($slug) {
         'category' => $category
     ]);
 });
+
+Route::get('/developer-tools', function () {
+    $category = Category::where('slug', 'developer-tools')
+        ->with('tools')
+        ->firstOrFail();
+    
+    return Inertia::render('Category', [
+        'category' => $category
+    ]);
+});
+
+Route::get('/security-tools', function () {
+    $category = Category::where('slug', 'security-tools')
+        ->with('tools')
+        ->firstOrFail();
+    
+    return Inertia::render('Category', [
+        'category' => $category
+    ]);
+});
+
+Route::get('/encoding-tools', function () {
+    $category = Category::where('slug', 'encoding-tools')
+        ->with('tools')
+        ->firstOrFail();
+    
+    return Inertia::render('Category', [
+        'category' => $category
+    ]);
+});
+
+Route::get('/privacy-policy', function () {
+    return Inertia::render('PrivacyPolicy');
+});
+
+Route::get('/terms-of-service', function () {
+    return Inertia::render('TermsOfService');
+});
+
+Route::get('/cookie-policy', function () {
+    return Inertia::render('CookiePolicy');
+});
+
+Route::get('/about', function () {
+    return Inertia::render('About');
+});
+
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+});

@@ -14,9 +14,11 @@
                         <a href="/" class="hover:text-blue-600"> Home </a>
 
                         <a href="/tools" class="hover:text-blue-600"> Tools </a>
+                        <a href="/about" class="hover:text-blue-600"> About </a>
+                        <a href="/contact" class="hover:text-blue-600"> Contact </a>
                     </nav>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3" v-if="!$slots.sidebar">
                     <div class="relative">
                         <label for="layout-search" class="sr-only">Buscar herramientas</label>
                         <input
@@ -34,7 +36,7 @@
 
         <div class="flex max-w-7xl mx-auto mt-6 gap-6 px-6">
             <!-- SIDEBAR -->
-            <aside class="w-64 bg-white rounded-xl shadow p-4 h-fit">
+            <aside v-if="!$slots.sidebar" class="w-64 bg-white rounded-xl shadow p-4 h-fit">
                 <h2 class="text-sm font-semibold text-gray-400 uppercase mb-3">
                     Tools
                 </h2>
@@ -58,6 +60,8 @@
                 <slot />
             </main>
         </div>
+
+        <Footer></Footer>
     </div>
 </template>
 
@@ -65,6 +69,7 @@
 import { ref, computed } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import ToolIcon from "@/Components/ToolIcon.vue";
+import Footer from "@/Components/Footer.vue";
 
 const props = defineProps({
     tools: Array,
