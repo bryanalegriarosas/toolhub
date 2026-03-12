@@ -286,6 +286,13 @@ const isValidIP = (ip) => {
     return ipv4Regex.test(ip) || ipv6Regex.test(ip);
 };
 
+const getApiUrl = (endpoint) => {
+    // Check if we're in production (HTTPS) or local development (HTTP)
+    const isProduction = window.location.protocol === 'https:';
+    const protocol = isProduction ? 'https://' : 'http://';
+    return `${protocol}ip-api.com/json${endpoint}`;
+};
+
 const lookupIP = async () => {
     if (!ipAddress.value.trim()) {
         error.value = "Please enter an IP address";
@@ -301,8 +308,8 @@ const lookupIP = async () => {
     error.value = "";
 
     try {
-        // Using ip-api.com free API
-        const response = await fetch(`http://ip-api.com/json/${ipAddress.value.trim()}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`);
+        // Using ip-api.com free API with dynamic protocol
+        const response = await fetch(getApiUrl(`/${ipAddress.value.trim()}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`));
         const data = await response.json();
 
         if (data.status === 'success') {
@@ -319,7 +326,7 @@ const lookupIP = async () => {
                 timezone: data.timezone,
                 isp: data.isp,
                 org: data.org,
-                as: data.as
+                as: data.as,
             };
 
             // Add to recent lookups
@@ -339,7 +346,7 @@ const getMyIP = async () => {
     error.value = "";
 
     try {
-        const response = await fetch('http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query');
+        const response = await fetch(getApiUrl('/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query'));
         const data = await response.json();
 
         if (data.status === 'success') {
@@ -357,7 +364,7 @@ const getMyIP = async () => {
                 timezone: data.timezone,
                 isp: data.isp,
                 org: data.org,
-                as: data.as
+                as: data.as,
             };
 
             addToRecentLookups(data.query, `${data.city}, ${data.country}`);
