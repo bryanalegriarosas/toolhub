@@ -16,13 +16,67 @@
     <loc>http://localhost/tools/base64-encoder</loc>
             </url>
     <url>
-    <loc>http://localhost/tools/base64-decoder</loc>
-            </url>
-    <url>
     <loc>http://localhost/tools/url-encoder</loc>
             </url>
     <url>
+    <loc>http://localhost/tools/base64-decoder</loc>
+            </url>
+    <url>
     <loc>http://localhost/tools/url-decoder</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/timestamp-converter</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/word-counter</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/slug-generator</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/hash-generator</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/jwt-decoder</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/random-string-generator</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/text-case-converter</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/html-encoder</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/html-decoder</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/regex-tester</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/http-status-codes</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/url-parser</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/color-converter</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/diff-checker</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/markdown-to-html</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/sql-formatter</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/ip-lookup</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/http-header-checker</loc>
             </url>
     <url>
     <loc>http://localhost/category/developer-tools</loc>
@@ -32,5 +86,32 @@
             </url>
     <url>
     <loc>http://localhost/category/encoding-tools</loc>
+            </url>
+    <url>
+    <loc>http://localhost/about</loc>
+            </url>
+    <url>
+    <loc>http://localhost/contact</loc>
+            </url>
+    <url>
+    <loc>http://localhost/privacy-policy</loc>
+            </url>
+    <url>
+    <loc>http://localhost/terms-of-service</loc>
+            </url>
+    <url>
+    <loc>http://localhost/cookie-policy</loc>
+            </url>
+    <url>
+    <loc>http://localhost/developer-tools</loc>
+            </url>
+    <url>
+    <loc>http://localhost/security-tools</loc>
+            </url>
+    <url>
+    <loc>http://localhost/encoding-tools</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools</loc>
             </url>
 </urlset>
