@@ -286,11 +286,21 @@ const isValidIP = (ip) => {
     return ipv4Regex.test(ip) || ipv6Regex.test(ip);
 };
 
-const getApiUrl = (endpoint) => {
+const getApiUrl = (endpoint, isMyIP = false) => {
     // Check if we're in production (HTTPS) or local development (HTTP)
     const isProduction = window.location.protocol === 'https:';
-    const protocol = isProduction ? 'https://' : 'http://';
-    return `${protocol}ip-api.com/json${endpoint}`;
+    
+    if (isProduction) {
+        // Use ipgeolocation.io for production (HTTPS compatible)
+        return `https://api.ipgeolocation.io/ipgeo${endpoint}`;
+    } else {
+        // Use ip-api.com for local development (more reliable for testing)
+        if (isMyIP) {
+            return `http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`;
+        } else {
+            return `http://ip-api.com/json${endpoint}`;
+        }
+    }
 };
 
 const lookupIP = async () => {
@@ -308,31 +318,59 @@ const lookupIP = async () => {
     error.value = "";
 
     try {
-        // Using ip-api.com free API with dynamic protocol
-        const response = await fetch(getApiUrl(`/${ipAddress.value.trim()}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`));
-        const data = await response.json();
+        const isProduction = window.location.protocol === 'https:';
+        let response, data;
 
-        if (data.status === 'success') {
-            ipInfo.value = {
-                ip: data.query,
-                type: data.query.includes('.') ? 'IPv4' : 'IPv6',
-                country: data.country,
-                countryCode: data.countryCode,
-                region: data.regionName,
-                city: data.city,
-                postal: data.zip,
-                latitude: data.lat,
-                longitude: data.lon,
-                timezone: data.timezone,
-                isp: data.isp,
-                org: data.org,
-                as: data.as,
-            };
-
-            // Add to recent lookups
-            addToRecentLookups(data.query, `${data.city}, ${data.country}`);
+        if (isProduction) {
+            // Production: Use ipgeolocation.io
+            response = await fetch(getApiUrl(`?apiKey=free&ip=${ipAddress.value.trim()}`));
+            data = await response.json();
+            
+            if (data.ip) {
+                ipInfo.value = {
+                    ip: data.ip,
+                    type: data.ip.includes('.') ? 'IPv4' : 'IPv6',
+                    country: data.country_name,
+                    countryCode: data.country_code2,
+                    region: data.state_prov,
+                    city: data.city,
+                    postal: data.zipcode,
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                    timezone: data.time_zone.name,
+                    isp: data.isp,
+                    org: data.organization || data.isp,
+                    as: data.asn || 'Unknown',
+                };
+                addToRecentLookups(data.ip, `${data.city}, ${data.country_name}`);
+            } else {
+                error.value = "Failed to lookup IP address";
+            }
         } else {
-            error.value = data.message || "Failed to lookup IP address";
+            // Local: Use ip-api.com
+            response = await fetch(getApiUrl(`/${ipAddress.value.trim()}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`));
+            data = await response.json();
+            
+            if (data.status === 'success') {
+                ipInfo.value = {
+                    ip: data.query,
+                    type: data.query.includes('.') ? 'IPv4' : 'IPv6',
+                    country: data.country,
+                    countryCode: data.countryCode,
+                    region: data.regionName,
+                    city: data.city,
+                    postal: data.zip,
+                    latitude: data.lat,
+                    longitude: data.lon,
+                    timezone: data.timezone,
+                    isp: data.isp,
+                    org: data.org,
+                    as: data.as,
+                };
+                addToRecentLookups(data.query, `${data.city}, ${data.country}`);
+            } else {
+                error.value = data.message || "Failed to lookup IP address";
+            }
         }
     } catch (err) {
         error.value = "Network error. Please try again.";
@@ -346,30 +384,61 @@ const getMyIP = async () => {
     error.value = "";
 
     try {
-        const response = await fetch(getApiUrl('/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query'));
-        const data = await response.json();
+        const isProduction = window.location.protocol === 'https:';
+        let response, data;
 
-        if (data.status === 'success') {
-            ipAddress.value = data.query;
-            ipInfo.value = {
-                ip: data.query,
-                type: data.query.includes('.') ? 'IPv4' : 'IPv6',
-                country: data.country,
-                countryCode: data.countryCode,
-                region: data.regionName,
-                city: data.city,
-                postal: data.zip,
-                latitude: data.lat,
-                longitude: data.lon,
-                timezone: data.timezone,
-                isp: data.isp,
-                org: data.org,
-                as: data.as,
-            };
-
-            addToRecentLookups(data.query, `${data.city}, ${data.country}`);
+        if (isProduction) {
+            // Production: Use ipgeolocation.io
+            response = await fetch(getApiUrl('?apiKey=free', true));
+            data = await response.json();
+            
+            if (data.ip) {
+                ipAddress.value = data.ip;
+                ipInfo.value = {
+                    ip: data.ip,
+                    type: data.ip.includes('.') ? 'IPv4' : 'IPv6',
+                    country: data.country_name,
+                    countryCode: data.country_code2,
+                    region: data.state_prov,
+                    city: data.city,
+                    postal: data.zipcode,
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                    timezone: data.time_zone.name,
+                    isp: data.isp,
+                    org: data.organization || data.isp,
+                    as: data.asn || 'Unknown',
+                };
+                addToRecentLookups(data.ip, `${data.city}, ${data.country_name}`);
+            } else {
+                error.value = "Failed to get your IP address";
+            }
         } else {
-            error.value = data.message || "Failed to get your IP address";
+            // Local: Use ip-api.com
+            response = await fetch(getApiUrl('/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query', true));
+            data = await response.json();
+            
+            if (data.status === 'success') {
+                ipAddress.value = data.query;
+                ipInfo.value = {
+                    ip: data.query,
+                    type: data.query.includes('.') ? 'IPv4' : 'IPv6',
+                    country: data.country,
+                    countryCode: data.countryCode,
+                    region: data.regionName,
+                    city: data.city,
+                    postal: data.zip,
+                    latitude: data.lat,
+                    longitude: data.lon,
+                    timezone: data.timezone,
+                    isp: data.isp,
+                    org: data.org,
+                    as: data.as,
+                };
+                addToRecentLookups(data.query, `${data.city}, ${data.country}`);
+            } else {
+                error.value = data.message || "Failed to get your IP address";
+            }
         }
     } catch (err) {
         error.value = "Network error. Please try again.";
