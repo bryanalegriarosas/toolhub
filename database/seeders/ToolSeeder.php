@@ -12,6 +12,8 @@ class ToolSeeder extends Seeder
      */
     public function run(): void
     {
+        Tool::truncate();
+        
         $tools = [
             [
                 'name' => 'JSON Formatter',
@@ -86,7 +88,7 @@ class ToolSeeder extends Seeder
             [
                 "name" => "Hash Generator",
                 "slug" => "hash-generator",
-                "icon" => "hash",
+                "icon" => "Hash",
                 "description" => "Generate secure hashes such as SHA-1, SHA-256 and SHA-512 from text instantly.",
                 "category_id" => 2
             ],
