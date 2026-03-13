@@ -12,6 +12,8 @@ class CategoriesSeeder extends Seeder
      */
     public function run(): void
     {
+        Category::truncate();
+        
         $categories = [
             [
                 'name' => 'Developer Tools',
@@ -27,6 +29,11 @@ class CategoriesSeeder extends Seeder
                 'name' => 'Encoding Tools',
                 'slug' => 'encoding-tools',
                 'icon' => 'Binary',
+            ],
+            [
+                'name' => 'File Tools',
+                'slug' => 'file-tools',
+                'icon' => 'File',
             ],
         ];
 

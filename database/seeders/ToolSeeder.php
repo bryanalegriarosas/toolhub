@@ -177,19 +177,110 @@ class ToolSeeder extends Seeder
                 "category_id" => 1
             ],
             [
-                "name" => "IP Lookup",
-                "slug" => "ip-lookup",
-                "icon" => "Globe",
-                "description" => "Lookup information about an IP address including location and ISP.",
-                "category_id" => 2
-            ],
-            [
                 "name" => "HTTP Header Checker",
                 "slug" => "http-header-checker",
                 "icon" => "Server",
                 "description" => "Check the HTTP headers returned by any website or URL.",
                 "category_id" => 1
-            ]
+            ],
+            [
+                "name" => "Image Compressor",
+                "slug" => "image-compressor",
+                "icon" => "Image",
+                "description" => "Compress images online to reduce file size while maintaining quality.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Image Resizer",
+                "slug" => "image-resizer",
+                "icon" => "Maximize",
+                "description" => "Resize images to custom dimensions quickly and easily.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Image to Base64",
+                "slug" => "image-to-base64",
+                "icon" => "Binary",
+                "description" => "Convert images to Base64 encoded strings for embedding in HTML or CSS.",
+                "category_id" => 3
+            ],
+            [
+                "name" => "Base64 to Image",
+                "slug" => "base64-to-image",
+                "icon" => "Image",
+                "description" => "Decode Base64 strings and convert them back into image files.",
+                "category_id" => 3
+            ],
+            [
+                "name" => "Image Cropper",
+                "slug" => "image-cropper",
+                "icon" => "Crop",
+                "description" => "Crop images online to remove unwanted areas.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "JPG to PDF",
+                "slug" => "jpg-to-pdf",
+                "icon" => "FileImage",
+                "description" => "Convert JPG images into a single PDF document easily.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Merge PDF",
+                "slug" => "merge-pdf",
+                "icon" => "Files",
+                "description" => "Combine multiple PDF files into one document.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Split PDF",
+                "slug" => "split-pdf",
+                "icon" => "Scissors",
+                "description" => "Split a PDF into multiple separate files.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "YouTube Thumbnail Downloader",
+                "slug" => "youtube-thumbnail-downloader",
+                "icon" => "Youtube",
+                "description" => "Download thumbnails from any YouTube video in high resolution.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Meta Tag Generator",
+                "slug" => "meta-tag-generator",
+                "icon" => "Globe",
+                "description" => "Generate SEO meta tags for websites including title, description and keywords.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Robots.txt Generator",
+                "slug" => "robots-txt-generator",
+                "icon" => "Bot",
+                "description" => "Create robots.txt files to control how search engines crawl your website.",
+                "category_id" => 2
+            ],
+            [
+                "name" => "Sitemap Generator",
+                "slug" => "sitemap-generator",
+                "icon" => "Map",
+                "description" => "Generate XML sitemaps to help search engines index your website.",
+                "category_id" => 2
+            ],
+            [
+                "name" => "Keyword Density Checker",
+                "slug" => "keyword-density-checker",
+                "icon" => "Search",
+                "description" => "Analyze keyword density in text to improve SEO optimization.",
+                "category_id" => 2
+            ],
+            [
+                "name" => "Lorem Ipsum Generator",
+                "slug" => "lorem-ipsum-generator",
+                "icon" => "FileText",
+                "description" => "Generate placeholder Lorem Ipsum text for design and development projects.",
+                "category_id" => 1
+            ],
         ];
 
         foreach ($tools as $tool) {

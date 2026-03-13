@@ -16,10 +16,10 @@
     <loc>http://localhost/tools/base64-encoder</loc>
             </url>
     <url>
-    <loc>http://localhost/tools/url-encoder</loc>
+    <loc>http://localhost/tools/base64-decoder</loc>
             </url>
     <url>
-    <loc>http://localhost/tools/base64-decoder</loc>
+    <loc>http://localhost/tools/url-encoder</loc>
             </url>
     <url>
     <loc>http://localhost/tools/url-decoder</loc>
@@ -73,10 +73,49 @@
     <loc>http://localhost/tools/sql-formatter</loc>
             </url>
     <url>
-    <loc>http://localhost/tools/ip-lookup</loc>
+    <loc>http://localhost/tools/http-header-checker</loc>
             </url>
     <url>
-    <loc>http://localhost/tools/http-header-checker</loc>
+    <loc>http://localhost/tools/image-compressor</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/image-resizer</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/image-to-base64</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/base64-to-image</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/image-cropper</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/jpg-to-pdf</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/merge-pdf</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/split-pdf</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/youtube-thumbnail-downloader</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/meta-tag-generator</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/robots-txt-generator</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/sitemap-generator</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/keyword-density-checker</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/lorem-ipsum-generator</loc>
             </url>
     <url>
     <loc>http://localhost/category/developer-tools</loc>
@@ -86,6 +125,9 @@
             </url>
     <url>
     <loc>http://localhost/category/encoding-tools</loc>
+            </url>
+    <url>
+    <loc>http://localhost/category/file-tools</loc>
             </url>
     <url>
     <loc>http://localhost/about</loc>
