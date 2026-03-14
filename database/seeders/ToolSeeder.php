@@ -281,6 +281,20 @@ class ToolSeeder extends Seeder
                 "description" => "Generate placeholder Lorem Ipsum text for design and development projects.",
                 "category_id" => 1
             ],
+            [
+                "name" => "QR Code Generator",
+                "slug" => "qr-code-generator",
+                "icon" => "QrCode",
+                "description" => "Generate QR codes from text or URLs instantly.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Random Number Generator",
+                "slug" => "random-number-generator",
+                "icon" => "Hash",
+                "description" => "Generate random numbers between a minimum and maximum value.",
+                "category_id" => 1
+            ],
         ];
 
         foreach ($tools as $tool) {

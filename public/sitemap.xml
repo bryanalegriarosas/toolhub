@@ -118,6 +118,12 @@
     <loc>http://localhost/tools/lorem-ipsum-generator</loc>
             </url>
     <url>
+    <loc>http://localhost/tools/qr-code-generator</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/random-number-generator</loc>
+            </url>
+    <url>
     <loc>http://localhost/category/developer-tools</loc>
             </url>
     <url>

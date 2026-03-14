@@ -25,6 +25,8 @@
         "jszip": "^3.10.1",
         "lucide-vue-next": "^0.577.0",
         "pdf-lib": "^1.17.1",
-        "pdfjs-dist": "^5.5.207"
+        "pdfjs-dist": "^5.5.207",
+        "qrcode": "^1.5.4",
+        "sweetalert2": "^11.26.22"
     }
 }
