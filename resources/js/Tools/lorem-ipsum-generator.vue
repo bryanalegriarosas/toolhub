@@ -1,81 +1,82 @@
 <template>
-
     <Head>
         <meta name="description"
             content="Generate Lorem Ipsum placeholder text for your designs and development projects. Choose from various text types and formats." />
     </Head>
 
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6">Lorem Ipsum Generator</h1>
+    <div class="max-w-6xl mx-auto p-0">
+        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Lorem Ipsum Generator</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div>
-                <label class="block text-sm font-medium mb-2">Paragraphs</label>
-                <input v-model.number="paragraphs" type="number" min="1" max="20"
-                    class="border rounded-lg p-2 w-full" />
+            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+                Generate high-quality placeholder text instantly with multiple text types and formats.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div>
+                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Paragraphs</label>
+                    <input v-model.number="paragraphs" type="number" min="1" max="20"
+                        class="form-input text-sm sm:text-base" />
+                </div>
+
+                <div>
+                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Text Type</label>
+                    <select v-model="textType" class="form-select text-sm sm:text-base">
+                        <option value="classic">Classic Lorem Ipsum</option>
+                        <option value="modern">Modern Tech</option>
+                        <option value="business">Business</option>
+                        <option value="creative">Creative</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Format</label>
+                    <select v-model="format" class="form-select text-sm sm:text-base">
+                        <option value="paragraphs">Paragraphs</option>
+                        <option value="sentences">Sentences</option>
+                        <option value="words">Words</option>
+                        <option value="mixed">Mixed</option>
+                    </select>
+                </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium mb-2">Text Type</label>
-                <select v-model="textType" class="border rounded-lg p-2 w-full">
-                    <option value="classic">Classic Lorem Ipsum</option>
-                    <option value="modern">Modern Tech</option>
-                    <option value="business">Business</option>
-                    <option value="creative">Creative</option>
-                </select>
+            <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+                <button @click="generate"
+                    class="px-3 sm:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base">
+                    Generate
+                </button>
+
+                <button @click="copy"
+                    class="px-3 sm:px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base">
+                    Copy
+                </button>
+
+                <button @click="download"
+                    class="px-3 sm:px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm sm:text-base">
+                    Download
+                </button>
+
+                <button @click="clear"
+                    class="px-3 sm:px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base">
+                    Clear
+                </button>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium mb-2">Format</label>
-                <select v-model="format" class="border rounded-lg p-2 w-full">
-                    <option value="paragraphs">Paragraphs</option>
-                    <option value="sentences">Sentences</option>
-                    <option value="words">Words</option>
-                    <option value="mixed">Mixed</option>
-                </select>
+            <div class="mb-4">
+                <div class="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
+                    <span>Words: {{ wordCount }}</span>
+                    <span>Characters: {{ characterCount }}</span>
+                    <span>Reading time: {{ readingTime }} min</span>
+                </div>
             </div>
+
+            <textarea v-model="text" rows="8" class="w-full border rounded-xl p-3 sm:p-4 font-mono text-xs sm:text-sm"
+                placeholder="Generated text will appear here..." />
+
+            <ToolSeoContent title="Lorem Ipsum Generator" :description="seoDescription" :steps="seoSteps"
+                :faqs="seoFaqs" />
+
         </div>
-
-        <div class="flex gap-4 mb-6">
-            <button @click="generate"
-                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                Generate
-            </button>
-
-            <button @click="copy"
-                class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                Copy
-            </button>
-
-            <button @click="download"
-                class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
-                Download
-            </button>
-
-            <button @click="clear"
-                class="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
-                Clear
-            </button>
-        </div>
-
-        <div class="mb-4">
-            <div class="flex items-center gap-4 text-sm text-gray-600">
-                <span>Words: {{ wordCount }}</span>
-                <span>Characters: {{ characterCount }}</span>
-                <span>Reading time: {{ readingTime }} min</span>
-            </div>
-        </div>
-
-        <textarea v-model="text" rows="12" class="w-full border rounded-xl p-4 font-mono text-sm"
-            placeholder="Generated text will appear here..." />
-
-        <ToolSeoContent 
-            title="Lorem Ipsum Generator" 
-            :description="seoDescription" 
-            :steps="seoSteps" 
-            :faqs="seoFaqs" 
-        />
-
     </div>
 </template>
 

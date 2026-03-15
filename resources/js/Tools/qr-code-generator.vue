@@ -1,215 +1,246 @@
 <template>
     <Head>
-        <meta name="description" content="Advanced QR code generator with customization options, batch generation, and multiple formats. Perfect for business, marketing, and personal use." />
+        <meta name="description"
+            content="Advanced QR code generator with customization options, batch generation, and multiple formats. Perfect for business, marketing, and personal use." />
     </Head>
 
-    <div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
-        <h1 class="text-3xl font-bold mb-6">QR Code Generator</h1>
+    <div class="max-w-6xl mx-auto p-0">
+        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">QR Code Generator</h1>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Input Section -->
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium mb-2">Content Type</label>
-                    <select v-model="contentType" class="w-full border rounded-lg p-3 mb-4">
-                        <option value="text">Plain Text</option>
-                        <option value="url">URL</option>
-                        <option value="email">Email</option>
-                        <option value="phone">Phone</option>
-                        <option value="wifi">WiFi</option>
-                        <option value="sms">SMS</option>
-                    </select>
-                </div>
+            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+                Advanced QR code generator with customization options, batch generation, and multiple formats.
+            </p>
 
-                <div v-if="contentType === 'text' || contentType === 'url'">
-                    <label class="block text-sm font-medium mb-2">
-                        {{ contentType === 'url' ? 'URL' : 'Text' }}
-                    </label>
-                    <textarea 
-                        v-model="text" 
-                        :placeholder="contentType === 'url' ? 'https://example.com' : 'Enter your text here...'"
-                        class="w-full border rounded-lg p-3 h-32 resize-none"
-                    />
-                </div>
-
-                <div v-if="contentType === 'email'" class="space-y-3">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
+                <!-- Input Section -->
+                <div class="space-y-4 sm:space-y-6">
                     <div>
-                        <label class="block text-sm font-medium mb-2">Email Address</label>
-                        <input v-model="emailData.address" type="email" class="w-full border rounded-lg p-3" placeholder="email@example.com" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Subject (Optional)</label>
-                        <input v-model="emailData.subject" type="text" class="w-full border rounded-lg p-3" placeholder="Email subject" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Message (Optional)</label>
-                        <textarea v-model="emailData.message" class="w-full border rounded-lg p-3 h-20 resize-none" placeholder="Email message" />
-                    </div>
-                </div>
-
-                <div v-if="contentType === 'phone'">
-                    <label class="block text-sm font-medium mb-2">Phone Number</label>
-                    <input v-model="phone" type="tel" class="w-full border rounded-lg p-3" placeholder="+1234567890" />
-                </div>
-
-                <div v-if="contentType === 'wifi'" class="space-y-3">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Network Name (SSID)</label>
-                        <input v-model="wifiData.ssid" type="text" class="w-full border rounded-lg p-3" placeholder="WiFi Network Name" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Password</label>
-                        <input v-model="wifiData.password" type="password" class="w-full border rounded-lg p-3" placeholder="WiFi Password" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Security Type</label>
-                        <select v-model="wifiData.security" class="w-full border rounded-lg p-3">
-                            <option value="WPA">WPA/WPA2</option>
-                            <option value="WEP">WEP</option>
-                            <option value="nopass">No Password</option>
+                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Content Type</label>
+                        <select v-model="contentType" class="form-select text-sm sm:text-base mb-4">
+                            <option value="text">Plain Text</option>
+                            <option value="url">URL</option>
+                            <option value="email">Email</option>
+                            <option value="phone">Phone</option>
+                            <option value="wifi">WiFi</option>
+                            <option value="sms">SMS</option>
                         </select>
                     </div>
-                </div>
 
-                <div v-if="contentType === 'sms'" class="space-y-3">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Phone Number</label>
-                        <input v-model="smsData.phone" type="tel" class="w-full border rounded-lg p-3" placeholder="+1234567890" />
+                    <div v-if="contentType === 'text' || contentType === 'url'">
+                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">
+                            {{ contentType === 'url' ? 'URL' : 'Text' }}
+                        </label>
+                        <textarea v-model="text"
+                            :placeholder="contentType === 'url' ? 'https://example.com' : 'Enter your text here...'"
+                            class="form-input resize-none h-32 text-sm sm:text-base" />
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Message</label>
-                        <textarea v-model="smsData.message" class="w-full border rounded-lg p-3 h-20 resize-none" placeholder="SMS message" />
-                    </div>
-                </div>
 
-                <!-- QR Code Settings -->
-                <div class="space-y-4">
-                    <h3 class="text-lg font-semibold text-gray-700">QR Code Settings</h3>
-                    
-                    <div class="grid grid-cols-2 gap-4">
+                    <div v-if="contentType === 'email'" class="space-y-3">
                         <div>
-                            <label class="block text-sm font-medium mb-2">Size</label>
-                            <select v-model="size" class="w-full border rounded-lg p-3">
-                                <option value="200">Small (200px)</option>
-                                <option value="300">Medium (300px)</option>
-                                <option value="400">Large (400px)</option>
-                                <option value="500">Extra Large (500px)</option>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Email
+                                Address</label>
+                            <input v-model="emailData.address" type="email" class="form-input text-sm sm:text-base"
+                                placeholder="email@example.com" />
+                        </div>
+                        <div>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Subject
+                                (Optional)</label>
+                            <input v-model="emailData.subject" type="text" class="form-input text-sm sm:text-base"
+                                placeholder="Email subject" />
+                        </div>
+                        <div>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Message
+                                (Optional)</label>
+                            <textarea v-model="emailData.message"
+                                class="form-input resize-none h-20 text-sm sm:text-base" placeholder="Email message" />
+                        </div>
+                    </div>
+
+                    <div v-if="contentType === 'phone'">
+                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Phone Number</label>
+                        <input v-model="phone" type="tel" class="form-input text-sm sm:text-base"
+                            placeholder="+1234567890" />
+                    </div>
+
+                    <div v-if="contentType === 'wifi'" class="space-y-3">
+                        <div>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Network Name
+                                (SSID)</label>
+                            <input v-model="wifiData.ssid" type="text" class="form-input text-sm sm:text-base"
+                                placeholder="WiFi Network Name" />
+                        </div>
+                        <div>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Password</label>
+                            <input v-model="wifiData.password" type="password" class="form-input text-sm sm:text-base"
+                                placeholder="WiFi Password" />
+                        </div>
+                        <div>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Security
+                                Type</label>
+                            <select v-model="wifiData.security" class="form-select text-sm sm:text-base">
+                                <option value="WPA">WPA/WPA2</option>
+                                <option value="WEP">WEP</option>
+                                <option value="nopass">No Password</option>
                             </select>
                         </div>
-                        
+                    </div>
+
+                    <div v-if="contentType === 'sms'" class="space-y-3">
                         <div>
-                            <label class="block text-sm font-medium mb-2">Error Correction</label>
-                            <select v-model="errorCorrection" class="w-full border rounded-lg p-3">
-                                <option value="L">Low (7%)</option>
-                                <option value="M">Medium (15%)</option>
-                                <option value="Q">Quartile (25%)</option>
-                                <option value="H">High (30%)</option>
-                            </select>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Phone
+                                Number</label>
+                            <input v-model="smsData.phone" type="tel" class="form-input text-sm sm:text-base"
+                                placeholder="+1234567890" />
+                        </div>
+                        <div>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Message</label>
+                            <textarea v-model="smsData.message" class="form-input resize-none h-20 text-sm sm:text-base"
+                                placeholder="SMS message" />
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Foreground Color</label>
-                            <div class="flex gap-2">
-                                <input v-model="darkColor" type="color" class="w-16 h-10 border rounded" />
-                                <input v-model="darkColor" type="text" class="flex-1 border rounded-lg p-2" placeholder="#000000" />
+                    <!-- QR Code Settings -->
+                    <div class="space-y-3 sm:space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-700">QR Code Settings</h3>
+
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Size</label>
+                                <select v-model="size" class="form-select text-sm sm:text-base">
+                                    <option value="200">Small (200px)</option>
+                                    <option value="300">Medium (300px)</option>
+                                    <option value="400">Large (400px)</option>
+                                    <option value="500">Extra Large (500px)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Error
+                                    Correction</label>
+                                <select v-model="errorCorrection" class="form-select text-sm sm:text-base">
+                                    <option value="L">Low (7%)</option>
+                                    <option value="M">Medium (15%)</option>
+                                    <option value="Q">Quartile (25%)</option>
+                                    <option value="H">High (30%)</option>
+                                </select>
                             </div>
                         </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Background Color</label>
-                            <div class="flex gap-2">
-                                <input v-model="lightColor" type="color" class="w-16 h-10 border rounded" />
-                                <input v-model="lightColor" type="text" class="flex-1 border rounded-lg p-2" placeholder="#FFFFFF" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap gap-3">
-                    <button @click="generate" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                        Generate QR Code
-                    </button>
-                    
-                    <button @click="downloadQR" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors" :disabled="!qr">
-                        Download
-                    </button>
-                    
-                    <button @click="copyQR" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" :disabled="!qr">
-                        Copy Image
-                    </button>
-                    
-                    <button @click="reset" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
-                        Reset
-                    </button>
-                </div>
-            </div>
-
-            <!-- Preview Section -->
-            <div class="space-y-6">
-                <div v-if="qr" class="text-center">
-                    <h3 class="text-lg font-semibold mb-4">QR Code Preview</h3>
-                    <div class="bg-gray-50 rounded-lg p-8 inline-block">
-                        <img :src="qr" :style="`width: ${size}px; height: ${size}px;`" class="mx-auto" />
-                    </div>
-                    
-                    <div class="mt-4 text-sm text-gray-600">
-                        <p>Size: {{ size }}x{{ size }}px</p>
-                        <p>Error Correction: {{ errorCorrectionLevel }}</p>
-                        <p v-if="getContentPreview()">Content: {{ getContentPreview() }}</p>
-                    </div>
-                </div>
-
-                <div v-else class="text-center py-12 bg-gray-50 rounded-lg">
-                    <div class="text-gray-400">
-                        <svg class="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h2M4 12h2m0 0h.01M4 12v4m0-4v-4m16 0V8m0 4h.01M12 8h4.01M12 8v4m-8 4h2m0 0h.01M8 12v4m0-4V8m0 4h.01" />
-                        </svg>
-                        <p class="text-lg">QR Code Preview</p>
-                        <p class="text-sm mt-2">Enter content and click generate to see your QR code</p>
-                    </div>
-                </div>
-
-                <!-- History -->
-                <div v-if="history.length > 0">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold">Recent QR Codes</h3>
-                        <button @click="clearHistory" class="text-red-600 hover:text-red-800 text-sm px-3 py-1 border border-red-300 rounded hover:bg-red-50 transition-colors">
-                            Clear History
-                        </button>
-                    </div>
-                    <div class="space-y-3">
-                        <div v-for="(item, index) in history.slice(-3).reverse()" :key="index" class="bg-gray-50 rounded-lg p-4 flex items-center justify-between">
-                            <div class="flex items-center space-x-4">
-                                <img :src="item.qr" class="w-16 h-16" />
-                                <div>
-                                    <p class="font-medium text-sm">{{ item.type }}</p>
-                                    <p class="text-xs text-gray-500">{{ item.timestamp }}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Foreground
+                                    Color</label>
+                                <div class="flex gap-2">
+                                    <input v-model="darkColor" type="color" class="w-12 sm:w-16 h-10 border rounded" />
+                                    <input v-model="darkColor" type="text"
+                                        class="flex-1 form-input text-sm sm:text-base" placeholder="#000000" />
                                 </div>
                             </div>
-                            <div class="flex gap-2">
-                                <button @click="loadFromHistory(item)" class="text-blue-600 hover:text-blue-800 text-sm">
-                                    Load
-                                </button>
-                                <button @click="downloadHistoryItem(item)" class="text-green-600 hover:text-green-800 text-sm">
-                                    Download
-                                </button>
+
+                            <div>
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Background
+                                    Color</label>
+                                <div class="flex gap-2">
+                                    <input v-model="lightColor" type="color" class="w-12 sm:w-16 h-10 border rounded" />
+                                    <input v-model="lightColor" type="text"
+                                        class="flex-1 form-input text-sm sm:text-base" placeholder="#FFFFFF" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-2 sm:gap-3">
+                        <button @click="generate"
+                            class="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base">
+                            Generate QR Code
+                        </button>
+
+                        <button @click="downloadQR"
+                            class="px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
+                            :disabled="!qr">
+                            Download
+                        </button>
+
+                        <button @click="copyQR"
+                            class="px-4 sm:px-6 py-2 sm:py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
+                            :disabled="!qr">
+                            Copy Image
+                        </button>
+
+                        <button @click="reset"
+                            class="px-4 sm:px-6 py-2 sm:py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="space-y-4 sm:space-y-6">
+                    <div v-if="qr" class="text-center">
+                        <h3 class="text-lg font-semibold mb-4">QR Code Preview</h3>
+                        <div class="bg-gray-50 rounded-lg p-4 sm:p-8 inline-block">
+                            <img :src="qr" :style="`width: ${size}px; height: ${size}px;`" class="mx-auto" />
+                        </div>
+
+                        <div class="mt-4 text-xs sm:text-sm text-gray-600">
+                            <p>Size: {{ size }}x{{ size }}px</p>
+                            <p>Error Correction: {{ errorCorrectionLevel }}</p>
+                            <p v-if="getContentPreview()">Content: {{ getContentPreview() }}</p>
+                        </div>
+                    </div>
+
+                    <div v-else class="text-center py-8 sm:py-12 bg-gray-50 rounded-lg">
+                        <div class="text-gray-400">
+                            <svg class="w-16 sm:w-24 h-16 sm:h-24 mx-auto mb-4" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h2M4 12h2m0 0h.01M4 12v4m0-4v-4m16 0V8m0 4h.01M12 8h4.01M12 8v4m-8 4h2m0 0h.01M8 12v4m0-4V8m0 4h.01" />
+                            </svg>
+                            <p class="text-base sm:text-lg">QR Code Preview</p>
+                            <p class="text-xs sm:text-sm mt-2">Enter content and click generate to see your QR code</p>
+                        </div>
+                    </div>
+
+                    <!-- History -->
+                    <div v-if="history.length > 0">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
+                            <h3 class="text-lg font-semibold">Recent QR Codes</h3>
+                            <button @click="clearHistory"
+                                class="text-red-600 hover:text-red-800 text-xs sm:text-sm px-3 py-1 border border-red-300 rounded hover:bg-red-50 transition-colors">
+                                Clear History
+                            </button>
+                        </div>
+                        <div class="space-y-3">
+                            <div v-for="(item, index) in history.slice(-3).reverse()" :key="index"
+                                class="bg-gray-50 rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                <div class="flex items-center space-x-3 sm:space-x-4">
+                                    <img :src="item.qr" class="w-12 h-12 sm:w-16 sm:h-16" />
+                                    <div>
+                                        <p class="font-medium text-xs sm:text-sm">{{ item.type }}</p>
+                                        <p class="text-xs text-gray-500">{{ item.timestamp }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button @click="loadFromHistory(item)"
+                                        class="text-blue-600 hover:text-blue-800 text-xs sm:text-sm">
+                                        Load
+                                    </button>
+                                    <button @click="downloadHistoryItem(item)"
+                                        class="text-green-600 hover:text-green-800 text-xs sm:text-sm">
+                                        Download
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <ToolSeoContent title="QR Code Generator" :description="seoDescription" :steps="seoSteps" :faqs="seoFaqs" />
+
         </div>
-
-        <ToolSeoContent 
-            title="QR Code Generator"
-            :description="seoDescription"
-            :steps="seoSteps"
-            :faqs="seoFaqs"
-        />
-
     </div>
 </template>
 
@@ -298,7 +329,7 @@ const getContentPreview = () => {
 
 const generate = async () => {
     const content = getContent();
-    
+
     if (!content || content.trim() === '') {
         Swal.fire({
             icon: 'warning',
@@ -325,7 +356,7 @@ const generate = async () => {
         };
 
         qr.value = await QRCode.toDataURL(content, options);
-        
+
         // Add to history
         history.value.push({
             qr: qr.value,
@@ -364,12 +395,12 @@ const generate = async () => {
 
 const downloadQR = () => {
     if (!qr.value) return;
-    
+
     const link = document.createElement('a');
     link.download = `qrcode-${Date.now()}.png`;
     link.href = qr.value;
     link.click();
-    
+
     Swal.fire({
         icon: 'success',
         title: 'Downloaded!',
@@ -384,18 +415,18 @@ const downloadQR = () => {
 
 const copyQR = async () => {
     if (!qr.value) return;
-    
+
     try {
         // Convert data URL to blob
         const response = await fetch(qr.value);
         const blob = await response.blob();
-        
+
         await navigator.clipboard.write([
             new ClipboardItem({
                 'image/png': blob
             })
         ]);
-        
+
         Swal.fire({
             icon: 'success',
             title: 'Copied!',

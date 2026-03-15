@@ -1,99 +1,78 @@
 <template>
     <Head>
-        <meta
-            name="description"
-            content="Generate UUIDs quickly with options for count, case, and history."
-        />
+        <meta name="description" content="Generate UUIDs quickly with options for count, case, and history." />
     </Head>
-    <div class="bg-white shadow-lg rounded-xl p-6">
-        <h2 class="text-xl font-bold mb-4">UUID Generator</h2>
+    <div class="max-w-6xl mx-auto p-0">
+        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">UUID Generator</h1>
 
-        <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-            <label class="flex items-center gap-2">
-                <span class="text-gray-700">Count:</span>
-                <input
-                    type="number"
-                    v-model.number="count"
-                    min="1"
-                    class="w-20 border rounded px-2 py-1"
-                />
-            </label>
-            <label class="flex items-center gap-2">
-                <input type="checkbox" v-model="uppercase" />
-                <span class="text-gray-700">Uppercase</span>
-            </label>
-        </div>
+            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+                Generate universally unique identifiers instantly.
+            </p>
 
-        <div class="flex gap-3 mb-4">
-            <input
-                v-model="uuid"
-                readonly
-                class="flex-1 border rounded-lg px-4 py-2 font-mono"
-            />
+            <div class="flex flex-col gap-3 sm:gap-4 mb-4">
+                <label class="flex items-center gap-2">
+                    <span class="text-gray-700 text-sm sm:text-base">Count:</span>
+                    <input type="number" v-model.number="count" min="1"
+                        class="w-16 sm:w-20 border rounded px-2 py-1 text-sm sm:text-base" />
+                </label>
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" v-model="uppercase" class="sm:mt-0" />
+                    <span class="text-gray-700 text-sm sm:text-base">Uppercase</span>
+                </label>
+            </div>
 
-            <button
-                @click="generateUUID"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-            >
-                Generate
-            </button>
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-4">
+                <input v-model="uuid" readonly placeholder="Generated UUIDs will appear here..."
+                    class="flex-1 border rounded-lg px-3 sm:px-4 py-2 font-mono text-xs sm:text-sm" />
 
-            <button
-                @click="copyUUID"
-                :disabled="!uuid"
-                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
-            >
-                Copy
-            </button>
-
-            <button
-                @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-            >
-                Clear
-            </button>
-        </div>
-
-        <div v-if="history.length" class="mt-4">
-            <h3 class="font-semibold mb-2">History</h3>
-            <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
-                <li
-                    v-for="(u, idx) in history"
-                    :key="idx"
-                    class="flex items-center justify-between"
-                >
-                    <span>{{ u }}</span>
-                    <div class="flex gap-2">
-                        <button
-                            @click="copyOne(u)"
-                            class="text-xs text-blue-600 hover:underline"
-                        >
-                            Copy
-                        </button>
-                    </div>
-                </li>
-            </ul>
-            <div class="flex gap-3 mt-3">
-                <button
-                    @click="downloadHistory"
-                    class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-                >
-                    Download All
+                <button @click="generateUUID"
+                    class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm sm:text-base">
+                    Generate
                 </button>
-                <button
-                    @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-                >
-                    Clear History
+
+                <button @click="copyUUID" :disabled="!uuid"
+                    class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
+                    Copy
+                </button>
+
+                <button @click="clearAll"
+                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                    Clear
                 </button>
             </div>
+
+            <div v-if="history.length" class="mt-4 sm:mt-6">
+                <h3 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">History</h3>
+                <div class="max-h-48 sm:max-h-64 overflow-y-auto border rounded-lg p-3 sm:p-4 bg-gray-50">
+                    <ul class="space-y-2 sm:space-y-1">
+                        <li v-for="(u, idx) in history" :key="idx"
+                            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-white rounded border">
+                            <span class="font-mono text-xs sm:text-sm break-all">{{ u }}</span>
+                            <div class="flex gap-2">
+                                <button @click="copyOne(u)"
+                                    class="text-xs text-blue-600 hover:underline px-2 py-1 rounded hover:bg-blue-50">
+                                    Copy
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-3">
+                    <button @click="downloadHistory"
+                        class="px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm sm:text-base">
+                        Download All
+                    </button>
+                    <button @click="clearHistory"
+                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                        Clear History
+                    </button>
+                </div>
+            </div>
+            <ToolSeoContent title="UUID Generator"
+                description="Create universally unique identifiers (UUIDs) with configurable options and history."
+                :steps="steps" :faqs="faqs" />
         </div>
-        <ToolSeoContent
-            title="UUID Generator"
-            description="Create universally unique identifiers (UUIDs) with configurable options and history."
-            :steps="steps"
-            :faqs="faqs"
-        />
     </div>
 </template>
 

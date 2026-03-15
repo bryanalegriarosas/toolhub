@@ -1,98 +1,95 @@
 <template>
+
     <Head>
-        <meta name="description" content="Generate secure passwords with custom length and character sets. Includes history and download options." />
+        <meta name="description"
+            content="Generate secure passwords with custom length and character sets. Includes history and download options." />
     </Head>
-    <div class="bg-white shadow-lg rounded-xl p-6 space-y-4">
-        <h2 class="text-xl font-bold">Password Generator</h2>
+    <div class="max-w-6xl mx-auto p-0">
+        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Password Generator</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label class="text-sm text-gray-500"> Password length </label>
-                <input
-                    type="number"
-                    v-model.number="length"
-                    min="1"
-                    class="border rounded-lg px-3 py-2 w-24"
-                />
+            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+                Generate secure passwords with custom length and character sets.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
+                <div>
+                    <label class="block text-sm sm:text-base text-gray-500 mb-2">Password length</label>
+                    <input type="number" v-model.number="length" min="1"
+                        class="form-input w-24 sm:w-32 text-sm sm:text-base" />
+                </div>
+                <div class="flex flex-wrap gap-2 sm:gap-4">
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" v-model="includeUppercase" class="sm:mt-0" />
+                        <span class="text-gray-700 text-sm sm:text-base">Uppercase</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" v-model="includeLowercase" class="sm:mt-0" />
+                        <span class="text-gray-700 text-sm sm:text-base">Lowercase</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" v-model="includeNumbers" class="sm:mt-0" />
+                        <span class="text-gray-700 text-sm sm:text-base">Numbers</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" v-model="includeSymbols" class="sm:mt-0" />
+                        <span class="text-gray-700 text-sm sm:text-base">Symbols</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" v-model="excludeSimilar" class="sm:mt-0" />
+                        <span class="text-gray-700 text-sm sm:text-base">Exclude similar (iIlLoO0)</span>
+                    </label>
+                </div>
             </div>
-            <div class="flex flex-wrap gap-4">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" v-model="includeUppercase" />
-                    <span class="text-gray-700">Uppercase</span>
-                </label>
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" v-model="includeLowercase" />
-                    <span class="text-gray-700">Lowercase</span>
-                </label>
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" v-model="includeNumbers" />
-                    <span class="text-gray-700">Numbers</span>
-                </label>
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" v-model="includeSymbols" />
-                    <span class="text-gray-700">Symbols</span>
-                </label>
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" v-model="excludeSimilar" />
-                    <span class="text-gray-700">Exclude similar (iIlLoO0)</span>
-                </label>
+
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-4">
+                <input v-model="password" readonly class="flex-1 form-input font-mono text-sm sm:text-base" />
+
+                <button @click="generatePassword" :disabled="!isPoolValid"
+                    class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm sm:text-base">
+                    Generate
+                </button>
+
+                <button @click="copyPassword" :disabled="!password"
+                    class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
+                    Copy
+                </button>
+
+                <button @click="clearAll"
+                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                    Clear
+                </button>
             </div>
-        </div>
 
-        <div class="flex flex-wrap gap-3 mt-4">
-            <input
-                v-model="password"
-                readonly
-                class="flex-1 border rounded-lg px-4 py-2 font-mono"
-            />
+            <div v-if="error" class="text-red-500 text-xs sm:text-sm mb-4">{{ error }}</div>
 
-            <button
-                @click="generatePassword"
-                :disabled="!isPoolValid"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-            >
-                Generate
-            </button>
-
-            <button
-                @click="copyPassword"
-                :disabled="!password"
-                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
-            >
-                Copy
-            </button>
-
-            <button
-                @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-            >
-                Clear
-            </button>
-        </div>
-
-        <div v-if="error" class="text-red-500 text-sm">{{ error }}</div>
-
-        <div v-if="history.length" class="mt-4">
-            <h3 class="font-semibold mb-2">History</h3>
-            <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
-                <li v-for="(p, idx) in history" :key="idx" class="flex items-center justify-between">
-                    <span>{{ p }}</span>
-                    <button @click="copyOne(p)" class="text-xs text-blue-600 hover:underline">Copy</button>
-                </li>
-            </ul>
-            <div class="flex gap-3 mt-3">
-                <button @click="downloadHistory" class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Download All</button>
-                <button @click="clearHistory" class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">Clear History</button>
+            <div v-if="history.length" class="mt-4">
+                <h3 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">History</h3>
+                <div class="max-h-48 sm:max-h-64 overflow-y-auto border rounded-lg p-3 sm:p-4 bg-gray-50">
+                    <ul class="space-y-2">
+                        <li v-for="(p, idx) in history" :key="idx"
+                            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-white rounded border">
+                            <span class="font-mono text-xs sm:text-sm break-all">{{ p }}</span>
+                            <button @click="copyOne(p)"
+                                class="text-xs text-blue-600 hover:underline px-2 py-1 rounded hover:bg-blue-50 self-start sm:self-auto">Copy</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex gap-2 sm:gap-3 mt-3">
+                    <button @click="downloadHistory"
+                        class="px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-xs sm:text-sm">Download
+                        All</button>
+                    <button @click="clearHistory"
+                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-xs sm:text-sm">Clear
+                        History</button>
+                </div>
             </div>
+            <ToolSeoContent title="Password Generator"
+                description="Create strong passwords by customizing length and character sets." :steps="steps"
+                :faqs="faqs" />
+
         </div>
     </div>
-
-    <ToolSeoContent
-        title="Password Generator"
-        description="Create strong passwords by customizing length and character sets."
-        :steps="steps"
-        :faqs="faqs"
-    />
 </template>
 
 <script setup>

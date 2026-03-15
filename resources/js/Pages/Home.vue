@@ -1,30 +1,27 @@
 <template>
+
     <Head>
         <title>WebToolStack - Free Online Developer Tools</title>
 
         <!-- Standard SEO -->
-        <meta name="description" content="Free online tools for developers including JSON formatter, UUID generator and password generator." />
-        <meta name="keywords" content="developer tools, online tools, json formatter, uuid generator, password generator" />
+        <meta name="description"
+            content="Free online tools for developers including JSON formatter, UUID generator and password generator." />
+        <meta name="keywords"
+            content="developer tools, online tools, json formatter, uuid generator, password generator" />
         <link rel="canonical" href="https://toolhub.example.com/" />
 
         <!-- Open Graph / Social -->
-        <meta
-            property="og:title"
-            content="WebToolStack - Free Online Developer Tools"
-        />
-        <meta
-            property="og:description"
-            content="Free online tools for developers including JSON formatter, UUID generator and password generator."
-        />
+        <meta property="og:title" content="WebToolStack - Free Online Developer Tools" />
+        <meta property="og:description"
+            content="Free online tools for developers including JSON formatter, UUID generator and password generator." />
         <meta property="og:type" content="website" />
     </Head>
     <MainLayout :tools="tools">
         <div class="space-y-8">
             <!-- HERO -->
             <div
-                class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-14 rounded-2xl shadow-xl text-center"
-            >
-                <h1 class="text-4xl font-bold mb-4">
+                class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-6 md:p-14 rounded-2xl shadow-xl text-center">
+                <h1 class="text-2xl md:text-4xl font-bold mb-4">
                     Developer Tools in One Place
                 </h1>
 
@@ -43,35 +40,23 @@
                 </div>
 
                 <!-- call to action -->
-                <Link href="/tools" class="inline-block mt-6 px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100">
+                <Link href="/tools"
+                    class="inline-block mt-6 px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100">
                     Show All Tools
                 </Link>
 
                 <div class="mt-4 max-w-xl mx-auto">
                     <label for="search-input" class="sr-only">Buscar herramienta</label>
-                    <input
-                        id="search-input"
-                        v-model="search"
-                        @keydown.down.prevent="moveSelection(1)"
-                        @keydown.up.prevent="moveSelection(-1)"
-                        @keydown.enter.prevent="activateSelection"
-                        placeholder="Search a tool..."
-                        class="text-black border rounded-lg px-4 py-3 w-full"
-                    />
+                    <input id="search-input" v-model="search" @keydown.down.prevent="moveSelection(1)"
+                        @keydown.up.prevent="moveSelection(-1)" @keydown.enter.prevent="activateSelection"
+                        placeholder="Search a tool..." class="text-black border rounded-lg px-4 py-3 w-full" />
                 </div>
 
-                <div
-                    v-if="search.length > 0"
-                    class="bg-white text-black rounded-xl shadow mt-4 max-w-xl mx-auto"
-                    aria-live="polite"
-                >
-                    <div
-                        v-for="(tool, index) in filteredTools"
-                        :key="tool.id"
+                <div v-if="search.length > 0" class="bg-white text-black rounded-xl shadow mt-4 max-w-xl mx-auto"
+                    aria-live="polite">
+                    <div v-for="(tool, index) in filteredTools" :key="tool.id"
                         :class="['p-3 border-b hover:bg-gray-100 cursor-pointer', { 'bg-gray-200': index === selectedIndex }]"
-                        @click="goToTool(tool.slug)"
-                        @mouseenter="selectedIndex = index"
-                    >
+                        @click="goToTool(tool.slug)" @mouseenter="selectedIndex = index">
                         <Link :href="`/tools/${tool.slug}`">
                             {{ tool.name }}
                         </Link>
@@ -83,36 +68,22 @@
                 </div>
             </div>
 
-            <div
-                v-for="category in categories"
-                :key="category.id"
-                class="mb-10"
-            >
-                <Link
-                    :href="'/category/' + category.slug"
-                    :aria-label="`Categoría ${category.name}`"
-                    class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600"
-                >
+            <div v-for="category in categories" :key="category.id" class="mb-10">
+                <Link :href="'/category/' + category.slug" :aria-label="`Categoría ${category.name}`"
+                    class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600">
                     <ToolIcon :name="category.icon" />
 
                     {{ category.name }}
                 </Link>
 
-                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <ToolCard
-                        v-for="tool in category.tools"
-                        :key="tool.id"
-                        :tool="tool"
-                    />
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                    <ToolCard v-for="tool in category.tools" :key="tool.id" :tool="tool" />
                 </div>
             </div>
 
             <!-- ADS SPACE -->
-            <div
-                role="complementary"
-                aria-label="Advertisement"
-                class="bg-gray-100 border rounded-xl p-10 text-center text-gray-400"
-            >
+            <div role="complementary" aria-label="Advertisement"
+                class="bg-gray-100 border rounded-xl p-10 text-center text-gray-400">
                 Advertisement
             </div>
         </div>

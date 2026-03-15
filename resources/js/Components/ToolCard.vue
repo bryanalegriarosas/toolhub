@@ -1,19 +1,17 @@
 <template>
-    <Link
-        :href="'/tools/' + tool.slug"
-        class="bg-white p-6 rounded-xl shadow hover:shadow-xl transition group"
-    >
+    <Link :href="'/tools/' + tool.slug"
+        class="bg-white p-4 sm:p-6 rounded-xl shadow hover:shadow-xl transition group block">
         <div class="flex items-center gap-3 mb-3">
-            <div class="bg-blue-100 text-blue-600 p-2 rounded-lg">
+            <div class="bg-blue-100 text-blue-600 p-2 rounded-lg flex-shrink-0">
                 <ToolIcon :name="tool.icon" />
             </div>
 
-            <h3 class="font-bold text-lg group-hover:text-blue-600">
+            <h3 class="font-bold text-base sm:text-lg group-hover:text-blue-600 line-clamp-2">
                 {{ tool.name }}
             </h3>
         </div>
 
-        <p class="text-gray-500 text-sm">
+        <p class="text-gray-500 text-sm line-clamp-3">
             {{ tool.description }}
         </p>
     </Link>

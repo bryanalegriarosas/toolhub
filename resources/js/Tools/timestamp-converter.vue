@@ -1,108 +1,97 @@
 <template>
+
     <Head>
         <title>Unix Timestamp Converter – WebToolStack</title>
-        <meta
-            name="description"
-            content="Convert between UNIX timestamp and a human-readable date. Supports seconds and milliseconds."
-        />
+        <meta name="description"
+            content="Convert between UNIX timestamp and a human-readable date. Supports seconds and milliseconds." />
         <meta property="og:title" content="Unix Timestamp Converter" />
-        <meta
-            property="og:description"
-            content="Convert between UNIX timestamp and a human-readable date. Supports seconds and milliseconds."
-        />
+        <meta property="og:description"
+            content="Convert between UNIX timestamp and a human-readable date. Supports seconds and milliseconds." />
         <meta property="og:type" content="article" />
     </Head>
 
-    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6">Unix Timestamp Converter</h1>
+    <div class="max-w-6xl mx-auto p-0">
+        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Unix Timestamp Converter</h1>
 
-        <div class="space-y-6">
-            <div>
-                <label class="block text-sm mb-2"> Unix Timestamp </label>
+            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+                Convert between UNIX timestamps and human-readable dates instantly.
+            </p>
 
-                <input
-                    v-model="timestamp"
-                    type="number"
-                    placeholder="1710000000"
-                    class="w-full border rounded-lg p-3"
-                />
+            <div class="space-y-4 sm:space-y-6">
+                <div>
+                    <label class="block text-sm sm:text-base mb-2 text-gray-700">Unix Timestamp</label>
+                    <input v-model="timestamp" type="number" placeholder="1710000000"
+                        class="w-full border rounded-lg p-3 sm:p-4 text-sm sm:text-base" />
+                </div>
+
+                <div>
+                    <label class="block text-sm sm:text-base mb-2 text-gray-700">Date</label>
+                    <input v-model="date" :type="dateOnly ? 'date' : 'datetime-local'"
+                        class="w-full border rounded-lg p-3 sm:p-4 text-sm sm:text-base" />
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <label class="flex items-center gap-2">
+                        <input type="radio" value="seconds" v-model="unit" class="sm:mt-0" />
+                        <span class="text-sm sm:text-base">Seconds</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="radio" value="milliseconds" v-model="unit" class="sm:mt-0" />
+                        <span class="text-sm sm:text-base">Milliseconds</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" v-model="dateOnly" class="sm:mt-0" />
+                        <span class="text-sm sm:text-base">Use date-only input</span>
+                    </label>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                    <button @click="convert"
+                        class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm sm:text-base">
+                        Convert
+                    </button>
+
+                    <button @click="copyTimestamp" :disabled="!timestamp"
+                        class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
+                        Copy Timestamp
+                    </button>
+
+                    <button @click="copyDate" :disabled="!date"
+                        class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
+                        Copy Date
+                    </button>
+
+                    <button @click="clearAll"
+                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                        Clear
+                    </button>
+                </div>
             </div>
 
-            <div>
-                <label class="block text-sm mb-2"> Date </label>
-
-                <input
-                    v-model="date"
-                    :type="dateOnly ? 'date' : 'datetime-local'"
-                    class="w-full border rounded-lg p-3"
-                />
+            <div v-if="history.length" class="mt-4 sm:mt-6">
+                <h3 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">History</h3>
+                <div class="max-h-48 sm:max-h-64 overflow-y-auto border rounded-lg p-3 sm:p-4 bg-gray-50">
+                    <ul class="space-y-2">
+                        <li v-for="(h, idx) in history" :key="idx"
+                            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-white rounded border">
+                            <span class="font-mono text-xs sm:text-sm break-all">{{ h }}</span>
+                            <button @click="copyOne(h)"
+                                class="text-xs text-blue-600 hover:underline px-2 py-1 rounded hover:bg-blue-50 self-start sm:self-auto">Copy</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-3">
+                    <button @click="clearHistory"
+                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">Clear
+                        History</button>
+                </div>
             </div>
 
-            <div class="flex items-center gap-4">
-                <label class="flex items-center gap-2">
-                    <input type="radio" value="seconds" v-model="unit" />
-                    <span>Seconds</span>
-                </label>
-                <label class="flex items-center gap-2">
-                    <input type="radio" value="milliseconds" v-model="unit" />
-                    <span>Milliseconds</span>
-                </label>
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" v-model="dateOnly" />
-                    <span>Use date-only input</span>
-                </label>
-            </div>
-
-            <div class="flex gap-3">
-                <button
-                    @click="convert"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                    Convert
-                </button>
-
-                <button
-                    @click="copyTimestamp"
-                    :disabled="!timestamp"
-                    class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
-                >
-                    Copy Timestamp
-                </button>
-
-                <button
-                    @click="copyDate"
-                    :disabled="!date"
-                    class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
-                >
-                    Copy Date
-                </button>
-
-                <button
-                    @click="clearAll"
-                    class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-                >
-                    Clear
-                </button>
-            </div>
+            <ToolSeoContent title="Unix Timestamp Converter"
+                description="A simple converter to switch between UNIX timestamps and human-readable dates. Supports seconds and milliseconds."
+                :steps="steps" :faqs="faqs" />
         </div>
-
-        <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
-            <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
-                <li v-for="(h, idx) in history" :key="idx" class="flex items-center justify-between">
-                    <span>{{ h }}</span>
-                    <button @click="copyOne(h)" class="text-xs text-blue-600 hover:underline">Copy</button>
-                </li>
-            </ul>
-            <button @click="clearHistory" class="mt-3 px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">Clear History</button>
-        </div>
-
-        <ToolSeoContent
-            title="Unix Timestamp Converter"
-            description="A simple converter to switch between UNIX timestamps and human-readable dates. Supports seconds and milliseconds."
-            :steps="steps"
-            :faqs="faqs"
-        />
     </div>
 </template>
 

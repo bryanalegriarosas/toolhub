@@ -1,220 +1,176 @@
 <template>
+
     <Head>
-        <meta
-            name="description"
-            content="Convert Markdown text to HTML with live preview and syntax highlighting."
-        />
+        <meta name="description" content="Convert Markdown text to HTML with live preview and syntax highlighting." />
     </Head>
 
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Markdown to HTML</h2>
+    <div class="max-w-6xl mx-auto p-0">
+        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Markdown to HTML</h1>
 
-        <div class="flex flex-wrap gap-4">
-            <label class="flex items-center gap-2">
-                <input type="checkbox" v-model="livePreview" />
-                <span>Live Preview</span>
-            </label>
-            <label class="flex items-center gap-2">
-                <span>Load file:</span>
-                <input ref="fileInput" type="file" @change="loadFile" class="form-input" accept=".md,.txt" />
-            </label>
-        </div>
+            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+                Convert Markdown text to HTML with live preview and formatting tools.
+            </p>
 
-        <div class="space-y-6">
-            <!-- Markdown Input -->
-            <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">
-                    Markdown Input
+            <div class="flex flex-col gap-3 sm:gap-4 mb-4">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" v-model="livePreview" class="sm:mt-0" />
+                    <span class="text-sm sm:text-base text-gray-700">Live Preview</span>
                 </label>
-                <div class="flex gap-2 mb-2">
-                    <button
-                        @click="insertMarkdown('# ', 'heading')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="Heading"
-                    >
-                        H1
-                    </button>
-                    <button
-                        @click="insertMarkdown('**', 'bold')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="Bold"
-                    >
-                        <strong>B</strong>
-                    </button>
-                    <button
-                        @click="insertMarkdown('*', 'italic')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="Italic"
-                    >
-                        <em>I</em>
-                    </button>
-                    <button
-                        @click="insertMarkdown('`', 'code')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="Inline Code"
-                    >
-                        &lt;/&gt;
-                    </button>
-                    <button
-                        @click="insertMarkdown('[', 'link')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="Link"
-                    >
-                        🔗
-                    </button>
-                    <button
-                        @click="insertMarkdown('- ', 'list')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="List"
-                    >
-                        ≡
-                    </button>
-                    <button
-                        @click="insertMarkdown('> ', 'quote')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="Quote"
-                    >
-                        "
-                    </button>
-                    <button
-                        @click="insertMarkdown('```\n', 'codeblock')"
-                        class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-sm"
-                        title="Code Block"
-                    >
-                        &lt;/&gt;
-                    </button>
-                </div>
-                <textarea
-                    v-model="markdown"
-                    @input="handleInput"
-                    placeholder="Enter your Markdown here..."
-                    class="w-full h-64 p-4 border rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
-                ></textarea>
-                <div class="text-sm text-gray-500">
-                    Characters: {{ markdown.length }} | Lines: {{ lineCount }}
-                </div>
+                <label class="flex items-center gap-2">
+                    <span class="text-gray-700 text-sm sm:text-base">Load file:</span>
+                    <input ref="fileInput" type="file" @change="loadFile" class="form-input text-sm sm:text-base"
+                        accept=".md,.txt" />
+                </label>
             </div>
 
-            <!-- HTML Output -->
-            <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">
-                    HTML Output
-                </label>
-                <div class="border rounded-lg h-64 overflow-auto bg-gray-50">
-                    <div 
-                        v-if="html"
-                        class="p-4 prose prose-sm max-w-none"
-                        v-html="html"
-                    ></div>
-                    <div v-else class="p-4 text-gray-400 italic">
-                        HTML output will appear here...
+            <div class="space-y-4 sm:space-y-6">
+                <!-- Markdown Input -->
+                <div class="space-y-2">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                        Markdown Input
+                    </label>
+                    <div class="flex flex-wrap gap-1 sm:gap-2 mb-2">
+                        <button @click="insertMarkdown('# ', 'heading')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="Heading">
+                            H1
+                        </button>
+                        <button @click="insertMarkdown('**', 'bold')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="Bold">
+                            <strong>B</strong>
+                        </button>
+                        <button @click="insertMarkdown('*', 'italic')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="Italic">
+                            <em>I</em>
+                        </button>
+                        <button @click="insertMarkdown('`', 'code')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="Inline Code">
+                            &lt;/&gt;
+                        </button>
+                        <button @click="insertMarkdown('[', 'link')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="Link">
+                            🔗
+                        </button>
+                        <button @click="insertMarkdown('- ', 'list')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="List">
+                            ≡
+                        </button>
+                        <button @click="insertMarkdown('> ', 'quote')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="Quote">
+                            "
+                        </button>
+                        <button @click="insertMarkdown('```\n', 'codeblock')"
+                            class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
+                            title="Code Block">
+                            &lt;/&gt;
+                        </button>
+                    </div>
+                    <textarea v-model="markdown" @input="handleInput" placeholder="Enter your Markdown here..."
+                        class="w-full h-48 sm:h-64 p-3 sm:p-4 border rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200"></textarea>
+                    <div class="text-xs sm:text-sm text-gray-500">
+                        Characters: {{ markdown.length }} | Lines: {{ lineCount }}
                     </div>
                 </div>
-                <div class="text-sm text-gray-500">
-                    HTML Characters: {{ html.length }}
+
+                <!-- HTML Output -->
+                <div class="space-y-2">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                        HTML Output
+                    </label>
+                    <div class="border rounded-lg h-48 sm:h-64 overflow-auto bg-gray-50">
+                        <div v-if="html" class="p-3 sm:p-4 prose prose-sm max-w-none text-xs sm:text-sm" v-html="html">
+                        </div>
+                        <div v-else class="p-3 sm:p-4 text-gray-400 italic text-xs sm:text-sm">
+                            HTML output will appear here...
+                        </div>
+                    </div>
+                    <div class="text-xs sm:text-sm text-gray-500">
+                        HTML Characters: {{ html.length }}
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Raw HTML Code -->
-        <div v-if="html" class="space-y-2">
-            <div class="flex items-center justify-between">
-                <label class="block text-sm font-medium text-gray-700">
-                    Raw HTML Code
-                </label>
-                <button
-                    @click="copyHtml"
-                    class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm"
-                >
+            <!-- Raw HTML Code -->
+            <div v-if="html" class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                        Raw HTML Code
+                    </label>
+                    <button @click="copyHtml"
+                        class="px-2 sm:px-3 py-1 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs sm:text-sm">
+                        Copy HTML
+                    </button>
+                </div>
+                <pre
+                    class="w-full h-40 sm:h-48 p-3 sm:p-4 border rounded-lg bg-gray-900 text-green-400 text-xs sm:text-sm overflow-auto">{{ html }}</pre>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-2 sm:gap-3">
+                <button @click="convert" :disabled="!markdown"
+                    class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm sm:text-base">
+                    Convert to HTML
+                </button>
+
+                <button @click="copyHtml" :disabled="!html"
+                    class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
                     Copy HTML
                 </button>
-            </div>
-            <pre class="w-full h-48 p-4 border rounded-lg bg-gray-900 text-green-400 text-sm overflow-auto">{{ html }}</pre>
-        </div>
 
-        <!-- Action Buttons -->
-        <div class="flex flex-wrap gap-3">
-            <button
-                @click="convert"
-                :disabled="!markdown"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-            >
-                Convert to HTML
-            </button>
-
-            <button
-                @click="copyHtml"
-                :disabled="!html"
-                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
-            >
-                Copy HTML
-            </button>
-
-            <button
-                @click="downloadHtml"
-                :disabled="!html"
-                class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
-            >
-                Download HTML
-            </button>
-
-            <button
-                @click="downloadMarkdown"
-                :disabled="!markdown"
-                class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50"
-            >
-                Download Markdown
-            </button>
-
-            <button
-                @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-            >
-                Clear All
-            </button>
-        </div>
-
-        <!-- Sample Markdown -->
-        <div class="border-t pt-6">
-            <h3 class="font-semibold mb-3">Sample Markdown</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button
-                    @click="loadSample('basic')"
-                    class="p-3 border rounded-lg hover:bg-gray-50 text-left"
-                >
-                    <div class="font-medium">Basic Example</div>
-                    <div class="text-sm text-gray-600">Headings, lists, links</div>
+                <button @click="downloadHtml" :disabled="!html"
+                    class="px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 text-sm sm:text-base">
+                    Download HTML
                 </button>
-                <button
-                    @click="loadSample('advanced')"
-                    class="p-3 border rounded-lg hover:bg-gray-50 text-left"
-                >
-                    <div class="font-medium">Advanced Example</div>
-                    <div class="text-sm text-gray-600">Code blocks, tables, images</div>
+
+                <button @click="downloadMarkdown" :disabled="!markdown"
+                    class="px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50 text-sm sm:text-base">
+                    Download Markdown
                 </button>
-                <button
-                    @click="loadSample('documentation')"
-                    class="p-3 border rounded-lg hover:bg-gray-50 text-left"
-                >
-                    <div class="font-medium">Documentation Style</div>
-                    <div class="text-sm text-gray-600">API documentation format</div>
-                </button>
-                <button
-                    @click="loadSample('readme')"
-                    class="p-3 border rounded-lg hover:bg-gray-50 text-left"
-                >
-                    <div class="font-medium">README Style</div>
-                    <div class="text-sm text-gray-600">Project README format</div>
+
+                <button @click="clearAll"
+                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                    Clear All
                 </button>
             </div>
-        </div>
 
-        <ToolSeoContent
-            title="Markdown to HTML Converter"
-            description="Convert Markdown text to HTML with live preview and syntax highlighting."
-            :steps="steps"
-            :faqs="faqs"
-        />
+            <!-- Sample Markdown -->
+            <div class="border-t pt-4 sm:pt-6">
+                <h3 class="font-semibold mb-3 text-gray-700 text-sm sm:text-base">Sample Markdown</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <button @click="loadSample('basic')"
+                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        <div class="font-medium text-sm sm:text-base">Basic Example</div>
+                        <div class="text-xs sm:text-sm text-gray-600">Headings, lists, links</div>
+                    </button>
+                    <button @click="loadSample('advanced')"
+                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        <div class="font-medium text-sm sm:text-base">Advanced Example</div>
+                        <div class="text-xs sm:text-sm text-gray-600">Code blocks, tables, images</div>
+                    </button>
+                    <button @click="loadSample('documentation')"
+                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        <div class="font-medium text-sm sm:text-base">Documentation Style</div>
+                        <div class="text-xs sm:text-sm text-gray-600">API documentation format</div>
+                    </button>
+                    <button @click="loadSample('readme')"
+                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        <div class="font-medium text-sm sm:text-base">README Style</div>
+                        <div class="text-xs sm:text-sm text-gray-600">Project README format</div>
+                    </button>
+                </div>
+            </div>
+
+            <ToolSeoContent title="Markdown to HTML Converter"
+                description="Convert Markdown text to HTML with live preview and syntax highlighting." :steps="steps"
+                :faqs="faqs" />
+        </div>
     </div>
 </template>
 
@@ -231,17 +187,17 @@ const steps = [
 ];
 
 const faqs = [
-    { 
-        question: "What Markdown syntax is supported?", 
-        answer: "Common syntax including headings, bold, italic, links, lists, code blocks, tables, and images." 
+    {
+        question: "What Markdown syntax is supported?",
+        answer: "Common syntax including headings, bold, italic, links, lists, code blocks, tables, and images."
     },
-    { 
-        question: "Can I use live preview?", 
-        answer: "Yes, enable live preview to see HTML output as you type." 
+    {
+        question: "Can I use live preview?",
+        answer: "Yes, enable live preview to see HTML output as you type."
     },
-    { 
-        question: "Can I download the converted HTML?", 
-        answer: "Yes, you can download both the original Markdown and converted HTML files." 
+    {
+        question: "Can I download the converted HTML?",
+        answer: "Yes, you can download both the original Markdown and converted HTML files."
     }
 ];
 
@@ -257,56 +213,56 @@ const lineCount = computed(() => {
 // Simple Markdown to HTML converter
 const convertMarkdown = (text) => {
     if (!text) return '';
-    
+
     let html = text;
-    
+
     // Headers
     html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
     html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
     html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-    
+
     // Bold
     html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    
+
     // Italic
     html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    
+
     // Code
     html = html.replace(/`(.+?)`/g, '<code>$1</code>');
-    
+
     // Code blocks
     html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
         return `<pre><code class="language-${lang || 'text'}">${code}</code></pre>`;
     });
-    
+
     // Links
     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-    
+
     // Images
     html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
-    
+
     // Line breaks
     html = html.replace(/\n\n/g, '</p><p>');
     html = html.replace(/\n/g, '<br>');
-    
+
     // Lists (basic)
     html = html.replace(/^\* (.+)/gim, '<li>$1</li>');
     html = html.replace(/^- (.+)/gim, '<li>$1</li>');
     html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
-    
+
     // Blockquotes
     html = html.replace(/^> (.+)/gim, '<blockquote>$1</blockquote>');
-    
+
     // Horizontal rules
     html = html.replace(/^---$/gim, '<hr>');
     html = html.replace(/^\*\*\*$/gim, '<hr>');
-    
+
     // Wrap in paragraphs
-    if (html && !html.includes('<h1>') && !html.includes('<h2>') && !html.includes('<h3>') && 
+    if (html && !html.includes('<h1>') && !html.includes('<h2>') && !html.includes('<h3>') &&
         !html.includes('<ul>') && !html.includes('<blockquote>') && !html.includes('<pre>')) {
         html = `<p>${html}</p>`;
     }
-    
+
     return html;
 };
 
@@ -326,8 +282,8 @@ const insertMarkdown = (syntax, type) => {
     const end = textarea.selectionEnd;
     const selectedText = markdown.value.substring(start, end);
     let newText = '';
-    
-    switch(type) {
+
+    switch (type) {
         case 'heading':
             newText = `# ${selectedText || 'Heading'}`;
             break;
@@ -353,9 +309,9 @@ const insertMarkdown = (syntax, type) => {
             newText = `\`\`\`\n${selectedText || 'Code block'}\n\`\`\``;
             break;
     }
-    
+
     markdown.value = markdown.value.substring(0, start) + newText + markdown.value.substring(end);
-    
+
     // Set cursor position
     setTimeout(() => {
         textarea.focus();
@@ -581,7 +537,7 @@ Your Name - [@your-twitter](https://twitter.com/your-twitter)
 
 Project Link: [https://github.com/your-username/your-project](https://github.com/your-username/your-project)`
     };
-    
+
     markdown.value = samples[type] || '';
     if (livePreview.value) convert();
 };
