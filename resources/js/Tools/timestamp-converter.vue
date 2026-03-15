@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Unix Timestamp Converter – ToolHub</title>
+        <title>Unix Timestamp Converter – WebToolStack</title>
         <meta
             name="description"
             content="Convert between UNIX timestamp and a human-readable date. Supports seconds and milliseconds."

@@ -7,7 +7,7 @@
             >
                 <div class="flex items-center gap-6">
                     <a href="/" class="text-2xl font-bold text-blue-600">
-                        ToolHub
+                        WebToolStack
                     </a>
 
                     <nav class="hidden md:flex gap-6 text-gray-600">

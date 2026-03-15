@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>ToolHub - Free Online Developer Tools</title>
+        <title>WebToolStack - Free Online Developer Tools</title>
 
         <!-- Standard SEO -->
         <meta name="description" content="Free online tools for developers including JSON formatter, UUID generator and password generator." />
@@ -10,7 +10,7 @@
         <!-- Open Graph / Social -->
         <meta
             property="og:title"
-            content="ToolHub - Free Online Developer Tools"
+            content="WebToolStack - Free Online Developer Tools"
         />
         <meta
             property="og:description"
