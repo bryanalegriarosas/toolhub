@@ -12,7 +12,7 @@
         <meta property="og:description" :content="tool.description" />
     </Head>
 
-    <MainLayout :tools="$page.props.tools">
+    <MainLayout>
         <component :is="component" />
     </MainLayout>
 </template>

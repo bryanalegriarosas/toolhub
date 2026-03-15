@@ -6,7 +6,7 @@
         <meta property="og:description" content="Browse all the free online developer tools available on ToolHub." />
     </Head>
 
-    <MainLayout :tools="tools">
+    <MainLayout>
         <div class="max-w-7xl mx-auto py-2 space-y-4">
             <h1 class="text-3xl font-bold">Todas las herramientas</h1>
 
@@ -22,11 +22,11 @@
 </template>
 
 <script setup>
+import { usePage } from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ToolCard from "@/Components/ToolCard.vue";
 import { Head } from "@inertiajs/vue3";
 
-const props = defineProps({
-    tools: Array,
-});
+const page = usePage();
+const tools = page.props.tools;
 </script>

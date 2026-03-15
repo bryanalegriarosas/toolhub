@@ -1,23 +1,11 @@
 <?php
 
 //use App\Http\Controllers\ProfileController;
-use App\Models\Category;
-use App\Models\Tool;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ToolsController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'tools' => Tool::where('active', true)->get()
-    ]);
-});
-
-// list all tools (used by the "Ver todas las herramientas" link)
-Route::get('/tools', function () {
-    return Inertia::render('Tools/Index', [
-        'tools' => Tool::where('active', true)->get(),
-    ]);
-});
 
 /*
 Route::get('/dashboard', function () {
@@ -33,73 +21,25 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 */
 
-Route::get('/tools/{slug}', function ($slug) {
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy']);
+Route::get('/terms-of-service', [HomeController::class, 'termsOfService']);
+Route::get('/cookie-policy', [HomeController::class, 'cookiePolicy']);
+Route::get('/about', [HomeController::class, 'about']);
 
-    $tool = Tool::where('slug', $slug)->firstOrFail();
-
-    return Inertia::render('Tools/ToolLoader', [
-        'tool' => $tool
-    ]);
-
+Route::prefix('contact')->group(function () {
+    Route::get('', [HomeController::class, 'contact']);
+    Route::post('', [ContactController::class, 'store'])->name('contact.store');
 });
 
-Route::get('/category/{slug}', function ($slug) {
+Route::prefix('/tools')->group(function () {
+    Route::get('', [ToolsController::class, 'index']);
 
-    $category = Category::where('slug', $slug)
-        ->with('tools')
-        ->firstOrFail();
-
-    return Inertia::render('Category', [
-        'category' => $category
-    ]);
+    Route::prefix('{slug}')->group(function () {
+        Route::get('', [ToolsController::class, 'show']);
+    });
 });
 
-Route::get('/developer-tools', function () {
-    $category = Category::where('slug', 'developer-tools')
-        ->with('tools')
-        ->firstOrFail();
-    
-    return Inertia::render('Category', [
-        'category' => $category
-    ]);
-});
-
-Route::get('/security-tools', function () {
-    $category = Category::where('slug', 'security-tools')
-        ->with('tools')
-        ->firstOrFail();
-    
-    return Inertia::render('Category', [
-        'category' => $category
-    ]);
-});
-
-Route::get('/encoding-tools', function () {
-    $category = Category::where('slug', 'encoding-tools')
-        ->with('tools')
-        ->firstOrFail();
-    
-    return Inertia::render('Category', [
-        'category' => $category
-    ]);
-});
-
-Route::get('/privacy-policy', function () {
-    return Inertia::render('PrivacyPolicy');
-});
-
-Route::get('/terms-of-service', function () {
-    return Inertia::render('TermsOfService');
-});
-
-Route::get('/cookie-policy', function () {
-    return Inertia::render('CookiePolicy');
-});
-
-Route::get('/about', function () {
-    return Inertia::render('About');
-});
-
-Route::get('/contact', function () {
-    return Inertia::render('Contact');
+Route::prefix('/category')->group(function () {
+    Route::get('{slug}', [CategoriesController::class, 'show']);
 });

@@ -16,7 +16,7 @@
             content="Free online tools for developers including JSON formatter, UUID generator and password generator." />
         <meta property="og:type" content="website" />
     </Head>
-    <MainLayout :tools="tools">
+    <MainLayout>
         <div class="space-y-8">
             <!-- HERO -->
             <div
@@ -30,7 +30,7 @@
                 </p>
 
                 <p class="opacity-90 mb-2">
-                    More than {{ props.tools.length }} tools available
+                    More than {{ tools.length }} tools available
                 </p>
 
                 <div class="flex justify-center gap-6 text-sm opacity-90 mt-4">
@@ -92,16 +92,16 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ToolCard from "@/Components/ToolCard.vue";
 import ToolIcon from "@/Components/ToolIcon.vue";
 import { Link } from "@inertiajs/vue3";
 import { Head } from "@inertiajs/vue3";
 
-const props = defineProps({
-    tools: Array,
-    categories: Array,
-});
+const page = usePage();
+const tools = page.props.tools;
+const categories = page.props.categories;
 
 const search = ref("");
 const selectedIndex = ref(-1);
@@ -113,7 +113,7 @@ const filteredTools = computed(() => {
         return [];
     }
 
-    const list = props.tools.filter((tool) =>
+    const list = tools.filter((tool) =>
         tool.name.toLowerCase().includes(q),
     );
     // reset selection if list shrinks
@@ -123,15 +123,15 @@ const filteredTools = computed(() => {
     return list;
 });
 
-function moveSelection(delta) {
+const moveSelection = (delta) => {
     if (filteredTools.value.length === 0) return;
     let newIndex = selectedIndex.value + delta;
     if (newIndex < 0) newIndex = filteredTools.value.length - 1;
     if (newIndex >= filteredTools.value.length) newIndex = 0;
     selectedIndex.value = newIndex;
-}
+};
 
-function activateSelection() {
+const activateSelection = () => {
     if (
         selectedIndex.value >= 0 &&
         selectedIndex.value < filteredTools.value.length
@@ -139,11 +139,9 @@ function activateSelection() {
         const slug = filteredTools.value[selectedIndex.value].slug;
         goToTool(slug);
     }
-}
+};
 
-function goToTool(slug) {
-    // simple navigation; Inertia link already present on each item,
-    // but this helps keyboard activate
+const goToTool = (slug) => {
     window.location.href = `/tools/${slug}`;
-}
+};
 </script>

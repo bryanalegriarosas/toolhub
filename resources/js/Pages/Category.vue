@@ -7,7 +7,7 @@
         />
     </Head>
 
-    <MainLayout :tools="$page.props.tools">
+    <MainLayout>
         <div class="py-6">
             <h1 class="text-3xl font-bold mb-6">
                 {{ category.name }}

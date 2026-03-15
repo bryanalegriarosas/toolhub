@@ -28,25 +28,11 @@
                 </h3>
 
                 <ul class="space-y-2 text-sm">
-
-                    <li>
-                        <a href="/developer-tools" class="hover:text-white">
-                            Developer Tools
+                    <li v-for="category in categories" :key="category.id">
+                        <a :href="'/category/' + category.slug" class="hover:text-white">
+                            {{ category.name }}
                         </a>
                     </li>
-
-                    <li>
-                        <a href="/encoding-tools" class="hover:text-white">
-                            Encoding Tools
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/security-tools" class="hover:text-white">
-                            Security Tools
-                        </a>
-                    </li>
-
                 </ul>
 
             </div>
@@ -111,6 +97,9 @@
 
 <script setup>
 
+const props = defineProps({
+    categories: Array,
+});
 const year = new Date().getFullYear()
 
 </script>

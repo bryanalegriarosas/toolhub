@@ -107,7 +107,7 @@
             </main>
         </div>
 
-        <Footer></Footer>
+        <Footer :categories="page.props.categories"></Footer>
     </div>
 </template>
 
@@ -117,18 +117,13 @@ import { Link, usePage } from "@inertiajs/vue3";
 import ToolIcon from "@/Components/ToolIcon.vue";
 import Footer from "@/Components/Footer.vue";
 
-const props = defineProps({
-    tools: Array,
-});
-
 const page = usePage();
 
 const search = ref("");
 const mobileMenuOpen = ref(false);
 
-// unify tools from prop or shared page props
 const allTools = computed(() => {
-    return props.tools ?? page.props.tools ?? [];
+    return page.props.tools ?? [];
 });
 
 const filteredTools = computed(() => {

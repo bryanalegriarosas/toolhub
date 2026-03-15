@@ -1,5 +1,5 @@
 <template>
-    <MainLayout :tools="$page.props.tools">
+    <MainLayout>
         <template #sidebar>
             <!-- Empty sidebar to hide it -->
         </template>
