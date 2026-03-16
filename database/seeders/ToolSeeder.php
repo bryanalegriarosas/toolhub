@@ -295,6 +295,62 @@ class ToolSeeder extends Seeder
                 "description" => "Generate random numbers between a minimum and maximum value.",
                 "category_id" => 1
             ],
+            [
+                "name" => "Image to PDF",
+                "slug" => "image-to-pdf",
+                "icon" => "FileImage",
+                "description" => "Convert images into a single PDF document online.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "PNG to JPG",
+                "slug" => "png-to-jpg",
+                "icon" => "Image",
+                "description" => "Convert PNG images to JPG format quickly and easily.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "JPG to PNG",
+                "slug" => "jpg-to-png",
+                "icon" => "Image",
+                "description" => "Convert JPG images to PNG format instantly.",
+                "category_id" => 4
+            ],
+            [
+                "name" => "Text to Speech",
+                "slug" => "text-to-speech",
+                "icon" => "Volume2",
+                "description" => "Convert text into natural sounding speech online.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "Speech to Text",
+                "slug" => "speech-to-text",
+                "icon" => "Mic",
+                "description" => "Convert spoken audio into written text instantly.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "HTML Minifier",
+                "slug" => "html-minifier",
+                "icon" => "Code",
+                "description" => "Minify HTML code to reduce file size and improve loading speed.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "CSS Minifier",
+                "slug" => "css-minifier",
+                "icon" => "Code",
+                "description" => "Minify CSS code to optimize performance and reduce file size.",
+                "category_id" => 1
+            ],
+            [
+                "name" => "JavaScript Minifier",
+                "slug" => "javascript-minifier",
+                "icon" => "Code",
+                "description" => "Minify JavaScript code to reduce file size and improve website performance.",
+                "category_id" => 1
+            ],
         ];
 
         foreach ($tools as $tool) {

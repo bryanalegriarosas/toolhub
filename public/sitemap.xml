@@ -124,6 +124,30 @@
     <loc>http://localhost/tools/random-number-generator</loc>
             </url>
     <url>
+    <loc>http://localhost/tools/image-to-pdf</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/png-to-jpg</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/jpg-to-png</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/text-to-speech</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/speech-to-text</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/html-minifier</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/css-minifier</loc>
+            </url>
+    <url>
+    <loc>http://localhost/tools/javascript-minifier</loc>
+            </url>
+    <url>
     <loc>http://localhost/category/developer-tools</loc>
             </url>
     <url>
