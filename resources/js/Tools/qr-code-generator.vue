@@ -233,7 +233,7 @@
                 </div>
             </div>
 
-            <ToolSeoContent title="QR Code Generator" :description="seoDescription" :steps="seoSteps" :faqs="seoFaqs" />
+            <ToolSeoContent title="QR Code Generator" :description="seoDescription" :steps="seoSteps" :examples="seoExamples" :faqs="seoFaqs" />
 
         </div>
     </div>
@@ -474,7 +474,34 @@ const clearHistory = () => {
     history.value = [];
 };
 
-const seoDescription = "Advanced QR code generator with multiple content types, customization options, and batch generation. Create QR codes for URLs, text, email, phone, WiFi, and SMS with custom colors and sizes.";
+const seoExamples = [
+    {
+        title: "Website URL QR Code",
+        description: "Create QR code for website navigation",
+        code: "Type: URL | Content: https://example.com | Size: Medium | Colors: Default",
+        result: "QR code that directs users to website when scanned"
+    },
+    {
+        title: "WiFi Access QR Code",
+        description: "Generate QR code for automatic WiFi connection",
+        code: "Type: WiFi | SSID: OfficeNetwork | Password: SecurePass123 | Security: WPA2",
+        result: "QR code for instant WiFi network connection",
+        steps: [
+            "Select WiFi content type",
+            "Enter network name (SSID)",
+            "Add password and security type",
+            "Generate and place QR code for guests"
+        ]
+    },
+    {
+        title: "Business Card QR Code",
+        description: "Create contact information QR code",
+        code: "Type: vCard | Content: John Doe, CEO, john@example.com, +1234567890",
+        result: "QR code with complete contact information"
+    }
+];
+
+const seoDescription = "Advanced QR code generator with multiple content types, customization options, and batch generation. Create QR codes for URLs, WiFi, contacts, and more with custom colors and sizes.";
 
 const seoSteps = [
     "Choose your content type (Text, URL, Email, Phone, WiFi, or SMS)",

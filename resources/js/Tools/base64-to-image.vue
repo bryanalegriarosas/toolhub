@@ -139,6 +139,7 @@
             title="Base64 to Image Converter"
             description="Free online tool to convert Base64 strings back to images. Supports all image formats with validation, preview, and download options."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
 
@@ -148,6 +149,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Restore Embedded Image",
+        description: "Convert Base64 image back to file format",
+        code: "Input: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==",
+        result: "Output: 1x1 pixel red square image (restored from Base64)"
+    },
+    {
+        title: "Database Image Recovery",
+        description: "Extract images stored as Base64 in database",
+        code: "Input: Base64 string from database blob field | Format: Auto-detect",
+        result: "Output: Original image file (JPEG/PNG/GIF format preserved)",
+        steps: [
+            "Copy Base64 string from database",
+            "Paste in converter tool",
+            "Verify image format detection",
+            "Download restored image file"
+        ]
+    },
+    {
+        title: "API Response Image",
+        description: "Convert API Base64 response to image",
+        code: "Input: Base64 from JSON API response | Format: JPEG",
+        result: "Output: Downloadable JPEG image from API data"
+    }
+];
 
 const steps = [
     'Paste your Base64 string or load a sample',

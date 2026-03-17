@@ -81,7 +81,7 @@
             </div>
             <ToolSeoContent title="Password Generator"
                 description="Create strong passwords by customizing length and character sets." :steps="steps"
-                :faqs="faqs" />
+                :examples="examples" :faqs="faqs" />
 
         </div>
     </div>
@@ -95,6 +95,46 @@ const steps = [
     "Choose desired length and character sets",
     "Click generate to create a password",
     "Copy or download passwords, and review history",
+];
+
+const examples = [
+    {
+        title: "Strong Password for Website",
+        description: "Generate a secure password for user registration",
+        code: "Length: 16, Include: Uppercase, Lowercase, Numbers, Symbols",
+        result: "Kj8#mP2$nL9@xQ5!",
+        steps: [
+            "Set length to 16 characters",
+            "Enable all character types (uppercase, lowercase, numbers, symbols)",
+            "Click 'Generate'",
+            "Copy the generated password"
+        ]
+    },
+    {
+        title: "Simple PIN Code",
+        description: "Generate a numeric PIN for mobile devices",
+        code: "Length: 6, Include: Numbers only",
+        result: "274936",
+        steps: [
+            "Set length to 6",
+            "Enable only 'Numbers' option",
+            "Disable other character types",
+            "Click 'Generate'"
+        ]
+    },
+    {
+        title: "Passphrase-Style Password",
+        description: "Create a readable but secure password without symbols",
+        code: "Length: 20, Include: Uppercase, Lowercase, Numbers, Exclude similar characters",
+        result: "TrustedBlueSky48",
+        steps: [
+            "Set length to 20",
+            "Enable uppercase, lowercase, numbers",
+            "Disable symbols",
+            "Enable 'Exclude similar characters'",
+            "Generate multiple options until you find one memorable"
+        ]
+    }
 ];
 
 const faqs = [

@@ -106,6 +106,7 @@
             title="HTML Minifier"
             description="Compress HTML code by removing unnecessary whitespace, comments, and formatting to reduce file size and improve page load speed."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
 
@@ -125,6 +126,57 @@ const options = ref({
     removeWhitespace: true,
     preserveLineBreaks: false
 });
+
+const examples = [
+    {
+        title: "Minifying HTML Document",
+        description: "Compress HTML code by removing whitespace and comments",
+        code: `<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+    <!-- This is a comment -->
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome</h1>
+        <p>Hello World!</p>
+    </div>
+</body>
+</html>`,
+        result: "<!DOCTYPE html><html><head><title>My Page</title></head><body><div class=\"container\"><h1>Welcome</h1><p>Hello World!</p></div></body></html>"
+    },
+    {
+        title: "Production HTML Optimization",
+        description: "Optimize HTML for production deployment",
+        code: `<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized Page</title>
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>`,
+        result: "<html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Optimized Page</title><link rel=\"stylesheet\" href=\"styles.css\"></head><body><header><nav><ul><li><a href=\"#home\">Home</a></li><li><a href=\"#about\">About</a></li></ul></nav></header></body></html>",
+        steps: [
+            "Paste your HTML code",
+            "Enable 'Remove comments' and 'Remove whitespace'",
+            "Click 'Minify'",
+            "Copy optimized HTML for production"
+        ]
+    }
+];
 
 const steps = [
     "Paste your HTML code into the input textarea",

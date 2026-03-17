@@ -161,7 +161,7 @@
         <!-- SEO Content -->
         <ToolSeoContent title="Text to Speech Converter"
             description="Free online text-to-speech converter with natural voices. Support for multiple languages, customizable speed, pitch, and volume. Convert text to audio instantly."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
     </div>
 
@@ -205,6 +205,33 @@ const languages = ref([
 ]);
 
 // SEO Content
+const examples = [
+    {
+        title: "Educational Content Narration",
+        description: "Convert educational text to audio for learning",
+        code: "Text: 'The solar system consists of eight planets orbiting around the Sun. Mercury is the closest planet to the Sun, while Neptune is the farthest.'",
+        result: "Natural voice narration with clear pronunciation for educational materials"
+    },
+    {
+        title: "Accessibility Audio",
+        description: "Create audio versions for visually impaired users",
+        code: "Text: 'Welcome to our website. Use the tab key to navigate through menu items. Press enter to select links and buttons.'",
+        result: "Clear audio instructions with moderate speed for accessibility",
+        steps: [
+            "Write accessibility text content",
+            "Select appropriate voice and speed",
+            "Test audio quality and clarity",
+            "Download for website integration"
+        ]
+    },
+    {
+        title: "Podcast Script Audio",
+        description: "Convert podcast script to audio narration",
+        code: "Text: 'In today episode, we explore the fascinating world of artificial intelligence and its impact on modern technology.'",
+        result: "Professional narration suitable for podcast production"
+    }
+];
+
 const steps = [
     'Enter or paste your text in the text area (up to 5000 characters)',
     'Select your preferred language and voice from the dropdown menus',

@@ -97,6 +97,7 @@
             title="Base64 Encoder"
             description="Convert text to Base64 encoding quickly."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -110,6 +111,33 @@ const steps = [
     "Enter or load text",
     "Click encode (or use auto)",
     "Copy or download the result",
+];
+
+const examples = [
+    {
+        title: "Encoding Text to Base64",
+        description: "Convert plain text to Base64 for safe transmission",
+        code: "Hello World!",
+        result: "SGVsbG8gV29ybGQh"
+    },
+    {
+        title: "Encoding JSON for API",
+        description: "Encode JSON data for API requests",
+        code: `{"user":"john","status":"active"}`,
+        result: "eyJ1c2VyIjoiSm9obiIsInN0YXR1cyI6ImFjdGl2ZSJ9"
+    },
+    {
+        title: "Encoding Special Characters",
+        description: "Handle special characters and international text",
+        code: "Café ☕ & Crème brûlée",
+        result: "Q2Fmw6kg4pCUICYgQ3LDqG1lIGJyw7Juw6ls",
+        steps: [
+            "Paste text with special characters",
+            "Click 'Encode' button",
+            "Copy the Base64 result",
+            "Use in URLs or data transmission"
+        ]
+    }
 ];
 
 const faqs = [

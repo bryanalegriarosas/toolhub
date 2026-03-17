@@ -131,7 +131,7 @@
         <!-- SEO Content -->
         <ToolSeoContent title="PNG to JPG Converter"
             description="Free online tool to convert PNG images to JPG format. Customize quality, background color, and size. Fast, secure conversion with instant download."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
     </div>
 
@@ -157,6 +157,33 @@ const resizeOption = ref('original')
 const outputName = ref('')
 
 // SEO Content
+const examples = [
+    {
+        title: "Transparent PNG to JPG",
+        description: "Convert PNG with transparency to JPG",
+        code: "Input: logo-transparent.png (with alpha channel) | Background: White | Quality: 90%",
+        result: "Output: logo-white-bg.jpg (white background, no transparency)"
+    },
+    {
+        title: "High-Quality Photo Conversion",
+        description: "Convert PNG photo to JPG for web use",
+        code: "Input: photo-portrait.png (8MB) | Quality: 85% | Size: 1920x1080",
+        result: "Output: photo-portrait.jpg (1.2MB) - optimized for web",
+        steps: [
+            "Upload high-quality PNG photo",
+            "Set quality to 85% for good compression",
+            "Choose white background for consistency",
+            "Download optimized JPG for web"
+        ]
+    },
+    {
+        title: "Social Media Image",
+        description: "Convert PNG to JPG for social platforms",
+        code: "Input: social-post.png (2MB) | Quality: 75% | Background: Transparent (auto white)",
+        result: "Output: social-post.jpg (400KB) - perfect for Instagram/Facebook"
+    }
+];
+
 const steps = [
     'Select a PNG file using the file selector',
     'Configure conversion options: quality, background color, and size',

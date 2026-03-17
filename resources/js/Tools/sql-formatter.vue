@@ -175,7 +175,7 @@
 
             <ToolSeoContent title="SQL Formatter - Query Beautifier"
                 description="Format and beautify SQL queries with proper indentation and syntax highlighting."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
         </div>
     </div>
 </template>
@@ -183,6 +183,27 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Complex SELECT Query",
+        description: "Format a complex SELECT query with JOINs and WHERE clauses",
+        code: "SELECT u.name, u.email, p.title, p.created_at FROM users u JOIN posts p ON u.id = p.user_id WHERE u.status = 'active' AND p.published = true ORDER BY p.created_at DESC LIMIT 10",
+        result: "SELECT\n    u.name,\n    u.email,\n    p.title,\n    p.created_at\nFROM users u\nJOIN posts p ON u.id = p.user_id\nWHERE u.status = 'active'\n  AND p.published = true\nORDER BY p.created_at DESC\nLIMIT 10"
+    },
+    {
+        title: "Multi-Table Query with Aggregation",
+        description: "Format SQL query with GROUP BY and aggregate functions",
+        code: "SELECT c.name, COUNT(o.id) as order_count, SUM(o.total) as revenue FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE o.created_at >= '2024-01-01' GROUP BY c.id, c.name HAVING COUNT(o.id) > 5 ORDER BY revenue DESC",
+        result: "SELECT\n    c.name,\n    COUNT(o.id) as order_count,\n    SUM(o.total) as revenue\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nWHERE o.created_at >= '2024-01-01'\nGROUP BY c.id, c.name\nHAVING COUNT(o.id) > 5\nORDER BY revenue DESC",
+        steps: [
+            "Paste complex SQL query",
+            "Choose indentation style (4 spaces recommended)",
+            "Enable auto-format for real-time formatting",
+            "Copy formatted SQL for documentation"
+        ]
+    }
+];
 
 const steps = [
     "Enter or paste your SQL query",

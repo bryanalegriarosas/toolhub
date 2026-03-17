@@ -68,7 +68,7 @@
             </div>
             <ToolSeoContent title="UUID Generator"
                 description="Create universally unique identifiers (UUIDs) with configurable options and history."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
         </div>
     </div>
 </template>
@@ -81,6 +81,43 @@ const steps = [
     "Set the number of UUIDs to generate",
     "Toggle uppercase if needed",
     "Click generate and copy or download results",
+];
+
+const examples = [
+    {
+        title: "Generate Single UUID",
+        description: "Create one unique identifier for database records",
+        code: "Count: 1, Uppercase: No",
+        result: "550e8400-e29b-41d4-a716-446655440000"
+    },
+    {
+        title: "Generate Multiple UUIDs",
+        description: "Create multiple UUIDs at once for batch operations",
+        code: "Count: 5, Uppercase: Yes",
+        result: `550E8400-E29B-41D4-A716-446655440001
+550E8400-E29B-41D4-A716-446655440002
+550E8400-E29B-41D4-A716-446655440003
+550E8400-E29B-41D4-A716-446655440004
+550E8400-E29B-41D4-A716-446655440005`,
+        steps: [
+            "Set count to 5",
+            "Enable uppercase option",
+            "Click 'Generate'",
+            "Copy all UUIDs for batch processing"
+        ]
+    },
+    {
+        title: "Database Primary Key",
+        description: "Generate UUID for use as primary key in databases",
+        code: "Count: 1, Uppercase: No",
+        result: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        steps: [
+            "Generate single UUID",
+            "Copy for database insertion",
+            "Use as primary key in your table",
+            "Ensures global uniqueness across systems"
+        ]
+    }
 ];
 
 const faqs = [

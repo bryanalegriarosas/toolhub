@@ -142,6 +142,7 @@
             title="Image to Base64 Converter"
             description="Free online tool to convert images to Base64 strings. Supports all image formats with preview, copy functionality, and download options."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
 
@@ -151,6 +152,33 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Logo for CSS Embedding",
+        description: "Convert logo to Base64 for CSS background",
+        code: "Input: company-logo.png (5KB) | Output: Base64 string starting with 'data:image/png;base64,iVBORw0KGgoAAAANS...'",
+        result: "CSS usage: background-image: url('data:image/png;base64,iVBORw0KGgoAAAANS...');"
+    },
+    {
+        title: "Icon for HTML Email",
+        description: "Convert icon to Base64 for email templates",
+        code: "Input: email-icon.jpg (2KB) | Output: Base64 string for email embedding",
+        result: "HTML usage: <img src='data:image/jpeg;base64,/9j/4AAQSkZJRgABA...' alt='Email Icon'>",
+        steps: [
+            "Upload small icon or logo",
+            "Copy generated Base64 string",
+            "Paste in HTML email template",
+            "Test email rendering across clients"
+        ]
+    },
+    {
+        title: "Profile Picture for API",
+        description: "Convert profile image to Base64 for API payload",
+        code: "Input: avatar.jpg (15KB) | Output: Base64 string for JSON API",
+        result: "JSON payload: { 'profile_image': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABA...' }"
+    }
+];
 
 const steps = [
     'Upload your image using the file selector or drag and drop',

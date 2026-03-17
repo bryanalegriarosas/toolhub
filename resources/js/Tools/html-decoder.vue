@@ -95,6 +95,7 @@
             title="HTML Decoder"
             description="Decode HTML entities back to characters with file input and history support."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -108,6 +109,33 @@ const steps = [
     "Paste encoded HTML or load a file",
     "Decoded output appears below",
     "Copy, download or save to history",
+];
+
+const examples = [
+    {
+        title: "Decoding HTML Entities",
+        description: "Convert HTML entities back to readable characters",
+        code: "&lt;div class=&#39;container&#39;&gt;Hello &amp; Welcome!&lt;/div&gt;",
+        result: "<div class='container'>Hello & Welcome!</div>"
+    },
+    {
+        title: "Decoding User Content",
+        description: "Decode safely stored user input for display",
+        code: "&lt;script&gt;alert(&#39;safe now&#39;)&lt;/script&gt;",
+        result: "<scr" + "ipt>alert('safe now')</scr" + "ipt>",
+        steps: [
+            "Retrieve encoded content from database",
+            "Decode HTML entities",
+            "Display in controlled environment",
+            "Ensure proper sanitization"
+        ]
+    },
+    {
+        title: "Decoding Code Examples",
+        description: "Convert encoded code examples back to readable format",
+        code: "&lt;p&gt;Use &amp;lt;strong&amp;gt; for bold text&lt;/p&gt;",
+        result: "<p>Use <strong> for bold text</p>"
+    }
 ];
 
 const faqs = [

@@ -131,7 +131,7 @@
             <!-- SEO Content -->
             <ToolSeoContent title="PDF Merger"
                 description="Free online tool to merge multiple PDF files into one document. Reorder pages, customize output, and download instantly."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
 
         </div>
     </div>
@@ -141,6 +141,33 @@
 import { ref, computed } from "vue";
 import { PDFDocument } from "pdf-lib";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Combine Invoice Pages",
+        description: "Merge multiple invoice PDFs into monthly report",
+        code: "Files: invoice-jan.pdf, invoice-feb.pdf, invoice-mar.pdf",
+        result: "Output: quarterly-invoices-2024.pdf (3 files merged)"
+    },
+    {
+        title: "Create Document Portfolio",
+        description: "Combine resume, cover letter and references",
+        code: "Files: resume.pdf, cover-letter.pdf, references.pdf",
+        result: "Output: job-application-package.pdf (complete portfolio)",
+        steps: [
+            "Upload resume as first file",
+            "Add cover letter as second",
+            "Include references last",
+            "Reorder if needed and merge"
+        ]
+    },
+    {
+        title: "Merge Research Papers",
+        description: "Combine related research documents",
+        code: "Files: chapter1.pdf, chapter2.pdf, appendix.pdf",
+        result: "Output: complete-research-paper.pdf (academic document)"
+    }
+];
 
 const steps = [
     'Upload multiple PDF files using drag & drop',

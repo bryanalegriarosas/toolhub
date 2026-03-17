@@ -131,6 +131,7 @@
             title="Text Case Converter"
             description="Convert text into various cases with history and file support."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -139,6 +140,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Programming Variables",
+        description: "Convert text to different programming case formats",
+        code: "Input: User Profile Management System",
+        result: "UPPERCASE: USER PROFILE MANAGEMENT SYSTEM | lowercase: user profile management system | camelCase: userProfileManagementSystem | snake_case: user_profile_management_system | kebab-case: user-profile-management-system"
+    },
+    {
+        title: "CSS Class Names",
+        description: "Convert text to CSS-friendly kebab-case",
+        code: "Input: Main Navigation Header",
+        result: "kebab-case: main-navigation-header (perfect for CSS classes)",
+        steps: [
+            "Enter descriptive text for CSS class",
+            "Copy kebab-case result",
+            "Use in HTML class attributes",
+            "Maintain consistent naming convention"
+        ]
+    },
+    {
+        title: "JavaScript Variables",
+        description: "Convert to camelCase for JavaScript variables",
+        code: "Input: Shopping Cart Total Price",
+        result: "camelCase: shoppingCartTotalPrice (ideal for JS variables)"
+    }
+];
 
 const steps = [
     "Paste or load text",

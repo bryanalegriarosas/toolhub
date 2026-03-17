@@ -229,6 +229,7 @@
             title="Diff Checker - Text Comparison Tool"
             description="Compare two texts and find differences with highlighted changes and statistics."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -237,6 +238,33 @@
 <script setup>
 import { ref } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Code Review Comparison",
+        description: "Compare different versions of code",
+        code: "Text 1: function calculateTotal(price, tax) { return price * (1 + tax); } | Text 2: function calculateTotal(price, tax) { return price * (1 + tax) * 1.1; }",
+        result: "Highlights: Added '* 1.1' for service fee calculation"
+    },
+    {
+        title: "Document Revision Tracking",
+        description: "Track changes in document revisions",
+        code: "Text 1: The quick brown fox jumps over the lazy dog. | Text 2: The quick brown fox jumps over the sleeping dog.",
+        result: "Changes: 'lazy' → 'sleeping' - improved word choice",
+        steps: [
+            "Paste original document in left panel",
+            "Add revised version in right panel",
+            "Review highlighted differences",
+            "Accept or reject changes as needed"
+        ]
+    },
+    {
+        title: "Configuration File Changes",
+        description: "Compare configuration file modifications",
+        code: "Text 1: timeout: 30 | retries: 3 | debug: false | Text 2: timeout: 60 | retries: 5 | debug: true",
+        result: "Modified: timeout 30→60, retries 3→5, debug false→true"
+    }
+];
 
 const steps = [
     "Enter or load two texts to compare",

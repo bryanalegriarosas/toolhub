@@ -163,6 +163,7 @@
             title="JPG to PDF Converter"
             description="Free online tool to convert JPG and other images to PDF. Multiple images, custom layouts, page sizes, and quality settings."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
 
@@ -173,6 +174,33 @@
 import { ref, computed } from "vue";
 import jsPDF from "jspdf";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Photo Album to PDF",
+        description: "Convert multiple photos into PDF album",
+        code: "Input: vacation-1.jpg, vacation-2.jpg, vacation-3.jpg | Layout: One per page | Size: A4",
+        result: "Output: vacation-album.pdf (3 pages, one photo per page)"
+    },
+    {
+        title: "Document Scanning PDF",
+        description: "Convert scanned document images to PDF",
+        code: "Input: scan-page1.jpg, scan-page2.jpg | Layout: Original size | Quality: High",
+        result: "Output: document-scan.pdf (high-quality document PDF)",
+        steps: [
+            "Upload scanned document pages",
+            "Arrange pages in correct order",
+            "Set high quality for text clarity",
+            "Download professional document PDF"
+        ]
+    },
+    {
+        title: "Portfolio PDF Creation",
+        description: "Create portfolio PDF from artwork images",
+        code: "Input: artwork-1.jpg, artwork-2.jpg | Layout: Fit to page | Size: Letter",
+        result: "Output: artist-portfolio.pdf (professional portfolio)"
+    }
+];
 
 const steps = [
     'Upload multiple JPG or image files using drag & drop',

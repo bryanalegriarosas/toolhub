@@ -102,6 +102,7 @@
             title="JWT Decoder"
             description="Decode JSON Web Tokens (JWT) to inspect header, payload, and signature with history support."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -110,6 +111,33 @@
 <script setup>
 import { ref } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Authentication Token",
+        description: "Decode JWT authentication token",
+        code: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        result: "Header: {alg: 'HS256', typ: 'JWT'} | Payload: {sub: '1234567890', name: 'John Doe', iat: 1516239022}"
+    },
+    {
+        title: "API Access Token",
+        description: "Decode API access JWT token",
+        code: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyMTIzIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl0sImV4cCI6MTY5NDEyMzQ1Nn0.signature_here",
+        result: "Header: {alg: 'RS256', typ: 'JWT'} | Payload: {userId: 'user123', roles: ['admin', 'user'], exp: 1694123456}",
+        steps: [
+            "Paste JWT token from API response",
+            "View decoded header and payload",
+            "Check expiration time (exp claim)",
+            "Verify user roles and permissions"
+        ]
+    },
+    {
+        title: "OAuth2 Token",
+        description: "Decode OAuth2 access token",
+        code: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJ3ZWJfYXBwIiwic2NvcGUiOiJyZWFkOndyaXRlIiwiYXVkIjoiaHR0cHM6Ly9hcGkuZXhhbXBsZS5jb20ifQ.signature",
+        result: "Header: {alg: 'RS256', typ: 'JWT'} | Payload: {client_id: 'web_app', scope: 'read:write', aud: 'https://api.example.com'}"
+    }
+];
 
 const steps = [
     "Paste a JWT or load a file",

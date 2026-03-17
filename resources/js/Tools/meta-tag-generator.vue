@@ -218,7 +218,7 @@
             <!-- SEO Content -->
             <ToolSeoContent title="Meta Tag Generator"
                 description="Free online tool to generate SEO meta tags, Open Graph, and Twitter cards. Real-time preview, validation, and HTML export."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
 
         </div>
     </div>
@@ -227,6 +227,33 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Blog Post Meta Tags",
+        description: "Generate SEO tags for blog article",
+        code: "Title: How to Learn JavaScript in 2024 | Description: Complete guide to learn JavaScript from scratch with modern best practices and examples. | Keywords: javascript, programming, tutorial, web development",
+        result: "Meta tags optimized for blog post with proper character limits and SEO focus"
+    },
+    {
+        title: "E-commerce Product Page",
+        description: "Create meta tags for product listing",
+        code: "Title: iPhone 15 Pro Max - 256GB - Blue | Description: Buy iPhone 15 Pro Max with 256GB storage in blue. Features A17 Pro chip, titanium design, and advanced camera system. Free shipping. | Keywords: iphone, apple, smartphone, mobile phone",
+        result: "Product-optimized meta tags with e-commerce focus and social media preview",
+        steps: [
+            "Enter product name and key features",
+            "Write compelling description under 160 chars",
+            "Add relevant product keywords",
+            "Configure Open Graph for social sharing"
+        ]
+    },
+    {
+        title: "Local Business Website",
+        description: "Generate meta tags for local business",
+        code: "Title: ABC Plumbing - Emergency Plumbing Services in New York | Description: Professional plumbing services in NYC. 24/7 emergency repairs, licensed plumbers, affordable rates. Call now for service. | Keywords: plumbing, NYC, emergency plumber, local service",
+        result: "Local SEO optimized meta tags with geographic targeting"
+    }
+];
 
 const steps = [
     'Enter basic meta tags (title, description, keywords)',

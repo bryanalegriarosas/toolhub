@@ -73,7 +73,7 @@
 
         <ToolSeoContent title="CSS Minifier"
             description="Compress CSS code by removing unnecessary whitespace, comments, and formatting to reduce file size and improve page load speed."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
     </div>
 
@@ -99,6 +99,55 @@ const steps = [
     "Click the 'Minify' button or let it auto-minify as you type",
     "Copy the minified CSS using the 'Copy Output' button",
     "View statistics to see the compression achieved"
+];
+
+const examples = [
+    {
+        title: "Minifying CSS Styles",
+        description: "Compress CSS code by removing whitespace and comments",
+        code: `/* Main styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}`,
+        result: ".container{max-width:1200px;margin:0 auto;padding:20px}.header{background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,0.1)}"
+    },
+    {
+        title: "Production CSS Optimization",
+        description: "Optimize CSS for production deployment",
+        code: `:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --font-size-base: 16px;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: var(--font-size-base);
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+}`,
+        result: ":root{--primary-color:#3498db;--secondary-color:#2ecc71;--font-size-base:16px}.btn{padding:12px 24px;font-size:var(--font-size-base);background-color:var(--primary-color);color:#fff;border:none;border-radius:4px;cursor:pointer}.btn:hover{background-color:var(--secondary-color)}",
+        steps: [
+            "Paste your CSS code",
+            "Enable 'Remove comments' and 'Remove extra whitespace'",
+            "Click 'Minify'",
+            "Copy the optimized CSS for production"
+        ]
+    }
 ];
 
 const faqs = [

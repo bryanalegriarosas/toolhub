@@ -90,6 +90,7 @@
             title="HTTP Status Code Lookup"
             description="Lookup HTTP status code meanings with history support."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -173,6 +174,33 @@ const downloadHistory = () => {
 const clearHistory = () => {
     history.value = [];
 };
+
+const examples = [
+    {
+        title: "Common Error Codes",
+        description: "Lookup frequently encountered HTTP error codes",
+        code: "404",
+        result: "404 - Not Found: The requested resource could not be found on this server."
+    },
+    {
+        title: "Success Response Codes",
+        description: "Check successful HTTP response codes",
+        code: "200",
+        result: "200 - OK: The request has succeeded. This is the most common HTTP response code.",
+        steps: [
+            "Enter HTTP status code number",
+            "View detailed description and meaning",
+            "Understand server response status",
+            "Use for debugging web applications"
+        ]
+    },
+    {
+        title: "Redirection Codes",
+        description: "Lookup HTTP redirection status codes",
+        code: "301",
+        result: "301 - Moved Permanently: The requested resource has been permanently moved to a new URL."
+    }
+];
 
 const steps = [
     "Enter an HTTP status code in the input box.",

@@ -117,8 +117,9 @@
 
         <ToolSeoContent
             title="Slug Generator"
-            description="Create URL-friendly slugs with custom separators and history tracking."
+            description="Create URL-friendly slugs from any text with customizable separators and stop-word removal."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -133,6 +134,33 @@ const steps = [
     "Choose a separator and whether to strip common words",
     "Copy, download or save the resulting slug",
     "View or download your slug history",
+];
+
+const examples = [
+    {
+        title: "Blog Post URL",
+        description: "Create SEO-friendly URL for blog posts",
+        code: "Input: How to Learn JavaScript Programming in 2024",
+        result: "Slug: how-to-learn-javascript-programming-in-2024"
+    },
+    {
+        title: "Product Page URL",
+        description: "Generate clean product URLs for e-commerce",
+        code: "Input: Apple iPhone 15 Pro Max - 256GB - Blue Titanium",
+        result: "Slug: apple-iphone-15-pro-max-256gb-blue-titanium",
+        steps: [
+            "Enter product title with details",
+            "Use hyphen separator for readability",
+            "Enable 'Remove common words' option",
+            "Copy the SEO-friendly slug"
+        ]
+    },
+    {
+        title: "Article Title with Special Characters",
+        description: "Handle special characters and symbols",
+        code: "Input: C++ Programming: The Complete Guide (2024 Edition)",
+        result: "Slug: c-programming-complete-guide-2024-edition"
+    }
 ];
 
 const faqs = [

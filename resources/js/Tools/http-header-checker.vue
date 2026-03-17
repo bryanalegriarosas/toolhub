@@ -215,6 +215,7 @@
             title="HTTP Header Checker - Web Debugging Tool"
             description="Check and analyze HTTP headers of any URL for web development and debugging."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -223,6 +224,33 @@
 <script setup>
 import { ref } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Website Security Headers",
+        description: "Check security headers of a website",
+        code: "URL: https://example.com",
+        result: "Headers: X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security, Content-Security-Policy"
+    },
+    {
+        title: "API Response Headers",
+        description: "Analyze API endpoint headers",
+        code: "URL: https://api.example.com/users",
+        result: "Headers: Content-Type: application/json, Access-Control-Allow-Origin, Rate-Limit-Limit, Rate-Limit-Remaining",
+        steps: [
+            "Enter API endpoint URL",
+            "Review response headers",
+            "Check rate limiting information",
+            "Verify CORS configuration"
+        ]
+    },
+    {
+        title: "CDN Cache Headers",
+        description: "Check caching headers for performance",
+        code: "URL: https://cdn.example.com/assets/style.css",
+        result: "Headers: Cache-Control: max-age=31536000, ETag, Last-Modified, Content-Encoding: gzip"
+    }
+];
 
 const steps = [
     "Enter a URL to check its HTTP headers",

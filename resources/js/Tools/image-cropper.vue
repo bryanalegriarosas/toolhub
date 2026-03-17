@@ -199,6 +199,7 @@
             title="Image Cropper"
             description="Free online image cropping tool with interactive selection, aspect ratios, preset sizes, and download options. Perfect for social media and web optimization."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
 
@@ -208,6 +209,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Profile Picture Cropping",
+        description: "Crop image to square profile picture",
+        code: "Input: full-body-photo.jpg | Aspect Ratio: 1:1 | Size: 400x400px",
+        result: "Output: profile-picture.jpg (perfect square for social media)"
+    },
+    {
+        title: "YouTube Thumbnail",
+        description: "Create YouTube thumbnail from larger image",
+        code: "Input: landscape-photo.jpg | Aspect Ratio: 16:9 | Size: 1280x720px",
+        result: "Output: youtube-thumbnail.jpg (perfect YouTube dimensions)",
+        steps: [
+            "Upload landscape photo",
+            "Select 16:9 aspect ratio",
+            "Crop to focus on main subject",
+            "Download optimized thumbnail"
+        ]
+    },
+    {
+        title: "Instagram Story",
+        description: "Crop image for Instagram story format",
+        code: "Input: vertical-photo.jpg | Aspect Ratio: 9:16 | Size: 1080x1920px",
+        result: "Output: instagram-story.jpg (full-screen story format)"
+    }
+];
 
 const steps = [
     'Upload your image using the file selector or drag and drop',

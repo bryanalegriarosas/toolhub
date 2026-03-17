@@ -97,6 +97,7 @@
             title="URL Decoder"
             description="Convert URL-encoded text back to original quickly."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -110,6 +111,33 @@ const steps = [
     "Enter or load URL-encoded text",
     "Click decode (or use auto)",
     "Copy or download the result",
+];
+
+const examples = [
+    {
+        title: "Decoding URL Parameters",
+        description: "Decode URL query parameters back to readable text",
+        code: "search%3Fq%3Dhello%20world%20%26%20page%3D1%26category%3Dweb%20development",
+        result: "search?q=hello world & page=1&category=web development"
+    },
+    {
+        title: "Decoding File Paths",
+        description: "Convert URL-encoded file paths back to normal paths",
+        code: "C%3A%2FUsers%2FJohn%20Doe%2FDocuments%2Ffile%20name.txt",
+        result: "C:/Users/John Doe/Documents/file name.txt"
+    },
+    {
+        title: "Decoding International Characters",
+        description: "Handle UTF-8 encoded characters from URLs",
+        code: "Caf%C3%A9%20%26%20Restaurant%20%28Main%20St%29",
+        result: "Café & Restaurant (Main St)",
+        steps: [
+            "Paste URL-encoded text",
+            "Click 'Decode' button",
+            "Copy the readable result",
+            "Use in your application or display to users"
+        ]
+    }
 ];
 
 const faqs = [

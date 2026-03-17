@@ -79,7 +79,7 @@
 
             <ToolSeoContent title="Unix Timestamp Converter"
                 description="A simple converter to switch between UNIX timestamps and human-readable dates. Supports seconds and milliseconds."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
         </div>
     </div>
 </template>
@@ -94,6 +94,33 @@ const steps = [
     "Choose seconds or milliseconds",
     "Click Convert to update the other field",
     "Copy values or clear using the buttons",
+];
+
+const examples = [
+    {
+        title: "Convert Current Time",
+        description: "Convert current timestamp to human-readable date",
+        code: "Timestamp: 1710000000 (seconds)",
+        result: "Date: 2024-03-09 10:00:00"
+    },
+    {
+        title: "JavaScript Date Conversion",
+        description: "Convert JavaScript milliseconds timestamp",
+        code: "Timestamp: 1710000000000 (milliseconds)",
+        result: "Date: 2024-03-09 10:00:00",
+        steps: [
+            "Get timestamp from JavaScript: Date.now()",
+            "Select 'Milliseconds' unit",
+            "Enter timestamp",
+            "Convert to readable date"
+        ]
+    },
+    {
+        title: "API Response Timestamp",
+        description: "Convert timestamp from API response",
+        code: "Timestamp: 1672531200 (seconds)",
+        result: "Date: 2023-01-01 00:00:00"
+    }
 ];
 
 const faqs = [

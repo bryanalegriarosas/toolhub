@@ -121,6 +121,7 @@
             title="URL Parser"
             description="Parse a URL into components and track lookups with history."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -202,6 +203,33 @@ const downloadHistory = () => {
 const clearHistory = () => {
     history.value = [];
 };
+
+const examples = [
+    {
+        title: "E-commerce Product URL",
+        description: "Parse complex product URL with parameters",
+        code: "Input: https://example.com/products/laptop?category=electronics&brand=dell&price=999&sort=rating",
+        result: "Protocol: https | Host: example.com | Path: /products/laptop | Query: category=electronics&brand=dell&price=999&sort=rating"
+    },
+    {
+        title: "API Endpoint URL",
+        description: "Parse API endpoint with path parameters",
+        code: "Input: https://api.example.com/v1/users/123/posts?limit=10&sort=created_at&order=desc",
+        result: "Protocol: https | Host: api.example.com | Path: /v1/users/123/posts | Query: limit=10&sort=created_at&order=desc",
+        steps: [
+            "Enter API endpoint URL",
+            "Extract path parameters (user ID: 123)",
+            "Parse query parameters for filtering",
+            "Use components for API requests"
+        ]
+    },
+    {
+        title: "Social Media Share URL",
+        description: "Parse social media sharing URL",
+        code: "Input: https://twitter.com/intent/tweet?text=Hello%20World&url=https://example.com&hashtags=web,development",
+        result: "Protocol: https | Host: twitter.com | Path: /intent/tweet | Query: text=Hello World&url=https://example.com&hashtags=web,development"
+    }
+];
 
 const steps = [
     "Type or paste a full URL into the input field.",

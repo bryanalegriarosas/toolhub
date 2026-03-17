@@ -95,7 +95,7 @@
 
             <ToolSeoContent title="JSON Formatter"
                 description="A JSON formatter allows you to beautify and validate JSON data to make it easier to read and debug."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
 
             <div class="mt-8 text-center">
                 <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
@@ -116,6 +116,45 @@ const steps = [
     "Choose indentation or toggle auto-format",
     "Click the format or minify button (or use auto-format)",
     "Copy or download the formatted JSON",
+];
+
+const examples = [
+    {
+        title: "Formatting API Response",
+        description: "Format a messy API response to make it readable",
+        code: `{"user":{"id":123,"name":"John","email":"john@example.com","address":{"street":"123 Main St","city":"New York","zip":"10001"}}}`,
+        result: `{
+  "user": {
+    "id": 123,
+    "name": "John",
+    "email": "john@example.com",
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "zip": "10001"
+    }
+  }
+}`
+    },
+    {
+        title: "Minifying for Production",
+        description: "Remove unnecessary spaces to reduce file size",
+        code: `{
+  "name": "My App",
+  "version": "1.0.0",
+  "dependencies": {
+    "vue": "^3.0.0",
+    "axios": "^0.24.0"
+  }
+}`,
+        result: `{"name":"My App","version":"1.0.0","dependencies":{"vue":"^3.0.0","axios":"^0.24.0"}}`,
+        steps: [
+            "Paste your formatted JSON",
+            "Set indentation to 'None'",
+            "Click 'Minify' button",
+            "Copy the compact result"
+        ]
+    }
 ];
 
 const faqs = [

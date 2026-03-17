@@ -107,8 +107,9 @@
 
         <ToolSeoContent
             title="Word Counter"
-            description="Quickly count words, characters and lines in text. Includes advanced metrics and history."
+            description="Count words, characters, sentences, and paragraphs in your text instantly. Perfect for writers, students, and content creators."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -122,6 +123,27 @@ const steps = [
     "Paste or load text",
     "Review word, character and line counts",
     "Use buttons to copy, download, clear or save to history",
+];
+
+const examples = [
+    {
+        title: "Counting Words in Article",
+        description: "Analyze text content for word count and statistics",
+        code: "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet at least once. It's commonly used for testing typefaces and keyboards.",
+        result: "Words: 23 | Characters: 136 | Characters (no spaces): 113 | Sentences: 2 | Paragraphs: 1"
+    },
+    {
+        title: "Blog Post Analysis",
+        description: "Check blog post length and readability",
+        code: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+        result: "Words: 30 | Characters: 201 | Characters (no spaces): 168 | Sentences: 3 | Paragraphs: 1",
+        steps: [
+            "Paste your blog post content",
+            "Review word count for SEO optimization",
+            "Check character limits for social media",
+            "Analyze sentence structure for readability"
+        ]
+    }
 ];
 
 const faqs = [

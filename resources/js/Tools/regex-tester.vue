@@ -116,6 +116,7 @@
             title="Regex Tester"
             description="Evaluate regular expression patterns against text with instant match results and history."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -129,6 +130,45 @@ const steps = [
     "Enter a regex pattern and sample text",
     "See matches listed immediately",
     "Use buttons to copy/download or save to history",
+];
+
+const examples = [
+    {
+        title: "Email Validation",
+        description: "Test regex pattern for email validation",
+        code: "Pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/",
+        result: "✓ john@example.com | ✓ test.user@domain.co.uk | ✗ invalid-email | ✗ @missingdomain.com"
+    },
+    {
+        title: "Phone Number Validation",
+        description: "Validate international phone number formats",
+        code: "Pattern: /^\\+?[1-9]\\d{1,14}$/",
+        result: "✓ +1234567890 | ✓ 9876543210 | ✗ 123 | ✗ +0123456789",
+        steps: [
+            "Enter the phone number regex pattern",
+            "Test with sample numbers",
+            "Verify international format support",
+            "Adjust pattern as needed"
+        ]
+    },
+    {
+        title: "Extract URLs from Text",
+        description: "Find all URLs in a block of text",
+        code: "Pattern: /https?:\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?/",
+        result: "Found: https://example.com | https://test.org/page | http://site.net"
+    },
+    {
+        title: "Password Strength Validation",
+        description: "Validate password requirements",
+        code: "Pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/",
+        result: "✓ StrongPass123! | ✗ weak | ✗ NoNumber! | ✗ short1A!",
+        steps: [
+            "Test password with requirements",
+            "Must contain: uppercase, lowercase, number, special character",
+            "Minimum 8 characters",
+            "Adjust pattern for different requirements"
+        ]
+    }
 ];
 
 const faqs = [

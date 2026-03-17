@@ -139,6 +139,7 @@
             title="Image Compressor"
             description="Free online image compressor tool that reduces image file size while maintaining quality. Compress JPG, PNG, and WebP images with adjustable quality settings and format conversion."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -147,6 +148,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Website Image Optimization",
+        description: "Compress images for faster web page loading",
+        code: "Input: hero-image.jpg (2.5MB) | Quality: 80% | Format: JPEG",
+        result: "Output: hero-image-compressed.jpg (450KB) - 82% size reduction"
+    },
+    {
+        title: "Social Media Image Compression",
+        description: "Optimize images for social media platforms",
+        code: "Input: post-photo.png (1.8MB) | Quality: 70% | Format: PNG",
+        result: "Output: post-photo-compressed.png (380KB) - 79% size reduction",
+        steps: [
+            "Upload high-quality image",
+            "Set quality to 70% for social media",
+            "Choose appropriate format (PNG for transparency)",
+            "Download optimized image for upload"
+        ]
+    },
+    {
+        title: "Email Newsletter Images",
+        description: "Compress images for email campaigns",
+        code: "Input: newsletter-banner.jpg (800KB) | Quality: 60% | Format: JPEG",
+        result: "Output: newsletter-banner.jpg (180KB) - 77% size reduction"
+    }
+];
 
 const steps = [
     'Upload your image using the file selector or drag and drop',

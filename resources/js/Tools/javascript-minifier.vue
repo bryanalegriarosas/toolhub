@@ -73,7 +73,7 @@
 
         <ToolSeoContent title="JavaScript Minifier"
             description="Compress JavaScript code by removing unnecessary whitespace, comments, and formatting to reduce file size and improve page load speed."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
     </div>
 
@@ -99,6 +99,30 @@ const steps = [
     "Click the 'Minify' button or let it auto-minify as you type",
     "Copy the minified JavaScript using the 'Copy Output' button",
     "View statistics to see the compression achieved"
+];
+
+const examples = [
+    {
+        title: "Minifying JavaScript Functions",
+        description: "Compress JavaScript code by removing whitespace and comments",
+        code: `// Calculate total price
+function calculateTotal(items) {
+    let total = 0;
+    
+    for (let item of items) {
+        total += item.price * item.quantity;
+    }
+    
+    return total;
+}
+
+// Example usage
+const cart = [
+    { price: 10.99, quantity: 2 },
+    { price: 5.99, quantity: 1 }
+];`,
+        result: "function calculateTotal(items){let total=0;for(let item of items){total+=item.price*item.quantity;}return total;}const cart=[{price:10.99,quantity:2},{price:5.99,quantity:1}];"
+    }
 ];
 
 const faqs = [

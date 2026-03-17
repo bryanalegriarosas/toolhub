@@ -130,7 +130,7 @@
         <!-- SEO Content -->
         <ToolSeoContent title="JPG to PNG Converter"
             description="Free online tool to convert JPG images to PNG format with transparency support. Customize compression, background, and size. Fast, secure conversion with instant download."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
     </div>
 
@@ -156,6 +156,33 @@ const resizeOption = ref('original')
 const outputName = ref('')
 
 // SEO Content
+const examples = [
+    {
+        title: "Logo with Transparency",
+        description: "Convert JPG logo to PNG with transparent background",
+        code: "Input: company-logo.jpg (white background) | Settings: Transparent background, Original size",
+        result: "Output: company-logo.png (transparent background, perfect for web)"
+    },
+    {
+        title: "Product Image Optimization",
+        description: "Convert product photo with compression",
+        code: "Input: product-photo.jpg (2MB) | Settings: Medium compression, 75% size",
+        result: "Output: product-photo.png (500KB, web-optimized)",
+        steps: [
+            "Upload high-resolution JPG product photo",
+            "Select medium compression for quality",
+            "Choose 75% size for faster loading",
+            "Download optimized PNG for e-commerce"
+        ]
+    },
+    {
+        title: "Social Media Graphic",
+        description: "Convert social media image with white background",
+        code: "Input: social-post.jpg | Settings: White background, Original size",
+        result: "Output: social-post.png (consistent white background for branding)"
+    }
+];
+
 const steps = [
     'Select a JPG file using the file selector',
     'Configure conversion options: compression, background, and size',

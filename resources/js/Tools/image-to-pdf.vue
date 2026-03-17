@@ -109,7 +109,7 @@
         <!-- SEO Content -->
         <ToolSeoContent title="Image to PDF Converter"
             description="Free online tool to convert images to PDF. Supports JPG, PNG, GIF, BMP, WebP formats with custom page sizes, orientations, and quality settings. Fast, secure, and no registration required."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
     </div>
 
@@ -135,6 +135,33 @@ const imageFit = ref('contain');
 const quality = ref('high');
 
 // SEO Content
+const examples = [
+    {
+        title: "Certificate Creation",
+        description: "Convert certificate image to PDF",
+        code: "Input: certificate.png (300dpi) | Page Size: A4 | Orientation: Landscape",
+        result: "Output: certificate.pdf (high-quality printable certificate)"
+    },
+    {
+        title: "Recipe Card PDF",
+        description: "Convert recipe image to shareable PDF",
+        code: "Input: recipe-card.jpg | Page Size: Letter | Quality: High",
+        result: "Output: recipe-card.pdf (perfect for printing and sharing)",
+        steps: [
+            "Upload recipe card image",
+            "Set letter size for standard printing",
+            "Choose high quality for text clarity",
+            "Download shareable recipe PDF"
+        ]
+    },
+    {
+        title: "Invoice Image to PDF",
+        description: "Convert invoice image to professional PDF",
+        code: "Input: invoice-scan.jpg | Page Size: A4 | Orientation: Portrait",
+        result: "Output: invoice.pdf (professional document format)"
+    }
+];
+
 const steps = [
     'Select an image file using the file selector or drag and drop',
     'Preview your image to confirm it\'s the correct file',

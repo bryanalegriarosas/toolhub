@@ -136,8 +136,8 @@
             title="Random Number Generator"
             :description="seoDescription"
             :steps="seoSteps"
-            :faqs="seoFaqs"
-        />
+            :examples="seoExamples"
+            :faqs="seoFaqs" />
     </div>
 </template>
 
@@ -326,7 +326,34 @@ const loadFromHistory = (entry) => {
     results.value = [...entry.results];
 };
 
-const seoDescription = "Advanced random number generator with multiple formats, bulk generation, and statistics. Generate integers, decimals, percentages, and scientific notation numbers with customizable options.";
+const seoExamples = [
+    {
+        title: "Lottery Number Generator",
+        description: "Generate random lottery numbers",
+        code: "Range: 1-49 | Quantity: 6 | Type: Integer | Unique: Yes",
+        result: "Generated: 7, 15, 23, 31, 42, 48 (unique lottery numbers)"
+    },
+    {
+        title: "Dice Roll Simulator",
+        description: "Simulate multiple dice rolls",
+        code: "Range: 1-6 | Quantity: 3 | Type: Integer | Unique: No",
+        result: "Generated: 4, 2, 5 (three dice rolls)",
+        steps: [
+            "Set range from 1 to 6 for standard dice",
+            "Choose quantity for number of dice",
+            "Disable unique to allow repeated numbers",
+            "Generate and use for board games"
+        ]
+    },
+    {
+        title: "Random Percentage Generator",
+        description: "Generate random percentages for statistics",
+        code: "Range: 0-100 | Quantity: 5 | Type: Percentage | Decimal: 2",
+        result: "Generated: 23.45%, 67.89%, 12.34%, 89.01%, 45.67%"
+    }
+];
+
+const seoDescription = "Generate random numbers with customizable range, quantity, and format. Perfect for games, statistics, simulations, and random selections. Support for integers, decimals, and percentages.";
 
 const seoSteps = [
     "Set your minimum and maximum values",

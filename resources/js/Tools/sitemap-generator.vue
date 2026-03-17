@@ -184,7 +184,7 @@
             <!-- SEO Content -->
             <ToolSeoContent title="Sitemap Generator"
                 description="Free online tool to generate XML sitemaps with validation, multiple URLs, and advanced options."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
         </div>
     </div>
 </template>
@@ -192,6 +192,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Blog Website Sitemap",
+        description: "Generate sitemap for blog with weekly updates",
+        code: "URLs: https://blog.com/, https://blog.com/about, https://blog.com/contact | Frequency: Weekly | Priority: 0.8",
+        result: "XML sitemap with 3 URLs, weekly priority, and lastmod dates"
+    },
+    {
+        title: "E-commerce Store Sitemap",
+        description: "Create sitemap for online store with daily updates",
+        code: "URLs: https://store.com/, https://store.com/products, https://store.com/categories | Frequency: Daily | Priority: 1.0",
+        result: "XML sitemap optimized for e-commerce with high priority",
+        steps: [
+            "Add main store pages and categories",
+            "Set daily frequency for new products",
+            "Set highest priority for homepage",
+            "Include lastmod for better crawling"
+        ]
+    },
+    {
+        title: "Portfolio Website Sitemap",
+        description: "Generate sitemap for portfolio with monthly updates",
+        code: "URLs: https://portfolio.com/, https://portfolio.com/projects, https://portfolio.com/contact | Frequency: Monthly | Priority: 0.7",
+        result: "XML sitemap suitable for portfolio websites"
+    }
+];
 
 const steps = [
     'Enter website URLs manually or add them one by one',

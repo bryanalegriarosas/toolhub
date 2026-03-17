@@ -126,6 +126,7 @@
             title="Hash Generator"
             description="Produce SHA‑1, SHA‑256 and SHA‑512 hashes from text or files. Manage results with copy, download and history features."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -140,6 +141,39 @@ const steps = [
     "Hashes are generated automatically",
     "Copy or download individual hashes",
     "Save to history and restore later",
+];
+
+const examples = [
+    {
+        title: "Hashing Passwords",
+        description: "Generate secure SHA-256 hash for password storage",
+        code: "mypassword123",
+        result: "SHA-256: 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd5f7b9e1e00fce",
+        steps: [
+            "Enter your password",
+            "Copy the SHA-256 hash",
+            "Store in database (never store plain passwords)",
+            "Use for verification during login"
+        ]
+    },
+    {
+        title: "Hashing File Content",
+        description: "Generate hash for data integrity verification",
+        code: "Important document content that should not be modified",
+        result: "SHA-256: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
+        steps: [
+            "Paste or load file content",
+            "Generate SHA-256 hash",
+            "Store hash for verification",
+            "Compare later to detect changes"
+        ]
+    },
+    {
+        title: "API Key Generation",
+        description: "Create unique identifiers for API keys",
+        code: "user123_api_secret_2024",
+        result: "SHA-1: 8d6e8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c"
+    }
 ];
 
 const faqs = [

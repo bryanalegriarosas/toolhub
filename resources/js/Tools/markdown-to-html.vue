@@ -164,7 +164,7 @@
 
             <ToolSeoContent title="Markdown to HTML Converter"
                 description="Convert Markdown text to HTML with live preview and syntax highlighting." :steps="steps"
-                :faqs="faqs" />
+                :examples="examples" :faqs="faqs" />
         </div>
     </div>
 </template>
@@ -172,6 +172,27 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Blog Post Markdown",
+        description: "Convert blog post from Markdown to HTML",
+        code: "# My Blog Post\n\n## Introduction\nThis is a **blog post** with *italic* text and `code`.\n\n- Item 1\n- Item 2\n- Item 3\n\n> This is a quote from someone important.",
+        result: "<h1>My Blog Post</h1>\n<h2>Introduction</h2>\n<p>This is a <strong>blog post</strong> with <em>italic</em> text and <code>code</code>.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n<li>Item 3</li>\n</ul>\n<blockquote>\n<p>This is a quote from someone important.</p>\n</blockquote>"
+    },
+    {
+        title: "Technical Documentation",
+        description: "Convert technical documentation with code blocks",
+        code: "# API Documentation\n\n## Installation\n```bash\nnpm install my-package\n```\n\n## Usage\n```javascript\nconst package = require('my-package');\npackage.init();\n```",
+        result: "<h1>API Documentation</h1>\n<h2>Installation</h2>\n<pre><code class=\"language-bash\">npm install my-package</code></pre>\n<h2>Usage</h2>\n<pre><code class=\"language-javascript\">const package = require('my-package');\npackage.init();</code></pre>",
+        steps: [
+            "Write technical documentation in Markdown",
+            "Use code blocks with language specification",
+            "Convert to clean HTML for web display",
+            "Copy HTML for documentation sites"
+        ]
+    }
+];
 
 const steps = [
     "Enter or paste your Markdown text",

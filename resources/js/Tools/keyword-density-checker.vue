@@ -211,7 +211,7 @@
             <!-- SEO Content -->
             <ToolSeoContent title="Keyword Density Checker"
                 description="Free online tool to analyze keyword density, word frequency, and SEO metrics with detailed reports."
-                :steps="steps" :faqs="faqs" />
+                :steps="steps" :examples="examples" :faqs="faqs" />
 
         </div>
     </div>
@@ -220,6 +220,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Blog Post SEO Analysis",
+        description: "Analyze keyword density in blog content",
+        code: "Text: 'Best coffee beans for espresso machines. Our coffee beans selection includes premium Arabica coffee beans perfect for espresso machines.'",
+        result: "Keyword 'coffee beans': 4 occurrences (16% density) | 'espresso': 2 occurrences (8% density)"
+    },
+    {
+        title: "Product Description Analysis",
+        description: "Check SEO metrics for product descriptions",
+        code: "Text: 'Wireless headphones with noise cancellation. These wireless headphones feature premium sound quality and active noise cancellation technology.'",
+        result: "Keyword 'wireless headphones': 3 occurrences (15% density) | 'noise cancellation': 2 occurrences (10% density)",
+        steps: [
+            "Paste product description text",
+            "Review keyword density percentages",
+            "Identify over-optimized keywords",
+            "Adjust content for better SEO balance"
+        ]
+    },
+    {
+        title: "Article Content Check",
+        description: "Analyze article for keyword optimization",
+        code: "Text: 'Digital marketing strategies for small businesses. Effective digital marketing helps small businesses grow online with targeted campaigns.'",
+        result: "Keyword 'digital marketing': 3 occurrences (12% density) | 'small businesses': 2 occurrences (8% density)"
+    }
+];
 
 const steps = [
     'Enter your text content or paste it to analyze',

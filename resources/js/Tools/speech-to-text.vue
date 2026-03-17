@@ -152,7 +152,7 @@
         <!-- SEO Content -->
         <ToolSeoContent title="Speech to Text Converter"
             description="Free online speech-to-text converter with real-time voice recognition. Support for multiple languages, confidence levels, and customizable recording settings. Convert speech to text instantly."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
     </div>
 
@@ -175,6 +175,33 @@ const recordingStartTime = ref(null);
 const Swal = inject('Swal');
 
 // SEO Content
+const examples = [
+    {
+        title: "Meeting Notes Transcription",
+        description: "Convert meeting speech to text notes",
+        code: "Speech: 'In today meeting we discussed the quarterly results and decided to launch the new product next month.'",
+        result: "Text: In today meeting we discussed the quarterly results and decided to launch the new product next month."
+    },
+    {
+        title: "Lecture Recording",
+        description: "Transcribe educational lecture content",
+        code: "Speech: 'The mitochondria is the powerhouse of the cell. It generates most of the cell\'s supply of adenosine triphosphate.'",
+        result: "Text: The mitochondria is the powerhouse of the cell. It generates most of the cell's supply of adenosine triphosphate.",
+        steps: [
+            "Start recording during lecture",
+            "Speak clearly and consistently",
+            "Monitor confidence levels",
+            "Download transcription for notes"
+        ]
+    },
+    {
+        title: "Voice Memo to Text",
+        description: "Convert voice memos to searchable text",
+        code: "Speech: 'Remember to buy milk, eggs, and bread from the grocery store on the way home.'",
+        result: "Text: Remember to buy milk, eggs, and bread from the grocery store on the way home."
+    }
+];
+
 const steps = [
     'Click "Start Recording" to begin voice recognition',
     'Allow microphone access when prompted by your browser',

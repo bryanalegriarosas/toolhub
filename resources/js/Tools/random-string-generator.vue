@@ -125,6 +125,7 @@
             title="Random String Generator"
             description="Create secure random strings with custom length and charset. Includes history, copy/download and file support."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -133,6 +134,33 @@
 <script setup>
 import { ref } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "API Key Generator",
+        description: "Generate secure API key for authentication",
+        code: "Length: 32 | Characters: Letters + Numbers | Symbols: No",
+        result: "Generated: a7b3K9m2X5p8Q1r4T6y9U2w5Z8c1F (secure API key)"
+    },
+    {
+        title: "Session Token",
+        description: "Create random session token for web applications",
+        code: "Length: 64 | Characters: Letters + Numbers + Symbols | Symbols: Yes",
+        result: "Generated: K9$m2X5#p8Q1r4!T6y9U2@w5Z8c1F*a7b3K9m2X5p8Q1r4T6y9U2w5Z8c1F",
+        steps: [
+            "Set length to 64 characters for security",
+            "Include all character types",
+            "Generate and store in secure database",
+            "Use for user session authentication"
+        ]
+    },
+    {
+        title: "Random Password",
+        description: "Generate strong random password",
+        code: "Length: 16 | Characters: Letters + Numbers + Symbols | Symbols: Yes",
+        result: "Generated: Q1r4!T6y9U2@w5Z8 (strong password)"
+    }
+];
 
 const steps = [
     "Choose length and character sets",

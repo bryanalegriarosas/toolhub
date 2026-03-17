@@ -218,7 +218,7 @@
         <!-- SEO Content -->
         <ToolSeoContent title="Robots.txt Generator"
             description="Free online tool to generate robots.txt files with sitemap support, crawl delays, and advanced directives."
-            :steps="steps" :faqs="faqs" />
+            :steps="steps" :examples="examples" :faqs="faqs" />
 
         </div>
     </div>
@@ -227,6 +227,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Blog Website Robots.txt",
+        description: "Generate robots.txt for blog with sitemap",
+        code: "Sitemap: https://myblog.com/sitemap.xml | User-agent: * | Disallow: /admin/ | Disallow: /private/",
+        result: "User-agent: *\nDisallow: /admin/\nDisallow: /private/\n\nSitemap: https://myblog.com/sitemap.xml"
+    },
+    {
+        title: "E-commerce Store Configuration",
+        description: "Configure robots.txt for online store",
+        code: "Sitemap: https://store.com/sitemap.xml | User-agent: * | Disallow: /cart/ | Disallow: /checkout/ | Crawl-delay: 1",
+        result: "User-agent: *\nDisallow: /cart/\nDisallow: /checkout/\nCrawl-delay: 1\n\nSitemap: https://store.com/sitemap.xml",
+        steps: [
+            "Add sitemap URL for product pages",
+            "Disallow cart and checkout directories",
+            "Set crawl delay to prevent server overload",
+            "Allow all other pages for indexing"
+        ]
+    },
+    {
+        title: "API-Only Website",
+        description: "Block all crawlers except API documentation",
+        code: "User-agent: * | Disallow: / | User-agent: Googlebot | Allow: /docs/ | Sitemap: https://api.example.com/docs-sitemap.xml",
+        result: "User-agent: *\nDisallow: /\n\nUser-agent: Googlebot\nAllow: /docs/\n\nSitemap: https://api.example.com/docs-sitemap.xml"
+    }
+];
 
 const steps = [
     'Enter sitemap URL and basic configuration',

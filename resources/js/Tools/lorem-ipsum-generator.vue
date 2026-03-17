@@ -69,7 +69,7 @@
                 placeholder="Generated text will appear here..." />
 
             <ToolSeoContent title="Lorem Ipsum Generator" :description="seoDescription" :steps="seoSteps"
-                :faqs="seoFaqs" />
+                :examples="seoExamples" :faqs="seoFaqs" />
 
         </div>
     </div>
@@ -197,6 +197,33 @@ const download = () => {
 const clear = () => {
     text.value = '';
 };
+
+const seoExamples = [
+    {
+        title: "Blog Post Placeholder",
+        description: "Generate placeholder text for blog posts",
+        code: "Paragraphs: 3, Type: Classic, Format: Paragraphs",
+        result: "Lorem ipsum dolor sit amet, consectetur adipiscing elit... (3 paragraphs, ~150 words)"
+    },
+    {
+        title: "Tech Website Content",
+        description: "Create modern tech-themed placeholder text",
+        code: "Paragraphs: 2, Type: Modern Tech, Format: Mixed",
+        result: "Our innovative digital platform leverages cutting-edge technology... (2 paragraphs, tech-focused)",
+        steps: [
+            "Select 'Modern Tech' text type",
+            "Choose 'Mixed' format for variety",
+            "Set paragraph count",
+            "Generate tech-themed content"
+        ]
+    },
+    {
+        title: "Business Proposal Text",
+        description: "Generate professional business placeholder content",
+        code: "Paragraphs: 4, Type: Business, Format: Paragraphs",
+        result: "Our strategic approach focuses on delivering exceptional value... (4 paragraphs, business-oriented)"
+    }
+];
 
 const seoDescription = "Generate high-quality Lorem Ipsum placeholder text instantly. Choose from multiple text types including classic, modern tech, business, and creative content. Perfect for designers, developers, and content creators.";
 

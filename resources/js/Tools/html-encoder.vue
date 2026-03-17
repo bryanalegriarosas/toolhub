@@ -95,6 +95,7 @@
             title="HTML Encoder"
             description="Encode HTML characters to entities with history and file input."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -108,6 +109,33 @@ const steps = [
     "Paste or load your HTML/text",
     "Encoded output appears below",
     "Copy, download or save to history",
+];
+
+const examples = [
+    {
+        title: "Encoding Special Characters",
+        description: "Convert HTML special characters to safe entities",
+        code: "<div class='container'>Hello & Welcome!</div>",
+        result: "&lt;div class=&#39;container&#39;&gt;Hello &amp; Welcome!&lt;/div&gt;"
+    },
+    {
+        title: "Encoding User Input",
+        description: "Encode user input to prevent XSS attacks",
+        code: "&lt;script&gt;alert(&#39;XSS attack&#39;)&lt;/script&gt;",
+        result: "<scr" + "ipt>alert('XSS attack')</scr" + "ipt>",
+        steps: [
+            "Get user input from form",
+            "Encode using HTML entities",
+            "Display safely in HTML",
+            "Prevent script execution"
+        ]
+    },
+    {
+        title: "Encoding Code Examples",
+        description: "Display code snippets safely in HTML",
+        code: "<p>Use &lt;strong&gt; for bold text</p>",
+        result: "&lt;p&gt;Use &amp;lt;strong&amp;gt; for bold text&lt;/p&gt;"
+    }
 ];
 
 const faqs = [

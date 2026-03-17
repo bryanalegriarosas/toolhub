@@ -97,6 +97,7 @@
             title="Base64 Decoder"
             description="Convert Base64 text back to original form quickly."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -110,6 +111,33 @@ const steps = [
     "Enter or load Base64 text",
     "Click decode (or use auto)",
     "Copy or download the result",
+];
+
+const examples = [
+    {
+        title: "Decoding Text",
+        description: "Decode simple text that was encoded in Base64",
+        code: "SGVsbG8gV29ybGQh",
+        result: "Hello World!"
+    },
+    {
+        title: "Decoding JSON Data",
+        description: "Decode Base64-encoded JSON commonly used in APIs",
+        code: "eyJuYW1lIjoiSm9obiIsImFnZSI6MzAsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20ifQ==",
+        result: `{"name":"John","age":30,"email":"john.doe@example.com"}`
+    },
+    {
+        title: "Decoding URL-safe Base64",
+        description: "Handle URL-safe Base64 strings that use - and _ instead of + and /",
+        code: "SGVsbG8gV29ybGQgV2ViVG9vbFN0YWNr",
+        result: "Hello World WebToolStack",
+        steps: [
+            "Paste the Base64 string",
+            "Click 'Decode' button",
+            "The tool automatically handles URL-safe characters",
+            "Copy the decoded result"
+        ]
+    }
 ];
 
 const faqs = [

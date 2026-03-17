@@ -171,6 +171,7 @@
             title="Image Resizer"
             description="Free online image resizer tool. Resize images to custom dimensions, use presets, maintain aspect ratio, and convert between formats. Perfect for web optimization."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
 
@@ -180,6 +181,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Social Media Image",
+        description: "Resize image for Instagram post",
+        code: "Original: 1920×1080px | Target: 1080×1080px",
+        result: "Perfect square format for Instagram feed with aspect ratio locked"
+    },
+    {
+        title: "Web Thumbnail",
+        description: "Create thumbnail for website",
+        code: "Original: 4000×3000px | Target: 400×300px",
+        result: "Optimized thumbnail maintaining quality and aspect ratio",
+        steps: [
+            "Upload high-resolution image",
+            "Set width to 400px",
+            "Enable 'Lock Aspect Ratio'",
+            "Download optimized thumbnail"
+        ]
+    },
+    {
+        title: "Header Banner",
+        description: "Resize for website header banner",
+        code: "Original: 1024×768px | Target: 1920×400px",
+        result: "Wide banner format for website header"
+    }
+];
 
 const steps = [
     'Upload your image using the file selector or drag and drop',

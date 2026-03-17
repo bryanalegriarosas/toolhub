@@ -109,6 +109,7 @@
             title="HEX to RGB/HSL Color Converter"
             description="Convert colors between HEX, RGB, and HSL formats instantly with visual preview."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -204,6 +205,33 @@ const steps = [
     "Enter a color code in HEX format (e.g., #ff5733).",
     "See the automatic preview and conversions to RGB and HSL.",
     "Copy the format you need or save the color to your local history."
+];
+
+const examples = [
+    {
+        title: "Convert Brand Color",
+        description: "Convert brand color from HEX to RGB and HSL for web development",
+        code: "Input HEX: #3498db",
+        result: "RGB: rgb(52, 152, 219) | HSL: hsl(204, 70%, 53%)"
+    },
+    {
+        title: "Material Design Colors",
+        description: "Convert Material Design color palette",
+        code: "Input HEX: #f44336",
+        result: "RGB: rgb(244, 67, 54) | HSL: hsl(4, 90%, 58%)",
+        steps: [
+            "Enter HEX color code",
+            "View RGB for CSS opacity",
+            "Use HSL for color variations",
+            "Copy desired format for your project"
+        ]
+    },
+    {
+        title: "CSS Custom Properties",
+        description: "Convert colors for CSS variables",
+        code: "Input HEX: #2ecc71",
+        result: "RGB: rgb(46, 204, 113) | HSL: hsl(145, 63%, 49%)"
+    }
 ];
 
 const faqs = [

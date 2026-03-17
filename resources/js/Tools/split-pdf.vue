@@ -204,6 +204,7 @@
             title="PDF Splitter"
             description="Free online tool to split PDF into individual pages. Select specific pages, preview, and download as separate files or ZIP."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
     </div>
@@ -214,6 +215,33 @@ import { ref, watch } from "vue";
 import { PDFDocument } from "pdf-lib";
 import JSZip from "jszip";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Extract Specific Pages",
+        description: "Extract chapters from a textbook PDF",
+        code: "Input: textbook-2024.pdf (50 pages) | Select: Pages 1-15, 31-45",
+        result: "Output: chapter1.pdf (15 pages), chapter2.pdf (15 pages)"
+    },
+    {
+        title: "Split Invoice Bundle",
+        description: "Separate individual invoices from batch PDF",
+        code: "Input: monthly-invoices.pdf (30 pages) | Select: All pages",
+        result: "Output: 30 individual invoice PDF files or ZIP bundle",
+        steps: [
+            "Upload invoice bundle PDF",
+            "Select all pages or specific invoices",
+            "Choose separate files or ZIP download",
+            "Download individual invoice files"
+        ]
+    },
+    {
+        title: "Create Page Samples",
+        description: "Extract sample pages from large document",
+        code: "Input: annual-report.pdf (120 pages) | Select: Pages 1, 5, 10, 50",
+        result: "Output: sample-pages.pdf (4 pages) or 4 individual files"
+    }
+];
 
 const steps = [
     'Upload PDF file using drag & drop',

@@ -138,6 +138,7 @@
             title="YouTube Thumbnail Downloader"
             description="Free online tool to download YouTube video thumbnails in multiple qualities. Preview, copy URLs, and download instantly."
             :steps="steps"
+            :examples="examples"
             :faqs="faqs"
         />
 
@@ -147,6 +148,33 @@
 <script setup>
 import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+
+const examples = [
+    {
+        title: "Music Video Thumbnail",
+        description: "Download thumbnail from YouTube music video",
+        code: "Input: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        result: "Available qualities: Max (1280x720), High (640x480), Medium (320x180), Default (120x90)"
+    },
+    {
+        title: "Tutorial Video Thumbnail",
+        description: "Get thumbnail for educational content",
+        code: "Input: https://youtu.be/abcdef12345",
+        result: "Download high-quality thumbnail for course materials",
+        steps: [
+            "Copy YouTube video URL",
+            "Paste in thumbnail downloader",
+            "Select desired quality (Max for presentations)",
+            "Download for use in educational materials"
+        ]
+    },
+    {
+        title: "Gaming Video Thumbnail",
+        description: "Extract gaming video thumbnail",
+        code: "Input: https://youtube.com/watch?v=xyz789abc",
+        result: "Multiple thumbnail sizes available for different platforms"
+    }
+];
 
 const steps = [
     'Paste YouTube video URL in the input field',
