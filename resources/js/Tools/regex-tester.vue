@@ -1,10 +1,4 @@
 <template>
-    <Head>
-        <meta
-            name="description"
-            content="Test regular expressions against text. Shows matches instantly and keeps history."
-        />
-    </Head>
     <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
         <h1 class="text-3xl font-bold mb-6">Regex Tester</h1>
 
@@ -129,7 +123,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

@@ -1,16 +1,5 @@
 <template>
-    <Head>
-        <title>{{ tool.seo_title ?? tool.name }} " - Free Online Tool"</title>
-
-        <meta
-            name="description"
-            :content="tool.seo_description ?? tool.description"
-        />
-
-        <meta property="og:title" :content="tool.name + ' - ToolHub'" />
-
-        <meta property="og:description" :content="tool.description" />
-    </Head>
+    <ToolHeadSeo v-bind="seo" />
 
     <MainLayout>
         <component :is="component" />
@@ -18,15 +7,18 @@
 </template>
 
 <script setup>
-import { Head } from "@inertiajs/vue3";
 import { defineAsyncComponent } from "vue";
+import { usePage } from "@inertiajs/vue3";
+import ToolHeadSeo from "@/Components/tools/ToolHeadSeo.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 
-const props = defineProps({
-    tool: Object,
-});
+const page = usePage();
 
-const component = defineAsyncComponent(
-    () => import(`../../Tools/${props.tool.slug}.vue`),
+const tool = page.props.tool;
+const seo = page.props.seo;
+
+// ✅ IMPORT CORRECTO SEGÚN TU ESTRUCTURA
+const component = defineAsyncComponent(() =>
+    import(`../../Tools/${tool.slug}.vue`)
 );
 </script>

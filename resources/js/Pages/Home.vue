@@ -1,32 +1,33 @@
 <template>
-
     <Head>
-        <title>WebToolStack - Free Online Developer Tools</title>
+        <title>Free Online Tools - SEO, PDF, Image & Developer Tools | WebToolStack</title>
 
-        <!-- Standard SEO -->
         <meta name="description"
-            content="Free online tools for developers including JSON formatter, UUID generator and password generator." />
+            content="Free online tools for SEO, PDF, image editing and developers. Format JSON, compress images, generate meta tags and more." />
+
         <meta name="keywords"
-            content="developer tools, online tools, json formatter, uuid generator, password generator" />
+            content="free online tools, seo tools, pdf tools, image tools, developer tools, json formatter, image compressor" />
+
         <link rel="canonical" href="https://toolhub.example.com/" />
 
-        <!-- Open Graph / Social -->
-        <meta property="og:title" content="WebToolStack - Free Online Developer Tools" />
-        <meta property="og:description"
-            content="Free online tools for developers including JSON formatter, UUID generator and password generator." />
+        <meta property="og:title" content="Free Online Tools | WebToolStack" />
+        <meta property="og:description" content="All-in-one free tools for SEO, PDF, images and developers." />
         <meta property="og:type" content="website" />
     </Head>
+
     <MainLayout>
-        <div class="space-y-8">
+        <div class="space-y-10">
+
             <!-- HERO -->
             <div
                 class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-6 md:p-14 rounded-2xl shadow-xl text-center">
+
                 <h1 class="text-2xl md:text-4xl font-bold mb-4">
-                    Developer Tools in One Place
+                    Free Online Tools for SEO, PDF, Images & Developers
                 </h1>
 
-                <p class="opacity-90 mb-6">
-                    Free online tools for developers, designers and creators.
+                <p class="opacity-90 mb-4">
+                    All-in-one platform with powerful and free tools for developers, designers and marketers.
                 </p>
 
                 <p class="opacity-90 mb-2">
@@ -39,109 +40,164 @@
                     <span>🆓 Free</span>
                 </div>
 
-                <!-- call to action -->
                 <Link href="/tools"
                     class="inline-block mt-6 px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100">
-                    Show All Tools
+                    Explore All Tools
                 </Link>
 
+                <!-- SEARCH -->
                 <div class="mt-4 max-w-xl mx-auto">
-                    <label for="search-input" class="sr-only">Buscar herramienta</label>
-                    <input id="search-input" v-model="search" @keydown.down.prevent="moveSelection(1)"
+                    <input v-model="search" @keydown.down.prevent="moveSelection(1)"
                         @keydown.up.prevent="moveSelection(-1)" @keydown.enter.prevent="activateSelection"
                         placeholder="Search a tool..." class="text-black border rounded-lg px-4 py-3 w-full" />
                 </div>
 
-                <div v-if="search.length > 0" class="bg-white text-black rounded-xl shadow mt-4 max-w-xl mx-auto"
-                    aria-live="polite">
+                <!-- SEARCH RESULTS -->
+                <div v-if="search.length > 0" class="bg-white text-black rounded-xl shadow mt-4 max-w-xl mx-auto">
+
                     <div v-for="(tool, index) in filteredTools" :key="tool.id"
-                        :class="['p-3 border-b hover:bg-gray-100 cursor-pointer', { 'bg-gray-200': index === selectedIndex }]"
+                        :class="['p-3 border-b cursor-pointer', { 'bg-gray-200': index === selectedIndex }]"
                         @click="goToTool(tool.slug)" @mouseenter="selectedIndex = index">
+
                         <Link :href="`/tools/${tool.slug}`">
                             {{ tool.name }}
                         </Link>
                     </div>
 
                     <div v-if="filteredTools.length === 0" class="p-3 text-gray-500">
-                        No se encontraron herramientas.
+                        No tools found.
                     </div>
                 </div>
             </div>
 
-            <div v-for="category in categories" :key="category.id" class="mb-10">
-                <Link :href="'/category/' + category.slug" :aria-label="`Categoría ${category.name}`"
-                    class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600">
-                    <ToolIcon :name="category.icon" />
+            <!-- ADS (TOP) -->
+            <div class="text-center">
+                <div class="bg-gray-100 border rounded-xl p-6 text-gray-400">
+                    Advertisement
+                </div>
+            </div>
 
+            <!-- SEO TEXT -->
+            <div class="max-w-3xl mx-auto text-center text-gray-600">
+                <h2 class="text-xl font-semibold mb-2">All-in-One Free Online Tools</h2>
+                <p>
+                    WebToolStack provides a collection of free online tools for developers, designers, and marketers.
+                    From SEO tools and PDF converters to image editors and code utilities, everything is available in
+                    one place.
+                </p>
+            </div>
+
+            <!-- POPULAR TOOLS -->
+            <div>
+                <h2 class="text-2xl font-bold mb-4">🔥 Popular Tools</h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <ToolCard v-for="tool in popularTools" :key="tool.id" :tool="tool" />
+                </div>
+            </div>
+
+            <!-- CATEGORIES -->
+            <div v-for="(category, index) in sortedCategories" :key="category.id" class="mb-10">
+
+                <Link :href="'/category/' + category.slug"
+                    class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600">
+
+                    <ToolIcon :name="category.icon" />
                     {{ category.name }}
                 </Link>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                     <ToolCard v-for="tool in category.tools" :key="tool.id" :tool="tool" />
                 </div>
+
+                <!-- ADS after 2nd category -->
+                <div v-if="index === 1" class="mt-8 text-center">
+                    <div class="bg-gray-100 border rounded-xl p-6 text-gray-400">
+                        Advertisement
+                    </div>
+                </div>
+
             </div>
 
-            <!-- ADS SPACE -->
-            <div role="complementary" aria-label="Advertisement"
-                class="bg-gray-100 border rounded-xl p-10 text-center text-gray-400">
-                Advertisement
+            <!-- ADS (BOTTOM) -->
+            <div class="text-center">
+                <div class="bg-gray-100 border rounded-xl p-6 text-gray-400">
+                    Advertisement
+                </div>
             </div>
+
         </div>
     </MainLayout>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
+import { usePage, Link, Head } from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ToolCard from "@/Components/ToolCard.vue";
 import ToolIcon from "@/Components/ToolIcon.vue";
-import { Link } from "@inertiajs/vue3";
-import { Head } from "@inertiajs/vue3";
 
 const page = usePage();
 const tools = page.props.tools;
 const categories = page.props.categories;
 
+// SEARCH
 const search = ref("");
 const selectedIndex = ref(-1);
 
 const filteredTools = computed(() => {
-    const q = search.value.trim().toLowerCase();
-    if (!q) {
-        selectedIndex.value = -1;
-        return [];
-    }
-
-    const list = tools.filter((tool) =>
-        tool.name.toLowerCase().includes(q),
-    );
-    // reset selection if list shrinks
-    if (selectedIndex.value >= list.length) {
-        selectedIndex.value = -1;
-    }
-    return list;
+    const q = search.value.toLowerCase();
+    if (!q) return [];
+    return tools.filter(tool => tool.name.toLowerCase().includes(q));
 });
 
 const moveSelection = (delta) => {
-    if (filteredTools.value.length === 0) return;
-    let newIndex = selectedIndex.value + delta;
-    if (newIndex < 0) newIndex = filteredTools.value.length - 1;
-    if (newIndex >= filteredTools.value.length) newIndex = 0;
-    selectedIndex.value = newIndex;
+    if (!filteredTools.value.length) return;
+    selectedIndex.value =
+        (selectedIndex.value + delta + filteredTools.value.length) %
+        filteredTools.value.length;
 };
 
 const activateSelection = () => {
-    if (
-        selectedIndex.value >= 0 &&
-        selectedIndex.value < filteredTools.value.length
-    ) {
-        const slug = filteredTools.value[selectedIndex.value].slug;
-        goToTool(slug);
+    if (selectedIndex.value >= 0) {
+        goToTool(filteredTools.value[selectedIndex.value].slug);
     }
 };
 
 const goToTool = (slug) => {
     window.location.href = `/tools/${slug}`;
 };
+
+// CATEGORY ORDER (CRÍTICO)
+const priorityOrder = [
+    'seo-tools',
+    'pdf-tools',
+    'image-tools',
+    'developer-tools',
+    'text-tools',
+    'converters-encoding',
+    'security-crypto',
+    'generators',
+    'media-tools'
+];
+
+const sortedCategories = computed(() => {
+    return [...categories].sort(
+        (a, b) =>
+            priorityOrder.indexOf(a.slug) -
+            priorityOrder.indexOf(b.slug)
+    );
+});
+
+// POPULAR TOOLS
+const popularSlugs = [
+    'json-formatter',
+    'image-compressor',
+    'meta-tag-generator',
+    'merge-pdf'
+];
+
+const popularTools = computed(() =>
+    tools.filter(t => popularSlugs.includes(t.slug))
+);
 </script>

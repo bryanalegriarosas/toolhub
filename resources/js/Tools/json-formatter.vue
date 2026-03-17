@@ -1,18 +1,20 @@
 <template>
-
-    <Head>
-        <meta name="description" content="Format and beautify JSON instantly with this free JSON formatter tool." />
-    </Head>
-
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
             <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">
-                JSON Formatter
+                Free JSON Formatter & Validator Online
             </h1>
 
             <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
-                Format and validate JSON instantly.
+                Use this free JSON formatter to beautify, validate and minify your JSON data instantly.
+                Perfect for developers working with APIs and debugging JSON responses.
             </p>
+
+            <div class="mb-6 text-center">
+                <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
+                    Advertisement
+                </div>
+            </div>
 
             <div class="flex flex-col gap-3 sm:gap-4 mb-4">
                 <label class="flex items-center gap-2">
@@ -90,15 +92,22 @@
                     Clear
                 </button>
             </div>
+
             <ToolSeoContent title="JSON Formatter"
                 description="A JSON formatter allows you to beautify and validate JSON data to make it easier to read and debug."
                 :steps="steps" :faqs="faqs" />
+
+            <div class="mt-8 text-center">
+                <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
+                    Advertisement
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 import { ref, computed, watch } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 

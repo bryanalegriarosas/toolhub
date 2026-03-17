@@ -1,10 +1,4 @@
 <template>
-    <Head>
-        <meta
-            name="description"
-            content="Encode HTML characters to their entity equivalents. Includes history, file support, and copy/download options."
-        />
-    </Head>
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
         <h1 class="text-3xl font-bold mb-6">HTML Encoder</h1>
 
@@ -108,7 +102,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

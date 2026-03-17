@@ -1,9 +1,4 @@
 <template>
-    <Head>
-        <meta name="description"
-            content="Convert JPG images to PNG format instantly with transparency support and compression options." />
-    </Head>
-
     <div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-xl">
 
         <h1 class="text-2xl font-bold mb-4">JPG to PNG Converter</h1>
@@ -142,9 +137,7 @@
 </template>
 
 <script setup>
-
 import { ref, watch } from "vue"
-import { Head } from "@inertiajs/vue3"
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue"
 
 const originalImage = ref(null)

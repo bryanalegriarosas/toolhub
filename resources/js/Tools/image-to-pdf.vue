@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Convert images to PDF online." />
-    </Head>
-
     <div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-xl">
 
         <h1 class="text-2xl font-bold mb-4">Image to PDF</h1>
@@ -122,7 +118,6 @@
 <script setup>
 
 import { ref } from "vue"
-import { Head } from "@inertiajs/vue3"
 import { jsPDF } from "jspdf"
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue"
 

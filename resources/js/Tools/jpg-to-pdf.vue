@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Convert JPG and other images to PDF with custom layout, page size, and quality settings." />
-    </Head>
-
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
         <h2 class="text-2xl font-bold">JPG to PDF Converter</h2>
 
@@ -175,7 +171,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import jsPDF from "jspdf";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 

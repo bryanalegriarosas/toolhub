@@ -1,9 +1,4 @@
 <template>
-    <Head>
-        <meta name="description"
-            content="Convert text to speech online with multiple voices, languages, and customizable settings. Free text-to-speech converter with natural sounding voices." />
-    </Head>
-
     <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow rounded-xl">
 
         <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Text to Speech Converter</h1>
@@ -175,7 +170,6 @@
 <script setup>
 
 import { ref, onMounted, inject } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const text = ref("");

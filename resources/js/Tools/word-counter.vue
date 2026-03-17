@@ -1,10 +1,4 @@
 <template>
-    <Head>
-        <meta
-            name="description"
-            content="Count words, characters, lines and more in your text. Includes history, file support, and reading time estimation."
-        />
-    </Head>
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
         <h1 class="text-3xl font-bold mb-6">Word Counter</h1>
 
@@ -122,7 +116,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

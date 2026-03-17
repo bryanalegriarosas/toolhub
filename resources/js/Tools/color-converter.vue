@@ -1,6 +1,4 @@
 <template>
-    <Head title="Color Converter - Herramienta de Diseño" />
-
     <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
         <h1 class="text-3xl font-bold mb-6">Color Converter</h1>
 
@@ -118,7 +116,6 @@
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const hex = ref("#4F46E5");

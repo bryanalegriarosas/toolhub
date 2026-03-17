@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Convert Base64 string to image with validation, format detection, and download options." />
-    </Head>
-
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
         <h2 class="text-2xl font-bold">Base64 to Image Converter</h2>
 
@@ -151,7 +147,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

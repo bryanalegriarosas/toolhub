@@ -1,10 +1,4 @@
 <template>
-
-    <Head>
-        <meta name="description"
-            content="Generate XML sitemaps with validation, multiple URLs, and advanced options." />
-    </Head>
-
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
             <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Sitemap Generator</h1>
@@ -197,7 +191,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

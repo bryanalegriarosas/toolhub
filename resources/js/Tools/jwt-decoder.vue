@@ -1,10 +1,4 @@
 <template>
-    <Head>
-        <meta
-            name="description"
-            content="Decode JSON Web Tokens (JWT) to inspect header, payload and signature. Includes history and file support."
-        />
-    </Head>
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
         <h1 class="text-3xl font-bold mb-6">JWT Decoder</h1>
 
@@ -115,7 +109,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

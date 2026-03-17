@@ -1,10 +1,4 @@
 <template>
-    <Head>
-        <meta
-            name="description"
-            content="Generate SHA‑1, SHA‑256 and SHA‑512 hashes from any text or file. Includes history, copy/download and file support."
-        />
-    </Head>
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
         <h1 class="text-3xl font-bold mb-6">Hash Generator</h1>
 
@@ -139,7 +133,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

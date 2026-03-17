@@ -1,10 +1,4 @@
 <template>
-    <Head>
-        <meta
-            name="description"
-            content="Generate secure random strings with letters, numbers and symbols. Includes history, copy, download and file support."
-        />
-    </Head>
     <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
         <h1 class="text-3xl font-bold mb-6">Random String Generator</h1>
 
@@ -138,7 +132,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

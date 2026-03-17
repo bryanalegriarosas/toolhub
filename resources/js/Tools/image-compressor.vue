@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Compress and optimize images online with quality control and format conversion." />
-    </Head>
-
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
         <h2 class="text-2xl font-bold">Image Compressor</h2>
 
@@ -150,7 +146,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

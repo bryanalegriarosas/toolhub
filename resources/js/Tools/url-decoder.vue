@@ -1,11 +1,4 @@
 <template>
-    <Head>
-        <meta
-            name="description"
-            content="Decode URL-encoded text back to its original form with optional auto processing and file support."
-        />
-    </Head>
-
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
         <h2 class="text-2xl font-bold">URL Decoder</h2>
 
@@ -111,7 +104,6 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

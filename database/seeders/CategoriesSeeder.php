@@ -7,38 +7,60 @@ use Illuminate\Database\Seeder;
 
 class CategoriesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         Category::truncate();
-        
+
         $categories = [
+            [
+                'name' => 'SEO Tools',
+                'slug' => 'seo-tools',
+                'icon' => 'Search',
+            ],
+            [
+                'name' => 'PDF Tools',
+                'slug' => 'pdf-tools',
+                'icon' => 'FileText',
+            ],
+            [
+                'name' => 'Image Tools',
+                'slug' => 'image-tools',
+                'icon' => 'Image',
+            ],
             [
                 'name' => 'Developer Tools',
                 'slug' => 'developer-tools',
                 'icon' => 'Code',
             ],
             [
-                'name' => 'Security Tools',
-                'slug' => 'security-tools',
-                'icon' => 'Shield',
+                'name' => 'Text Tools',
+                'slug' => 'text-tools',
+                'icon' => 'FileText',
             ],
             [
-                'name' => 'Encoding Tools',
-                'slug' => 'encoding-tools',
+                'name' => 'Converters & Encoding',
+                'slug' => 'converters-encoding',
                 'icon' => 'Binary',
             ],
             [
-                'name' => 'File Tools',
-                'slug' => 'file-tools',
-                'icon' => 'File',
+                'name' => 'Security & Crypto',
+                'slug' => 'security-crypto',
+                'icon' => 'Shield',
+            ],
+            [
+                'name' => 'Generators',
+                'slug' => 'generators',
+                'icon' => 'Shuffle',
+            ],
+            [
+                'name' => 'Media Tools',
+                'slug' => 'media-tools',
+                'icon' => 'Volume2',
             ],
         ];
 
         foreach ($categories as $category) {
-            Category::firstOrCreate(['name' => $category['name'], 'slug' => $category['slug'], 'icon' => $category['icon']]);
+            Category::firstOrCreate($category);
         }
     }
 }

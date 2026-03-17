@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Split PDF into individual pages with preview, page selection, and batch download." />
-    </Head>
-
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
         <h2 class="text-2xl font-bold">PDF Splitter</h2>
 
@@ -214,8 +210,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from "vue";
-import { Head } from "@inertiajs/vue3";
+import { ref, watch } from "vue";
 import { PDFDocument } from "pdf-lib";
 import JSZip from "jszip";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";

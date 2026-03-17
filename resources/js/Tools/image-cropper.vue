@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Crop images online with interactive selection, aspect ratios, and preset sizes." />
-    </Head>
-
     <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
         <h2 class="text-2xl font-bold">Image Cropper</h2>
 
@@ -210,8 +206,7 @@
 </template>
 
 <script setup>
-import { ref, computed, nextTick } from "vue";
-import { Head } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const steps = [

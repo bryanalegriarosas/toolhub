@@ -1,15 +1,4 @@
 <template>
-
-    <Head>
-        <title>Unix Timestamp Converter – WebToolStack</title>
-        <meta name="description"
-            content="Convert between UNIX timestamp and a human-readable date. Supports seconds and milliseconds." />
-        <meta property="og:title" content="Unix Timestamp Converter" />
-        <meta property="og:description"
-            content="Convert between UNIX timestamp and a human-readable date. Supports seconds and milliseconds." />
-        <meta property="og:type" content="article" />
-    </Head>
-
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
             <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Unix Timestamp Converter</h1>

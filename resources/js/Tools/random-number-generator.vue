@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Advanced random number generator with multiple formats, bulk generation, and history tracking. Perfect for games, statistics, and development." />
-    </Head>
-
     <div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
         <h1 class="text-3xl font-bold mb-6">Random Number Generator</h1>
 
@@ -147,7 +143,6 @@
 
 <script setup>
 import { ref, computed, inject } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const Swal = inject('Swal');

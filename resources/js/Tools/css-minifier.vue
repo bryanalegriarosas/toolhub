@@ -1,8 +1,4 @@
 <template>
-    <Head>
-        <meta name="description" content="Minify CSS code online to reduce file size and improve page load speed." />
-    </Head>
-
     <div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-xl">
 
         <h1 class="text-2xl font-bold mb-4">CSS Minifier</h1>
@@ -85,7 +81,6 @@
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import { Head } from "@inertiajs/vue3";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
 const input = ref("");

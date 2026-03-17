@@ -1,9 +1,4 @@
 <template>
-    <Head>
-        <meta name="description"
-            content="Merge multiple PDF files into one document with page reordering, preview, and batch processing." />
-    </Head>
-
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
             <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">PDF Merger</h1>
@@ -144,7 +139,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import { PDFDocument } from "pdf-lib";
 import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
 
