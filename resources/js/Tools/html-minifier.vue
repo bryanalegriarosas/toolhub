@@ -1,11 +1,11 @@
 <template>
-    <div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-xl">
+    <div class="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-2xl font-bold mb-4">HTML Minifier</h1>
+        <h1 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">HTML Minifier</h1>
 
         <div class="space-y-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Input HTML</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Input HTML</label>
                 <textarea 
                     v-model="input" 
                     @input="onInputChange"
@@ -46,7 +46,7 @@
                         id="removeComments"
                         class="rounded"
                     />
-                    <label for="removeComments">Remove comments</label>
+                    <label for="removeComments" class="text-gray-700 dark:text-gray-300">Remove comments</label>
                 </div>
                 <div class="flex items-center gap-2">
                     <input 
@@ -55,7 +55,7 @@
                         id="removeWhitespace"
                         class="rounded"
                     />
-                    <label for="removeWhitespace">Remove extra whitespace</label>
+                    <label for="removeWhitespace" class="text-gray-700 dark:text-gray-300">Remove extra whitespace</label>
                 </div>
                 <div class="flex items-center gap-2">
                     <input 
@@ -64,12 +64,12 @@
                         id="preserveLineBreaks"
                         class="rounded"
                     />
-                    <label for="preserveLineBreaks">Preserve line breaks</label>
+                    <label for="preserveLineBreaks" class="text-gray-700 dark:text-gray-300">Preserve line breaks</label>
                 </div>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Minified Output</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Minified Output</label>
                 <textarea 
                     v-model="output" 
                     class="w-full border p-3 rounded font-mono text-sm" 
@@ -79,23 +79,23 @@
                 />
             </div>
 
-            <div v-if="stats.originalSize > 0" class="bg-gray-50 p-4 rounded">
+            <div v-if="stats.originalSize > 0" class="bg-gray-50 dark:bg-gray-700 p-4 rounded">
                 <h3 class="font-semibold mb-2">Statistics</h3>
                 <div class="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600">Original size:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">Original size:</span> 
                         <span class="font-mono">{{ formatBytes(stats.originalSize) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Minified size:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">Minified size:</span> 
                         <span class="font-mono">{{ formatBytes(stats.minifiedSize) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Savings:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">Savings:</span> 
                         <span class="font-mono text-green-600">{{ formatBytes(stats.savings) }} ({{ stats.percentageSaved.toFixed(1) }}%)</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Compression ratio:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">Compression ratio:</span> 
                         <span class="font-mono">{{ (stats.compressionRatio).toFixed(2) }}:1</span>
                     </div>
                 </div>

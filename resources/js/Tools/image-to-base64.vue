@@ -1,6 +1,6 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Image to Base64 Converter</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image to Base64 Converter</h2>
 
         <!-- Upload Area -->
         <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
@@ -8,7 +8,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
-                <p class="text-gray-600">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -26,8 +26,8 @@
             
             <div v-else class="space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ image.name }}</span>
-                    <span class="text-sm text-gray-500">{{ formatFileSize(image.size) }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ image.name }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(image.size) }}</span>
                 </div>
                 
                 <div class="flex gap-2">
@@ -53,26 +53,26 @@
         <!-- Results Section -->
         <div v-if="base64" class="space-y-6">
             <!-- Image Preview -->
-            <div class="bg-gray-50 rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-4 text-gray-700">Image Preview</h3>
-                <div class="border rounded-lg p-4 bg-white">
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Image Preview</h3>
+                <div class="border dark:border-gray-600 rounded-lg p-4 bg-white">
                     <img :src="base64" :alt="'Converted image'" class="max-w-full h-auto mx-auto max-h-96" />
                 </div>
                 <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600">Format:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Format:</span>
                         <span class="font-mono ml-2">{{ imageFormat }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Original Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Original Size:</span>
                         <span class="font-mono ml-2">{{ formatFileSize(image.size) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Base64 Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Base64 Size:</span>
                         <span class="font-mono ml-2">{{ formatFileSize(base64.length) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Size Increase:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Size Increase:</span>
                         <span class="font-mono ml-2">{{ sizeIncrease }}%</span>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         rows="8" 
                         class="w-full px-3 py-2 border border-blue-200 rounded-lg font-mono text-xs bg-white resize-none"
                     />
-                    <div class="absolute top-2 right-2 text-xs text-gray-500">
+                    <div class="absolute top-2 right-2 text-xs text-gray-500 dark:text-gray-400">
                         {{ base64.length }} characters
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                             v-model="includeDataPrefix"
                             class="rounded"
                         />
-                        <span class="text-sm text-gray-700">Include data prefix</span>
+                        <span class="text-sm text-gray-700 dark:text-gray-300">Include data prefix</span>
                     </label>
                     
                     <label class="flex items-center space-x-2">
@@ -127,7 +127,7 @@
                             v-model="useCleanBase64"
                             class="rounded"
                         />
-                        <span class="text-sm text-gray-700">Clean Base64 (no prefix)</span>
+                        <span class="text-sm text-gray-700 dark:text-gray-300">Clean Base64 (no prefix)</span>
                     </label>
                 </div>
             </div>

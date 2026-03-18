@@ -1,15 +1,15 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Image Compressor</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image Compressor</h2>
 
         <!-- Upload Area -->
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
             <div v-if="!image" class="space-y-4">
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-8 0 4 4 0 018 8zm0 0c0 1.657 1.343 3 3 3 0 016-6 0-6z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8a3 3 0 11-6 0 3 3 0 016 6z" />
                 </svg>
-                <p class="text-gray-600">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -27,14 +27,14 @@
             
             <div v-else class="space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ image.name }}</span>
-                    <span class="text-sm text-gray-500">{{ formatFileSize(image.size) }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ image.name }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(image.size) }}</span>
                 </div>
                 
                 <!-- Compression Controls -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Quality</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quality</label>
                         <input 
                             v-model="quality" 
                             type="range" 
@@ -43,12 +43,12 @@
                             step="5"
                             class="w-full"
                         />
-                        <div class="text-center text-sm text-gray-600">{{ quality }}%</div>
+                        <div class="text-center text-sm text-gray-600 dark:text-gray-400">{{ quality }}%</div>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Format</label>
-                        <select v-model="outputFormat" class="w-full px-3 py-2 border rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Format</label>
+                        <select v-model="outputFormat" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                             <option value="image/jpeg">JPEG</option>
                             <option value="image/png">PNG</option>
                             <option value="image/webp">WebP</option>
@@ -56,13 +56,13 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Max Width (px)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Max Width (px)</label>
                         <input 
                             v-model="maxWidth" 
                             type="number" 
                             placeholder="No limit"
                             min="1"
-                            class="w-full px-3 py-2 border rounded-lg"
+                            class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                         />
                     </div>
                 </div>
@@ -87,15 +87,15 @@
 
         <!-- Results -->
         <div v-if="originalSize && compressedSize" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-gray-50 rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-4 text-gray-700">Original</h3>
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Original</h3>
                 <div class="space-y-2">
                     <div class="flex justify-between">
-                        <span class="text-gray-600">Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Size:</span>
                         <span class="font-mono">{{ formatFileSize(originalSize) }}</span>
                     </div>
                     <div v-if="originalDimensions" class="flex justify-between">
-                        <span class="text-gray-600">Dimensions:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Dimensions:</span>
                         <span class="font-mono">{{ originalDimensions.width }} × {{ originalDimensions.height }}</span>
                     </div>
                 </div>
@@ -105,15 +105,15 @@
                 <h3 class="text-lg font-semibold mb-4 text-blue-700">Compressed</h3>
                 <div class="space-y-2">
                     <div class="flex justify-between">
-                        <span class="text-gray-600">Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Size:</span>
                         <span class="font-mono">{{ formatFileSize(compressedSize) }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-600">Savings:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Savings:</span>
                         <span class="font-mono text-green-600">{{ compressionRatio }}%</span>
                     </div>
                     <div v-if="compressedDimensions" class="flex justify-between">
-                        <span class="text-gray-600">Dimensions:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Dimensions:</span>
                         <span class="font-mono">{{ compressedDimensions.width }} × {{ compressedDimensions.height }}</span>
                     </div>
                 </div>

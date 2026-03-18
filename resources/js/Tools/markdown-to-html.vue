@@ -1,19 +1,19 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Markdown to HTML</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Markdown to HTML</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Convert Markdown text to HTML with live preview and formatting tools.
             </p>
 
             <div class="flex flex-col gap-3 sm:gap-4 mb-4">
                 <label class="flex items-center gap-2">
                     <input type="checkbox" v-model="livePreview" class="sm:mt-0" />
-                    <span class="text-sm sm:text-base text-gray-700">Live Preview</span>
+                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Live Preview</span>
                 </label>
                 <label class="flex items-center gap-2">
-                    <span class="text-gray-700 text-sm sm:text-base">Load file:</span>
+                    <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Load file:</span>
                     <input ref="fileInput" type="file" @change="loadFile" class="form-input text-sm sm:text-base"
                         accept=".md,.txt" />
                 </label>
@@ -22,7 +22,7 @@
             <div class="space-y-4 sm:space-y-6">
                 <!-- Markdown Input -->
                 <div class="space-y-2">
-                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
                         Markdown Input
                     </label>
                     <div class="flex flex-wrap gap-1 sm:gap-2 mb-2">
@@ -68,25 +68,25 @@
                         </button>
                     </div>
                     <textarea v-model="markdown" @input="handleInput" placeholder="Enter your Markdown here..."
-                        class="w-full h-48 sm:h-64 p-3 sm:p-4 border rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200"></textarea>
-                    <div class="text-xs sm:text-sm text-gray-500">
+                        class="w-full h-48 sm:h-64 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200"></textarea>
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                         Characters: {{ markdown.length }} | Lines: {{ lineCount }}
                     </div>
                 </div>
 
                 <!-- HTML Output -->
                 <div class="space-y-2">
-                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
                         HTML Output
                     </label>
-                    <div class="border rounded-lg h-48 sm:h-64 overflow-auto bg-gray-50">
+                    <div class="border dark:border-gray-600 rounded-lg h-48 sm:h-64 overflow-auto bg-gray-50 dark:bg-gray-700">
                         <div v-if="html" class="p-3 sm:p-4 prose prose-sm max-w-none text-xs sm:text-sm" v-html="html">
                         </div>
                         <div v-else class="p-3 sm:p-4 text-gray-400 italic text-xs sm:text-sm">
                             HTML output will appear here...
                         </div>
                     </div>
-                    <div class="text-xs sm:text-sm text-gray-500">
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                         HTML Characters: {{ html.length }}
                     </div>
                 </div>
@@ -95,7 +95,7 @@
             <!-- Raw HTML Code -->
             <div v-if="html" class="space-y-2">
                 <div class="flex items-center justify-between">
-                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
                         Raw HTML Code
                     </label>
                     <button @click="copyHtml"
@@ -104,7 +104,7 @@
                     </button>
                 </div>
                 <pre
-                    class="w-full h-40 sm:h-48 p-3 sm:p-4 border rounded-lg bg-gray-900 text-green-400 text-xs sm:text-sm overflow-auto">{{ html }}</pre>
+                    class="w-full h-40 sm:h-48 p-3 sm:p-4 border dark:border-gray-600 rounded-lg bg-gray-900 text-green-400 text-xs sm:text-sm overflow-auto">{{ html }}</pre>
             </div>
 
             <!-- Action Buttons -->
@@ -130,34 +130,34 @@
                 </button>
 
                 <button @click="clearAll"
-                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
                     Clear All
                 </button>
             </div>
 
             <!-- Sample Markdown -->
             <div class="border-t pt-4 sm:pt-6">
-                <h3 class="font-semibold mb-3 text-gray-700 text-sm sm:text-base">Sample Markdown</h3>
+                <h3 class="font-semibold mb-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Sample Markdown</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <button @click="loadSample('basic')"
-                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">Basic Example</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Headings, lists, links</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Headings, lists, links</div>
                     </button>
                     <button @click="loadSample('advanced')"
-                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">Advanced Example</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Code blocks, tables, images</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Code blocks, tables, images</div>
                     </button>
                     <button @click="loadSample('documentation')"
-                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">Documentation Style</div>
-                        <div class="text-xs sm:text-sm text-gray-600">API documentation format</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">API documentation format</div>
                     </button>
                     <button @click="loadSample('readme')"
-                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">README Style</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Project README format</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Project README format</div>
                     </button>
                 </div>
             </div>

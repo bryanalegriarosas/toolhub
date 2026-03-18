@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6">Regex Tester</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Regex Tester</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-            <label class="flex items-center gap-2">
+            <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span>Load file:</span>
                 <input ref="fileInput" type="file" accept=".txt" @change="loadFile" class="form-input" />
             </label>
@@ -23,7 +23,7 @@
             </button>
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear
             </button>
@@ -38,30 +38,30 @@
 
         <div class="space-y-6">
             <div>
-                <label class="block text-sm mb-2">Regex Pattern</label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">Regex Pattern</label>
 
                 <input
                     v-model="pattern"
                     placeholder="\d+"
-                    class="w-full border rounded-lg p-3"
+                    class="w-full border dark:border-gray-600 rounded-lg p-3"
                 />
             </div>
 
             <div>
-                <label class="block text-sm mb-2">Test Text</label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">Test Text</label>
 
                 <textarea
                     v-model="text"
                     rows="6"
                     placeholder="Enter text to test..."
-                    class="w-full border rounded-lg p-3"
+                    class="w-full border dark:border-gray-600 rounded-lg p-3"
                 />
             </div>
 
             <div>
-                <label class="block text-sm mb-2">Matches</label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">Matches</label>
 
-                <div class="border rounded-lg p-4 bg-gray-50">
+                <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                     <div v-if="matches.length === 0" class="text-gray-400">
                         No matches
                     </div>
@@ -85,7 +85,7 @@
                 >
                     <div>
                         <span class="font-mono break-words max-w-full">/{{ h.pattern }}/ → {{ h.text }}</span>
-                        <p class="text-xs text-gray-500">{{ h.date }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ h.date }}</p>
                     </div>
                     <button
                         @click="restore(h)"
@@ -105,7 +105,7 @@
                 </button>
                 <button
                     @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
                     Clear History
                 </button>

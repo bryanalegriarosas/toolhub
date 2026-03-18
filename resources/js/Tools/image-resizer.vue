@@ -1,14 +1,14 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Image Resizer</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image Resizer</h2>
 
         <!-- Upload Area -->
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
             <div v-if="!image" class="space-y-4">
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <p class="text-gray-600">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -26,15 +26,15 @@
             
             <div v-else class="space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ image.name }}</span>
-                    <span class="text-sm text-gray-500">{{ formatFileSize(image.size) }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ image.name }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(image.size) }}</span>
                 </div>
                 
                 <!-- Original Dimensions Display -->
-                <div v-if="originalDimensions" class="bg-gray-50 rounded-lg p-4">
-                    <h3 class="text-sm font-semibold text-gray-700 mb-2">Original Dimensions</h3>
+                <div v-if="originalDimensions" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Original Dimensions</h3>
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-600">Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Size:</span>
                         <span class="font-mono">{{ originalDimensions.width }} × {{ originalDimensions.height }}</span>
                     </div>
                 </div>
@@ -42,36 +42,36 @@
                 <!-- Resize Controls -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Width (px)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Width (px)</label>
                         <input 
                             v-model="newWidth" 
                             type="number" 
                             min="1"
-                            class="w-full px-3 py-2 border rounded-lg"
+                            class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                             @input="handleDimensionChange('width')"
                         />
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Height (px)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Height (px)</label>
                         <input 
                             v-model="newHeight" 
                             type="number" 
                             min="1"
-                            class="w-full px-3 py-2 border rounded-lg"
+                            class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                             @input="handleDimensionChange('height')"
                         />
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Scale (%)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Scale (%)</label>
                         <input 
                             v-model="scale" 
                             type="number" 
                             min="1" 
                             max="200"
                             step="5"
-                            class="w-full px-3 py-2 border rounded-lg"
+                            class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                             @input="handleScaleChange"
                         />
                     </div>
@@ -83,20 +83,20 @@
                                 v-model="lockAspectRatio"
                                 class="rounded"
                             />
-                            <span class="text-sm text-gray-700">Lock Aspect Ratio</span>
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Lock Aspect Ratio</span>
                         </label>
                     </div>
                 </div>
                 
                 <!-- Preset Sizes -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Quick Presets</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Quick Presets</label>
                     <div class="flex flex-wrap gap-2">
                         <button 
                             v-for="preset in presets" 
                             :key="preset.name"
                             @click="applyPreset(preset)"
-                            class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition-colors"
+                            class="px-3 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 rounded-lg text-sm transition-colors"
                         >
                             {{ preset.name }}
                         </button>
@@ -105,8 +105,8 @@
                 
                 <!-- Format Selection -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
-                    <select v-model="outputFormat" class="w-full px-3 py-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Output Format</label>
+                    <select v-model="outputFormat" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="image/jpeg">JPEG</option>
                         <option value="image/png">PNG</option>
                         <option value="image/webp">WebP</option>
@@ -137,16 +137,16 @@
                 <h3 class="text-lg font-semibold mb-4 text-blue-700">Resized Image</h3>
                 <div class="space-y-4">
                     <div class="flex justify-between">
-                        <span class="text-gray-600">New Dimensions:</span>
+                        <span class="text-gray-600 dark:text-gray-400">New Dimensions:</span>
                         <span class="font-mono">{{ newWidth }} × {{ newHeight }}</span>
                     </div>
                     <div v-if="resizedSize" class="flex justify-between">
-                        <span class="text-gray-600">File Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">File Size:</span>
                         <span class="font-mono">{{ formatFileSize(resizedSize) }}</span>
                     </div>
                     
                     <!-- Preview -->
-                    <div class="border rounded-lg p-4 bg-white">
+                    <div class="border dark:border-gray-600 rounded-lg p-4 bg-white">
                         <img :src="resizedImageUrl" :alt="'Resized image'" class="max-w-full h-auto mx-auto" />
                     </div>
                     

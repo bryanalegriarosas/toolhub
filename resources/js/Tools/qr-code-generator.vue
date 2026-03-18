@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">QR Code Generator</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">QR Code Generator</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Advanced QR code generator with customization options, batch generation, and multiple formats.
             </p>
 
@@ -11,7 +11,7 @@
                 <!-- Input Section -->
                 <div class="space-y-4 sm:space-y-6">
                     <div>
-                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Content Type</label>
+                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Content Type</label>
                         <select v-model="contentType" class="form-select text-sm sm:text-base mb-4">
                             <option value="text">Plain Text</option>
                             <option value="url">URL</option>
@@ -23,7 +23,7 @@
                     </div>
 
                     <div v-if="contentType === 'text' || contentType === 'url'">
-                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">
+                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">
                             {{ contentType === 'url' ? 'URL' : 'Text' }}
                         </label>
                         <textarea v-model="text"
@@ -33,19 +33,19 @@
 
                     <div v-if="contentType === 'email'" class="space-y-3">
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Email
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Email
                                 Address</label>
                             <input v-model="emailData.address" type="email" class="form-input text-sm sm:text-base"
                                 placeholder="email@example.com" />
                         </div>
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Subject
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Subject
                                 (Optional)</label>
                             <input v-model="emailData.subject" type="text" class="form-input text-sm sm:text-base"
                                 placeholder="Email subject" />
                         </div>
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Message
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Message
                                 (Optional)</label>
                             <textarea v-model="emailData.message"
                                 class="form-input resize-none h-20 text-sm sm:text-base" placeholder="Email message" />
@@ -53,25 +53,25 @@
                     </div>
 
                     <div v-if="contentType === 'phone'">
-                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Phone Number</label>
+                        <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Phone Number</label>
                         <input v-model="phone" type="tel" class="form-input text-sm sm:text-base"
                             placeholder="+1234567890" />
                     </div>
 
                     <div v-if="contentType === 'wifi'" class="space-y-3">
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Network Name
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Network Name
                                 (SSID)</label>
                             <input v-model="wifiData.ssid" type="text" class="form-input text-sm sm:text-base"
                                 placeholder="WiFi Network Name" />
                         </div>
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Password</label>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Password</label>
                             <input v-model="wifiData.password" type="password" class="form-input text-sm sm:text-base"
                                 placeholder="WiFi Password" />
                         </div>
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Security
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Security
                                 Type</label>
                             <select v-model="wifiData.security" class="form-select text-sm sm:text-base">
                                 <option value="WPA">WPA/WPA2</option>
@@ -83,13 +83,13 @@
 
                     <div v-if="contentType === 'sms'" class="space-y-3">
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Phone
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Phone
                                 Number</label>
                             <input v-model="smsData.phone" type="tel" class="form-input text-sm sm:text-base"
                                 placeholder="+1234567890" />
                         </div>
                         <div>
-                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Message</label>
+                            <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Message</label>
                             <textarea v-model="smsData.message" class="form-input resize-none h-20 text-sm sm:text-base"
                                 placeholder="SMS message" />
                         </div>
@@ -97,11 +97,11 @@
 
                     <!-- QR Code Settings -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">QR Code Settings</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">QR Code Settings</h3>
 
                         <div class="grid grid-cols-2 gap-3 sm:gap-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Size</label>
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Size</label>
                                 <select v-model="size" class="form-select text-sm sm:text-base">
                                     <option value="200">Small (200px)</option>
                                     <option value="300">Medium (300px)</option>
@@ -111,7 +111,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Error
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Error
                                     Correction</label>
                                 <select v-model="errorCorrection" class="form-select text-sm sm:text-base">
                                     <option value="L">Low (7%)</option>
@@ -124,7 +124,7 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Foreground
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Foreground
                                     Color</label>
                                 <div class="flex gap-2">
                                     <input v-model="darkColor" type="color" class="w-12 sm:w-16 h-10 border rounded" />
@@ -134,7 +134,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Background
+                                <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Background
                                     Color</label>
                                 <div class="flex gap-2">
                                     <input v-model="lightColor" type="color" class="w-12 sm:w-16 h-10 border rounded" />
@@ -175,18 +175,18 @@
                 <div class="space-y-4 sm:space-y-6">
                     <div v-if="qr" class="text-center">
                         <h3 class="text-lg font-semibold mb-4">QR Code Preview</h3>
-                        <div class="bg-gray-50 rounded-lg p-4 sm:p-8 inline-block">
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-8 inline-block">
                             <img :src="qr" :style="`width: ${size}px; height: ${size}px;`" class="mx-auto" />
                         </div>
 
-                        <div class="mt-4 text-xs sm:text-sm text-gray-600">
+                        <div class="mt-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                             <p>Size: {{ size }}x{{ size }}px</p>
                             <p>Error Correction: {{ errorCorrectionLevel }}</p>
                             <p v-if="getContentPreview()">Content: {{ getContentPreview() }}</p>
                         </div>
                     </div>
 
-                    <div v-else class="text-center py-8 sm:py-12 bg-gray-50 rounded-lg">
+                    <div v-else class="text-center py-8 sm:py-12 bg-gray-50 dark:bg-gray-700 rounded-lg">
                         <div class="text-gray-400">
                             <svg class="w-16 sm:w-24 h-16 sm:h-24 mx-auto mb-4" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -209,12 +209,12 @@
                         </div>
                         <div class="space-y-3">
                             <div v-for="(item, index) in history.slice(-3).reverse()" :key="index"
-                                class="bg-gray-50 rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                class="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                                 <div class="flex items-center space-x-3 sm:space-x-4">
                                     <img :src="item.qr" class="w-12 h-12 sm:w-16 sm:h-16" />
                                     <div>
                                         <p class="font-medium text-xs sm:text-sm">{{ item.type }}</p>
-                                        <p class="text-xs text-gray-500">{{ item.timestamp }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ item.timestamp }}</p>
                                     </div>
                                 </div>
                                 <div class="flex gap-2">

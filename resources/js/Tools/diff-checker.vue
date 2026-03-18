@@ -1,11 +1,11 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Diff Checker</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Diff Checker</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Text 1 -->
             <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Text 1 (Original)
                 </label>
                 <div class="flex gap-2">
@@ -25,7 +25,7 @@
                 <textarea
                     v-model="text1"
                     placeholder="Paste or type your first text here..."
-                    class="w-full h-64 p-4 border rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
+                    class="w-full h-64 p-4 border dark:border-gray-600 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
                 ></textarea>
                 <input
                     ref="fileInput1"
@@ -38,7 +38,7 @@
 
             <!-- Text 2 -->
             <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Text 2 (Modified)
                 </label>
                 <div class="flex gap-2">
@@ -58,7 +58,7 @@
                 <textarea
                     v-model="text2"
                     placeholder="Paste or type your second text here..."
-                    class="w-full h-64 p-4 border rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
+                    class="w-full h-64 p-4 border dark:border-gray-600 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
                 ></textarea>
                 <input
                     ref="fileInput2"
@@ -106,36 +106,36 @@
 
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear All
             </button>
         </div>
 
         <!-- Statistics -->
-        <div v-if="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg">
+        <div v-if="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <div class="text-center">
                 <div class="text-2xl font-bold text-blue-600">{{ stats.linesAdded }}</div>
-                <div class="text-sm text-gray-600">Lines Added</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Added</div>
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-red-600">{{ stats.linesRemoved }}</div>
-                <div class="text-sm text-gray-600">Lines Removed</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Removed</div>
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-yellow-600">{{ stats.linesModified }}</div>
-                <div class="text-sm text-gray-600">Lines Modified</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Modified</div>
             </div>
             <div class="text-center">
-                <div class="text-2xl font-bold text-gray-600">{{ stats.linesUnchanged }}</div>
-                <div class="text-sm text-gray-600">Lines Unchanged</div>
+                <div class="text-2xl font-bold text-gray-600 dark:text-gray-400">{{ stats.linesUnchanged }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Unchanged</div>
             </div>
         </div>
 
         <!-- Differences Display -->
         <div v-if="differences.length" class="space-y-4">
             <h3 class="text-lg font-semibold">Differences</h3>
-            <div class="border rounded-lg overflow-auto max-h-96">
+            <div class="border dark:border-gray-600 rounded-lg overflow-auto max-h-96">
                 <div
                     v-for="(diff, index) in differences"
                     :key="index"
@@ -144,18 +144,18 @@
                         diff.type === 'added' ? 'bg-green-50 border-green-200' :
                         diff.type === 'removed' ? 'bg-red-50 border-red-200' :
                         diff.type === 'modified' ? 'bg-yellow-50 border-yellow-200' :
-                        'bg-gray-50'
+                        'bg-gray-50 dark:bg-gray-700'
                     ]"
                 >
                     <div class="flex items-start gap-2">
-                        <span class="text-gray-500 text-xs w-8">{{ diff.lineNumber }}</span>
+                        <span class="text-gray-500 dark:text-gray-400 text-xs w-8">{{ diff.lineNumber }}</span>
                         <span
                             :class="[
                                 'flex-1',
                                 diff.type === 'added' ? 'text-green-700' :
                                 diff.type === 'removed' ? 'text-red-700' :
                                 diff.type === 'modified' ? 'text-yellow-700' :
-                                'text-gray-700'
+                                'text-gray-700 dark:text-gray-300'
                             ]"
                         >
                             <span v-if="diff.type === 'added'" class="font-bold">+</span>
@@ -165,7 +165,7 @@
                             {{ diff.content }}
                         </span>
                     </div>
-                    <div v-if="diff.type === 'modified' && diff.oldContent" class="mt-1 text-xs text-gray-600">
+                    <div v-if="diff.type === 'modified' && diff.oldContent" class="mt-1 text-xs text-gray-600 dark:text-gray-400">
                         Was: {{ diff.oldContent }}
                     </div>
                 </div>
@@ -176,7 +176,7 @@
         <div v-if="showSideBySide && differences.length" class="space-y-4">
             <h3 class="text-lg font-semibold">Side-by-Side View</h3>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div class="border rounded-lg p-4">
+                <div class="border dark:border-gray-600 rounded-lg p-4">
                     <h4 class="font-semibold mb-2 text-red-600">Text 1</h4>
                     <div class="space-y-1">
                         <div
@@ -186,15 +186,15 @@
                                 'p-2 font-mono text-sm rounded',
                                 line.status === 'removed' ? 'bg-red-100 text-red-800' :
                                 line.status === 'modified' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-gray-50'
+                                'bg-gray-50 dark:bg-gray-700'
                             ]"
                         >
-                            <span class="text-gray-500 text-xs mr-2">{{ line.number }}</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs mr-2">{{ line.number }}</span>
                             {{ line.content }}
                         </div>
                     </div>
                 </div>
-                <div class="border rounded-lg p-4">
+                <div class="border dark:border-gray-600 rounded-lg p-4">
                     <h4 class="font-semibold mb-2 text-green-600">Text 2</h4>
                     <div class="space-y-1">
                         <div
@@ -204,10 +204,10 @@
                                 'p-2 font-mono text-sm rounded',
                                 line.status === 'added' ? 'bg-green-100 text-green-800' :
                                 line.status === 'modified' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-gray-50'
+                                'bg-gray-50 dark:bg-gray-700'
                             ]"
                         >
-                            <span class="text-gray-500 text-xs mr-2">{{ line.number }}</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs mr-2">{{ line.number }}</span>
                             {{ line.content }}
                         </div>
                     </div>

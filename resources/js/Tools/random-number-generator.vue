@@ -1,35 +1,35 @@
 <template>
-    <div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl">
-        <h1 class="text-3xl font-bold mb-6">Random Number Generator</h1>
+    <div class="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-lg rounded-xl">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Random Number Generator</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <!-- Basic Settings -->
             <div class="space-y-4">
-                <h2 class="text-lg font-semibold text-gray-700">Basic Settings</h2>
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Basic Settings</h2>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Minimum Value</label>
-                    <input v-model.number="min" type="number" class="w-full border rounded-lg p-3" placeholder="Enter minimum value" />
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Minimum Value</label>
+                    <input v-model.number="min" type="number" class="w-full border dark:border-gray-600 rounded-lg p-3" placeholder="Enter minimum value" />
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Maximum Value</label>
-                    <input v-model.number="max" type="number" class="w-full border rounded-lg p-3" placeholder="Enter maximum value" />
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Maximum Value</label>
+                    <input v-model.number="max" type="number" class="w-full border dark:border-gray-600 rounded-lg p-3" placeholder="Enter maximum value" />
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Quantity</label>
-                    <input v-model.number="quantity" type="number" min="1" max="100" class="w-full border rounded-lg p-3" placeholder="How many numbers to generate" />
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Quantity</label>
+                    <input v-model.number="quantity" type="number" min="1" max="100" class="w-full border dark:border-gray-600 rounded-lg p-3" placeholder="How many numbers to generate" />
                 </div>
             </div>
 
             <!-- Advanced Options -->
             <div class="space-y-4">
-                <h2 class="text-lg font-semibold text-gray-700">Advanced Options</h2>
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Advanced Options</h2>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Number Type</label>
-                    <select v-model="numberType" class="w-full border rounded-lg p-3">
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Number Type</label>
+                    <select v-model="numberType" class="w-full border dark:border-gray-600 rounded-lg p-3">
                         <option value="integer">Integer</option>
                         <option value="decimal">Decimal</option>
                         <option value="percentage">Percentage</option>
@@ -38,15 +38,15 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Decimal Places</label>
-                    <input v-model.number="decimalPlaces" type="number" min="0" max="10" class="w-full border rounded-lg p-3" :disabled="numberType === 'integer'" />
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Decimal Places</label>
+                    <input v-model.number="decimalPlaces" type="number" min="0" max="10" class="w-full border dark:border-gray-600 rounded-lg p-3" :disabled="numberType === 'integer'" />
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Unique Numbers Only</label>
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Unique Numbers Only</label>
                     <label class="flex items-center">
                         <input v-model="unique" type="checkbox" class="mr-2" />
-                        <span class="text-sm">Generate unique numbers only</span>
+                        <span class="text-sm text-gray-700 dark:text-gray-300">Generate unique numbers only</span>
                     </label>
                 </div>
             </div>
@@ -74,13 +74,13 @@
         <!-- Results Display -->
         <div v-if="results.length > 0" class="mb-6">
             <h3 class="text-lg font-semibold mb-3">Generated Numbers ({{ results.length }})</h3>
-            <div class="bg-gray-50 rounded-lg p-4">
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
                     <div v-for="(number, index) in results" :key="index" 
-                         class="bg-white border rounded-lg p-3 text-center font-mono hover:bg-blue-50 cursor-pointer transition-colors"
+                         class="bg-white border dark:border-gray-600 rounded-lg p-3 text-center font-mono hover:bg-blue-50 cursor-pointer transition-colors"
                          @click="copyNumber(number)">
                         <div class="text-lg font-bold">{{ formatNumber(number) }}</div>
-                        <div class="text-xs text-gray-500">Click to copy</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">Click to copy</div>
                     </div>
                 </div>
             </div>
@@ -91,19 +91,19 @@
             <h3 class="text-lg font-semibold mb-3">Statistics</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-blue-50 rounded-lg p-3">
-                    <div class="text-sm text-gray-600">Average</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Average</div>
                     <div class="text-lg font-bold text-blue-600">{{ formatNumber(average) }}</div>
                 </div>
                 <div class="bg-green-50 rounded-lg p-3">
-                    <div class="text-sm text-gray-600">Sum</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Sum</div>
                     <div class="text-lg font-bold text-green-600">{{ formatNumber(sum) }}</div>
                 </div>
                 <div class="bg-purple-50 rounded-lg p-3">
-                    <div class="text-sm text-gray-600">Min</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Min</div>
                     <div class="text-lg font-bold text-purple-600">{{ formatNumber(Math.min(...results)) }}</div>
                 </div>
                 <div class="bg-orange-50 rounded-lg p-3">
-                    <div class="text-sm text-gray-600">Max</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Max</div>
                     <div class="text-lg font-bold text-orange-600">{{ formatNumber(Math.max(...results)) }}</div>
                 </div>
             </div>
@@ -119,10 +119,10 @@
             </div>
             <div class="space-y-2">
                 <div v-for="(entry, index) in history.slice(-5)" :key="index" 
-                     class="bg-gray-50 rounded-lg p-3 flex justify-between items-center">
+                     class="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 flex justify-between items-center">
                     <div class="text-sm">
                         <span class="font-medium">{{ entry.count }} numbers</span>
-                        <span class="text-gray-500 ml-2">{{ entry.range }}</span>
+                        <span class="text-gray-500 dark:text-gray-400 ml-2">{{ entry.range }}</span>
                         <span class="text-gray-400 ml-2">{{ entry.timestamp }}</span>
                     </div>
                     <button @click="loadFromHistory(entry)" class="text-blue-600 hover:text-blue-800 text-sm">

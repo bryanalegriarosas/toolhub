@@ -1,50 +1,50 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6">Slug Generator</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Slug Generator</h1>
 
         <div class="space-y-6">
             <div class="flex items-center gap-2">
-                <label class="flex items-center gap-2">
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <span>Load file:</span>
                     <input ref="fileInput" type="file" accept=".txt" @change="loadFile" class="form-input" />
                 </label>
             </div>
 
             <div>
-                <label class="block text-sm mb-2"> Enter text </label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300"> Enter text </label>
 
                 <input
                     v-model="text"
                     type="text"
                     placeholder="Hello World 2026"
-                    class="w-full border rounded-lg p-3"
+                    class="w-full border dark:border-gray-600 rounded-lg p-3"
                 />
             </div>
 
             <div class="flex flex-col md:flex-row md:items-center gap-4">
-                <label class="flex items-center gap-2">
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="radio" value="-" v-model="separator" />
                     <span>Hyphen (-)</span>
                 </label>
-                <label class="flex items-center gap-2">
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="radio" value="_" v-model="separator" />
                     <span>Underscore (_)</span>
                 </label>
-                <label class="flex items-center gap-2">
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="checkbox" v-model="removeStopWords" />
                     <span>Remove common words</span>
                 </label>
             </div>
 
             <div>
-                <label class="block text-sm mb-2"> Slug </label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300"> Slug </label>
 
                 <input
                     :value="slug"
                     readonly
-                    class="w-full border rounded-lg p-3 bg-gray-100"
+                    class="w-full border dark:border-gray-600 rounded-lg p-3 bg-gray-100 dark:bg-gray-800"
                 />
-                <p class="text-sm text-gray-500 mt-1">Length: {{ slug.length }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Length: {{ slug.length }}</p>
             </div>
 
             <div class="flex flex-wrap gap-2">
@@ -64,7 +64,7 @@
                 </button>
                 <button
                     @click="clearAll"
-                    class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                    class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
                     Clear
                 </button>
@@ -88,7 +88,7 @@
                 >
                     <div>
                         <span class="font-mono">{{ h.summary }}</span>
-                        <p class="text-xs text-gray-500 truncate max-w-xs">{{ h.text }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 truncate max-w-xs">{{ h.text }}</p>
                     </div>
                     <button
                         @click="restore(h)"
@@ -108,7 +108,7 @@
                 </button>
                 <button
                     @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
                     Clear History
                 </button>

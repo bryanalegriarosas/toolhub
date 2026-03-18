@@ -1,27 +1,27 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">SQL Formatter</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">SQL Formatter</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Format and beautify SQL queries with proper indentation.
             </p>
 
             <div class="flex flex-col gap-3 sm:gap-4 mb-4">
                 <label class="flex items-center gap-2">
                     <input type="checkbox" v-model="autoFormat" class="sm:mt-0" />
-                    <span class="text-sm sm:text-base text-gray-700">Auto Format</span>
+                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Auto Format</span>
                 </label>
                 <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                     <label class="flex items-center gap-2">
-                        <span class="text-gray-700 text-sm sm:text-base">Indentation:</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Indentation:</span>
                         <select v-model="indentType" class="form-select text-sm sm:text-base min-w-[100px]">
                             <option value="spaces">Spaces</option>
                             <option value="tabs">Tabs</option>
                         </select>
                     </label>
                     <label class="flex items-center gap-2">
-                        <span class="text-gray-700 text-sm sm:text-base">Size:</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Size:</span>
                         <select v-model="indentSize" class="form-select text-sm sm:text-base min-w-[80px]">
                             <option value="2">2</option>
                             <option value="4">4</option>
@@ -29,7 +29,7 @@
                         </select>
                     </label>
                     <label class="flex items-center gap-2">
-                        <span class="text-gray-700 text-sm sm:text-base">Load file:</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Load file:</span>
                         <input ref="fileInput" type="file" @change="loadFile" class="form-input text-sm sm:text-base"
                             accept=".sql,.txt" />
                     </label>
@@ -39,7 +39,7 @@
             <div class="space-y-4 sm:space-y-6">
                 <!-- SQL Input -->
                 <div class="space-y-2">
-                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
                         SQL Input
                     </label>
                     <div class="flex flex-wrap gap-1 sm:gap-2 mb-2">
@@ -75,25 +75,25 @@
                         </button>
                     </div>
                     <textarea v-model="sqlInput" @input="handleInput" placeholder="Paste your SQL query here..."
-                        class="w-full h-48 sm:h-64 p-3 sm:p-4 border rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200"></textarea>
-                    <div class="text-xs sm:text-sm text-gray-500">
+                        class="w-full h-48 sm:h-64 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200"></textarea>
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                         Characters: {{ sqlInput.length }} | Lines: {{ lineCount }}
                     </div>
                 </div>
 
                 <!-- Formatted Output -->
                 <div class="space-y-2">
-                    <label class="block text-sm sm:text-base font-medium text-gray-700">
+                    <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
                         Formatted SQL
                     </label>
-                    <div class="border rounded-lg h-48 sm:h-64 overflow-auto bg-gray-900">
+                    <div class="border dark:border-gray-600 rounded-lg h-48 sm:h-64 overflow-auto bg-gray-900">
                         <pre v-if="formattedSql"
                             class="p-3 sm:p-4 text-green-400 text-xs sm:text-sm font-mono whitespace-pre-wrap">{{ formattedSql }}</pre>
                         <div v-else class="p-3 sm:p-4 text-gray-400 italic font-mono text-xs sm:text-sm">
                             Formatted SQL will appear here...
                         </div>
                     </div>
-                    <div class="text-xs sm:text-sm text-gray-500">
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                         Characters: {{ formattedSql.length }}
                     </div>
                 </div>
@@ -122,53 +122,53 @@
                 </button>
 
                 <button @click="clearAll"
-                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
                     Clear All
                 </button>
             </div>
 
             <!-- SQL Statistics -->
-            <div v-if="stats" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg">
+            <div v-if="stats" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-blue-600">{{ stats.keywords }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600">Keywords</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Keywords</div>
                 </div>
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-green-600">{{ stats.tables }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600">Tables</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Tables</div>
                 </div>
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-purple-600">{{ stats.columns }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600">Columns</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Columns</div>
                 </div>
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-orange-600">{{ stats.functions }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600">Functions</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Functions</div>
                 </div>
             </div>
 
             <!-- Sample SQL Queries -->
             <div class="border-t pt-4 sm:pt-6">
-                <h3 class="font-semibold mb-3 text-gray-700 text-sm sm:text-base">Sample SQL Queries</h3>
+                <h3 class="font-semibold mb-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Sample SQL Queries</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <button @click="loadSample('simple')"
-                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">Simple SELECT</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Basic query with WHERE clause</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Basic query with WHERE clause</div>
                     </button>
-                    <button @click="loadSample('join')" class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                    <button @click="loadSample('join')" class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">JOIN Query</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Multiple table joins</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Multiple table joins</div>
                     </button>
                     <button @click="loadSample('complex')"
-                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">Complex Query</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Subqueries and functions</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Subqueries and functions</div>
                     </button>
                     <button @click="loadSample('aggregate')"
-                        class="p-3 sm:p-4 border rounded-lg hover:bg-gray-50 text-left">
+                        class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
                         <div class="font-medium text-sm sm:text-base">Aggregate Functions</div>
-                        <div class="text-xs sm:text-sm text-gray-600">GROUP BY with aggregates</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">GROUP BY with aggregates</div>
                     </button>
                 </div>
             </div>

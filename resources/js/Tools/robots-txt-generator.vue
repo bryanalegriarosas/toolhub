@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Robots.txt Generator</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Robots.txt Generator</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Generate robots.txt files with sitemap support, crawl delays, and advanced directives.
             </p>
 
@@ -12,22 +12,22 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Basic Robots Configuration -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Basic Configuration</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Basic Configuration</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Sitemap URL</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Sitemap URL</label>
                                 <input v-model="sitemap" @input="validateInputs"
                                     placeholder="https://example.com/sitemap.xml"
                                     class="form-input text-sm sm:text-base" />
-                                <div class="text-xs text-gray-500 mt-1">
+                                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                     <span v-if="sitemap">{{ isValidUrl(sitemap) ? '✓ Valid URL' : 'Enter valid sitemap URL'
                                     }}</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Crawl Delay</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Crawl Delay</label>
                                 <select v-model="crawlDelay" class="form-select text-sm sm:text-base">
                                     <option value="0">No delay</option>
                                     <option value="1">1 second delay</option>
@@ -38,13 +38,13 @@
                             </div>
 
                             <div v-if="crawlDelay === 'custom'" class="mt-2">
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Custom Delay (seconds)</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Custom Delay (seconds)</label>
                                 <input v-model="customDelay" type="number" min="0" max="3600"
                                     placeholder="Enter custom delay" class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">User Agent</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">User Agent</label>
                                 <select v-model="userAgent" class="form-select text-sm sm:text-base">
                                     <option value="*">All robots (*)</option>
                                     <option value="Googlebot">Googlebot</option>
@@ -56,7 +56,7 @@
                             </div>
 
                             <div v-if="userAgent === 'custom'" class="mt-2">
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Custom User Agent</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Custom User Agent</label>
                                 <input v-model="customUserAgent" placeholder="MyCustomBot/1.0"
                                     class="form-input text-sm sm:text-base" />
                             </div>
@@ -65,17 +65,17 @@
 
                     <!-- Advanced Directives -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Advanced Directives</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Advanced Directives</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <!-- Allow/Disallow Rules -->
                             <div class="space-y-2">
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Allow/Disallow Rules</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Allow/Disallow Rules</label>
                                 <div class="space-y-2">
                                     <div v-for="(rule, index) in rules.allow" :key="index" class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
                                         <input v-model="rule.path" placeholder="Path or pattern"
-                                            class="flex-1 px-3 py-2 border rounded-lg text-sm sm:text-base" />
-                                        <select v-model="rule.type" class="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm sm:text-base">
+                                            class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm sm:text-base" />
+                                        <select v-model="rule.type" class="w-full sm:w-auto px-3 py-2 border dark:border-gray-600 rounded-lg text-sm sm:text-base">
                                             <option value="allow">Allow</option>
                                             <option value="disallow">Disallow</option>
                                         </select>
@@ -97,8 +97,8 @@
                             <div class="space-y-2">
                                 <div v-for="(rule, index) in rules.disallow" :key="index" class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
                                     <input v-model="rule.path" placeholder="Path or pattern"
-                                        class="flex-1 px-3 py-2 border rounded-lg text-sm sm:text-base" />
-                                    <select v-model="rule.type" class="w-full sm:w-auto px-3 py-2 border rounded-lg text-sm sm:text-base">
+                                        class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm sm:text-base" />
+                                    <select v-model="rule.type" class="w-full sm:w-auto px-3 py-2 border dark:border-gray-600 rounded-lg text-sm sm:text-base">
                                         <option value="allow">Allow</option>
                                         <option value="disallow">Disallow</option>
                                     </select>
@@ -116,10 +116,10 @@
 
                         <!-- Host Directives -->
                         <div class="space-y-2">
-                            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Host Directives</label>
+                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Host Directives</label>
                             <div v-for="(directive, index) in hostDirectives" :key="index" class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
                                 <input v-model="directive.value" placeholder="Host: example.com"
-                                    class="flex-1 px-3 py-2 border rounded-lg text-sm sm:text-base" />
+                                    class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm sm:text-base" />
                                 <button @click="removeHostDirective(index)"
                                     class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm sm:text-base">
                                     Remove
@@ -133,10 +133,10 @@
 
                         <!-- Sitemap Directives -->
                         <div class="space-y-2">
-                            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Sitemap Directives</label>
+                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Sitemap Directives</label>
                             <div v-for="(directive, index) in sitemapDirectives" :key="index" class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
                                 <input v-model="directive.value" placeholder="Sitemap: https://example.com/sitemap.xml"
-                                    class="flex-1 px-3 py-2 border rounded-lg text-sm sm:text-base" />
+                                    class="flex-1 px-3 py-2 border dark:border-gray-600 rounded-lg text-sm sm:text-base" />
                                 <button @click="removeSitemapDirective(index)"
                                     class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm sm:text-base">
                                     Remove
@@ -176,9 +176,9 @@
 
             <!-- Generated Code -->
             <div v-if="result" class="space-y-4 sm:space-y-6">
-                <div class="bg-gray-50 rounded-lg p-4 sm:p-6">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Generated Robots.txt</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Robots.txt</h3>
                         <div class="flex gap-2">
                             <button @click="copyToClipboard"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
@@ -193,14 +193,14 @@
 
                 <!-- Code Preview -->
                 <div class="bg-white rounded-lg p-3 sm:p-4">
-                    <pre class="text-xs sm:text-sm text-gray-800 overflow-x-auto font-mono"><code>{{ result }}</code></pre>
+                    <pre class="text-xs sm:text-sm text-gray-800 dark:text-white overflow-x-auto font-mono"><code>{{ result }}</code></pre>
                 </div>
 
                 <!-- Live Preview -->
                 <div class="mt-4">
-                    <h4 class="text-md font-semibold text-gray-700 mb-2">Live Preview</h4>
-                    <div class="border rounded-lg p-3 sm:p-4 bg-gray-50">
-                        <pre class="text-xs text-gray-600 overflow-x-auto"><code>{{ result }}</code></pre>
+                    <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">Live Preview</h4>
+                    <div class="border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
+                        <pre class="text-xs text-gray-600 dark:text-gray-400 overflow-x-auto"><code>{{ result }}</code></pre>
                     </div>
                 </div>
             </div>

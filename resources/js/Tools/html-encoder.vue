@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6">HTML Encoder</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">HTML Encoder</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-            <label class="flex items-center gap-2">
+            <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span>Load file:</span>
                 <input ref="fileInput" type="file" accept=".html,.txt" @change="loadFile" class="form-input" />
             </label>
@@ -23,7 +23,7 @@
             </button>
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear
             </button>
@@ -40,17 +40,17 @@
             v-model="text"
             rows="6"
             placeholder="Paste HTML here..."
-            class="w-full border rounded-lg p-4 mb-6"
+            class="w-full border dark:border-gray-600 rounded-lg p-4 mb-6"
         />
 
         <div>
-            <label class="text-sm text-gray-500">Encoded HTML</label>
+            <label class="text-sm text-gray-500 dark:text-gray-400">Encoded HTML</label>
 
             <textarea
                 :value="encoded"
                 readonly
                 rows="6"
-                class="w-full border rounded-lg p-4 bg-gray-100"
+                class="w-full border dark:border-gray-600 rounded-lg p-4 bg-gray-100 dark:bg-gray-800"
             />
         </div>
 
@@ -64,7 +64,7 @@
                 >
                     <div>
                         <span class="font-mono break-words max-w-full">{{ h.text }}</span>
-                        <p class="text-xs text-gray-500">{{ h.date }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ h.date }}</p>
                     </div>
                     <button
                         @click="restore(h)"
@@ -84,7 +84,7 @@
                 </button>
                 <button
                     @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
                     Clear History
                 </button>

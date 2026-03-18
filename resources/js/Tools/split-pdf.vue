@@ -1,14 +1,14 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">PDF Splitter</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">PDF Splitter</h2>
 
         <!-- Upload Area -->
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
             <div v-if="!file" class="space-y-4">
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707L10.586 10H7a2 2 0 00-2 2v11a2 2 0 002 2z" />
                 </svg>
-                <p class="text-gray-600">Drop PDF here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">Drop PDF here or click to upload</p>
                 <input 
                     type="file" 
                     accept="application/pdf" 
@@ -26,8 +26,8 @@
             
             <div v-else class="space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ file.name }}</span>
-                    <span class="text-sm text-gray-500">{{ formatFileSize(file.size) }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ file.name }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(file.size) }}</span>
                 </div>
                 
                 <div class="flex gap-2">
@@ -44,23 +44,23 @@
         <!-- PDF Info & Page Selection -->
         <div v-if="pdfInfo" class="space-y-6">
             <!-- PDF Information -->
-            <div class="bg-gray-50 rounded-lg p-4">
-                <h3 class="text-lg font-semibold mb-4 text-gray-700">PDF Information</h3>
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">PDF Information</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600">Total Pages:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Total Pages:</span>
                         <span class="font-mono ml-2">{{ pdfInfo.numPages }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">File Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">File Size:</span>
                         <span class="font-mono ml-2">{{ formatFileSize(file.size) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Selected:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Selected:</span>
                         <span class="font-mono ml-2">{{ selectedPages.length }} page(s)</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Format:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Format:</span>
                         <span class="font-mono ml-2">PDF</span>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
             <!-- Page Selection -->
             <div class="space-y-4">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700">Page Selection</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Page Selection</h3>
                     <div class="flex items-center gap-4">
                         <label class="flex items-center space-x-2">
                             <input 
@@ -78,10 +78,10 @@
                                 @change="toggleAllPages"
                                 class="rounded"
                             />
-                            <span class="text-sm text-gray-700">Select All Pages</span>
+                            <span class="text-sm text-gray-700 dark:text-gray-300">Select All Pages</span>
                         </label>
                         
-                        <div class="text-sm text-gray-600">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
                             {{ selectedPages.length }} of {{ pdfInfo.numPages }} pages selected
                         </div>
                     </div>
@@ -103,12 +103,12 @@
                         <div class="aspect-square border-2 rounded-lg p-4 transition-colors"
                             :class="{
                                 'border-blue-500 bg-blue-50': selectedPages.includes(page),
-                                'border-gray-300 bg-white hover:bg-gray-50': !selectedPages.includes(page)
+                                'border-gray-300 bg-white hover:bg-gray-50 dark:bg-gray-700': !selectedPages.includes(page)
                             }"
                         >
                             <div class="text-center">
                                 <div class="text-lg font-semibold">{{ page }}</div>
-                                <div class="text-xs text-gray-500">Page {{ page }}</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Page {{ page }}</div>
                             </div>
                         </div>
                     </label>
@@ -117,22 +117,22 @@
             
             <!-- Split Options -->
             <div class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-700">Split Options</h3>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Split Options</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Filename Prefix</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filename Prefix</label>
                         <input 
                             v-model="splitOptions.prefix" 
                             type="text" 
                             placeholder="page"
-                            class="w-full px-3 py-2 border rounded-lg"
+                            class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                         />
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
-                        <select v-model="splitOptions.format" class="w-full px-3 py-2 border rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Output Format</label>
+                        <select v-model="splitOptions.format" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                             <option value="individual">Individual PDFs</option>
                             <option value="zip">ZIP Archive</option>
                         </select>
@@ -174,13 +174,13 @@
                         :key="index"
                         class="space-y-2"
                     >
-                        <div class="border rounded-lg overflow-hidden bg-white">
-                            <div class="aspect-square bg-gray-100 flex items-center justify-center">
-                                <div class="text-2xl font-bold text-gray-600">{{ page.pageNumber }}</div>
+                        <div class="border dark:border-gray-600 rounded-lg overflow-hidden bg-white">
+                            <div class="aspect-square bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                <div class="text-2xl font-bold text-gray-600 dark:text-gray-400">{{ page.pageNumber }}</div>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-600">Page {{ page.pageNumber }}</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Page {{ page.pageNumber }}</span>
                             <a 
                                 :href="page.url" 
                                 :download="page.filename"

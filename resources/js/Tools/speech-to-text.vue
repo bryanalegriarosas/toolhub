@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow rounded-xl">
-        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Speech to Text Converter</h1>
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
+        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Speech to Text Converter</h1>
         <!-- Recording Controls -->
         <div class="mb-4 sm:mb-6">
-            <h3 class="text-sm font-medium text-gray-700 mb-3">Recording Controls:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Recording Controls:</h3>
             <div class="flex flex-col sm:flex-row gap-3">
                 <button @click="startRecording" :disabled="isRecording"
                     class="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm sm:text-base">
@@ -30,7 +30,7 @@
                 </button>
 
                 <button @click="clearText"
-                    class="bg-gray-500 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded hover:bg-gray-600 transition-colors text-sm sm:text-base">
+                    class="bg-gray-500 dark:bg-gray-400 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded transition-colors text-sm sm:text-base">
                     <span class="flex items-center justify-center">
                         <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
@@ -56,13 +56,13 @@
 
         <!-- Voice Settings -->
         <div class="mb-4 sm:mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700">Voice Settings:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Voice Settings:</h3>
 
             <div class="grid grid-cols-1 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Language:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Language:</label>
                     <select v-model="selectedLanguage" @change="updateLanguage"
-                        class="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
+                        class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
                         <option value="en-US">English (US)</option>
                         <option value="en-GB">English (UK)</option>
                         <option value="es-ES">Spanish (Spain)</option>
@@ -80,9 +80,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Confidence Threshold:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confidence Threshold:</label>
                     <input type="range" v-model="confidenceThreshold" min="0" max="1" step="0.1" class="w-full h-2" />
-                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                         <span>Low (0)</span>
                         <span>Medium (0.5)</span>
                         <span>High (1)</span>
@@ -90,9 +90,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Max Recording Time:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Max Recording Time:</label>
                     <select v-model="maxRecordingTime"
-                        class="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
+                        class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
                         <option value="30">30 seconds</option>
                         <option value="60">1 minute</option>
                         <option value="120">2 minutes</option>
@@ -105,10 +105,10 @@
 
         <!-- Text Output Area -->
         <div class="mb-4 sm:mb-6">
-            <h3 class="text-sm font-medium text-gray-700 mb-3">Transcribed Text:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Transcribed Text:</h3>
             <div class="relative">
                 <textarea v-model="text"
-                    class="w-full p-3 sm:p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm sm:text-base"
+                    class="w-full p-3 sm:p-4 border dark:border-gray-600 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm sm:text-base"
                     rows="8" placeholder="Transcribed text will appear here..." readonly />
                 <div class="absolute top-2 right-2 flex gap-2">
                     <button @click="copyText" :disabled="!text.trim()"
@@ -122,10 +122,10 @@
                 </div>
             </div>
             <div class="mt-2 flex justify-between items-center">
-                <p class="text-xs text-gray-500">
+                <p class="text-xs text-gray-500 dark:text-gray-400">
                     {{ text.length }} characters
                 </p>
-                <p class="text-xs text-gray-500">
+                <p class="text-xs text-gray-500 dark:text-gray-400">
                     {{ isRecording ? 'Recording...' : 'Not recording' }}
                 </p>
             </div>

@@ -1,6 +1,6 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6">Color Converter</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Color Converter</h1>
 
         <div class="flex flex-wrap gap-4 mb-8">
             <button
@@ -11,7 +11,7 @@
             </button>
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear
             </button>
@@ -27,43 +27,43 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">HEX</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">HEX</label>
                     <div class="flex gap-2">
                         <input
                             v-model="hex"
                             placeholder="#000000"
-                            class="w-full border rounded-lg p-3 font-mono uppercase"
+                            class="w-full border dark:border-gray-600 rounded-lg p-3 font-mono uppercase"
                             maxlength="7"
                         />
-                        <button @click="copyToClipboard(hex)" class="p-3 bg-gray-100 rounded-lg hover:bg-gray-200">
+                        <button @click="copyToClipboard(hex)" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200">
                             📋
                         </button>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">RGB</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">RGB</label>
                     <div class="flex gap-2">
                         <input
                             :value="rgbResult"
                             readonly
-                            class="w-full border rounded-lg p-3 bg-gray-50 font-mono"
+                            class="w-full border dark:border-gray-600 rounded-lg p-3 bg-gray-50 dark:bg-gray-700 font-mono"
                         />
-                        <button @click="copyToClipboard(rgbResult)" class="p-3 bg-gray-100 rounded-lg hover:bg-gray-200">
+                        <button @click="copyToClipboard(rgbResult)" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200">
                             📋
                         </button>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">HSL</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">HSL</label>
                     <div class="flex gap-2">
                         <input
                             :value="hslResult"
                             readonly
-                            class="w-full border rounded-lg p-3 bg-gray-50 font-mono"
+                            class="w-full border dark:border-gray-600 rounded-lg p-3 bg-gray-50 dark:bg-gray-700 font-mono"
                         />
-                        <button @click="copyToClipboard(hslResult)" class="p-3 bg-gray-100 rounded-lg hover:bg-gray-200">
+                        <button @click="copyToClipboard(hslResult)" class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200">
                             📋
                         </button>
                     </div>
@@ -75,7 +75,7 @@
                     class="w-full h-40 rounded-lg shadow-inner transition-colors duration-300 mb-4"
                     :style="{ backgroundColor: isValidHex ? hex : '#f3f4f6' }"
                 ></div>
-                <p class="text-sm text-gray-500 font-mono" v-if="isValidHex">
+                <p class="text-sm text-gray-500 dark:text-gray-400 font-mono" v-if="isValidHex">
                     {{ hex.toUpperCase() }}
                 </p>
                 <p class="text-sm text-red-400" v-else-if="hex.length > 0">

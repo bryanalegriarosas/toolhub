@@ -6,14 +6,14 @@
         <template #sidebar>
             <!-- Empty sidebar to hide it -->
         </template>
-        <div class="mx-auto min-h-screen py-16 bg-white rounded-xl shadow p-6">
+        <div class="mx-auto min-h-screen py-16 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
             <div class="max-w-3xl mx-auto px-6">
                 <!-- Title -->
                 <div class="text-center mb-10">
-                    <h1 class="text-3xl font-bold text-gray-900">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
                         Contact Us
                     </h1>
-                    <p class="text-gray-600 mt-2">
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">
                         Have a question or suggestion? Send us a message.
                     </p>
                 </div>
@@ -28,7 +28,7 @@
 
                     <!-- Name -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Name
                         </label>
                         <input v-model="form.name" type="text"
@@ -40,7 +40,7 @@
 
                     <!-- Email -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Email
                         </label>
                         <input v-model="form.email" type="email"
@@ -52,7 +52,7 @@
 
                     <!-- Subject -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Subject
                         </label>
                         <input v-model="form.subject" type="text"
@@ -61,7 +61,7 @@
 
                     <!-- Message -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Message
                         </label>
                         <textarea v-model="form.message" rows="5"

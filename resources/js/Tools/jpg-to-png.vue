@@ -1,7 +1,7 @@
 <template>
-    <div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-xl">
+    <div class="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-2xl font-bold mb-4">JPG to PNG Converter</h1>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">JPG to PNG Converter</h1>
 
         <!-- Error Message -->
         <div v-if="error" class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -15,26 +15,26 @@
 
         <!-- File Input Area -->
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-700">
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Select JPG File
             </label>
             <input type="file" accept="image/jpeg,image/jpg" @change="convert"
-                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+                class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
                 :disabled="isProcessing" />
-            <p class="mt-1 text-xs text-gray-500">
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                 Supported formats: JPG, JPEG. Max size: 10MB
             </p>
         </div>
 
         <!-- Configuration Options -->
         <div v-if="originalImage && !error" class="mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700">Conversion Options:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Conversion Options:</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Compression:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Compression:</label>
                     <select v-model="compression"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                         <option value="0">No compression (largest file)</option>
                         <option value="3">Low compression</option>
                         <option value="6">Medium compression</option>
@@ -43,9 +43,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Background:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Background:</label>
                     <select v-model="backgroundOption"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                         <option value="original">Keep original</option>
                         <option value="transparent">Make transparent</option>
                         <option value="white">White background</option>
@@ -54,9 +54,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Resize:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Resize:</label>
                     <select v-model="resizeOption"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                         <option value="original">Original size</option>
                         <option value="50%">50% smaller</option>
                         <option value="75%">75% of original</option>
@@ -66,9 +66,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Output Name:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Output Name:</label>
                     <input v-model="outputName" type="text"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="converted.png" />
                 </div>
             </div>
@@ -76,15 +76,15 @@
 
         <!-- Image Comparison -->
         <div v-if="originalImage && convertedImage && !error" class="mb-6">
-            <h3 class="text-sm font-medium text-gray-700 mb-4">Preview Comparison:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Preview Comparison:</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Original -->
                 <div>
-                    <h4 class="text-sm font-semibold text-gray-600 mb-2">Original JPG</h4>
-                    <div class="border rounded-lg p-4 bg-gray-50">
+                    <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Original JPG</h4>
+                    <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                         <img :src="originalImage" alt="Original JPG"
                             class="w-full h-auto max-h-64 object-contain rounded" />
-                        <p class="mt-2 text-xs text-gray-500 text-center">
+                        <p class="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
                             {{ fileName }} ({{ formatFileSize(fileSize) }})
                         </p>
                     </div>
@@ -92,11 +92,11 @@
 
                 <!-- Converted -->
                 <div>
-                    <h4 class="text-sm font-semibold text-gray-600 mb-2">Converted PNG</h4>
-                    <div class="border rounded-lg p-4 bg-gray-50">
+                    <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Converted PNG</h4>
+                    <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                         <img :src="convertedImage" alt="Converted PNG"
                             class="w-full h-auto max-h-64 object-contain rounded" />
-                        <p class="mt-2 text-xs text-gray-500 text-center">
+                        <p class="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
                             {{ outputName || 'converted.png' }} ({{ formatFileSize(convertedSize) }})
                         </p>
                     </div>
@@ -122,7 +122,7 @@
                 <span v-else>Download PNG</span>
             </button>
 
-            <button @click="reset" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition-colors">
+            <button @click="reset" class="bg-gray-50 dark:bg-gray-7000 text-white px-6 py-2 rounded hover:bg-gray-600 transition-colors">
                 Clear
             </button>
         </div>

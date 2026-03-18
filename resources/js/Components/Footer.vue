@@ -1,6 +1,6 @@
 <template>
 
-    <footer class="bg-gray-900 text-gray-300 mt-16">
+    <footer class="bg-gray-900 dark:bg-black text-gray-300 mt-16 transition-colors">
 
         <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -85,7 +85,7 @@
 
         <!-- Bottom -->
 
-        <div class="border-t border-gray-800 text-center text-sm text-gray-500 py-4">
+        <div class="border-t border-gray-800 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400 py-4">
 
             © {{ year }} ToolHub. All rights reserved.
 

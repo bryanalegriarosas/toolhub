@@ -1,21 +1,21 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Base64 to Image Converter</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Base64 to Image Converter</h2>
 
         <!-- Input Section -->
         <div class="space-y-4">
             <div class="flex justify-between items-center">
-                <label class="block text-sm font-medium text-gray-700">Base64 Input</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Base64 Input</label>
                 <div class="flex gap-2">
                     <button 
                         @click="pasteFromClipboard" 
-                        class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition-colors"
+                        class="px-3 py-1 bg-gray-200 dark:bg-white-800 hover:bg-gray-200 rounded-lg text-sm transition-colors"
                     >
                         Paste
                     </button>
                     <button 
                         @click="clearInput" 
-                        class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition-colors"
+                        class="px-3 py-1 bg-gray-200 dark:bg-white-800 hover:bg-gray-200 rounded-lg text-sm transition-colors"
                     >
                         Clear
                     </button>
@@ -33,10 +33,10 @@
                     v-model="base64" 
                     rows="8" 
                     placeholder="Paste your Base64 string here..."
-                    class="w-full px-3 py-2 border rounded-lg font-mono text-sm resize-none"
+                    class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg font-mono text-sm resize-none"
                     @input="validateBase64"
                 />
-                <div class="absolute top-2 right-2 text-xs text-gray-500">
+                <div class="absolute top-2 right-2 text-xs text-gray-500 dark:text-gray-400">
                     {{ base64.length }} characters
                 </div>
             </div>
@@ -79,9 +79,9 @@
         <!-- Results Section -->
         <div v-if="generatedImage" class="space-y-6">
             <!-- Image Preview -->
-            <div class="bg-gray-50 rounded-lg p-6">
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700">Generated Image</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Image</h3>
                     <div class="flex gap-2">
                         <button 
                             @click="copyImageUrl" 
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 
-                <div class="border rounded-lg p-4 bg-white">
+                <div class="border dark:border-gray-600 rounded-lg p-4 bg-white">
                     <img 
                         :src="generatedImage" 
                         :alt="'Generated image'" 
@@ -111,19 +111,19 @@
                 <!-- Image Info -->
                 <div v-if="imageInfo" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600">Format:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Format:</span>
                         <span class="font-mono ml-2">{{ imageInfo.format }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Dimensions:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Dimensions:</span>
                         <span class="font-mono ml-2">{{ imageInfo.width }} × {{ imageInfo.height }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Base64 Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Base64 Size:</span>
                         <span class="font-mono ml-2">{{ formatFileSize(base64.length) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600">Est. Image Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">Est. Image Size:</span>
                         <span class="font-mono ml-2">{{ formatFileSize(imageInfo.size) }}</span>
                     </div>
                 </div>

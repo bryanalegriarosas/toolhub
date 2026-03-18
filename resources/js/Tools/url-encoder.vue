@@ -1,13 +1,13 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">URL Encoder</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">URL Encoder</h2>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4">
-            <label class="flex items-center gap-2">
+            <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <input type="checkbox" v-model="autoProcess" />
                 <span>Auto</span>
             </label>
-            <label class="flex items-center gap-2">
+            <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span>Load file:</span>
                 <input ref="fileInput" type="file" @change="loadFile" class="form-input" />
             </label>
@@ -16,7 +16,7 @@
         <textarea
             v-model="input"
             placeholder="Paste text here..."
-            class="w-full h-40 p-4 border rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
+            class="w-full h-40 p-4 border dark:border-gray-600 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
         ></textarea>
 
         <div class="flex flex-wrap gap-3">
@@ -46,7 +46,7 @@
 
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear
             </button>
@@ -57,7 +57,7 @@
         </div>
 
         <pre
-            class="w-full h-40 p-4 border rounded-lg bg-gray-900 text-green-400 text-sm overflow-auto"
+            class="w-full h-40 p-4 border dark:border-gray-600 rounded-lg bg-gray-900 text-green-400 text-sm overflow-auto"
         >{{ output }}</pre>
 
         <div v-if="history.length" class="mt-4">
@@ -86,7 +86,7 @@
                 </button>
                 <button
                     @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
                     Clear History
                 </button>

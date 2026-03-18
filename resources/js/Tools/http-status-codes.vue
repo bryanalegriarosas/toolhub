@@ -1,6 +1,6 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6">HTTP Status Code Lookup</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">HTTP Status Code Lookup</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <button
@@ -19,7 +19,7 @@
             </button>
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear
             </button>
@@ -36,15 +36,15 @@
             v-model="code"
             type="number"
             placeholder="Enter status code (e.g. 404)"
-            class="w-full border rounded-lg p-3 mb-6"
+            class="w-full border dark:border-gray-600 rounded-lg p-3 mb-6"
         />
 
-        <div v-if="code" class="border rounded-lg p-4 bg-gray-50">
+        <div v-if="code" class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
             <p class="text-lg font-semibold">
                 {{ code }}
             </p>
 
-            <p class="text-gray-600">
+            <p class="text-gray-600 dark:text-gray-400">
                 {{ result }}
             </p>
         </div>
@@ -59,7 +59,7 @@
                 >
                     <div>
                         <span class="font-mono break-words max-w-full">{{ h.code }} → {{ h.desc }}</span>
-                        <p class="text-xs text-gray-500">{{ h.date }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ h.date }}</p>
                     </div>
                     <button
                         @click="restore(h)"
@@ -79,7 +79,7 @@
                 </button>
                 <button
                     @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
                     Clear History
                 </button>

@@ -21,7 +21,7 @@
                 <div 
                     v-for="tool in category.tools" 
                     :key="tool.id"
-                    class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+                    class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
                 >
                     <div class="flex items-center mb-4">
                         <ToolIcon :name="tool.icon" class="mr-3 text-2xl" />

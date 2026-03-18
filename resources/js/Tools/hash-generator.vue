@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6">Hash Generator</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Hash Generator</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-            <label class="flex items-center gap-2">
+            <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span>Load file</span>
                 <input ref="fileInput" type="file" accept="*" @change="loadFile" class="form-input" />
             </label>
@@ -23,7 +23,7 @@
             </button>
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear
             </button>
@@ -41,12 +41,12 @@
             @input="generateHashes"
             rows="4"
             placeholder="Enter text..."
-            class="w-full border rounded-lg p-4 mb-6"
+            class="w-full border dark:border-gray-600 rounded-lg p-4 mb-6"
         />
 
         <div class="space-y-4">
             <div class="relative">
-                <label class="text-sm text-gray-500">SHA-1</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">SHA-1</label>
                 <input
                     :value="sha1"
                     readonly
@@ -59,7 +59,7 @@
             </div>
 
             <div class="relative">
-                <label class="text-sm text-gray-500">SHA-256</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">SHA-256</label>
                 <input
                     :value="sha256"
                     readonly
@@ -72,7 +72,7 @@
             </div>
 
             <div class="relative">
-                <label class="text-sm text-gray-500">SHA-512</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">SHA-512</label>
                 <input
                     :value="sha512"
                     readonly
@@ -95,7 +95,7 @@
                 >
                     <div>
                         <span class="font-mono">{{ h.sha1 }}</span>
-                        <p class="text-xs text-gray-500 truncate max-w-xs">{{ h.text }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 truncate max-w-xs">{{ h.text }}</p>
                     </div>
                     <button
                         @click="restore(h)"
@@ -115,7 +115,7 @@
                 </button>
                 <button
                     @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
                     Clear History
                 </button>

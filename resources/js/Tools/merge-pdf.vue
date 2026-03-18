@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">PDF Merger</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">PDF Merger</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Merge multiple PDF files into one document with page reordering, preview, and batch processing.
             </p>
 
@@ -16,7 +16,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707L10.586 10H7a2 2 0 00-2 2v11a2 2 0 002 2z" />
                     </svg>
-                    <p class="text-gray-600 text-sm sm:text-base">Drop PDF files here or click to upload</p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base">Drop PDF files here or click to upload</p>
                     <input type="file" multiple accept="application/pdf" @change="handleFiles" class="hidden"
                         id="file-upload" ref="fileInput" />
                     <label for="file-upload"
@@ -27,8 +27,8 @@
 
                 <div v-else class="space-y-3 sm:space-y-4">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                        <span class="text-sm sm:text-base text-gray-600">{{ files.length }} PDF file(s) selected</span>
-                        <span class="text-sm sm:text-base text-gray-500">{{ formatFileSize(totalSize) }}</span>
+                        <span class="text-sm sm:text-base text-gray-600 dark:text-gray-400">{{ files.length }} PDF file(s) selected</span>
+                        <span class="text-sm sm:text-base text-gray-500 dark:text-gray-400">{{ formatFileSize(totalSize) }}</span>
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-2">
@@ -47,7 +47,7 @@
                 <!-- File Management -->
                 <div class="space-y-3 sm:space-y-4">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                        <h3 class="text-lg font-semibold text-gray-700">PDF Files</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">PDF Files</h3>
                         <div class="flex items-center gap-2 sm:gap-4">
                             <button @click="moveUp" :disabled="selectedFileIndex === null || selectedFileIndex === 0"
                                 class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 disabled:opacity-50 text-xs sm:text-sm">
@@ -64,16 +64,16 @@
                     <!-- File List -->
                     <div class="space-y-2">
                         <div v-for="(file, index) in files" :key="index" @click="selectFile(index)"
-                            class="border rounded-lg p-3 sm:p-4 cursor-pointer transition-colors" :class="{
+                            class="border dark:border-gray-600 rounded-lg p-3 sm:p-4 cursor-pointer transition-colors" :class="{
                                 'border-blue-500 bg-blue-50': selectedFileIndex === index,
-                                'border-gray-300 bg-white hover:bg-gray-50': selectedFileIndex !== index
+                                'border-gray-300 bg-white hover:bg-gray-50 dark:bg-gray-700': selectedFileIndex !== index
                             }">
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                                 <div class="flex items-center gap-3">
                                     <div class="text-lg sm:text-xl font-semibold">{{ index + 1 }}</div>
                                     <div class="min-w-0 flex-1">
                                         <div class="font-medium text-sm sm:text-base truncate">{{ file.name }}</div>
-                                        <div class="text-xs sm:text-sm text-gray-500">{{ formatFileSize(file.size) }}
+                                        <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(file.size) }}
                                         </div>
                                     </div>
                                 </div>
@@ -90,18 +90,18 @@
 
                 <!-- Merge Options -->
                 <div class="space-y-3 sm:space-y-4">
-                    <h3 class="text-lg font-semibold text-gray-700">Merge Options</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Merge Options</h3>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
-                            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Output
+                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Output
                                 Filename</label>
                             <input v-model="mergeOptions.filename" type="text" placeholder="merged-document"
                                 class="form-input text-sm sm:text-base" />
                         </div>
 
                         <div>
-                            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Page Size</label>
+                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Page Size</label>
                             <select v-model="mergeOptions.pageSize" class="form-select text-sm sm:text-base">
                                 <option value="keep">Keep Original Sizes</option>
                                 <option value="a4">A4</option>

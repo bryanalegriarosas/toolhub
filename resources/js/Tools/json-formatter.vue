@@ -1,30 +1,30 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">
                 Free JSON Formatter & Validator Online
             </h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Use this free JSON formatter to beautify, validate and minify your JSON data instantly.
                 Perfect for developers working with APIs and debugging JSON responses.
             </p>
 
             <div class="mb-6 text-center">
-                <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
+                <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-600 rounded-xl p-4 text-gray-400">
                     Advertisement
                 </div>
             </div>
 
             <div class="flex flex-col gap-3 sm:gap-4 mb-4">
                 <label class="flex items-center gap-2">
-                    <span class="text-gray-700 text-sm sm:text-base">Load file:</span>
+                    <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Load file:</span>
                     <input ref="fileInput" type="file" accept=".json" @change="loadFile"
                         class="form-input text-sm sm:text-base" />
                 </label>
                 <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                     <label class="flex items-center gap-2">
-                        <span class="text-gray-700 text-sm sm:text-base">Indent:</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Indent:</span>
                         <select v-model.number="indent" class="form-select text-sm sm:text-base">
                             <option value="2">2 spaces</option>
                             <option value="4">4 spaces</option>
@@ -33,14 +33,14 @@
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="checkbox" v-model="autoFormat" class="sm:mt-0" />
-                        <span class="text-gray-700 text-sm sm:text-base">Auto-format</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Auto-format</span>
                     </label>
                 </div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <!-- INPUT -->
                 <div>
-                    <h2 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">Input JSON</h2>
+                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Input JSON</h2>
 
                     <textarea v-model="input" placeholder="Paste your JSON here..." :class="[
                         'w-full h-64 sm:h-80 p-3 sm:p-4 rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200',
@@ -53,10 +53,10 @@
 
                 <!-- OUTPUT -->
                 <div>
-                    <h2 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">Result</h2>
+                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Result</h2>
 
                     <pre
-                        class="w-full h-64 sm:h-80 p-3 sm:p-4 border rounded-lg bg-gray-900 text-green-400 text-xs sm:text-sm overflow-auto">{{ output }}</pre>
+                        class="w-full h-64 sm:h-80 p-3 sm:p-4 border dark:border-gray-600 rounded-lg bg-gray-900 text-green-400 text-xs sm:text-sm overflow-auto">{{ output }}</pre>
                 </div>
             </div>
 
@@ -88,7 +88,7 @@
                 </button>
 
                 <button @click="clearAll"
-                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
                     Clear
                 </button>
             </div>
@@ -98,7 +98,7 @@
                 :steps="steps" :examples="examples" :faqs="faqs" />
 
             <div class="mt-8 text-center">
-                <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
+                <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-600 rounded-xl p-4 text-gray-400">
                     Advertisement
                 </div>
             </div>

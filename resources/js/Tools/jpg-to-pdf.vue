@@ -1,14 +1,14 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">JPG to PDF Converter</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">JPG to PDF Converter</h2>
 
         <!-- Upload Area -->
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
             <div v-if="images.length === 0" class="space-y-4">
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0013.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
-                <p class="text-gray-600">Drop images here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">Drop images here or click to upload</p>
                 <input 
                     type="file" 
                     multiple 
@@ -27,8 +27,8 @@
             
             <div v-else class="space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ images.length }} image(s) selected</span>
-                    <span class="text-sm text-gray-500">{{ formatFileSize(totalSize) }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ images.length }} image(s) selected</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(totalSize) }}</span>
                 </div>
                 
                 <!-- Image Preview List -->
@@ -38,7 +38,7 @@
                         :key="index"
                         class="relative group"
                     >
-                        <div class="aspect-square border rounded-lg overflow-hidden bg-gray-50">
+                        <div class="aspect-square border dark:border-gray-600 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
                             <img 
                                 :src="image.preview" 
                                 :alt="`Image ${index + 1}`"
@@ -76,12 +76,12 @@
 
         <!-- PDF Options -->
         <div v-if="images.length > 0" class="space-y-4">
-            <h3 class="text-lg font-semibold text-gray-700">PDF Options</h3>
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">PDF Options</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Page Size</label>
-                    <select v-model="pdfOptions.pageSize" class="w-full px-3 py-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Page Size</label>
+                    <select v-model="pdfOptions.pageSize" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="a4">A4 (210×297 mm)</option>
                         <option value="a3">A3 (297×420 mm)</option>
                         <option value="letter">Letter (216×279 mm)</option>
@@ -90,16 +90,16 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Orientation</label>
-                    <select v-model="pdfOptions.orientation" class="w-full px-3 py-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Orientation</label>
+                    <select v-model="pdfOptions.orientation" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="portrait">Portrait</option>
                         <option value="landscape">Landscape</option>
                     </select>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Image Layout</label>
-                    <select v-model="pdfOptions.layout" class="w-full px-3 py-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Image Layout</label>
+                    <select v-model="pdfOptions.layout" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="fit">Fit to Page</option>
                         <option value="center">Center on Page</option>
                         <option value="stretch">Stretch to Page</option>
@@ -108,8 +108,8 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Image Quality</label>
-                    <select v-model="pdfOptions.quality" class="w-full px-3 py-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Image Quality</label>
+                    <select v-model="pdfOptions.quality" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="high">High (300 DPI)</option>
                         <option value="medium">Medium (200 DPI)</option>
                         <option value="low">Low (150 DPI)</option>
@@ -119,23 +119,23 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Margin (mm)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Margin (mm)</label>
                     <input 
                         v-model="pdfOptions.margin" 
                         type="number" 
                         min="0" 
                         max="50"
-                        class="w-full px-3 py-2 border rounded-lg"
+                        class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                     />
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Filename</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filename</label>
                     <input 
                         v-model="pdfOptions.filename" 
                         type="text" 
                         placeholder="images.pdf"
-                        class="w-full px-3 py-2 border rounded-lg"
+                        class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                     />
                 </div>
             </div>

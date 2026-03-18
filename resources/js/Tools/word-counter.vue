@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6">Word Counter</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Word Counter</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-            <label class="flex items-center gap-2">
+            <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span>Load file:</span>
                 <input ref="fileInput" type="file" accept=".txt" @change="loadFile" class="form-input" />
             </label>
@@ -23,7 +23,7 @@
             </button>
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear
             </button>
@@ -40,42 +40,42 @@
             v-model="text"
             rows="10"
             placeholder="Paste your text here..."
-            class="w-full border rounded-xl p-4 mb-6"
+            class="w-full border dark:border-gray-600 rounded-xl p-4 mb-6 text-gray-900 dark:text-white"
         />
 
         <div class="grid grid-cols-2 md:grid-cols-7 gap-4 mb-4">
-            <div class="border rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500">Words</p>
+            <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Words</p>
                 <p class="text-xl font-bold">{{ wordCount }}</p>
             </div>
 
-            <div class="border rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500">Characters</p>
+            <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Characters</p>
                 <p class="text-xl font-bold">{{ charCount }}</p>
             </div>
 
-            <div class="border rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500">Characters (no spaces)</p>
+            <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Characters (no spaces)</p>
                 <p class="text-xl font-bold">{{ charNoSpaces }}</p>
             </div>
 
-            <div class="border rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500">Lines</p>
+            <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Lines</p>
                 <p class="text-xl font-bold">{{ lineCount }}</p>
             </div>
 
-            <div class="border rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500">Reading Time</p>
+            <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Reading Time</p>
                 <p class="text-xl font-bold">{{ readingTime }} min</p>
             </div>
 
-            <div class="border rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500">Avg word length</p>
+            <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Avg word length</p>
                 <p class="text-xl font-bold">{{ avgWordLength }}</p>
             </div>
 
-            <div class="border rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500">Unique words</p>
+            <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">Unique words</p>
                 <p class="text-xl font-bold">{{ uniqueWords }}</p>
             </div>
         </div>
@@ -99,7 +99,7 @@
             </ul>
             <button
                 @click="clearHistory"
-                class="mt-3 px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                class="mt-3 px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
                 Clear History
             </button>

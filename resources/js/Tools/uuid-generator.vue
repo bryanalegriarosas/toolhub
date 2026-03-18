@@ -1,27 +1,27 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">UUID Generator</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">UUID Generator</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Generate universally unique identifiers instantly.
             </p>
 
             <div class="flex flex-col gap-3 sm:gap-4 mb-4">
                 <label class="flex items-center gap-2">
-                    <span class="text-gray-700 text-sm sm:text-base">Count:</span>
+                    <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Count:</span>
                     <input type="number" v-model.number="count" min="1"
                         class="w-16 sm:w-20 border rounded px-2 py-1 text-sm sm:text-base" />
                 </label>
                 <label class="flex items-center gap-2">
                     <input type="checkbox" v-model="uppercase" class="sm:mt-0" />
-                    <span class="text-gray-700 text-sm sm:text-base">Uppercase</span>
+                    <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Uppercase</span>
                 </label>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-4">
                 <input v-model="uuid" readonly placeholder="Generated UUIDs will appear here..."
-                    class="flex-1 border rounded-lg px-3 sm:px-4 py-2 font-mono text-xs sm:text-sm" />
+                    class="flex-1 border dark:border-gray-600 rounded-lg px-3 sm:px-4 py-2 font-mono text-xs sm:text-sm" />
 
                 <button @click="generateUUID"
                     class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm sm:text-base">
@@ -34,21 +34,21 @@
                 </button>
 
                 <button @click="clearAll"
-                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                    class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
                     Clear
                 </button>
             </div>
 
             <div v-if="history.length" class="mt-4 sm:mt-6">
-                <h3 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">History</h3>
-                <div class="max-h-48 sm:max-h-64 overflow-y-auto border rounded-lg p-3 sm:p-4 bg-gray-50">
+                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">History</h3>
+                <div class="max-h-48 sm:max-h-64 overflow-y-auto border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
                     <ul class="space-y-2 sm:space-y-1">
                         <li v-for="(u, idx) in history" :key="idx"
                             class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-white rounded border">
                             <span class="font-mono text-xs sm:text-sm break-all">{{ u }}</span>
                             <div class="flex gap-2">
                                 <button @click="copyOne(u)"
-                                    class="text-xs text-blue-600 hover:underline px-2 py-1 rounded hover:bg-blue-50">
+                                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900">
                                     Copy
                                 </button>
                             </div>
@@ -61,7 +61,7 @@
                         Download All
                     </button>
                     <button @click="clearHistory"
-                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
+                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
                         Clear History
                     </button>
                 </div>

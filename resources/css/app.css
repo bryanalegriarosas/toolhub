@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dark mode CSS variables */
+:root {
+    --bg-primary: 243, 244, 246; /* gray-100 */
+    --bg-secondary: 255, 255, 255; /* white */
+    --text-primary: 17, 24, 39; /* gray-900 */
+    --text-secondary: 107, 114, 128; /* gray-600 */
+    --border-color: 229, 231, 235; /* gray-300 */
+}
+
+.dark {
+    --bg-primary: 17, 24, 39; /* gray-900 */
+    --bg-secondary: 31, 41, 55; /* gray-800 */
+    --text-primary: 243, 244, 246; /* gray-100 */
+    --text-secondary: 156, 163, 175; /* gray-400 */
+    --border-color: 55, 65, 81; /* gray-700 */
+}
+
 /* Mobile-specific utilities */
 @layer utilities {
     .line-clamp-2 {
@@ -27,11 +44,11 @@
 /* Form inputs mobile optimization */
 @layer components {
     .form-input {
-        @apply w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+        @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white;
     }
 
     .form-select {
-        @apply w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white;
+        @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white;
     }
 }
 

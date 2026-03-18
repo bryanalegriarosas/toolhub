@@ -41,7 +41,7 @@
                 </div>
 
                 <Link href="/tools"
-                    class="inline-block mt-6 px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100">
+                    class="inline-block mt-6 px-8 py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                     Explore All Tools
                 </Link>
 
@@ -49,14 +49,14 @@
                 <div class="mt-4 max-w-xl mx-auto">
                     <input v-model="search" @keydown.down.prevent="moveSelection(1)"
                         @keydown.up.prevent="moveSelection(-1)" @keydown.enter.prevent="activateSelection"
-                        placeholder="Search a tool..." class="text-black border rounded-lg px-4 py-3 w-full" />
+                        placeholder="Search a tool..." class="text-black dark:text-white border dark:border-gray-600 rounded-lg px-4 py-3 w-full dark:bg-gray-800" />
                 </div>
 
                 <!-- SEARCH RESULTS -->
-                <div v-if="search.length > 0" class="bg-white text-black rounded-xl shadow mt-4 max-w-xl mx-auto">
+                <div v-if="search.length > 0" class="bg-white dark:bg-gray-800 text-black dark:text-white rounded-xl shadow mt-4 max-w-xl mx-auto">
 
                     <div v-for="(tool, index) in filteredTools" :key="tool.id"
-                        :class="['p-3 border-b cursor-pointer', { 'bg-gray-200': index === selectedIndex }]"
+                        :class="['p-3 border-b cursor-pointer', { 'bg-gray-200 dark:bg-gray-700': index === selectedIndex }]"
                         @click="goToTool(tool.slug)" @mouseenter="selectedIndex = index">
 
                         <Link :href="`/tools/${tool.slug}`">
@@ -64,7 +64,7 @@
                         </Link>
                     </div>
 
-                    <div v-if="filteredTools.length === 0" class="p-3 text-gray-500">
+                    <div v-if="filteredTools.length === 0" class="p-3 text-gray-500 dark:text-gray-400">
                         No tools found.
                     </div>
                 </div>
@@ -72,14 +72,14 @@
 
             <!-- ADS (TOP) -->
             <div class="text-center">
-                <div class="bg-gray-100 border rounded-xl p-6 text-gray-400">
+                <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 text-gray-400 dark:text-gray-500">
                     Advertisement
                 </div>
             </div>
 
             <!-- SEO TEXT -->
-            <div class="max-w-3xl mx-auto text-center text-gray-600">
-                <h2 class="text-xl font-semibold mb-2">All-in-One Free Online Tools</h2>
+            <div class="max-w-3xl mx-auto text-center text-gray-600 dark:text-gray-400">
+                <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">All-in-One Free Online Tools</h2>
                 <p>
                     WebToolStack provides a collection of free online tools for developers, designers, and marketers.
                     From SEO tools and PDF converters to image editors and code utilities, everything is available in
@@ -89,7 +89,7 @@
 
             <!-- POPULAR TOOLS -->
             <div>
-                <h2 class="text-2xl font-bold mb-4">🔥 Popular Tools</h2>
+                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">🔥 Popular Tools</h2>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <ToolCard v-for="tool in popularTools" :key="tool.id" :tool="tool" />
@@ -100,7 +100,7 @@
             <div v-for="(category, index) in sortedCategories" :key="category.id" class="mb-10">
 
                 <Link :href="'/category/' + category.slug"
-                    class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600">
+                    class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 text-gray-900 dark:text-white">
 
                     <ToolIcon :name="category.icon" />
                     {{ category.name }}
@@ -112,7 +112,7 @@
 
                 <!-- ADS after 2nd category -->
                 <div v-if="index === 1" class="mt-8 text-center">
-                    <div class="bg-gray-100 border rounded-xl p-6 text-gray-400">
+                    <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 text-gray-400 dark:text-gray-500">
                         Advertisement
                     </div>
                 </div>
@@ -121,7 +121,7 @@
 
             <!-- ADS (BOTTOM) -->
             <div class="text-center">
-                <div class="bg-gray-100 border rounded-xl p-6 text-gray-400">
+                <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 text-gray-400 dark:text-gray-500">
                     Advertisement
                 </div>
             </div>

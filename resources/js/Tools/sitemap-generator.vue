@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Sitemap Generator</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Sitemap Generator</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Generate XML sitemaps with validation, multiple URLs, and advanced options.
             </p>
 
@@ -12,16 +12,16 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <!-- URL Input -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">URL Input</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">URL Input</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Website
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Website
                                     URLs</label>
                                 <textarea v-model="urls" @input="validateInputs"
                                     placeholder="Enter URLs one per line &#10;https://example.com/page1 &#10;https://example.com/page2"
                                     rows="6" class="form-input resize-none text-sm sm:text-base" />
-                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 mt-1">
+                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ urlCount }} URLs</span>
                                     <button @click="clearUrls"
                                         class="text-blue-600 hover:text-blue-700 text-sm sm:text-base">
@@ -31,7 +31,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Quick
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Quick
                                     Add</label>
                                 <div class="flex flex-col sm:flex-row gap-2">
                                     <input v-model="singleUrl" @keyup.enter="addSingleUrl" placeholder="Add single URL"
@@ -47,11 +47,11 @@
 
                     <!-- Sitemap Options -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Sitemap Options</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Sitemap Options</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Change
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Change
                                     Frequency</label>
                                 <select v-model="options.changeFreq" class="form-select text-sm sm:text-base">
                                     <option value="always">Always</option>
@@ -66,7 +66,7 @@
 
                             <div>
                                 <label
-                                    class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Priority</label>
+                                    class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Priority</label>
                                 <select v-model="options.priority" class="form-select text-sm sm:text-base">
                                     <option value="1.0">Highest</option>
                                     <option value="0.9">High</option>
@@ -78,7 +78,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Last
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Last
                                     Modified</label>
                                 <select v-model="options.lastMod" class="form-select text-sm sm:text-base">
                                     <option value="server">Use server time</option>
@@ -90,12 +90,12 @@
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.includeImages" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700">Include images</span>
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Include images</span>
                                 </label>
 
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.validateUrls" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700">Validate URLs</span>
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Validate URLs</span>
                                 </label>
                             </div>
                         </div>
@@ -129,9 +129,9 @@
 
             <!-- Generated XML -->
             <div v-if="xml" class="space-y-4 sm:space-y-6">
-                <div class="bg-gray-50 rounded-lg p-4 sm:p-6">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Generated Sitemap</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Sitemap</h3>
                         <div class="flex gap-2">
                             <button @click="copyToClipboard"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
@@ -147,26 +147,26 @@
                     <!-- XML Preview -->
                     <div class="bg-white rounded-lg p-3 sm:p-4">
                         <pre
-                            class="text-xs sm:text-sm text-gray-800 overflow-x-auto font-mono"><code>{{ xml }}</code></pre>
+                            class="text-xs sm:text-sm text-gray-800 dark:text-white overflow-x-auto font-mono"><code>{{ xml }}</code></pre>
                     </div>
 
                     <!-- Statistics -->
                     <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-blue-600">{{ urlCount }}</div>
-                            <div class="text-gray-600">Total URLs</div>
+                            <div class="text-gray-600 dark:text-gray-400">Total URLs</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-green-600">{{ xmlSize }}</div>
-                            <div class="text-gray-600">File Size</div>
+                            <div class="text-gray-600 dark:text-gray-400">File Size</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-purple-600">{{ validUrlCount }}</div>
-                            <div class="text-gray-600">Valid URLs</div>
+                            <div class="text-gray-600 dark:text-gray-400">Valid URLs</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-orange-600">{{ invalidUrlCount }}</div>
-                            <div class="text-gray-600">Invalid URLs</div>
+                            <div class="text-gray-600 dark:text-gray-400">Invalid URLs</div>
                         </div>
                     </div>
                 </div>

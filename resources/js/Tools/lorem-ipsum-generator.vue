@@ -1,21 +1,21 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Lorem Ipsum Generator</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Lorem Ipsum Generator</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Generate high-quality placeholder text instantly with multiple text types and formats.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                 <div>
-                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Paragraphs</label>
+                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Paragraphs</label>
                     <input v-model.number="paragraphs" type="number" min="1" max="20"
                         class="form-input text-sm sm:text-base" />
                 </div>
 
                 <div>
-                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Text Type</label>
+                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Text Type</label>
                     <select v-model="textType" class="form-select text-sm sm:text-base">
                         <option value="classic">Classic Lorem Ipsum</option>
                         <option value="modern">Modern Tech</option>
@@ -25,7 +25,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700">Format</label>
+                    <label class="block text-sm sm:text-base font-medium mb-2 text-gray-700 dark:text-gray-300">Format</label>
                     <select v-model="format" class="form-select text-sm sm:text-base">
                         <option value="paragraphs">Paragraphs</option>
                         <option value="sentences">Sentences</option>
@@ -58,14 +58,14 @@
             </div>
 
             <div class="mb-4">
-                <div class="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
+                <div class="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                     <span>Words: {{ wordCount }}</span>
                     <span>Characters: {{ characterCount }}</span>
                     <span>Reading time: {{ readingTime }} min</span>
                 </div>
             </div>
 
-            <textarea v-model="text" rows="8" class="w-full border rounded-xl p-3 sm:p-4 font-mono text-xs sm:text-sm"
+            <textarea v-model="text" rows="8" class="w-full border dark:border-gray-600 rounded-xl p-3 sm:p-4 font-mono text-xs sm:text-sm"
                 placeholder="Generated text will appear here..." />
 
             <ToolSeoContent title="Lorem Ipsum Generator" :description="seoDescription" :steps="seoSteps"

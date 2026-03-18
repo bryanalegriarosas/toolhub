@@ -1,16 +1,16 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">YouTube Thumbnail Downloader</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">YouTube Thumbnail Downloader</h2>
 
         <!-- URL Input -->
         <div class="space-y-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">YouTube Video URL</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">YouTube Video URL</label>
             <div class="flex gap-4">
                 <input 
                     v-model="url" 
                     @input="validateUrl"
                     placeholder="https://www.youtube.com/watch?v=..."
-                    class="flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    class="flex-1 px-4 py-3 border dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 <button 
                     @click="generateThumbnail" 
@@ -29,23 +29,23 @@
         </div>
 
         <!-- Video Info -->
-        <div v-if="videoInfo" class="bg-gray-50 rounded-lg p-6">
-            <h3 class="text-lg font-semibold mb-4 text-gray-700">Video Information</h3>
+        <div v-if="videoInfo" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Video Information</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
                 <div>
-                    <span class="text-gray-600">Title:</span>
+                    <span class="text-gray-600 dark:text-gray-400">Title:</span>
                     <span class="font-medium ml-2">{{ videoInfo.title }}</span>
                 </div>
                 <div>
-                    <span class="text-gray-600">Channel:</span>
+                    <span class="text-gray-600 dark:text-gray-400">Channel:</span>
                     <span class="font-medium ml-2">{{ videoInfo.channel }}</span>
                 </div>
                 <div>
-                    <span class="text-gray-600">Duration:</span>
+                    <span class="text-gray-600 dark:text-gray-400">Duration:</span>
                     <span class="font-medium ml-2">{{ formatDuration(videoInfo.duration) }}</span>
                 </div>
                 <div>
-                    <span class="text-gray-600">Video ID:</span>
+                    <span class="text-gray-600 dark:text-gray-400">Video ID:</span>
                     <span class="font-mono ml-2">{{ videoInfo.id }}</span>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 
         <!-- Quality Selection -->
         <div v-if="videoInfo" class="space-y-4">
-            <h3 class="text-lg font-semibold text-gray-700">Thumbnail Quality</h3>
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Thumbnail Quality</h3>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <button 
@@ -63,12 +63,12 @@
                     class="p-4 border-2 rounded-lg transition-colors"
                     :class="{
                         'border-blue-500 bg-blue-50': selectedQuality.id === quality.id,
-                        'border-gray-300 bg-white hover:bg-gray-50': selectedQuality.id !== quality.id
+                        'border-gray-300 bg-white hover:bg-gray-50 dark:bg-gray-700': selectedQuality.id !== quality.id
                     }"
                 >
                     <div class="text-center">
                         <div class="text-lg font-semibold">{{ quality.name }}</div>
-                        <div class="text-sm text-gray-500">{{ quality.resolution }}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ quality.resolution }}</div>
                         <div class="text-xs text-gray-400">{{ quality.description }}</div>
                     </div>
                 </button>
@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 
-                <div class="border rounded-lg overflow-hidden bg-white">
+                <div class="border dark:border-gray-600 rounded-lg overflow-hidden bg-white">
                     <img 
                         :src="thumbnail" 
                         :alt="`Thumbnail for ${videoInfo.title}`"

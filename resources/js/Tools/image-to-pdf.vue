@@ -1,7 +1,7 @@
 <template>
-    <div class="max-w-4xl mx-auto p-6 bg-white shadow rounded-xl">
+    <div class="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-2xl font-bold mb-4">Image to PDF</h1>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Image to PDF</h1>
 
         <!-- Error Message -->
         <div v-if="error" class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -15,23 +15,23 @@
 
         <!-- File Input Area -->
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-700">
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Select Image File
             </label>
             <input type="file" accept="image/*" @change="generate"
-                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+                class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
                 :disabled="isProcessing" />
-            <p class="mt-1 text-xs text-gray-500">
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                 Supported formats: JPG, PNG, GIF, BMP, WebP. Max size: 10MB
             </p>
         </div>
 
         <!-- Image Preview -->
         <div v-if="image && !error" class="mb-6">
-            <h3 class="text-sm font-medium text-gray-700 mb-2">Preview:</h3>
-            <div class="border rounded-lg p-4 bg-gray-50">
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Preview:</h3>
+            <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                 <img :src="image" alt="Preview" class="max-w-full h-auto max-h-64 mx-auto rounded" />
-                <p class="mt-2 text-xs text-gray-500 text-center">
+                <p class="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
                     {{ fileName }} ({{ formatFileSize(fileSize) }})
                 </p>
             </div>
@@ -39,13 +39,13 @@
 
         <!-- Configuration Options -->
         <div v-if="image && !error" class="mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700">PDF Options:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">PDF Options:</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Page Size:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Page Size:</label>
                     <select v-model="pageSize"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                         <option value="a4">A4</option>
                         <option value="letter">Letter</option>
                         <option value="legal">Legal</option>
@@ -53,18 +53,18 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Orientation:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Orientation:</label>
                     <select v-model="orientation"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                         <option value="portrait">Portrait</option>
                         <option value="landscape">Landscape</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Image Fit:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image Fit:</label>
                     <select v-model="imageFit"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                         <option value="contain">Contain (fit to page)</option>
                         <option value="cover">Cover (fill page)</option>
                         <option value="actual">Actual size</option>
@@ -72,9 +72,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Quality:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quality:</label>
                     <select v-model="quality"
-                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
                         <option value="high">High</option>
                         <option value="medium">Medium</option>
                         <option value="low">Low</option>
@@ -101,7 +101,7 @@
                 <span v-else>Download PDF</span>
             </button>
 
-            <button @click="reset" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition-colors">
+            <button @click="reset" class="bg-gray-50 dark:bg-gray-7000 text-white px-6 py-2 rounded hover:bg-gray-600 transition-colors">
                 Clear
             </button>
         </div>

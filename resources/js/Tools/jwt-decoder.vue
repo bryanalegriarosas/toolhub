@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6">JWT Decoder</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">JWT Decoder</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-            <label class="flex items-center gap-2">
+            <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span>Load file:</span>
                 <input ref="fileInput" type="file" accept=".jwt,.txt" @change="loadFile" class="form-input" />
             </label>
@@ -23,7 +23,7 @@
             </button>
             <button
                 @click="clearAll"
-                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
             >
                 Clear
             </button>
@@ -41,23 +41,23 @@
             @input="decodeJWT"
             rows="4"
             placeholder="Paste JWT token here..."
-            class="w-full border rounded-lg p-4 mb-6"
+            class="w-full border dark:border-gray-600 rounded-lg p-4 mb-6"
         />
 
         <div class="space-y-6">
             <div>
-                <label class="text-sm text-gray-500">Header</label>
-                <pre class="bg-gray-100 p-4 rounded overflow-auto">{{ header }}</pre>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Header</label>
+                <pre class="bg-gray-200 dark:bg-gray-600 p-4 rounded overflow-auto">{{ header }}</pre>
             </div>
 
             <div>
-                <label class="text-sm text-gray-500">Payload</label>
-                <pre class="bg-gray-100 p-4 rounded overflow-auto">{{ payload }}</pre>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Payload</label>
+                <pre class="bg-gray-200 dark:bg-gray-600 p-4 rounded overflow-auto">{{ payload }}</pre>
             </div>
 
             <div>
-                <label class="text-sm text-gray-500">Signature</label>
-                <pre class="bg-gray-100 p-4 rounded overflow-auto">{{ signature }}</pre>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Signature</label>
+                <pre class="bg-gray-200 dark:bg-gray-600 p-4 rounded overflow-auto">{{ signature }}</pre>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
                 >
                     <div>
                         <span class="font-mono truncate max-w-xs">{{ h.token }}</span>
-                        <p class="text-xs text-gray-500">{{ h.date }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ h.date }}</p>
                     </div>
                     <button
                         @click="restore(h)"
@@ -91,7 +91,7 @@
                 </button>
                 <button
                     @click="clearHistory"
-                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+                    class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
                 >
                     Clear History
                 </button>

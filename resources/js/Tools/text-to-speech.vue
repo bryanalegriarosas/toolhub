@@ -1,17 +1,17 @@
 <template>
-    <div class="max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow rounded-xl">
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Text to Speech Converter</h1>
+        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Text to Speech Converter</h1>
         <!-- Text Input Area -->
         <div class="mb-4 sm:mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-700">
+            <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Enter Text to Convert
             </label>
             <textarea v-model="text"
-                class="w-full p-3 sm:p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm sm:text-base"
+                class="w-full p-3 sm:p-4 border dark:border-gray-600 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm sm:text-base"
                 rows="6" placeholder="Type or paste your text here..." maxlength="5000" />
             <div class="mt-2 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                <p class="text-xs text-gray-500">
+                <p class="text-xs text-gray-500 dark:text-gray-400">
                     {{ text.length }}/5000 characters
                 </p>
                 <button @click="clearText"
@@ -23,13 +23,13 @@
 
         <!-- Voice Settings -->
         <div class="mb-4 sm:mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700">Voice Settings:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Voice Settings:</h3>
 
             <div class="grid grid-cols-1 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Language:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Language:</label>
                     <select v-model="selectedLanguage" @change="updateVoices"
-                        class="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
+                        class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
                         <option v-for="lang in languages" :key="lang.code" :value="lang.code">
                             {{ lang.name }}
                         </option>
@@ -37,9 +37,9 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Voice:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Voice:</label>
                     <select v-model="selectedVoice"
-                        class="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                         :disabled="!voices.length">
                         <option v-for="voice in voices" :key="voice.name" :value="voice.name">
                             {{ voice.name }} ({{ voice.lang }})
@@ -48,11 +48,11 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Speed: {{ rate }}x
                     </label>
                     <input type="range" v-model="rate" min="0.5" max="2" step="0.1" class="w-full h-2" />
-                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                         <span>0.5x</span>
                         <span>1x</span>
                         <span>2x</span>
@@ -60,11 +60,11 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Pitch: {{ pitch }}
                     </label>
                     <input type="range" v-model="pitch" min="0" max="2" step="0.1" class="w-full h-2" />
-                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                         <span>Low</span>
                         <span>Normal</span>
                         <span>High</span>
@@ -72,11 +72,11 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Volume: {{ Math.round(volume * 100) }}%
                     </label>
                     <input type="range" v-model="volume" min="0" max="1" step="0.1" class="w-full h-2" />
-                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                         <span>0%</span>
                         <span>50%</span>
                         <span>100%</span>
@@ -87,7 +87,7 @@
 
         <!-- Playback Controls -->
         <div class="mb-4 sm:mb-6">
-            <h3 class="text-sm font-medium text-gray-700 mb-3">Playback Controls:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Playback Controls:</h3>
             <div class="flex flex-col sm:flex-row gap-3">
                 <button @click="speak" :disabled="!text.trim() || isSpeaking"
                     class="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm sm:text-base">

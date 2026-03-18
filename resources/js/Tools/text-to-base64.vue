@@ -1,17 +1,17 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">
                 Text to Base64 Encoder / Decoder
             </h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Encode or decode Base64 from plain text instantly with history and download features.
             </p>
 
             <div class="flex flex-col md:flex-row md:items-center gap-3 mb-4">
                 <label class="flex items-center gap-2">
-                    <span class="text-sm sm:text-base">Load file</span>
+                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Load file</span>
                     <input ref="fileInput" type="file" accept="text/*" @change="loadFile"
                         class="form-input text-sm sm:text-base" />
                 </label>
@@ -29,17 +29,17 @@
 
                 <!-- INPUT -->
                 <div>
-                    <h2 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">Input</h2>
+                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Input</h2>
                     <textarea v-model="input" @input="autoEncode"
-                        class="w-full h-64 sm:h-80 p-3 sm:p-4 border rounded-lg font-mono text-xs sm:text-sm resize-none"
+                        class="w-full h-64 sm:h-80 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm resize-none dark:bg-gray-700 dark:text-white"
                         placeholder="Enter text or Base64..."></textarea>
                 </div>
 
                 <!-- OUTPUT -->
                 <div>
-                    <h2 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">Output</h2>
+                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Output</h2>
                     <textarea readonly :value="output"
-                        class="w-full h-64 sm:h-80 p-3 sm:p-4 border rounded-lg font-mono text-xs sm:text-sm bg-gray-50 resize-none"></textarea>
+                        class="w-full h-64 sm:h-80 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm bg-gray-50 dark:bg-gray-700 dark:text-white resize-none"></textarea>
                 </div>
 
             </div>
@@ -72,23 +72,23 @@
             </div>
 
             <div v-if="history.length" class="mt-4 sm:mt-6">
-                <h3 class="font-semibold mb-2 text-gray-700 text-sm sm:text-base">History</h3>
-                <div class="max-h-48 sm:max-h-64 overflow-y-auto border rounded-lg p-3 sm:p-4 bg-gray-50">
+                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">History</h3>
+                <div class="max-h-48 sm:max-h-64 overflow-y-auto border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
                     <ul class="space-y-2">
                         <li v-for="(item, idx) in history" :key="idx"
-                            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-white rounded border">
+                            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-white dark:bg-gray-600 rounded border dark:border-gray-500">
                             <div class="flex-1 min-w-0">
                                 <div class="font-mono text-xs sm:text-sm truncate">{{ item.type === 'encode' ? 'Encode'
                                     : 'Decode' }}: {{ item.input.substring(0, 50) }}{{ item.input.length > 50 ? '...' :
                                     '' }}</div>
-                                <div class="text-xs text-gray-500 truncate">{{ item.output.substring(0, 50) }}{{
+                                <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ item.output.substring(0, 50) }}{{
                                     item.output.length > 50 ? '...' : '' }}</div>
                             </div>
                             <div class="flex gap-1 self-start sm:self-auto">
                                 <button @click="restore(item)"
-                                    class="text-xs text-blue-600 hover:underline px-2 py-1 rounded hover:bg-blue-50">Restore</button>
+                                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900">Restore</button>
                                 <button @click="copyHistoryItem(item.output)"
-                                    class="text-xs text-green-600 hover:underline px-2 py-1 rounded hover:bg-green-50">Copy</button>
+                                    class="text-xs text-green-600 dark:text-green-400 hover:underline px-2 py-1 rounded hover:bg-green-50 dark:hover:bg-green-900">Copy</button>
                             </div>
                         </li>
                     </ul>

@@ -1,14 +1,14 @@
 <template>
-    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold">Image Cropper</h2>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image Cropper</h2>
 
         <!-- Upload Area -->
-        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
             <div v-if="!image" class="space-y-4">
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
                 </svg>
-                <p class="text-gray-600">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -26,8 +26,8 @@
             
             <div v-else class="space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ image.name }}</span>
-                    <span class="text-sm text-gray-500">{{ formatFileSize(image.size) }}</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ image.name }}</span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(image.size) }}</span>
                 </div>
                 
                 <div class="flex gap-2">
@@ -46,49 +46,49 @@
             <!-- Crop Controls -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Width (px)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Width (px)</label>
                     <input 
                         v-model="cropWidth" 
                         type="number" 
                         min="1"
                         :max="originalDimensions.width"
-                        class="w-full px-3 py-2 border rounded-lg"
+                        class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                         @input="updateCropArea"
                     />
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Height (px)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Height (px)</label>
                     <input 
                         v-model="cropHeight" 
                         type="number" 
                         min="1"
                         :max="originalDimensions.height"
-                        class="w-full px-3 py-2 border rounded-lg"
+                        class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                         @input="updateCropArea"
                     />
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">X Position</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">X Position</label>
                     <input 
                         v-model="cropX" 
                         type="number" 
                         min="0"
                         :max="originalDimensions.width - cropWidth"
-                        class="w-full px-3 py-2 border rounded-lg"
+                        class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                         @input="updateCropArea"
                     />
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Y Position</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Y Position</label>
                     <input 
                         v-model="cropY" 
                         type="number" 
                         min="0"
                         :max="originalDimensions.height - cropHeight"
-                        class="w-full px-3 py-2 border rounded-lg"
+                        class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                         @input="updateCropArea"
                     />
                 </div>
@@ -97,8 +97,8 @@
             <!-- Aspect Ratio & Presets -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Aspect Ratio</label>
-                    <select v-model="aspectRatio" @change="applyAspectRatio" class="w-full px-3 py-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Aspect Ratio</label>
+                    <select v-model="aspectRatio" @change="applyAspectRatio" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="free">Free</option>
                         <option value="1:1">Square (1:1)</option>
                         <option value="16:9">Widescreen (16:9)</option>
@@ -109,8 +109,8 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Quick Presets</label>
-                    <select v-model="selectedPreset" @change="applyPreset" class="w-full px-3 py-2 border rounded-lg">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quick Presets</label>
+                    <select v-model="selectedPreset" @change="applyPreset" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="">Custom</option>
                         <option value="instagram">Instagram Square (1080×1080)</option>
                         <option value="instagram-story">Instagram Story (1080×1920)</option>
@@ -146,8 +146,8 @@
         <div v-if="image" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Original with Crop Overlay -->
             <div class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-700">Original Image</h3>
-                <div class="relative border rounded-lg overflow-hidden bg-gray-50">
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Original Image</h3>
+                <div class="relative border dark:border-gray-600 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
                     <canvas 
                         ref="canvas" 
                         class="max-w-full h-auto"
@@ -164,18 +164,18 @@
                         <div class="absolute w-3 h-3 bg-red-600 border-2 border-white -bottom-1 -right-1"></div>
                     </div>
                 </div>
-                <div class="text-sm text-gray-600">
+                <div class="text-sm text-gray-600 dark:text-gray-400">
                     Original: {{ originalDimensions.width }} × {{ originalDimensions.height }}
                 </div>
             </div>
             
             <!-- Cropped Result -->
             <div v-if="croppedImage" class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-700">Cropped Result</h3>
-                <div class="border rounded-lg overflow-hidden bg-gray-50">
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Cropped Result</h3>
+                <div class="border dark:border-gray-600 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
                     <img :src="croppedImage" class="max-w-full h-auto" />
                 </div>
-                <div class="text-sm text-gray-600">
+                <div class="text-sm text-gray-600 dark:text-gray-400">
                     Cropped: {{ cropWidth }} × {{ cropHeight }}
                 </div>
                 

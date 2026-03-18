@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Keyword Density Checker</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Keyword Density Checker</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Analyze keyword density with real-time calculation, multiple metrics, and SEO optimization.
             </p>
 
@@ -12,28 +12,28 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Text Input -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Content Analysis</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Content Analysis</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Enter Text
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Enter Text
                                     Content</label>
                                 <textarea v-model="text" @input="analyzeText"
                                     placeholder="Paste your text content here...\nOr enter your main keyword to analyze against"
                                     rows="6" class="form-input resize-none text-sm sm:text-base" />
-                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 mt-1">
+                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ text.length }} characters</span>
                                     <span>{{ wordCount }} words</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Target Keywords
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Target Keywords
                                     (optional)</label>
                                 <textarea v-model="targetKeywords" @input="analyzeText"
                                     placeholder="Enter keywords to analyze against (comma separated)" rows="3"
                                     class="form-input resize-none text-sm sm:text-base" />
-                                <div class="text-xs sm:text-sm text-gray-500 mt-1">
+                                <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ targetKeywordCount }} keywords</span>
                                 </div>
                             </div>
@@ -42,18 +42,18 @@
 
                     <!-- Analysis Options -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Analysis Options</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Analysis Options</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Minimum Word
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Minimum Word
                                     Length</label>
                                 <input v-model="options.minWordLength" type="number" min="1" max="20" placeholder="3"
                                     class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Stop
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Stop
                                     Words</label>
                                 <textarea v-model="options.stopWords"
                                     placeholder="the, and, or, but, a, an, in, is, it, of, to, that" rows="3"
@@ -63,12 +63,12 @@
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.caseSensitive" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700">Case Sensitive</span>
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Case Sensitive</span>
                                 </label>
 
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.includeMetaTags" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700">Include Meta
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Include Meta
                                         Tags</span>
                                 </label>
                             </div>
@@ -103,9 +103,9 @@
 
             <!-- Results Section -->
             <div v-if="hasResults" class="space-y-4 sm:space-y-6">
-                <div class="bg-gray-50 rounded-lg p-4 sm:p-6">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Analysis Results</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Analysis Results</h3>
                         <div class="flex gap-2">
                             <button @click="copyResults"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
@@ -120,26 +120,26 @@
 
                     <!-- Keyword Density Table -->
                     <div class="mb-6">
-                        <h4 class="text-md font-semibold text-gray-700 mb-4">Keyword Density Analysis</h4>
+                        <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-4">Keyword Density Analysis</h4>
 
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200 text-xs sm:text-sm">
-                                <thead class="bg-gray-50">
+                                <thead class="bg-gray-50 dark:bg-gray-700">
                                     <tr>
                                         <th
-                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                                             Keyword</th>
                                         <th
-                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                                             Count</th>
                                         <th
-                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                                             Frequency</th>
                                         <th
-                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                                             Density %</th>
                                         <th
-                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                                            class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                                             Prominence</th>
                                     </tr>
                                 </thead>
@@ -151,7 +151,7 @@
                                     }">
                                         <td class="p-2 border font-medium" :class="{
                                             'text-green-700': item.isTargetKeyword,
-                                            'text-gray-900': !item.isTargetKeyword
+                                            'text-gray-900 dark:text-white': !item.isTargetKeyword
                                         }">{{ item.word }}</td>
                                         <td class="p-2 border text-center">{{ item.count }}</td>
                                         <td class="p-2 border text-center">{{ item.frequency.toFixed(2) }}%</td>
@@ -181,19 +181,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-blue-600">{{ totalWords }}</div>
-                            <div class="text-gray-600">Total Words</div>
+                            <div class="text-gray-600 dark:text-gray-400">Total Words</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-green-600">{{ uniqueWords }}</div>
-                            <div class="text-gray-600">Unique Words</div>
+                            <div class="text-gray-600 dark:text-gray-400">Unique Words</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-purple-600">{{ averageWordLength }}</div>
-                            <div class="text-gray-600">Avg Word Length</div>
+                            <div class="text-gray-600 dark:text-gray-400">Avg Word Length</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-orange-600">{{ keywordDensity }}%</div>
-                            <div class="text-gray-600">Target Keyword Density</div>
+                            <div class="text-gray-600 dark:text-gray-400">Target Keyword Density</div>
                         </div>
                     </div>
                 </div>

@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Meta Tag Generator</h1>
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Meta Tag Generator</h1>
 
-            <p class="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
                 Generate SEO meta tags with real-time preview, validation, and multiple tag support.
             </p>
 
@@ -12,27 +12,27 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Basic Meta Tags -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Basic Meta Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Basic Meta Tags</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Page
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Page
                                     Title</label>
                                 <input v-model="title" @input="validateInputs"
                                     placeholder="Enter your page title (50-60 characters)" maxlength="60"
                                     class="form-input text-sm sm:text-base" />
-                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 mt-1">
+                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ title.length }}/60</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Meta
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Meta
                                     Description</label>
                                 <textarea v-model="description" @input="validateInputs"
                                     placeholder="Enter your meta description (120-160 characters)" maxlength="160"
                                     rows="3" class="form-input resize-none text-sm sm:text-base" />
-                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 mt-1">
+                                <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ description.length }}/160</span>
                                 </div>
                             </div>
@@ -41,35 +41,35 @@
 
                     <!-- Advanced Meta Tags -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Advanced Meta Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Advanced Meta Tags</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
                                 <label
-                                    class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Keywords</label>
+                                    class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Keywords</label>
                                 <input v-model="keywords" @input="validateInputs"
                                     placeholder="Enter keywords (comma separated)"
                                     class="form-input text-sm sm:text-base" />
-                                <div class="text-xs sm:text-sm text-gray-500 mt-1">
+                                <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ keywordCount }} keywords</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Author</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Author</label>
                                 <input v-model="author" @input="validateInputs" placeholder="Author name"
                                     class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Canonical
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Canonical
                                     URL</label>
                                 <input v-model="canonical" @input="validateInputs"
                                     placeholder="https://example.com/page" class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Robots</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Robots</label>
                                 <select v-model="robots" class="form-select text-sm sm:text-base">
                                     <option value="index,follow">Index, Follow</option>
                                     <option value="index,nofollow">Index, Nofollow</option>
@@ -84,11 +84,11 @@
                 <!-- Open Graph Tags -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Open Graph Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Open Graph Tags</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">OG
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG
                                     Title</label>
                                 <input v-model="ogTitle" @input="validateInputs"
                                     placeholder="Social media title (optional)" maxlength="100"
@@ -96,7 +96,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">OG
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG
                                     Description</label>
                                 <textarea v-model="ogDescription" @input="validateInputs"
                                     placeholder="Social media description (optional)" maxlength="300" rows="2"
@@ -104,7 +104,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">OG
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG
                                     Image</label>
                                 <input v-model="ogImage" @input="validateInputs"
                                     placeholder="https://example.com/image.jpg"
@@ -112,7 +112,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">OG Type</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG Type</label>
                                 <select v-model="ogType" class="form-select text-sm sm:text-base">
                                     <option value="website">Website</option>
                                     <option value="article">Article</option>
@@ -125,11 +125,11 @@
 
                     <!-- Twitter Card Tags -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Twitter Card Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Twitter Card Tags</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Twitter
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Twitter
                                     Title</label>
                                 <input v-model="twitterTitle" @input="validateInputs"
                                     placeholder="Twitter card title (optional)" maxlength="70"
@@ -137,7 +137,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Twitter
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Twitter
                                     Description</label>
                                 <textarea v-model="twitterDescription" @input="validateInputs"
                                     placeholder="Twitter card description (optional)" maxlength="200" rows="2"
@@ -145,7 +145,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 mb-2">Twitter
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Twitter
                                     Image</label>
                                 <input v-model="twitterImage" @input="validateInputs"
                                     placeholder="https://example.com/twitter-image.jpg"
@@ -176,9 +176,9 @@
 
             <!-- Generated Code -->
             <div v-if="result" class="space-y-4 sm:space-y-6">
-                <div class="bg-gray-50 rounded-lg p-4 sm:p-6">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700">Generated Meta Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Meta Tags</h3>
                         <div class="flex gap-2">
                             <button @click="copyToClipboard"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
@@ -193,13 +193,13 @@
 
                     <!-- Code Preview -->
                     <div class="bg-white rounded-lg p-3 sm:p-4">
-                        <pre class="text-xs sm:text-sm text-gray-800 overflow-x-auto"><code>{{ result }}</code></pre>
+                        <pre class="text-xs sm:text-sm text-gray-800 dark:text-white overflow-x-auto"><code>{{ result }}</code></pre>
                     </div>
 
                     <!-- Live Preview -->
                     <div class="mt-4">
-                        <h4 class="text-md font-semibold text-gray-700 mb-2">Live Preview</h4>
-                        <div class="border rounded-lg p-3 sm:p-4 bg-gray-50">
+                        <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">Live Preview</h4>
+                        <div class="border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
                             <div v-html="result"></div>
                         </div>
                     </div>

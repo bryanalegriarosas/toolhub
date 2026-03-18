@@ -7,6 +7,26 @@ import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import Swal from 'sweetalert2';
 
+// Initialize dark mode before app mounts
+const initializeDarkMode = () => {
+    const savedMode = localStorage.getItem('darkMode');
+    const html = document.documentElement;
+    
+    if (savedMode === 'true') {
+        html.classList.add('dark');
+    } else if (savedMode === 'false') {
+        html.classList.remove('dark');
+    } else {
+        // Check system preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.classList.add('dark');
+        }
+    }
+};
+
+// Initialize dark mode immediately
+initializeDarkMode();
+
 // Configure SweetAlert2 defaults
 Swal.mixin({
     toast: true,
