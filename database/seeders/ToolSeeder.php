@@ -297,6 +297,20 @@ class ToolSeeder extends Seeder
                 'description' => 'Convert colors',
                 'category_id' => 6
             ],
+            [
+                'name' => 'JSON to CSV Converter',
+                'slug' => 'json-to-csv',
+                'icon' => 'FileSpreadsheet',
+                'description' => 'Convert JSON data into CSV format easily.',
+                'category_id' => 6
+            ],
+            [
+                'name' => 'Text to Base64',
+                'slug' => 'text-to-base64',
+                'icon' => 'Binary',
+                'description' => 'Encode plain text into Base64 format.',
+                'category_id' => 6
+            ],
 
             // ================= SECURITY (7) =================
             [
