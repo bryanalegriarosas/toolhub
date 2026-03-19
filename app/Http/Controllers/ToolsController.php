@@ -21,6 +21,11 @@ class ToolsController extends Controller
 
         $name = Str::of($slug)->replace('-', ' ')->title();
 
+        $relatedTools = Tool::inRandomOrder()
+            ->where('id', '!=', $tool->id)
+            ->limit(4)
+            ->get();
+
         $seo = [
             'title' => "Free {$name} Online",
             'description' => "Use this free {$name} tool to process your data instantly. Fast, secure and easy to use.",
@@ -31,6 +36,7 @@ class ToolsController extends Controller
         return Inertia::render('Tools/ToolLoader', [
             'tool' => $tool,
             'seo' => $seo,
+            'relatedTools' => $relatedTools,
         ]);
     }
 }
