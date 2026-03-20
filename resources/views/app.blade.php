@@ -16,6 +16,8 @@
 
 
     <!-- Scripts -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4007302573072110"
+        crossorigin="anonymous"></script>
     <meta name="google-site-verification" content="qBGbBbpHDy49mGSuxzXG1ZGzGZATWWw19JPkTnNdFhw" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NTP4YMLNVL"></script>
