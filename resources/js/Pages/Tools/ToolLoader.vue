@@ -5,9 +5,7 @@
 
         <!-- 🔥 TOP AD -->
         <div class="mb-6 text-center">
-            <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
-                Advertisement (Top)
-            </div>
+            <AdBanner />
         </div>
 
         <!-- TOOL -->
@@ -16,7 +14,7 @@
         <!-- 🔥 MIDDLE AD -->
         <div class="mt-8 text-center">
             <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
-                Advertisement (Middle)
+                <AdBanner />
             </div>
         </div>
 
@@ -36,7 +34,7 @@
         <!-- 🔥 BOTTOM AD -->
         <div class="mt-10 text-center">
             <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
-                Advertisement (Bottom)
+                <AdBanner />
             </div>
         </div>
 
@@ -49,6 +47,7 @@ import { usePage } from "@inertiajs/vue3";
 import ToolHeadSeo from "@/Components/tools/ToolHeadSeo.vue";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ToolCard from "@/Components/ToolCard.vue";
+import AdBanner from "@/Components/AdBanner.vue";
 
 const page = usePage();
 

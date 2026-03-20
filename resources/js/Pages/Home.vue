@@ -73,7 +73,7 @@
             <!-- ADS (TOP) -->
             <div class="text-center">
                 <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 text-gray-400 dark:text-gray-500">
-                    Advertisement
+                    <AdBanner />
                 </div>
             </div>
 
@@ -113,7 +113,7 @@
                 <!-- ADS after 2nd category -->
                 <div v-if="index === 1" class="mt-8 text-center">
                     <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 text-gray-400 dark:text-gray-500">
-                        Advertisement
+                        <AdBanner />
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@
             <!-- ADS (BOTTOM) -->
             <div class="text-center">
                 <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 text-gray-400 dark:text-gray-500">
-                    Advertisement
+                    <AdBanner />
                 </div>
             </div>
 
@@ -136,6 +136,7 @@ import { usePage, Link, Head } from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ToolCard from "@/Components/ToolCard.vue";
 import ToolIcon from "@/Components/ToolIcon.vue";
+import AdBanner from "@/Components/AdBanner.vue";
 
 const page = usePage();
 const tools = page.props.tools;
