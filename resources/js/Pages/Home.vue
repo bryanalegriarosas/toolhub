@@ -20,36 +20,36 @@
 
             <!-- HERO -->
             <div
-                class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-6 md:p-14 rounded-2xl shadow-xl text-center">
+                class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-4 sm:p-6 md:p-10 lg:p-14 rounded-2xl shadow-xl text-center">
 
-                <h1 class="text-2xl md:text-4xl font-bold mb-4">
+                <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
                     Free Online Tools for SEO, PDF, Images & Developers
                 </h1>
 
-                <p class="opacity-90 mb-4">
+                <p class="opacity-90 mb-3 sm:mb-4 text-sm sm:text-base">
                     All-in-one platform with powerful and free tools for developers, designers and marketers.
                 </p>
 
-                <p class="opacity-90 mb-2">
+                <p class="opacity-90 mb-2 text-sm sm:text-base">
                     More than {{ tools.length }} tools available
                 </p>
 
-                <div class="flex justify-center gap-6 text-sm opacity-90 mt-4">
+                <div class="flex justify-center gap-3 sm:gap-6 text-xs sm:text-sm opacity-90 mt-3 sm:mt-4">
                     <span>⚡ Fast</span>
                     <span>🔒 Secure</span>
                     <span>🆓 Free</span>
                 </div>
 
                 <Link href="/tools"
-                    class="inline-block mt-6 px-8 py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="inline-block mt-4 sm:mt-6 px-6 sm:px-8 py-2.5 sm:py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-sm sm:text-base">
                     Explore All Tools
                 </Link>
 
                 <!-- SEARCH -->
-                <div class="mt-4 max-w-xl mx-auto">
+                <div class="mt-3 sm:mt-4 max-w-lg sm:max-w-xl mx-auto">
                     <input v-model="search" @keydown.down.prevent="moveSelection(1)"
                         @keydown.up.prevent="moveSelection(-1)" @keydown.enter.prevent="activateSelection"
-                        placeholder="Search a tool..." class="text-black dark:text-white border dark:border-gray-600 rounded-lg px-4 py-3 w-full dark:bg-gray-800" />
+                        placeholder="Search a tool..." class="text-black dark:text-white border dark:border-gray-600 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 w-full text-sm dark:bg-gray-800" />
                 </div>
 
                 <!-- SEARCH RESULTS -->
@@ -106,7 +106,7 @@
                     {{ category.name }}
                 </Link>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                     <ToolCard v-for="tool in category.tools" :key="tool.id" :tool="tool" />
                 </div>
 

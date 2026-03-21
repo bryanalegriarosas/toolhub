@@ -2,26 +2,37 @@
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
         <!-- NAVBAR -->
         <header class="bg-white dark:bg-gray-800 border-b dark:border-gray-700 transition-colors">
-            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-6">
-                    <a href="/" class="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-4 sm:gap-6 flex-1">
+                    <a href="/" class="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">
                         WebToolStack
                     </a>
 
-                    <nav class="hidden md:flex gap-6 text-gray-600 dark:text-gray-300">
+                    <nav class="hidden md:flex gap-4 sm:gap-6 text-gray-600 dark:text-gray-300">
                         <a href="/" class="hover:text-blue-600 dark:hover:text-blue-400"> Home </a>
 
                         <a href="/tools" class="hover:text-blue-600 dark:hover:text-blue-400"> Tools </a>
                         <a href="/about" class="hover:text-blue-600 dark:hover:text-blue-400"> About </a>
                         <a href="/contact" class="hover:text-blue-600 dark:hover:text-blue-400"> Contact </a>
                     </nav>
+                </div>
+                
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="hidden md:flex items-center gap-3" v-if="!$slots.sidebar">
+                        <div class="relative">
+                            <label for="layout-search" class="sr-only">Buscar herramientas</label>
+                            <input id="layout-search" v-model="search" @input="filterTools" type="text"
+                                placeholder="Search tools..."
+                                class="border dark:border-gray-600 rounded-lg px-3 py-2 w-32 sm:w-48 md:w-64 text-sm focus:ring focus:ring-blue-200 dark:focus:ring-blue-800 dark:bg-gray-700 dark:text-white" />
+                        </div>
+                    </div>
                     <div>
                         <DarkModeToggle />
                     </div>
                 </div>
 
                 <!-- Mobile menu button -->
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors touch-target"
                     aria-label="Toggle menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -30,15 +41,6 @@
                             d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
-
-                <div class="hidden md:flex items-center gap-3" v-if="!$slots.sidebar">
-                    <div class="relative">
-                        <label for="layout-search" class="sr-only">Buscar herramientas</label>
-                        <input id="layout-search" v-model="search" @input="filterTools" type="text"
-                            placeholder="Search tools..."
-                            class="border dark:border-gray-600 rounded-lg px-4 py-2 w-full md:w-64 focus:ring focus:ring-blue-200 dark:focus:ring-blue-800 dark:bg-gray-700 dark:text-white" />
-                    </div>
-                </div>
             </div>
         </header>
 
@@ -85,7 +87,7 @@
             </div>
         </div>
 
-        <div class="flex max-w-7xl mx-auto mt-6 gap-6 px-6">
+        <div class="flex max-w-7xl mx-auto mt-6 gap-4 sm:gap-6 px-4 sm:px-6">
             <!-- SIDEBAR -->
             <aside v-if="!$slots.sidebar" class="hidden lg:block w-64 bg-white dark:bg-gray-800 rounded-xl shadow p-4 h-fit transition-colors">
                 <h2 class="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase mb-3">
@@ -105,7 +107,7 @@
             </aside>
 
             <!-- MAIN CONTENT -->
-            <main class="flex-1">
+            <main class="flex-1 min-w-0">
                 <slot />
             </main>
         </div>
