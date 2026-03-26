@@ -9,12 +9,16 @@
             <div>
 
                 <h2 class="text-xl font-semibold text-white mb-2">
-                    ToolHub
+                    WebToolStack
                 </h2>
 
                 <p class="text-sm text-gray-400">
                     A collection of free online tools for developers,
                     students and professionals.
+                </p>
+
+                <p class="text-sm text-gray-400 mt-3">
+                    WebToolStack offers a growing collection of free online tools including formatters, converters, generators and developer utilities.
                 </p>
 
             </div>
@@ -77,6 +81,12 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="/disclaimer" class="hover:text-white">
+                            Disclaimer
+                        </a>
+                    </li>
+
                 </ul>
 
             </div>
@@ -87,7 +97,7 @@
 
         <div class="border-t border-gray-800 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400 py-4">
 
-            © {{ year }} ToolHub. All rights reserved.
+            © {{ year }} WebToolStack. All rights reserved.
 
         </div>
 

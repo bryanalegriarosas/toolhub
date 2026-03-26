@@ -52,7 +52,8 @@ services:
       - ./:/var/www
     ports:
       - "5173:5173"
-    command: sh -c "tail -f /dev/null"
+    #command: sh -c "tail -f /dev/null" //Para cuando se quiere mantener el contenedor alive
+    command: sh -c "npm install && npm run dev -- --host"
     stdin_open: true
     tty: true
     networks:

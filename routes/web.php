@@ -26,6 +26,7 @@ Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy']);
 Route::get('/terms-of-service', [HomeController::class, 'termsOfService']);
 Route::get('/cookie-policy', [HomeController::class, 'cookiePolicy']);
 Route::get('/about', [HomeController::class, 'about']);
+Route::get('/disclaimer', [HomeController::class, 'disclaimer']);
 
 Route::prefix('contact')->group(function () {
     Route::get('', [HomeController::class, 'contact']);
