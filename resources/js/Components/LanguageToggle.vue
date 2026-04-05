@@ -23,7 +23,7 @@
         >
             <div class="py-1">
                 <button
-                    v-for="language in languages"
+                    v-for="language in availableLanguages"
                     :key="language.code"
                     @click="selectLanguage(language)"
                     class="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors"
@@ -33,7 +33,7 @@
                 >
                     <span class="text-lg">{{ language.flag }}</span>
                     <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {{ language.name }}
+                        {{ language.nativeName }}
                     </span>
                     <svg
                         v-if="currentLanguage.code === language.code"
@@ -51,13 +51,11 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useTranslations, availableLanguages } from '@/languageManager.js'
 
-const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' }
-]
+// Usar sistema de traducciones global
+const { setLanguage, getCurrentLanguage } = useTranslations()
 
-const currentLanguage = ref(languages[0])
 const isOpen = ref(false)
 
 const toggleDropdown = () => {
@@ -69,34 +67,13 @@ const closeDropdown = () => {
 }
 
 const selectLanguage = (language) => {
-    currentLanguage.value = language
-    localStorage.setItem('language', language.code)
+    setLanguage(language.code)
     closeDropdown()
-    
-    // Emit event to notify parent component
-    emit('languageChanged', language.code)
 }
 
-const emit = defineEmits(['languageChanged'])
-
-const initializeLanguage = () => {
-    const savedLanguage = localStorage.getItem('language')
-    if (savedLanguage) {
-        const language = languages.find(lang => lang.code === savedLanguage)
-        if (language) {
-            currentLanguage.value = language
-        }
-    } else {
-        // Check browser language
-        const browserLang = navigator.language.split('-')[0]
-        const language = languages.find(lang => lang.code === browserLang)
-        if (language) {
-            currentLanguage.value = language
-        }
-    }
-}
-
-onMounted(() => {
-    initializeLanguage()
+// Computed property para el idioma actual
+const currentLanguage = computed(() => {
+    const currentCode = getCurrentLanguage()
+    return availableLanguages.find(lang => lang.code === currentCode) || availableLanguages[0]
 })
 </script>

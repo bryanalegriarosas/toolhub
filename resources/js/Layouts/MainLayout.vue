@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div>
-                        <LanguageToggle @languageChanged="handleLanguageChange" />
+                        <LanguageToggle />
                     </div>
                     <div>
                         <DarkModeToggle />
@@ -126,32 +126,15 @@ import ToolIcon from "@/Components/ToolIcon.vue";
 import Footer from "@/Components/Footer.vue";
 import DarkModeToggle from "@/Components/DarkModeToggle.vue";
 import LanguageToggle from "@/Components/LanguageToggle.vue";
-import { translate } from "@/translations.js";
+import { useTranslations } from "@/languageManager.js";
 
 const page = usePage();
 
+// Usar sistema de traducciones global
+const { t, currentLanguage } = useTranslations();
+
 const search = ref("");
 const mobileMenuOpen = ref(false);
-const currentLanguage = ref('en');
-
-const t = (key, replacements = {}) => {
-    return translate(key, currentLanguage.value, replacements);
-};
-
-const handleLanguageChange = (languageCode) => {
-    currentLanguage.value = languageCode;
-};
-
-const initializeLanguage = () => {
-    const savedLanguage = localStorage.getItem('language');
-    if (savedLanguage) {
-        currentLanguage.value = savedLanguage;
-    } else {
-        // Check browser language
-        const browserLang = navigator.language.split('-')[0];
-        currentLanguage.value = ['en', 'es'].includes(browserLang) ? browserLang : 'en';
-    }
-};
 
 const allTools = computed(() => {
     return page.props.tools ?? [];
@@ -165,10 +148,6 @@ const filteredTools = computed(() => {
     return allTools.value.filter((t) =>
         t.name.toLowerCase().includes(q),
     );
-});
-
-onMounted(() => {
-    initializeLanguage();
 });
 
 </script>

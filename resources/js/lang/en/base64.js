@@ -1,0 +1,16 @@
+export default {
+    'base64.title': 'Base64 Decoder - Free Online Tool',
+    'base64.auto_decode': 'Auto Decode',
+    'base64.load_file': 'Load file:',
+    'base64.input_placeholder': 'Paste Base64 encoded text here...',
+    'base64.decode_button': 'Decode',
+    'base64.copy_result': 'Copy Result',
+    'base64.download': 'Download',
+    'base64.clear': 'Clear',
+    'base64.decoded_output': 'Decoded Output:',
+    'base64.decoding_history': 'Decoding History',
+    'base64.copy': 'Copy',
+    'base64.download_all_history': 'Download All History',
+    'base64.clear_history': 'Clear History',
+    'base64.decoding_error': 'Decoding failed: {error}. Please ensure your input is valid Base64 encoded text.',
+};

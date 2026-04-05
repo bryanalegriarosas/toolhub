@@ -1,0 +1,16 @@
+export default {
+    'base64.title': 'Decodificador Base64 - Herramienta Online Gratuita',
+    'base64.auto_decode': 'Decodificación Automática',
+    'base64.load_file': 'Cargar archivo:',
+    'base64.input_placeholder': 'Pega el texto codificado en Base64 aquí...',
+    'base64.decode_button': 'Decodificar',
+    'base64.copy_result': 'Copiar Resultado',
+    'base64.download': 'Descargar',
+    'base64.clear': 'Limpiar',
+    'base64.decoded_output': 'Salida Decodificada:',
+    'base64.decoding_history': 'Historial de Decodificación',
+    'base64.copy': 'Copiar',
+    'base64.download_all_history': 'Descargar Todo el Historial',
+    'base64.clear_history': 'Limpiar Historial',
+    'base64.decoding_error': 'Error en decodificación: {error}. Por favor asegúrate que tu entrada es texto válido codificado en Base64.',
+};

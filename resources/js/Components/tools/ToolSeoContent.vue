@@ -2,7 +2,7 @@
     <div class="max-w-4xl mx-auto mt-16 space-y-12">
         <!-- Description -->
         <section>
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">What is {{ title }}?</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.what_is', { title }) }}</h2>
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
                 {{ description }}
             </p>
@@ -15,7 +15,7 @@
 
         <!-- Key Features (NEW) -->
         <section v-if="features?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Key Features</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.key_features') }}</h2>
             <div class="grid md:grid-cols-2 gap-4">
                 <div v-for="feature in features" :key="feature.title" 
                      class="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -32,7 +32,7 @@
 
         <!-- Steps -->
         <section v-if="steps?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">How to Use This Tool</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.how_to_use') }}</h2>
             <ol class="space-y-4">
                 <li v-for="(step, index) in steps" :key="index" class="flex gap-4">
                     <span class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
@@ -47,7 +47,7 @@
 
         <!-- Examples -->
         <section v-if="examples?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Examples</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.examples') }}</h2>
             <div class="space-y-6">
                 <div v-for="example in examples" :key="example.title" 
                      class="border dark:border-gray-600 rounded-lg p-6 bg-gray-50 dark:bg-gray-700">
@@ -64,12 +64,12 @@
                     </div>
 
                     <div v-if="example.result" class="bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-lg p-4">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Result:</p>
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('seo.result') }}</p>
                         <p class="text-gray-600 dark:text-gray-400 font-mono text-sm">{{ example.result }}</p>
                     </div>
 
                     <div v-if="example.steps?.length" class="mt-4">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Step-by-step:</p>
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('seo.step_by_step') }}</p>
                         <ol class="list-decimal ml-6 space-y-1 text-sm text-gray-600 dark:text-gray-400">
                             <li v-for="step in example.steps" :key="step">{{ step }}</li>
                         </ol>
@@ -80,7 +80,7 @@
 
         <!-- Use Cases (NEW) -->
         <section v-if="useCases?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Common Use Cases</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.common_use_cases') }}</h2>
             <div class="space-y-6">
                 <div v-for="useCase in useCases" :key="useCase.title" 
                      class="border-l-4 border-blue-600 pl-6 py-2">
@@ -99,7 +99,7 @@
 
         <!-- Technical Details (NEW) -->
         <section v-if="technicalDetails">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">How It Works</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.how_it_works') }}</h2>
             <div class="prose text-gray-600 dark:text-gray-400 dark:prose-invert max-w-none">
                 <div v-html="technicalDetails"></div>
             </div>
@@ -107,7 +107,7 @@
 
         <!-- Best Practices (NEW) -->
         <section v-if="bestPractices?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Best Practices & Tips</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.best_practices') }}</h2>
             <div class="grid gap-4">
                 <div v-for="practice in bestPractices" :key="practice.title"
                      class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-5">
@@ -126,7 +126,7 @@
 
         <!-- Common Errors (NEW) -->
         <section v-if="commonErrors?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Common Errors & Solutions</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.common_errors') }}</h2>
             <div class="space-y-4">
                 <div v-for="error in commonErrors" :key="error.error"
                      class="border border-red-200 dark:border-red-800 rounded-lg p-5 bg-red-50 dark:bg-red-900/20">
@@ -138,7 +138,7 @@
                             <h3 class="font-semibold text-red-900 dark:text-red-200 mb-1">{{ error.error }}</h3>
                             <p class="text-red-700 dark:text-red-300 text-sm mb-2">{{ error.cause }}</p>
                             <div class="bg-white dark:bg-gray-800 rounded p-3 mt-2">
-                                <p class="text-sm font-medium text-green-700 dark:text-green-400 mb-1">✓ Solution:</p>
+                                <p class="text-sm font-medium text-green-700 dark:text-green-400 mb-1">✓ {{ t('seo.solution') }}</p>
                                 <p class="text-gray-700 dark:text-gray-300 text-sm">{{ error.solution }}</p>
                             </div>
                         </div>
@@ -149,15 +149,15 @@
 
         <!-- Comparison/Alternatives (NEW) -->
         <section v-if="alternatives?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Alternatives & Comparisons</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.alternatives') }}</h2>
             <div class="overflow-x-auto">
                 <table class="w-full border-collapse">
                     <thead>
                         <tr class="bg-gray-100 dark:bg-gray-700">
-                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">Method</th>
-                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">Use Case</th>
-                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">Pros</th>
-                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">Cons</th>
+                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">{{ t('seo.method') }}</th>
+                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">{{ t('seo.use_case') }}</th>
+                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">{{ t('seo.pros') }}</th>
+                            <th class="border dark:border-gray-600 px-4 py-3 text-left text-gray-900 dark:text-white">{{ t('seo.cons') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -174,7 +174,7 @@
 
         <!-- Related Tools (NEW) -->
         <section v-if="relatedTools?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Related Tools You Might Need</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.related_tools') }}</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <a v-for="tool in relatedTools" :key="tool.name" 
                    :href="tool.url"
@@ -187,7 +187,7 @@
 
         <!-- FAQ -->
         <section v-if="faqs?.length">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('seo.faq') }}</h2>
             <div class="space-y-6">
                 <div v-for="(faq, index) in faqs" :key="index"
                      class="border-b dark:border-gray-700 pb-6 last:border-b-0">
@@ -220,7 +220,7 @@
                         <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                     </svg>
                     <div>
-                        <h3 class="font-semibold text-yellow-900 dark:text-yellow-200 mb-2">Security & Privacy</h3>
+                        <h3 class="font-semibold text-yellow-900 dark:text-yellow-200 mb-2">{{ t('seo.security_privacy') }}</h3>
                         <p class="text-yellow-800 dark:text-yellow-300 text-sm">{{ securityNote }}</p>
                     </div>
                 </div>
@@ -230,21 +230,26 @@
 </template>
 
 <script setup>
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones global
+const { t } = useTranslations();
+
 defineProps({
     title: String,
     description: String,
-    extendedDescription: String,  // NEW: HTML content for longer descriptions
+    extendedDescription: String,
     steps: Array,
     examples: Array,
     faqs: Array,
-    features: Array,              // NEW: [{title, description}]
-    useCases: Array,              // NEW: [{title, description, example}]
-    technicalDetails: String,     // NEW: HTML content explaining how it works
-    bestPractices: Array,         // NEW: [{title, tip}]
-    commonErrors: Array,          // NEW: [{error, cause, solution}]
-    alternatives: Array,          // NEW: [{name, useCase, pros, cons}]
-    relatedTools: Array,          // NEW: [{name, description, url}]
-    additionalContent: String,    // NEW: HTML for any extra content
-    securityNote: String,         // NEW: Security/privacy information
+    features: Array,
+    useCases: Array,
+    technicalDetails: String,
+    bestPractices: Array,
+    commonErrors: Array,
+    alternatives: Array,
+    relatedTools: Array,
+    additionalContent: String,
+    securityNote: String
 });
 </script>
