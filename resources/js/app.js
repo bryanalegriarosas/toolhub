@@ -6,6 +6,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import Swal from 'sweetalert2';
+import { translate } from './translations.js';
 
 // Initialize dark mode before app mounts
 const initializeDarkMode = () => {
@@ -50,11 +51,26 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
             .provide('Swal', Swal)
-            .mount(el);
+            .provide('translate', translate);
+        
+        // Initialize language
+        const initializeLanguage = () => {
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage) {
+                app.config.globalProperties.$language = savedLanguage;
+            } else {
+                const browserLang = navigator.language.split('-')[0];
+                app.config.globalProperties.$language = ['en', 'es'].includes(browserLang) ? browserLang : 'en';
+            }
+        };
+        
+        initializeLanguage();
+        
+        return app.mount(el);
     },
     progress: {
         color: '#4B5563',

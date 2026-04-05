@@ -6,7 +6,7 @@
         <template #sidebar>
             <!-- Empty sidebar to hide it -->
         </template>
-        <div class="mx-auto min-h-screen py-16 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <div class="mx-auto mt-4 min-h-screen py-16 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
             <div class="max-w-3xl mx-auto px-6">
                 <!-- Title -->
                 <div class="text-center mb-10">

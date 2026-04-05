@@ -16,8 +16,7 @@
     </Head>
 
     <MainLayout>
-        <div class="space-y-10">
-
+        <div class="mt-8">
             <!-- HERO -->
             <div
                 class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white p-4 sm:p-6 md:p-10 lg:p-14 rounded-2xl shadow-xl text-center">
@@ -71,14 +70,15 @@
             </div>
 
             <!-- ADS (TOP) -->
-            <div class="text-center">
+            <!-- TODO: Add ads -->
+            <!--<div class="text-center mt-3">
                 <div class="bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-6 text-gray-400 dark:text-gray-500">
                     <AdBanner />
                 </div>
-            </div>
+            </div>-->
 
             <!-- SEO TEXT -->
-            <div class="max-w-3xl mx-auto text-center text-gray-600 dark:text-gray-400">
+            <div class="max-w-3xl mx-auto mt-3 text-center text-gray-600 dark:text-gray-400">
                 <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">All-in-One Free Online Tools</h2>
                 <p>
                     WebToolStack provides a collection of free online tools for developers, designers, and marketers.
@@ -88,7 +88,7 @@
             </div>
 
             <!-- POPULAR TOOLS -->
-            <div>
+            <div class="mt-4">
                 <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">🔥 Popular Tools</h2>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -97,7 +97,7 @@
             </div>
 
             <!-- CATEGORIES -->
-            <div v-for="(category, index) in sortedCategories" :key="category.id" class="mb-10">
+            <div v-for="(category, index) in sortedCategories" :key="category.id" class="mb-10 mt-4">
 
                 <Link :href="'/category/' + category.slug"
                     class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 text-gray-900 dark:text-white">

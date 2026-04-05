@@ -20,7 +20,7 @@
 
         <!-- 🔥 RELATED TOOLS -->
         <div class="mt-10">
-            <h2 class="text-xl font-bold mb-4">Related Tools</h2>
+            <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Related Tools</h2>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <ToolCard

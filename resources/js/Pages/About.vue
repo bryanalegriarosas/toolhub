@@ -4,7 +4,7 @@
             <!-- Empty sidebar to hide it -->
         </template>
 
-        <div class="max-w-8xl mx-auto py-10 px-6 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <div class="max-w-8xl mx-auto mt-4 py-10 px-6 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
             <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
                 About ToolHub
             </h1>

@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-4xl mx-auto mt-16">
-        <h2 class="text-2xl font-bold mb-6">Related Tools</h2>
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Related Tools</h2>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <a

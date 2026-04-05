@@ -3,7 +3,7 @@
         <template #sidebar>
             <!-- Empty sidebar to hide it -->
         </template>
-        <div class="max-w-8xl mx-auto px-6 py-12 bg-white dark:bg-gray-800 rounded-xl shadow text-gray-800 dark:text-gray-300">
+        <div class="max-w-8 mt-4 px-6 py-12 bg-white dark:bg-gray-800 rounded-xl shadow text-gray-800 dark:text-gray-300">
     
             <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
                 Disclaimer
