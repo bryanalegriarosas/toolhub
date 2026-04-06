@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Sitemap Generator</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">{{ t('sitemap.title') }}</h1>
 
             <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Generate XML sitemaps with validation, multiple URLs, and advanced options.
+                {{ t('sitemap.description') }}
             </p>
 
             <!-- URL Input Section -->
@@ -12,33 +12,33 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <!-- URL Input -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">URL Input</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('sitemap.url_input') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Website
-                                    URLs</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('sitemap.website_urls')
+                                    }}</label>
                                 <textarea v-model="urls" @input="validateInputs"
-                                    placeholder="Enter URLs one per line &#10;https://example.com/page1 &#10;https://example.com/page2"
+                                    placeholder="{{ t('sitemap.urls_placeholder') }}"
                                     rows="6" class="form-input resize-none text-sm sm:text-base" />
                                 <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ urlCount }} URLs</span>
                                     <button @click="clearUrls"
                                         class="text-blue-600 hover:text-blue-700 text-sm sm:text-base">
-                                        Clear URLs
+                                        {{ t('sitemap.clear_urls') }}
                                     </button>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Quick
-                                    Add</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('sitemap.quick_add')
+                                    }}</label>
                                 <div class="flex flex-col sm:flex-row gap-2">
-                                    <input v-model="singleUrl" @keyup.enter="addSingleUrl" placeholder="Add single URL"
+                                    <input v-model="singleUrl" @keyup.enter="addSingleUrl" placeholder="{{ t('sitemap.add_single_url') }}"
                                         class="flex-1 form-input text-sm sm:text-base" />
                                     <button @click="addSingleUrl"
                                         class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base">
-                                        Add URL
+                                        {{ t('sitemap.add_url') }}
                                     </button>
                                 </div>
                             </div>
@@ -47,20 +47,20 @@
 
                     <!-- Sitemap Options -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Sitemap Options</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('sitemap.sitemap_options') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Change
-                                    Frequency</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('sitemap.change_frequency')
+                                    }}</label>
                                 <select v-model="options.changeFreq" class="form-select text-sm sm:text-base">
-                                    <option value="always">Always</option>
-                                    <option value="hourly">Hourly</option>
-                                    <option value="daily">Daily</option>
-                                    <option value="weekly">Weekly</option>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="yearly">Yearly</option>
-                                    <option value="never">Never</option>
+                                    <option value="always">{{ t('sitemap.always') }}</option>
+                                    <option value="hourly">{{ t('sitemap.hourly') }}</option>
+                                    <option value="daily">{{ t('sitemap.daily') }}</option>
+                                    <option value="weekly">{{ t('sitemap.weekly') }}</option>
+                                    <option value="monthly">{{ t('sitemap.monthly') }}</option>
+                                    <option value="yearly">{{ t('sitemap.yearly') }}</option>
+                                    <option value="never">{{ t('sitemap.never') }}</option>
                                 </select>
                             </div>
 
@@ -68,34 +68,34 @@
                                 <label
                                     class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Priority</label>
                                 <select v-model="options.priority" class="form-select text-sm sm:text-base">
-                                    <option value="1.0">Highest</option>
-                                    <option value="0.9">High</option>
-                                    <option value="0.8">Medium</option>
-                                    <option value="0.7">Low</option>
-                                    <option value="0.6">Lowest</option>
-                                    <option value="">Default</option>
+                                    <option value="1.0">{{ t('sitemap.highest') }}</option>
+                                    <option value="0.9">{{ t('sitemap.high') }}</option>
+                                    <option value="0.8">{{ t('sitemap.medium') }}</option>
+                                    <option value="0.7">{{ t('sitemap.low') }}</option>
+                                    <option value="0.6">{{ t('sitemap.lowest') }}</option>
+                                    <option value="">{{ t('sitemap.default') }}</option>
                                 </select>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Last
-                                    Modified</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('sitemap.last_modified')
+                                    }}</label>
                                 <select v-model="options.lastMod" class="form-select text-sm sm:text-base">
-                                    <option value="server">Use server time</option>
-                                    <option value="current">Use current time</option>
-                                    <option value="">Don't include</option>
+                                    <option value="server">{{ t('sitemap.use_server_time') }}</option>
+                                    <option value="current">{{ t('sitemap.use_current_time') }}</option>
+                                    <option value="">{{ t('sitemap.dont_include') }}</option>
                                 </select>
                             </div>
 
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.includeImages" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Include images</span>
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">{{ t('sitemap.include_images') }}</span>
                                 </label>
 
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.validateUrls" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Validate URLs</span>
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">{{ t('sitemap.validate_urls') }}</span>
                                 </label>
                             </div>
                         </div>
@@ -107,23 +107,23 @@
             <div class="flex flex-wrap gap-2 sm:gap-4">
                 <button @click="generateSitemap" :disabled="!isValidInputs"
                     class="flex-1 bg-blue-600 text-white py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    <span v-if="processing">Generating...</span>
-                    <span v-else>Generate Sitemap</span>
+                    <span v-if="processing">{{ t('sitemap.generate_button') }}...</span>
+                    <span v-else>{{ t('sitemap.generate_button') }}</span>
                 </button>
 
                 <button @click="copyToClipboard" :disabled="!xml"
                     class="px-3 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    {{ copied ? 'Copied!' : 'Copy XML' }}
+                    {{ copied ? t('sitemap.copied') : t('sitemap.copy_xml') }}
                 </button>
 
                 <button @click="downloadFile" :disabled="!xml"
                     class="px-3 sm:px-6 py-2 sm:py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    Download File
+                    {{ t('sitemap.download_file') }}
                 </button>
 
                 <button @click="clearAll"
                     class="px-3 sm:px-6 py-2 sm:py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm sm:text-base">
-                    Clear All
+                    {{ t('sitemap.clear_all') }}
                 </button>
             </div>
 
@@ -131,15 +131,15 @@
             <div v-if="xml" class="space-y-4 sm:space-y-6">
                 <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Sitemap</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('sitemap.generated_sitemap') }}</h3>
                         <div class="flex gap-2">
                             <button @click="copyToClipboard"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
-                                {{ copied ? 'Copied!' : 'Copy XML' }}
+                                {{ copied ? t('sitemap.copied') : t('sitemap.copy_xml') }}
                             </button>
                             <button @click="downloadFile"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-xs sm:text-sm">
-                                Download File
+                                {{ t('sitemap.download_file') }}
                             </button>
                         </div>
                     </div>
@@ -154,19 +154,19 @@
                     <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-blue-600">{{ urlCount }}</div>
-                            <div class="text-gray-600 dark:text-gray-400">Total URLs</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('sitemap.total_urls') }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-green-600">{{ xmlSize }}</div>
-                            <div class="text-gray-600 dark:text-gray-400">File Size</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('sitemap.file_size') }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-purple-600">{{ validUrlCount }}</div>
-                            <div class="text-gray-600 dark:text-gray-400">Valid URLs</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('sitemap.valid_urls') }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-orange-600">{{ invalidUrlCount }}</div>
-                            <div class="text-gray-600 dark:text-gray-400">Invalid URLs</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('sitemap.invalid_urls') }}</div>
                         </div>
                     </div>
                 </div>
@@ -175,89 +175,58 @@
             <!-- Validation Messages -->
             <div v-if="validationErrors.length > 1"
                 class="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-3 rounded-lg">
-                <h4 class="font-semibold mb-2 text-sm sm:text-base">Please fix the following issues:</h4>
+                <h4 class="font-semibold mb-2 text-sm sm:text-base">{{ t('sitemap.validation_errors') }}</h4>
                 <ul class="list-disc list-inside space-y-1">
                     <li v-for="error in validationErrors" :key="error" class="text-xs sm:text-sm">{{ error }}</li>
                 </ul>
             </div>
 
             <!-- SEO Content -->
-            <ToolSeoContent title="Sitemap Generator"
-                description="Free online tool to generate XML sitemaps with validation, multiple URLs, and advanced options."
-                :steps="steps" :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Blog Website Sitemap",
-        description: "Generate sitemap for blog with weekly updates",
-        code: "URLs: https://blog.com/, https://blog.com/about, https://blog.com/contact | Frequency: Weekly | Priority: 0.8",
-        result: "XML sitemap with 3 URLs, weekly priority, and lastmod dates"
-    },
-    {
-        title: "E-commerce Store Sitemap",
-        description: "Create sitemap for online store with daily updates",
-        code: "URLs: https://store.com/, https://store.com/products, https://store.com/categories | Frequency: Daily | Priority: 1.0",
-        result: "XML sitemap optimized for e-commerce with high priority",
-        steps: [
-            "Add main store pages and categories",
-            "Set daily frequency for new products",
-            "Set highest priority for homepage",
-            "Include lastmod for better crawling"
-        ]
-    },
-    {
-        title: "Portfolio Website Sitemap",
-        description: "Generate sitemap for portfolio with monthly updates",
-        code: "URLs: https://portfolio.com/, https://portfolio.com/projects, https://portfolio.com/contact | Frequency: Monthly | Priority: 0.7",
-        result: "XML sitemap suitable for portfolio websites"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Enter website URLs manually or add them one by one',
-    'Configure sitemap options (frequency, priority, images)',
-    'Choose validation settings and URL processing',
-    'Generate XML sitemap with proper formatting',
-    'Preview, copy, or download the generated sitemap'
-];
-
-const faqs = [
-    {
-        question: 'What is a sitemap?',
-        answer: 'A sitemap is an XML file that lists all important pages of your website for search engines to discover and index.'
-    },
-    {
-        question: 'Why do I need a sitemap?',
-        answer: 'Sitemaps help search engines find your content faster, improve crawling efficiency, and ensure all pages are indexed.'
-    },
-    {
-        question: 'What URLs should I include?',
-        answer: 'Include all important pages: homepage, category pages, product pages, blog posts, and any content you want indexed.'
-    },
-    {
-        question: 'What is change frequency?',
-        answer: 'Change frequency tells search engines how often your content is updated. Use realistic values based on your update schedule.'
-    },
-    {
-        question: 'What is priority?',
-        answer: 'Priority indicates the importance of pages relative to other pages on your site. Use higher priority for more important pages.'
-    },
-    {
-        question: 'How many URLs can I include?',
-        answer: 'You can include up to 50,000 URLs per sitemap. For larger sites, create multiple sitemap files and use a sitemap index.'
-    },
-    {
-        question: 'Is this tool free?',
-        answer: 'Yes! Our sitemap generator is completely free with no registration required.'
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('sitemap.title'));
+const mainDescription = computed(() => t('sitemap.mainDescription'));
+const extendedDescription = computed(() => t('sitemap.extendedDescription'));
+const features = computed(() => t('sitemap.features'));
+const steps = computed(() => t('sitemap.steps'));
+const examples = computed(() => t('sitemap.examples'));
+const useCases = computed(() => t('sitemap.useCases'));
+const technicalDetails = computed(() => t('sitemap.technicalDetails'));
+const bestPractices = computed(() => t('sitemap.bestPractices'));
+const commonErrors = computed(() => t('sitemap.commonErrors'));
+const alternatives = computed(() => t('sitemap.alternatives'));
+const relatedTools = computed(() => t('sitemap.relatedTools'));
+const faqs = computed(() => t('sitemap.faqs'));
+const securityNote = computed(() => t('sitemap.securityNote'));
+const additionalContent = computed(() => t('sitemap.additionalContent'));
 
 // Reactive data
 const urls = ref('');

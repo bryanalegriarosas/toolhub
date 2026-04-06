@@ -1,39 +1,32 @@
 <template>
-    <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Meta Tag Generator</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ t('metaTags.title') }}</h1>
 
-            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Generate SEO meta tags with real-time preview, validation, and multiple tag support.
-            </p>
-
-            <!-- Input Section -->
-            <div class="space-y-4 sm:space-y-6">
+        <!-- Input Section -->
+        <div class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Basic Meta Tags -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Basic Meta Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('metaTags.basic_meta_tags') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Page
-                                    Title</label>
-                                <input v-model="title" @input="validateInputs"
-                                    placeholder="Enter your page title (50-60 characters)" maxlength="60"
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.page_title') }}</label>
+                                <input v-model="pageTitle" @input="validateInputs"
+                                    :placeholder="t('metaTags.page_title_placeholder')" maxlength="60"
                                     class="form-input text-sm sm:text-base" />
                                 <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                    <span>{{ title.length }}/60</span>
+                                    <span>{{ t('metaTags.character_count', { current: pageTitle.length, max: 60 }) }}</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Meta
-                                    Description</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.meta_description') }}</label>
                                 <textarea v-model="description" @input="validateInputs"
-                                    placeholder="Enter your meta description (120-160 characters)" maxlength="160"
+                                    :placeholder="t('metaTags.meta_description_placeholder')" maxlength="160"
                                     rows="3" class="form-input resize-none text-sm sm:text-base" />
                                 <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                    <span>{{ description.length }}/160</span>
+                                    <span>{{ t('metaTags.character_count', { current: description.length, max: 160 }) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -41,40 +34,39 @@
 
                     <!-- Advanced Meta Tags -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Advanced Meta Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('metaTags.advanced_meta_tags') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
                                 <label
-                                    class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Keywords</label>
+                                    class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.keywords') }}</label>
                                 <input v-model="keywords" @input="validateInputs"
-                                    placeholder="Enter keywords (comma separated)"
+                                    :placeholder="t('metaTags.keywords_placeholder')"
                                     class="form-input text-sm sm:text-base" />
                                 <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                    <span>{{ keywordCount }} keywords</span>
+                                    <span>{{ t('metaTags.keywords_count', { count: keywordCount }) }}</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Author</label>
-                                <input v-model="author" @input="validateInputs" placeholder="Author name"
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.author') }}</label>
+                                <input v-model="author" @input="validateInputs" :placeholder="t('metaTags.author_placeholder')"
                                     class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Canonical
-                                    URL</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.canonical_url') }}</label>
                                 <input v-model="canonical" @input="validateInputs"
-                                    placeholder="https://example.com/page" class="form-input text-sm sm:text-base" />
+                                    :placeholder="t('metaTags.canonical_url_placeholder')" class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Robots</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.robots') }}</label>
                                 <select v-model="robots" class="form-select text-sm sm:text-base">
-                                    <option value="index,follow">Index, Follow</option>
-                                    <option value="index,nofollow">Index, Nofollow</option>
-                                    <option value="noindex,nofollow">Noindex, Nofollow</option>
-                                    <option value="none">None</option>
+                                    <option value="index,follow">{{ t('metaTags.robots_index_follow') }}</option>
+                                    <option value="index,nofollow">{{ t('metaTags.robots_index_nofollow') }}</option>
+                                    <option value="noindex,nofollow">{{ t('metaTags.robots_noindex_nofollow') }}</option>
+                                    <option value="none">{{ t('metaTags.robots_none') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -84,40 +76,37 @@
                 <!-- Open Graph Tags -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Open Graph Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('metaTags.open_graph_tags') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG
-                                    Title</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.og_title') }}</label>
                                 <input v-model="ogTitle" @input="validateInputs"
-                                    placeholder="Social media title (optional)" maxlength="100"
+                                    :placeholder="t('metaTags.og_title_placeholder')" maxlength="100"
                                     class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG
-                                    Description</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.og_description') }}</label>
                                 <textarea v-model="ogDescription" @input="validateInputs"
-                                    placeholder="Social media description (optional)" maxlength="300" rows="2"
+                                    :placeholder="t('metaTags.og_description_placeholder')" maxlength="300" rows="2"
                                     class="form-input resize-none text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG
-                                    Image</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.og_image') }}</label>
                                 <input v-model="ogImage" @input="validateInputs"
-                                    placeholder="https://example.com/image.jpg"
+                                    :placeholder="t('metaTags.og_image_placeholder')"
                                     class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">OG Type</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.og_type') }}</label>
                                 <select v-model="ogType" class="form-select text-sm sm:text-base">
-                                    <option value="website">Website</option>
-                                    <option value="article">Article</option>
-                                    <option value="product">Product</option>
-                                    <option value="profile">Profile</option>
+                                    <option value="website">{{ t('metaTags.og_type_website') }}</option>
+                                    <option value="article">{{ t('metaTags.og_type_article') }}</option>
+                                    <option value="product">{{ t('metaTags.og_type_product') }}</option>
+                                    <option value="profile">{{ t('metaTags.og_type_profile') }}</option>
                                 </select>
                             </div>
                         </div>
@@ -125,30 +114,27 @@
 
                     <!-- Twitter Card Tags -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Twitter Card Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('metaTags.twitter_card_tags') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Twitter
-                                    Title</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.twitter_title') }}</label>
                                 <input v-model="twitterTitle" @input="validateInputs"
-                                    placeholder="Twitter card title (optional)" maxlength="70"
+                                    :placeholder="t('metaTags.twitter_title_placeholder')" maxlength="70"
                                     class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Twitter
-                                    Description</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.twitter_description') }}</label>
                                 <textarea v-model="twitterDescription" @input="validateInputs"
-                                    placeholder="Twitter card description (optional)" maxlength="200" rows="2"
+                                    :placeholder="t('metaTags.twitter_description_placeholder')" maxlength="200" rows="2"
                                     class="form-input resize-none text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Twitter
-                                    Image</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.twitter_image') }}</label>
                                 <input v-model="twitterImage" @input="validateInputs"
-                                    placeholder="https://example.com/twitter-image.jpg"
+                                    :placeholder="t('metaTags.twitter_image_placeholder')"
                                     class="form-input text-sm sm:text-base" />
                             </div>
                         </div>
@@ -157,49 +143,66 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex flex-wrap gap-2 sm:gap-4">
-                <button @click="generateTags" :disabled="!isValidInputs"
-                    class="flex-1 bg-blue-600 text-white py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    Generate Meta Tags
+            <div class="flex flex-wrap gap-3">
+                <button
+                    @click="generateTags"
+                    :disabled="!isValidInputs"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                >
+                    {{ t('metaTags.generate_button') }}
                 </button>
-
-                <button @click="copyToClipboard" :disabled="!result"
-                    class="px-3 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    {{ copied ? 'Copied!' : 'Copy to Clipboard' }}
+                <button
+                    @click="copyToClipboard"
+                    :disabled="!result"
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+                >
+                    {{ copied ? t('metaTags.copied') : t('metaTags.copy_result') }}
                 </button>
-
-                <button @click="clearAll"
-                    class="px-3 sm:px-6 py-2 sm:py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base">
-                    Clear All
+                <button
+                    @click="downloadHtml"
+                    :disabled="!result"
+                    class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+                >
+                    {{ t('metaTags.download') }}
+                </button>
+                <button
+                    @click="clearAll"
+                    class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                >
+                    {{ t('metaTags.clear') }}
                 </button>
             </div>
 
             <!-- Generated Code -->
-            <div v-if="result" class="space-y-4 sm:space-y-6">
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
+            <div v-if="result" class="space-y-4">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Meta Tags</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('metaTags.generated_tags') }}</h3>
                         <div class="flex gap-2">
-                            <button @click="copyToClipboard"
-                                class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
-                                {{ copied ? 'Copied!' : 'Copy All' }}
+                            <button
+                                @click="copyToClipboard"
+                                class="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm"
+                            >
+                                {{ copied ? t('metaTags.copied') : t('metaTags.copy_all') }}
                             </button>
-                            <button @click="downloadHtml"
-                                class="px-3 py-1 sm:px-3 sm:py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-xs sm:text-sm">
-                                Download HTML
+                            <button
+                                @click="downloadHtml"
+                                class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm"
+                            >
+                                {{ t('metaTags.download_html') }}
                             </button>
                         </div>
                     </div>
 
                     <!-- Code Preview -->
-                    <div class="bg-white rounded-lg p-3 sm:p-4">
-                        <pre class="text-xs sm:text-sm text-gray-800 dark:text-white overflow-x-auto"><code>{{ result }}</code></pre>
+                    <div class="bg-white rounded-lg p-4">
+                        <pre class="text-sm text-gray-800 dark:text-white overflow-x-auto"><code>{{ result }}</code></pre>
                     </div>
 
                     <!-- Live Preview -->
                     <div class="mt-4">
-                        <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">Live Preview</h4>
-                        <div class="border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
+                        <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ t('metaTags.live_preview') }}</h4>
+                        <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                             <div v-html="result"></div>
                         </div>
                     </div>
@@ -207,100 +210,61 @@
             </div>
 
             <!-- Validation Messages -->
-            <div v-if="validationErrors.length > 0"
-                class="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-3 rounded-lg">
-                <h4 class="font-semibold mb-2 text-sm sm:text-base">Please fix the following issues:</h4>
+            <div v-if="validationErrors.length > 0" class="text-red-500 font-medium bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold mb-2">{{ t('metaTags.validation_errors') }}</h4>
                 <ul class="list-disc list-inside space-y-1">
-                    <li v-for="error in validationErrors" :key="error" class="text-xs sm:text-sm">{{ error }}</li>
+                    <li v-for="error in validationErrors" :key="error">{{ error }}</li>
                 </ul>
             </div>
 
-            <!-- SEO Content -->
-            <ToolSeoContent title="Meta Tag Generator"
-                description="Free online tool to generate SEO meta tags, Open Graph, and Twitter cards. Real-time preview, validation, and HTML export."
-                :steps="steps" :examples="examples" :faqs="faqs" />
-
-        </div>
+        <!-- SEO Content with expanded sections -->
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
     </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Blog Post Meta Tags",
-        description: "Generate SEO tags for blog article",
-        code: "Title: How to Learn JavaScript in 2024 | Description: Complete guide to learn JavaScript from scratch with modern best practices and examples. | Keywords: javascript, programming, tutorial, web development",
-        result: "Meta tags optimized for blog post with proper character limits and SEO focus"
-    },
-    {
-        title: "E-commerce Product Page",
-        description: "Create meta tags for product listing",
-        code: "Title: iPhone 15 Pro Max - 256GB - Blue | Description: Buy iPhone 15 Pro Max with 256GB storage in blue. Features A17 Pro chip, titanium design, and advanced camera system. Free shipping. | Keywords: iphone, apple, smartphone, mobile phone",
-        result: "Product-optimized meta tags with e-commerce focus and social media preview",
-        steps: [
-            "Enter product name and key features",
-            "Write compelling description under 160 chars",
-            "Add relevant product keywords",
-            "Configure Open Graph for social sharing"
-        ]
-    },
-    {
-        title: "Local Business Website",
-        description: "Generate meta tags for local business",
-        code: "Title: ABC Plumbing - Emergency Plumbing Services in New York | Description: Professional plumbing services in NYC. 24/7 emergency repairs, licensed plumbers, affordable rates. Call now for service. | Keywords: plumbing, NYC, emergency plumber, local service",
-        result: "Local SEO optimized meta tags with geographic targeting"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Enter basic meta tags (title, description, keywords)',
-    'Add advanced meta tags (author, canonical, robots)',
-    'Configure Open Graph tags for social media',
-    'Set up Twitter card tags for Twitter sharing',
-    'Generate HTML code with all meta tags',
-    'Copy to clipboard or download as HTML file'
-];
-
-const faqs = [
-    {
-        question: 'What are meta tags?',
-        answer: 'Meta tags are HTML elements that provide information about your webpage to search engines and social media platforms.'
-    },
-    {
-        question: 'Why do I need meta tags?',
-        answer: 'Meta tags improve SEO, help search engines understand your content, and control how your pages appear in search results.'
-    },
-    {
-        question: 'What is Open Graph?',
-        answer: 'Open Graph tags control how your content appears when shared on social media platforms like Facebook, LinkedIn, and Twitter.'
-    },
-    {
-        question: 'What are Twitter Cards?',
-        answer: 'Twitter Cards are meta tags that control how your content appears when shared on Twitter with rich media attachments.'
-    },
-    {
-        question: 'What is the ideal title length?',
-        answer: 'For SEO, keep titles between 50-60 characters. For social sharing, aim for 60-70 characters.'
-    },
-    {
-        question: 'What about meta descriptions?',
-        answer: 'Meta descriptions should be 120-160 characters for best results. Focus on accurately describing the page content.'
-    },
-    {
-        question: 'How many keywords should I use?',
-        answer: 'Use 5-10 relevant keywords. Focus on quality over quantity and avoid keyword stuffing.'
-    },
-    {
-        question: 'Is this tool free?',
-        answer: 'Yes! Our meta tag generator is completely free with no registration required.'
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('metaTags.title'));
+const mainDescription = computed(() => t('metaTags.mainDescription'));
+const extendedDescription = computed(() => t('metaTags.extendedDescription'));
+const features = computed(() => t('metaTags.features'));
+const steps = computed(() => t('metaTags.steps'));
+const examples = computed(() => t('metaTags.examples'));
+const useCases = computed(() => t('metaTags.useCases'));
+const technicalDetails = computed(() => t('metaTags.technicalDetails'));
+const bestPractices = computed(() => t('metaTags.bestPractices'));
+const commonErrors = computed(() => t('metaTags.commonErrors'));
+const alternatives = computed(() => t('metaTags.alternatives'));
+const relatedTools = computed(() => t('metaTags.relatedTools'));
+const faqs = computed(() => t('metaTags.faqs'));
+const securityNote = computed(() => t('metaTags.securityNote'));
+const additionalContent = computed(() => t('metaTags.additionalContent'));
 
 // Basic meta tags
-const title = ref('');
+const pageTitle = ref('');
 const description = ref('');
 const keywords = ref('');
 const author = ref('');
@@ -332,18 +296,18 @@ const isValidInputs = computed(() => {
     const errors = [];
 
     // Validate title
-    if (title.value.length > 60) {
-        errors.push('Title should be 50-60 characters (current: ' + title.value.length + ')');
+    if (pageTitle.value.length > 60) {
+        errors.push(t('metaTags.title_length_error', { current: pageTitle.value.length }));
     }
 
     // Validate description
     if (description.value.length > 160) {
-        errors.push('Description should be 120-160 characters (current: ' + description.value.length + ')');
+        errors.push(t('metaTags.description_length_error', { current: description.value.length }));
     }
 
     // Validate keywords
     if (keywordCount.value > 10) {
-        errors.push('Use 5-10 keywords maximum (current: ' + keywordCount.value + ')');
+        errors.push(t('metaTags.keywords_count_error', { current: keywordCount.value }));
     }
 
     validationErrors.value = errors;
@@ -360,8 +324,8 @@ const generateTags = () => {
     const tags = [];
 
     // Basic meta tags
-    if (title.value) {
-        tags.push(`<title>${escapeHtml(title.value)}</title>`);
+    if (pageTitle.value) {
+        tags.push(`<title>${escapeHtml(pageTitle.value)}</title>`);
     }
 
     if (description.value) {
@@ -453,7 +417,7 @@ const downloadHtml = () => {
 };
 
 const clearAll = () => {
-    title.value = '';
+    pageTitle.value = '';
     description.value = '';
     keywords.value = '';
     author.value = '';

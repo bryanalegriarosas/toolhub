@@ -1,14 +1,9 @@
 <template>
-    <div class="max-w-6xl mx-auto p-0">
-        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Robots.txt Generator</h1>
+    <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ t('robots.title') }}</h1>
 
-            <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Generate robots.txt files with sitemap support, crawl delays, and advanced directives.
-            </p>
-
-            <!-- Input Section -->
-            <div class="space-y-4 sm:space-y-6">
+        <!-- Input Section -->
+        <div class="space-y-6">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Basic Robots Configuration -->
                     <div class="space-y-3 sm:space-y-4">
@@ -152,147 +147,125 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex flex-wrap gap-2 sm:gap-4">
-                <button @click="generateRobots" :disabled="!isValidInputs"
-                    class="flex-1 bg-blue-600 text-white py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    Generate Robots.txt
+            <div class="flex flex-wrap gap-3">
+                <button
+                    @click="generateRobots"
+                    :disabled="!isValidInputs"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                >
+                    {{ t('robots.generate_button') }}
                 </button>
-
-                <button @click="copyToClipboard" :disabled="!result"
-                    class="px-3 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    {{ copied ? 'Copied!' : 'Copy to Clipboard' }}
+                <button
+                    @click="copyToClipboard"
+                    :disabled="!result"
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+                >
+                    {{ copied ? t('robots.copied') : t('robots.copy_result') }}
                 </button>
-
-                <button @click="downloadFile" :disabled="!result"
-                    class="px-3 sm:px-6 py-2 sm:py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    Download File
+                <button
+                    @click="downloadFile"
+                    :disabled="!result"
+                    class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+                >
+                    {{ t('robots.download') }}
                 </button>
-
-                <button @click="clearAll"
-                    class="px-3 sm:px-6 py-2 sm:py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm sm:text-base">
-                    Clear All
+                <button
+                    @click="clearAll"
+                    class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                >
+                    {{ t('robots.clear') }}
                 </button>
             </div>
 
             <!-- Generated Code -->
-            <div v-if="result" class="space-y-4 sm:space-y-6">
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
+            <div v-if="result" class="space-y-4">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Robots.txt</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('robots.generated_robots') }}</h3>
                         <div class="flex gap-2">
-                            <button @click="copyToClipboard"
-                                class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
-                                {{ copied ? 'Copied!' : 'Copy All' }}
+                            <button
+                                @click="copyToClipboard"
+                                class="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm"
+                            >
+                                {{ copied ? t('robots.copied') : t('robots.copy_all') }}
                             </button>
-                            <button @click="downloadFile"
-                                class="px-3 py-1 sm:px-3 sm:py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-xs sm:text-sm">
-                                Download File
+                            <button
+                                @click="downloadFile"
+                                class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-sm"
+                            >
+                                {{ t('robots.download_file') }}
                             </button>
                         </div>
                     </div>
 
-                <!-- Code Preview -->
-                <div class="bg-white rounded-lg p-3 sm:p-4">
-                    <pre class="text-xs sm:text-sm text-gray-800 dark:text-white overflow-x-auto font-mono"><code>{{ result }}</code></pre>
-                </div>
+                    <!-- Code Preview -->
+                    <div class="bg-white rounded-lg p-4">
+                        <pre class="text-sm text-gray-800 dark:text-white overflow-x-auto font-mono"><code>{{ result }}</code></pre>
+                    </div>
 
-                <!-- Live Preview -->
-                <div class="mt-4">
-                    <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">Live Preview</h4>
-                    <div class="border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
-                        <pre class="text-xs text-gray-600 dark:text-gray-400 overflow-x-auto"><code>{{ result }}</code></pre>
+                    <!-- Live Preview -->
+                    <div class="mt-4">
+                        <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ t('robots.live_preview') }}</h4>
+                        <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
+                            <pre class="text-sm text-gray-600 dark:text-gray-400 overflow-x-auto"><code>{{ result }}</code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Validation Messages -->
-        <div v-if="validationErrors.length > 0"
-            class="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-3 rounded-lg">
-            <h4 class="font-semibold mb-2 text-sm sm:text-base">Please fix the following issues:</h4>
-            <ul class="list-disc list-inside space-y-1">
-                <li v-for="error in validationErrors" :key="error" class="text-xs sm:text-sm">{{ error }}</li>
-            </ul>
-        </div>
+            <!-- Validation Messages -->
+            <div v-if="validationErrors.length > 0" class="text-red-500 font-medium bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold mb-2">{{ t('robots.validation_errors') }}</h4>
+                <ul class="list-disc list-inside space-y-1">
+                    <li v-for="error in validationErrors" :key="error">{{ error }}</li>
+                </ul>
+            </div>
 
-        <!-- SEO Content -->
-        <ToolSeoContent title="Robots.txt Generator"
-            description="Free online tool to generate robots.txt files with sitemap support, crawl delays, and advanced directives."
-            :steps="steps" :examples="examples" :faqs="faqs" />
-
-        </div>
+        <!-- SEO Content with expanded sections -->
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Blog Website Robots.txt",
-        description: "Generate robots.txt for blog with sitemap",
-        code: "Sitemap: https://myblog.com/sitemap.xml | User-agent: * | Disallow: /admin/ | Disallow: /private/",
-        result: "User-agent: *\nDisallow: /admin/\nDisallow: /private/\n\nSitemap: https://myblog.com/sitemap.xml"
-    },
-    {
-        title: "E-commerce Store Configuration",
-        description: "Configure robots.txt for online store",
-        code: "Sitemap: https://store.com/sitemap.xml | User-agent: * | Disallow: /cart/ | Disallow: /checkout/ | Crawl-delay: 1",
-        result: "User-agent: *\nDisallow: /cart/\nDisallow: /checkout/\nCrawl-delay: 1\n\nSitemap: https://store.com/sitemap.xml",
-        steps: [
-            "Add sitemap URL for product pages",
-            "Disallow cart and checkout directories",
-            "Set crawl delay to prevent server overload",
-            "Allow all other pages for indexing"
-        ]
-    },
-    {
-        title: "API-Only Website",
-        description: "Block all crawlers except API documentation",
-        code: "User-agent: * | Disallow: / | User-agent: Googlebot | Allow: /docs/ | Sitemap: https://api.example.com/docs-sitemap.xml",
-        result: "User-agent: *\nDisallow: /\n\nUser-agent: Googlebot\nAllow: /docs/\n\nSitemap: https://api.example.com/docs-sitemap.xml"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Enter sitemap URL and basic configuration',
-    'Configure crawl delays and user agent settings',
-    'Add allow/disallow rules for specific paths',
-    'Include host and sitemap directives',
-    'Generate and download robots.txt file'
-];
-
-const faqs = [
-    {
-        question: 'What is a robots.txt file?',
-        answer: 'A robots.txt file tells search engine crawlers which pages or sections of your site they can or cannot access.'
-    },
-    {
-        question: 'Why do I need a robots.txt file?',
-        answer: 'It helps control search engine crawling, improves SEO, prevents indexing of sensitive content, and sitemap discovery.'
-    },
-    {
-        question: 'What are User-agent directives?',
-        answer: 'User-agent directives allow you to specify rules for specific crawlers like Googlebot, Bingbot, or custom bots.'
-    },
-    {
-        question: 'What is the difference between Allow and Disallow?',
-        answer: 'Allow permits crawling of specific paths, while Disallow blocks access. Use Disallow for private/admin areas.'
-    },
-    {
-        question: 'What are crawl delays?',
-        answer: 'Crawl-delay specifies time gaps between requests to prevent server overload. Useful for large sites.'
-    },
-    {
-        question: 'What are Sitemap directives?',
-        answer: 'Sitemap directives point search engines to your XML sitemap files for better content discovery.'
-    },
-    {
-        question: 'Is this tool free?',
-        answer: 'Yes! Our robots.txt generator is completely free with no registration required.'
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('robots.title'));
+const mainDescription = computed(() => t('robots.mainDescription'));
+const extendedDescription = computed(() => t('robots.extendedDescription'));
+const features = computed(() => t('robots.features'));
+const steps = computed(() => t('robots.steps'));
+const examples = computed(() => t('robots.examples'));
+const useCases = computed(() => t('robots.useCases'));
+const technicalDetails = computed(() => t('robots.technicalDetails'));
+const bestPractices = computed(() => t('robots.bestPractices'));
+const commonErrors = computed(() => t('robots.commonErrors'));
+const alternatives = computed(() => t('robots.alternatives'));
+const relatedTools = computed(() => t('robots.relatedTools'));
+const faqs = computed(() => t('robots.faqs'));
+const securityNote = computed(() => t('robots.securityNote'));
+const additionalContent = computed(() => t('robots.additionalContent'));
 
 // Reactive data
 const sitemap = ref('');

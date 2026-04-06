@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Keyword Density Checker</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">{{ t('keywordDensity.title') }}</h1>
 
             <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Analyze keyword density with real-time calculation, multiple metrics, and SEO optimization.
+                {{ t('keywordDensity.description') }}
             </p>
 
             <!-- Input Section -->
@@ -12,14 +12,14 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Text Input -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Content Analysis</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('keywordDensity.content_analysis') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Enter Text
-                                    Content</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('keywordDensity.enter_text_content')
+                                    }}</label>
                                 <textarea v-model="text" @input="analyzeText"
-                                    placeholder="Paste your text content here...\nOr enter your main keyword to analyze against"
+                                    placeholder="{{ t('keywordDensity.text_placeholder') }}"
                                     rows="6" class="form-input resize-none text-sm sm:text-base" />
                                 <div class="flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ text.length }} characters</span>
@@ -28,10 +28,10 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Target Keywords
-                                    (optional)</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('keywordDensity.target_keywords')
+                                    }}</label>
                                 <textarea v-model="targetKeywords" @input="analyzeText"
-                                    placeholder="Enter keywords to analyze against (comma separated)" rows="3"
+                                    placeholder="{{ t('keywordDensity.keywords_placeholder') }}" rows="3"
                                     class="form-input resize-none text-sm sm:text-base" />
                                 <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     <span>{{ targetKeywordCount }} keywords</span>
@@ -42,34 +42,34 @@
 
                     <!-- Analysis Options -->
                     <div class="space-y-3 sm:space-y-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Analysis Options</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('keywordDensity.analysis_options') }}</h3>
 
                         <div class="space-y-3 sm:space-y-4">
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Minimum Word
-                                    Length</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('keywordDensity.min_word_length')
+                                    }}</label>
                                 <input v-model="options.minWordLength" type="number" min="1" max="20" placeholder="3"
                                     class="form-input text-sm sm:text-base" />
                             </div>
 
                             <div>
-                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Stop
-                                    Words</label>
+                                <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('keywordDensity.stop_words')
+                                    }}</label>
                                 <textarea v-model="options.stopWords"
-                                    placeholder="the, and, or, but, a, an, in, is, it, of, to, that" rows="3"
+                                    placeholder="{{ t('keywordDensity.stop_words_placeholder') }}" rows="3"
                                     class="form-input resize-none text-sm sm:text-base" />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.caseSensitive" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Case Sensitive</span>
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">{{ t('keywordDensity.case_sensitive') }}</span>
                                 </label>
 
                                 <label class="flex items-center gap-2">
                                     <input v-model="options.includeMetaTags" type="checkbox" class="rounded sm:mt-0" />
-                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">Include Meta
-                                        Tags</span>
+                                    <span class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">{{ t('keywordDensity.include_meta_tags')
+                                        }}</span>
                                 </label>
                             </div>
                         </div>
@@ -81,23 +81,23 @@
             <div class="flex flex-wrap gap-2 sm:gap-4">
                 <button @click="analyzeText" :disabled="!text.trim()"
                     class="flex-1 bg-blue-600 text-white py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    <span v-if="processing">Analyzing...</span>
-                    <span v-else>Analyze Text</span>
+                    <span v-if="processing">{{ t('keywordDensity.analyze_button') }}...</span>
+                    <span v-else>{{ t('keywordDensity.analyze_button') }}</span>
                 </button>
 
                 <button @click="copyResults" :disabled="!hasResults"
                     class="px-3 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    {{ copied ? 'Copied!' : 'Copy Results' }}
+                    {{ copied ? t('keywordDensity.copied') : t('keywordDensity.copy_results') }}
                 </button>
 
                 <button @click="downloadResults" :disabled="!hasResults"
                     class="px-3 sm:px-6 py-2 sm:py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                    Download CSV
+                    {{ t('keywordDensity.download_csv') }}
                 </button>
 
                 <button @click="clearAll"
                     class="px-3 sm:px-6 py-2 sm:py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm sm:text-base">
-                    Clear All
+                    {{ t('keywordDensity.clear_all') }}
                 </button>
             </div>
 
@@ -105,22 +105,22 @@
             <div v-if="hasResults" class="space-y-4 sm:space-y-6">
                 <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Analysis Results</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('keywordDensity.analysis_results') }}</h3>
                         <div class="flex gap-2">
                             <button @click="copyResults"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-xs sm:text-sm">
-                                {{ copied ? 'Copied!' : 'Copy All' }}
+                                {{ copied ? t('keywordDensity.copied') : t('keywordDensity.copy_all') }}
                             </button>
                             <button @click="downloadResults"
                                 class="px-3 py-1 sm:px-3 sm:py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-xs sm:text-sm">
-                                Download CSV
+                                {{ t('keywordDensity.download_csv') }}
                             </button>
                         </div>
                     </div>
 
                     <!-- Keyword Density Table -->
                     <div class="mb-6">
-                        <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-4">Keyword Density Analysis</h4>
+                        <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-4">{{ t('keywordDensity.keyword_density_analysis') }}</h4>
 
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200 text-xs sm:text-sm">
@@ -128,19 +128,19 @@
                                     <tr>
                                         <th
                                             class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                            Keyword</th>
+                                        {{ t('keywordDensity.keyword') }}</th>
                                         <th
                                             class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                            Count</th>
+                                        {{ t('keywordDensity.count') }}</th>
                                         <th
                                             class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                            Frequency</th>
+                                        {{ t('keywordDensity.frequency') }}</th>
                                         <th
                                             class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                            Density %</th>
+                                        {{ t('keywordDensity.density') }}</th>
                                         <th
                                             class="px-2 sm:px-4 py-2 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                            Prominence</th>
+                                        {{ t('keywordDensity.prominence') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -162,13 +162,13 @@
                                         }">{{ item.density.toFixed(2) }}%</td>
                                         <td class="p-2 border text-center">
                                             <span v-if="item.density > 3" class="text-green-700 font-medium">
-                                                High
+                                                {{ t('keywordDensity.high') }}
                                             </span>
                                             <span v-else-if="item.density > 1" class="text-yellow-700 font-medium">
-                                                Medium
+                                                {{ t('keywordDensity.medium') }}
                                             </span>
                                             <span v-else class="text-red-700 font-medium">
-                                                Low
+                                                {{ t('keywordDensity.low') }}
                                             </span>
                                         </td>
                                     </tr>
@@ -181,19 +181,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-blue-600">{{ totalWords }}</div>
-                            <div class="text-gray-600 dark:text-gray-400">Total Words</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('keywordDensity.total_words') }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-green-600">{{ uniqueWords }}</div>
-                            <div class="text-gray-600 dark:text-gray-400">Unique Words</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('keywordDensity.unique_words') }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-purple-600">{{ averageWordLength }}</div>
-                            <div class="text-gray-600 dark:text-gray-400">Avg Word Length</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('keywordDensity.avg_word_length') }}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-xl sm:text-2xl font-bold text-orange-600">{{ keywordDensity }}%</div>
-                            <div class="text-gray-600 dark:text-gray-400">Target Keyword Density</div>
+                            <div class="text-gray-600 dark:text-gray-400">{{ t('keywordDensity.target_keyword_density') }}</div>
                         </div>
                     </div>
                 </div>
@@ -202,16 +202,30 @@
             <!-- Validation Messages -->
             <div v-if="validationErrors.length > 0"
                 class="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-3 rounded-lg">
-                <h4 class="font-semibold mb-2 text-sm sm:text-base">Please fix the following issues:</h4>
+                <h4 class="font-semibold mb-2 text-sm sm:text-base">{{ t('keywordDensity.validation_errors') }}</h4>
                 <ul class="list-disc list-inside space-y-1">
                     <li v-for="error in validationErrors" :key="error" class="text-xs sm:text-sm">{{ error }}</li>
                 </ul>
             </div>
 
             <!-- SEO Content -->
-            <ToolSeoContent title="Keyword Density Checker"
-                description="Free online tool to analyze keyword density, word frequency, and SEO metrics with detailed reports."
-                :steps="steps" :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
 
         </div>
     </div>
@@ -219,74 +233,28 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Blog Post SEO Analysis",
-        description: "Analyze keyword density in blog content",
-        code: "Text: 'Best coffee beans for espresso machines. Our coffee beans selection includes premium Arabica coffee beans perfect for espresso machines.'",
-        result: "Keyword 'coffee beans': 4 occurrences (16% density) | 'espresso': 2 occurrences (8% density)"
-    },
-    {
-        title: "Product Description Analysis",
-        description: "Check SEO metrics for product descriptions",
-        code: "Text: 'Wireless headphones with noise cancellation. These wireless headphones feature premium sound quality and active noise cancellation technology.'",
-        result: "Keyword 'wireless headphones': 3 occurrences (15% density) | 'noise cancellation': 2 occurrences (10% density)",
-        steps: [
-            "Paste product description text",
-            "Review keyword density percentages",
-            "Identify over-optimized keywords",
-            "Adjust content for better SEO balance"
-        ]
-    },
-    {
-        title: "Article Content Check",
-        description: "Analyze article for keyword optimization",
-        code: "Text: 'Digital marketing strategies for small businesses. Effective digital marketing helps small businesses grow online with targeted campaigns.'",
-        result: "Keyword 'digital marketing': 3 occurrences (12% density) | 'small businesses': 2 occurrences (8% density)"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Enter your text content or paste it to analyze',
-    'Configure analysis options (word length, stop words, case sensitivity)',
-    'Add target keywords to compare against',
-    'Analyze keyword density and word frequency',
-    'Review detailed results with color-coded density indicators',
-    'Export results as CSV or copy to clipboard'
-];
-
-const faqs = [
-    {
-        question: 'What is keyword density?',
-        answer: 'Keyword density is the percentage of times a keyword appears in text compared to total words. Ideal density is 1-3% for SEO.'
-    },
-    {
-        question: 'Why is keyword density important?',
-        answer: 'Proper keyword density helps search engines understand your content focus and improves ranking for target terms.'
-    },
-    {
-        question: 'What is a good keyword density?',
-        answer: '1-3% is considered optimal. Above 5% may be seen as keyword stuffing, below 1% may be too low.'
-    },
-    {
-        question: 'What are stop words?',
-        answer: 'Stop words are common words (the, and, or, but) that are excluded from keyword density analysis to focus on meaningful terms.'
-    },
-    {
-        question: 'How do I improve keyword density?',
-        answer: 'Use keywords naturally, maintain 1-3% density, focus on long-tail keywords, and avoid keyword stuffing.'
-    },
-    {
-        question: 'What is word frequency?',
-        answer: 'Word frequency shows how often each word appears in your text, helping identify repeated terms and content patterns.'
-    },
-    {
-        question: 'Is this tool free?',
-        answer: 'Yes! Our keyword density checker is completely free with no registration required.'
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('keywordDensity.title'));
+const mainDescription = computed(() => t('keywordDensity.mainDescription'));
+const extendedDescription = computed(() => t('keywordDensity.extendedDescription'));
+const features = computed(() => t('keywordDensity.features'));
+const steps = computed(() => t('keywordDensity.steps'));
+const examples = computed(() => t('keywordDensity.examples'));
+const useCases = computed(() => t('keywordDensity.useCases'));
+const technicalDetails = computed(() => t('keywordDensity.technicalDetails'));
+const bestPractices = computed(() => t('keywordDensity.bestPractices'));
+const commonErrors = computed(() => t('keywordDensity.commonErrors'));
+const alternatives = computed(() => t('keywordDensity.alternatives'));
+const relatedTools = computed(() => t('keywordDensity.relatedTools'));
+const faqs = computed(() => t('keywordDensity.faqs'));
+const securityNote = computed(() => t('keywordDensity.securityNote'));
+const additionalContent = computed(() => t('keywordDensity.additionalContent'));
 
 // Reactive data
 const text = ref('');

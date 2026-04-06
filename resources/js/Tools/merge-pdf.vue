@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">PDF Merger</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">{{ t('mergePdf.title') }}</h1>
 
             <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Merge multiple PDF files into one document with page reordering, preview, and batch processing.
+                {{ t('mergePdf.description') }}
             </p>
 
             <!-- Upload Area -->
@@ -16,18 +16,18 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707L10.586 10H7a2 2 0 00-2 2v11a2 2 0 002 2z" />
                     </svg>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base">Drop PDF files here or click to upload</p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base">{{ t('mergePdf.drop_files') }}</p>
                     <input type="file" multiple accept="application/pdf" @change="handleFiles" class="hidden"
                         id="file-upload" ref="fileInput" />
                     <label for="file-upload"
                         class="cursor-pointer bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block text-sm sm:text-base">
-                        Choose PDF Files
+                        {{ t('mergePdf.choose_files') }}
                     </label>
                 </div>
 
                 <div v-else class="space-y-3 sm:space-y-4">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                        <span class="text-sm sm:text-base text-gray-600 dark:text-gray-400">{{ files.length }} PDF file(s) selected</span>
+                        <span class="text-sm sm:text-base text-gray-600 dark:text-gray-400">{{ files.length }} {{ t('mergePdf.files_selected') }}</span>
                         <span class="text-sm sm:text-base text-gray-500 dark:text-gray-400">{{ formatFileSize(totalSize) }}</span>
                     </div>
 
@@ -36,7 +36,7 @@
                             class="px-2 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors file:mr-2 text-sm sm:text-base" />
                         <button @click="clearAll"
                             class="px-3 sm:px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base">
-                            Clear All
+                            {{ t('mergePdf.clear_all') }}
                         </button>
                     </div>
                 </div>
@@ -47,16 +47,16 @@
                 <!-- File Management -->
                 <div class="space-y-3 sm:space-y-4">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">PDF Files</h3>
+                        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('mergePdf.pdf_files') }}</h3>
                         <div class="flex items-center gap-2 sm:gap-4">
                             <button @click="moveUp" :disabled="selectedFileIndex === null || selectedFileIndex === 0"
                                 class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 disabled:opacity-50 text-xs sm:text-sm">
-                                ↑ Move Up
+                                {{ t('mergePdf.move_up') }}
                             </button>
                             <button @click="moveDown"
                                 :disabled="selectedFileIndex === null || selectedFileIndex === files.length - 1"
                                 class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 disabled:opacity-50 text-xs sm:text-sm">
-                                ↓ Move Down
+                                {{ t('mergePdf.move_down') }}
                             </button>
                         </div>
                     </div>
@@ -90,23 +90,22 @@
 
                 <!-- Merge Options -->
                 <div class="space-y-3 sm:space-y-4">
-                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Merge Options</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('mergePdf.merge_options') }}</h3>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
-                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Output
-                                Filename</label>
+                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('mergePdf.output_filename') }}</label>
                             <input v-model="mergeOptions.filename" type="text" placeholder="merged-document"
                                 class="form-input text-sm sm:text-base" />
                         </div>
 
                         <div>
-                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Page Size</label>
+                            <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('mergePdf.page_size') }}</label>
                             <select v-model="mergeOptions.pageSize" class="form-select text-sm sm:text-base">
-                                <option value="keep">Keep Original Sizes</option>
-                                <option value="a4">A4</option>
-                                <option value="letter">Letter</option>
-                                <option value="legal">Legal</option>
+                                <option value="keep">{{ t('mergePdf.keep_original_sizes') }}</option>
+                                <option value="a4">{{ t('mergePdf.a4') }}</option>
+                                <option value="letter">{{ t('mergePdf.letter') }}</option>
+                                <option value="legal">{{ t('mergePdf.legal') }}</option>
                             </select>
                         </div>
                     </div>
@@ -116,8 +115,8 @@
                 <div class="flex gap-2 sm:gap-4">
                     <button @click="mergePDFs" :disabled="files.length === 0 || processing"
                         class="flex-1 bg-green-600 text-white py-2 sm:py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm sm:text-base">
-                        <span v-if="processing">Merging PDFs...</span>
-                        <span v-else>Merge {{ files.length }} PDF(s)</span>
+                        <span v-if="processing">{{ t('mergePdf.merging_pdfs') }}</span>
+                        <span v-else>{{ t('mergePdf.merge_pdfs') }}</span>
                     </button>
                 </div>
             </div>
@@ -129,9 +128,23 @@
             </div>
 
             <!-- SEO Content -->
-            <ToolSeoContent title="PDF Merger"
-                description="Free online tool to merge multiple PDF files into one document. Reorder pages, customize output, and download instantly."
-                :steps="steps" :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
 
         </div>
     </div>
@@ -140,69 +153,28 @@
 <script setup>
 import { ref, computed } from "vue";
 import { PDFDocument } from "pdf-lib";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Combine Invoice Pages",
-        description: "Merge multiple invoice PDFs into monthly report",
-        code: "Files: invoice-jan.pdf, invoice-feb.pdf, invoice-mar.pdf",
-        result: "Output: quarterly-invoices-2024.pdf (3 files merged)"
-    },
-    {
-        title: "Create Document Portfolio",
-        description: "Combine resume, cover letter and references",
-        code: "Files: resume.pdf, cover-letter.pdf, references.pdf",
-        result: "Output: job-application-package.pdf (complete portfolio)",
-        steps: [
-            "Upload resume as first file",
-            "Add cover letter as second",
-            "Include references last",
-            "Reorder if needed and merge"
-        ]
-    },
-    {
-        title: "Merge Research Papers",
-        description: "Combine related research documents",
-        code: "Files: chapter1.pdf, chapter2.pdf, appendix.pdf",
-        result: "Output: complete-research-paper.pdf (academic document)"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Upload multiple PDF files using drag & drop',
-    'Reorder files by selecting and using up/down arrows',
-    'Configure merge options (filename, page size)',
-    'Click merge to combine all PDFs into one',
-    'Download your merged PDF document'
-];
-
-const faqs = [
-    {
-        question: 'How many PDF files can I merge?',
-        answer: 'You can merge multiple PDF files. The tool will combine them in the order you specify, creating a single document.'
-    },
-    {
-        question: 'Can I reorder the PDF files?',
-        answer: 'Yes! Select a file and use the up/down arrows to reorder. The merge order will match your file arrangement.'
-    },
-    {
-        question: 'What page sizes are supported?',
-        answer: 'You can keep original page sizes or standardize to A4, Letter, or Legal for consistency across all pages.'
-    },
-    {
-        question: 'Will the merged PDF preserve formatting?',
-        answer: 'Yes! The tool preserves all original formatting, text, images, and layout from each PDF file.'
-    },
-    {
-        question: 'Is there a file size limit?',
-        answer: 'Each PDF file should be under 50MB. The total merged file size will be the sum of all individual files.'
-    },
-    {
-        question: 'Is my data secure?',
-        answer: 'All merging happens directly in your browser. Your PDF files are never uploaded to our servers, ensuring complete privacy and security.'
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('mergePdf.title'));
+const mainDescription = computed(() => t('mergePdf.mainDescription'));
+const extendedDescription = computed(() => t('mergePdf.extendedDescription'));
+const features = computed(() => t('mergePdf.features'));
+const steps = computed(() => t('mergePdf.steps'));
+const examples = computed(() => t('mergePdf.examples'));
+const useCases = computed(() => t('mergePdf.useCases'));
+const technicalDetails = computed(() => t('mergePdf.technicalDetails'));
+const bestPractices = computed(() => t('mergePdf.bestPractices'));
+const commonErrors = computed(() => t('mergePdf.commonErrors'));
+const alternatives = computed(() => t('mergePdf.alternatives'));
+const relatedTools = computed(() => t('mergePdf.relatedTools'));
+const faqs = computed(() => t('mergePdf.faqs'));
+const securityNote = computed(() => t('mergePdf.securityNote'));
+const additionalContent = computed(() => t('mergePdf.additionalContent'));
 
 const fileInput = ref(null);
 const files = ref([]);

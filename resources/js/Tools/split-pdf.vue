@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">PDF Splitter</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('splitPdf.title') }}</h2>
 
         <!-- Upload Area -->
         <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
@@ -8,7 +8,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707L10.586 10H7a2 2 0 00-2 2v11a2 2 0 002 2z" />
                 </svg>
-                <p class="text-gray-600 dark:text-gray-400">Drop PDF here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ t('splitPdf.drop_pdf') }}</p>
                 <input 
                     type="file" 
                     accept="application/pdf" 
@@ -20,7 +20,7 @@
                     for="file-upload" 
                     class="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block"
                 >
-                    Choose PDF
+                    {{ t('splitPdf.choose_pdf') }}
                 </label>
             </div>
             
@@ -35,7 +35,7 @@
                         @click="clearPDF" 
                         class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                     >
-                        Clear PDF
+                        {{ t('splitPdf.clear_pdf') }}
                     </button>
                 </div>
             </div>
@@ -45,22 +45,22 @@
         <div v-if="pdfInfo" class="space-y-6">
             <!-- PDF Information -->
             <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">PDF Information</h3>
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">{{ t('splitPdf.pdf_information') }}</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Total Pages:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('splitPdf.total_pages') }}</span>
                         <span class="font-mono ml-2">{{ pdfInfo.numPages }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">File Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('splitPdf.file_size') }}</span>
                         <span class="font-mono ml-2">{{ formatFileSize(file.size) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Selected:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('splitPdf.selected') }}</span>
                         <span class="font-mono ml-2">{{ selectedPages.length }} page(s)</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Format:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('splitPdf.format') }}</span>
                         <span class="font-mono ml-2">PDF</span>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
             <!-- Page Selection -->
             <div class="space-y-4">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Page Selection</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('splitPdf.page_selection') }}</h3>
                     <div class="flex items-center gap-4">
                         <label class="flex items-center space-x-2">
                             <input 
@@ -78,7 +78,7 @@
                                 @change="toggleAllPages"
                                 class="rounded"
                             />
-                            <span class="text-sm text-gray-700 dark:text-gray-300">Select All Pages</span>
+                            <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('splitPdf.select_all_pages') }}</span>
                         </label>
                         
                         <div class="text-sm text-gray-600 dark:text-gray-400">
@@ -117,11 +117,11 @@
             
             <!-- Split Options -->
             <div class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Split Options</h3>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('splitPdf.split_options') }}</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filename Prefix</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('splitPdf.filename_prefix') }}</label>
                         <input 
                             v-model="splitOptions.prefix" 
                             type="text" 
@@ -131,10 +131,10 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Output Format</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('splitPdf.output_format') }}</label>
                         <select v-model="splitOptions.format" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
-                            <option value="individual">Individual PDFs</option>
-                            <option value="zip">ZIP Archive</option>
+                            <option value="individual">{{ t('splitPdf.individual_pdfs') }}</option>
+                            <option value="zip">{{ t('splitPdf.zip_archive') }}</option>
                         </select>
                     </div>
                 </div>
@@ -147,8 +147,8 @@
                     :disabled="selectedPages.length === 0 || processing"
                     class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
                 >
-                    <span v-if="processing">Splitting...</span>
-                    <span v-else>Split {{ selectedPages.length }} Page(s)</span>
+                    <span v-if="processing">{{ t('splitPdf.splitting') }}</span>
+                    <span v-else>{{ t('splitPdf.split_pages') }}</span>
                 </button>
             </div>
         </div>
@@ -157,13 +157,13 @@
         <div v-if="splitPages.length > 0" class="space-y-6">
             <div class="bg-blue-50 rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-blue-700">Split Pages</h3>
+                    <h3 class="text-lg font-semibold text-blue-700">{{ t('splitPdf.split_pages_result') }}</h3>
                     <button 
                         v-if="splitOptions.format === 'individual' && splitPages.length > 1"
                         @click="downloadAll"
                         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
                     >
-                        Download All as ZIP
+                        {{ t('splitPdf.download_all_as_zip') }}
                     </button>
                 </div>
                 
@@ -180,13 +180,13 @@
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">Page {{ page.pageNumber }}</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ t('splitPdf.page') }} {{ page.pageNumber }}</span>
                             <a 
                                 :href="page.url" 
                                 :download="page.filename"
                                 class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm"
                             >
-                                Download
+                                {{ t('splitPdf.download') }}
                             </a>
                         </div>
                     </div>
@@ -199,84 +199,53 @@
             {{ error }}
         </div>
 
-        <!-- SEO Content -->
-        <ToolSeoContent
-            title="PDF Splitter"
-            description="Free online tool to split PDF into individual pages. Select specific pages, preview, and download as separate files or ZIP."
-            :steps="steps"
-            :examples="examples"
-            :faqs="faqs"
-        />
+            <!-- SEO Content -->
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { PDFDocument } from "pdf-lib";
 import JSZip from "jszip";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Extract Specific Pages",
-        description: "Extract chapters from a textbook PDF",
-        code: "Input: textbook-2024.pdf (50 pages) | Select: Pages 1-15, 31-45",
-        result: "Output: chapter1.pdf (15 pages), chapter2.pdf (15 pages)"
-    },
-    {
-        title: "Split Invoice Bundle",
-        description: "Separate individual invoices from batch PDF",
-        code: "Input: monthly-invoices.pdf (30 pages) | Select: All pages",
-        result: "Output: 30 individual invoice PDF files or ZIP bundle",
-        steps: [
-            "Upload invoice bundle PDF",
-            "Select all pages or specific invoices",
-            "Choose separate files or ZIP download",
-            "Download individual invoice files"
-        ]
-    },
-    {
-        title: "Create Page Samples",
-        description: "Extract sample pages from large document",
-        code: "Input: annual-report.pdf (120 pages) | Select: Pages 1, 5, 10, 50",
-        result: "Output: sample-pages.pdf (4 pages) or 4 individual files"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Upload PDF file using drag & drop',
-    'View PDF information and page thumbnails',
-    'Select specific pages or split all pages',
-    'Choose split options and filename format',
-    'Download individual pages or as ZIP archive'
-];
-
-const faqs = [
-    { 
-        question: 'What PDF formats are supported?', 
-        answer: 'We support standard PDF files. The tool will extract each page and convert it to a separate PDF document.' 
-    },
-    { 
-        question: 'Can I select specific pages?', 
-        answer: 'Yes! You can select individual pages or split all pages. Each selected page will become a separate PDF file.' 
-    },
-    { 
-        question: 'What output formats are available?', 
-        answer: 'You can download each page as an individual PDF file or all selected pages as a single ZIP archive for convenience.' 
-    },
-    { 
-        question: 'How are filenames generated?', 
-        answer: 'Each page is named with your chosen prefix followed by the page number (e.g., page-1.pdf, page-2.pdf).' 
-    },
-    { 
-        question: 'Is there a file size limit?', 
-        answer: 'PDF files should be under 50MB. The total size of split files will be similar to the original PDF.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All splitting happens directly in your browser. Your PDF files are never uploaded to our servers, ensuring complete privacy and security.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('splitPdf.title'));
+const mainDescription = computed(() => t('splitPdf.mainDescription'));
+const extendedDescription = computed(() => t('splitPdf.extendedDescription'));
+const features = computed(() => t('splitPdf.features'));
+const steps = computed(() => t('splitPdf.steps'));
+const examples = computed(() => t('splitPdf.examples'));
+const useCases = computed(() => t('splitPdf.useCases'));
+const technicalDetails = computed(() => t('splitPdf.technicalDetails'));
+const bestPractices = computed(() => t('splitPdf.bestPractices'));
+const commonErrors = computed(() => t('splitPdf.commonErrors'));
+const alternatives = computed(() => t('splitPdf.alternatives'));
+const relatedTools = computed(() => t('splitPdf.relatedTools'));
+const faqs = computed(() => t('splitPdf.faqs'));
+const securityNote = computed(() => t('splitPdf.securityNote'));
+const additionalContent = computed(() => t('splitPdf.additionalContent'));
 
 const file = ref(null);
 const pdfInfo = ref(null);
