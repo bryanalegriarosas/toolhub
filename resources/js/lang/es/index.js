@@ -9,6 +9,14 @@ import sitemap from './sitemap.js';
 import keywordDensity from './keywordDensity.js';
 import mergePdf from './mergePdf.js';
 import splitPdf from './splitPdf.js';
+import jpgToPdf from './jpgToPdf.js';
+import imageToPdf from './imageToPdf.js';
+import imageCompressor from './imageCompressor.js';
+import imageResizer from './imageResizer.js';
+import imageCropper from './imageCropper.js';
+import pngToJpg from './pngToJpg.js';
+import jpgToPng from './jpgToPng.js';
+import youtubeThumbnailDownloader from './youtubeThumbnailDownloader.js';
 
 export default {
     ...menu,
@@ -22,4 +30,12 @@ export default {
     ...keywordDensity,
     ...mergePdf,
     ...splitPdf,
+    ...jpgToPdf,
+    ...imageToPdf,
+    ...imageCompressor,
+    ...imageResizer,
+    ...imageCropper,
+    ...pngToJpg,
+    ...jpgToPng,
+    ...youtubeThumbnailDownloader,
 };

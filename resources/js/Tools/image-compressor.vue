@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image Compressor</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('imageCompressor.title') }}</h2>
 
         <!-- Upload Area -->
         <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
@@ -9,7 +9,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-8 0 4 4 0 018 8zm0 0c0 1.657 1.343 3 3 3 0 016-6 0-6z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8a3 3 0 11-6 0 3 3 0 016 6z" />
                 </svg>
-                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ t('imageCompressor.drop_image') }}</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -21,7 +21,7 @@
                     for="file-upload" 
                     class="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block"
                 >
-                    Choose Image
+                    {{ t('imageCompressor.choose_image') }}
                 </label>
             </div>
             
@@ -34,7 +34,7 @@
                 <!-- Compression Controls -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quality</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCompressor.quality') }}</label>
                         <input 
                             v-model="quality" 
                             type="range" 
@@ -47,7 +47,7 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Format</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCompressor.format') }}</label>
                         <select v-model="outputFormat" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                             <option value="image/jpeg">JPEG</option>
                             <option value="image/png">PNG</option>
@@ -56,11 +56,11 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Max Width (px)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCompressor.max_width') }}</label>
                         <input 
                             v-model="maxWidth" 
                             type="number" 
-                            placeholder="No limit"
+                            placeholder="{{ t('imageCompressor.no_limit') }}"
                             min="1"
                             class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg"
                         />
@@ -72,15 +72,15 @@
                     :disabled="processing"
                     class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
                 >
-                    <span v-if="processing">Processing...</span>
-                    <span v-else>Compress Image</span>
+                    <span v-if="processing">{{ t('imageCompressor.processing') }}</span>
+                    <span v-else>{{ t('imageCompressor.compress_image') }}</span>
                 </button>
                 
                 <button 
                     @click="resetImage" 
                     class="w-full bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors mt-2"
                 >
-                    Clear All
+                    {{ t('imageCompressor.clear_all') }}
                 </button>
             </div>
         </div>
@@ -88,7 +88,7 @@
         <!-- Results -->
         <div v-if="originalSize && compressedSize" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Original</h3>
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">{{ t('imageCompressor.original') }}</h3>
                 <div class="space-y-2">
                     <div class="flex justify-between">
                         <span class="text-gray-600 dark:text-gray-400">Size:</span>
@@ -102,14 +102,14 @@
             </div>
             
             <div class="bg-blue-50 rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-4 text-blue-700">Compressed</h3>
+                <h3 class="text-lg font-semibold mb-4 text-blue-700">{{ t('imageCompressor.compressed') }}</h3>
                 <div class="space-y-2">
                     <div class="flex justify-between">
                         <span class="text-gray-600 dark:text-gray-400">Size:</span>
                         <span class="font-mono">{{ formatFileSize(compressedSize) }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-600 dark:text-gray-400">Savings:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageCompressor.savings') }}</span>
                         <span class="font-mono text-green-600">{{ compressionRatio }}%</span>
                     </div>
                     <div v-if="compressedDimensions" class="flex justify-between">
@@ -124,7 +124,7 @@
                     :download="getDownloadName()"
                     class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700 transition-colors mt-4"
                 >
-                    Download Compressed Image
+                    {{ t('imageCompressor.compress_image') }}
                 </a>
             </div>
         </div>
@@ -135,77 +135,50 @@
         </div>
 
         <!-- SEO Content -->
-        <ToolSeoContent
-            title="Image Compressor"
-            description="Free online image compressor tool that reduces image file size while maintaining quality. Compress JPG, PNG, and WebP images with adjustable quality settings and format conversion."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Website Image Optimization",
-        description: "Compress images for faster web page loading",
-        code: "Input: hero-image.jpg (2.5MB) | Quality: 80% | Format: JPEG",
-        result: "Output: hero-image-compressed.jpg (450KB) - 82% size reduction"
-    },
-    {
-        title: "Social Media Image Compression",
-        description: "Optimize images for social media platforms",
-        code: "Input: post-photo.png (1.8MB) | Quality: 70% | Format: PNG",
-        result: "Output: post-photo-compressed.png (380KB) - 79% size reduction",
-        steps: [
-            "Upload high-quality image",
-            "Set quality to 70% for social media",
-            "Choose appropriate format (PNG for transparency)",
-            "Download optimized image for upload"
-        ]
-    },
-    {
-        title: "Email Newsletter Images",
-        description: "Compress images for email campaigns",
-        code: "Input: newsletter-banner.jpg (800KB) | Quality: 60% | Format: JPEG",
-        result: "Output: newsletter-banner.jpg (180KB) - 77% size reduction"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Upload your image using the file selector or drag and drop',
-    'Adjust compression quality (10-100%) and output format (JPEG, PNG, WebP)',
-    'Set maximum width to resize images if needed',
-    'Click "Compress Image" to process your image',
-    'Download the compressed image with reduced file size'
-];
-
-const faqs = [
-    { 
-        question: 'What image formats are supported?', 
-        answer: 'We support all major image formats including JPEG, PNG, GIF, WebP, BMP, and SVG files.' 
-    },
-    { 
-        question: 'How does image compression work?', 
-        answer: 'Image compression reduces file size by removing unnecessary data and optimizing how the image is stored. Quality settings control the balance between file size and image quality.' 
-    },
-    { 
-        question: 'What is the difference between JPEG and PNG?', 
-        answer: 'JPEG uses lossy compression for smaller file sizes, while PNG uses lossless compression for perfect quality. Use JPEG for photos and PNG for graphics with text.' 
-    },
-    { 
-        question: 'Can I resize images while compressing?', 
-        answer: 'Yes! You can set a maximum width and the tool will automatically maintain the aspect ratio while resizing.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All image processing happens directly in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('imageCompressor.title'));
+const mainDescription = computed(() => t('imageCompressor.mainDescription'));
+const extendedDescription = computed(() => t('imageCompressor.extendedDescription'));
+const features = computed(() => t('imageCompressor.features'));
+const steps = computed(() => t('imageCompressor.steps'));
+const examples = computed(() => t('imageCompressor.examples'));
+const useCases = computed(() => t('imageCompressor.useCases'));
+const technicalDetails = computed(() => t('imageCompressor.technicalDetails'));
+const bestPractices = computed(() => t('imageCompressor.bestPractices'));
+const commonErrors = computed(() => t('imageCompressor.commonErrors'));
+const alternatives = computed(() => t('imageCompressor.alternatives'));
+const relatedTools = computed(() => t('imageCompressor.relatedTools'));
+const faqs = computed(() => t('imageCompressor.faqs'));
+const securityNote = computed(() => t('imageCompressor.securityNote'));
+const additionalContent = computed(() => t('imageCompressor.additionalContent'));
 
 const image = ref(null);
 const quality = ref(80);

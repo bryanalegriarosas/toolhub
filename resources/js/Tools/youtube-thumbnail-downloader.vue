@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">YouTube Thumbnail Downloader</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('youtubeThumbnailDownloader.title') }}</h2>
 
         <!-- URL Input -->
         <div class="space-y-4">
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">YouTube Video URL</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('youtubeThumbnailDownloader.youtube_video_url') }}</label>
             <div class="flex gap-4">
                 <input 
                     v-model="url" 
@@ -17,35 +17,35 @@
                     :disabled="!isValidUrl || processing"
                     class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
                 >
-                    <span v-if="processing">Generating...</span>
-                    <span v-else>Get Thumbnail</span>
+                    <span v-if="processing">{{ t('youtubeThumbnailDownloader.generating') }}</span>
+                    <span v-else>{{ t('youtubeThumbnailDownloader.get_thumbnail') }}</span>
                 </button>
             </div>
             
             <!-- URL Validation -->
             <div v-if="url && !isValidUrl" class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg text-sm">
-                Please enter a valid YouTube URL
+                {{ t('youtubeThumbnailDownloader.please_enter_valid_url') }}
             </div>
         </div>
 
         <!-- Video Info -->
         <div v-if="videoInfo" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-            <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Video Information</h3>
+            <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">{{ t('youtubeThumbnailDownloader.video_information') }}</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
                 <div>
-                    <span class="text-gray-600 dark:text-gray-400">Title:</span>
+                    <span class="text-gray-600 dark:text-gray-400">{{ t('youtubeThumbnailDownloader.title_label') }}:</span>
                     <span class="font-medium ml-2">{{ videoInfo.title }}</span>
                 </div>
                 <div>
-                    <span class="text-gray-600 dark:text-gray-400">Channel:</span>
+                    <span class="text-gray-600 dark:text-gray-400">{{ t('youtubeThumbnailDownloader.channel_label') }}:</span>
                     <span class="font-medium ml-2">{{ videoInfo.channel }}</span>
                 </div>
                 <div>
-                    <span class="text-gray-600 dark:text-gray-400">Duration:</span>
+                    <span class="text-gray-600 dark:text-gray-400">{{ t('youtubeThumbnailDownloader.duration_label') }}:</span>
                     <span class="font-medium ml-2">{{ formatDuration(videoInfo.duration) }}</span>
                 </div>
                 <div>
-                    <span class="text-gray-600 dark:text-gray-400">Video ID:</span>
+                    <span class="text-gray-600 dark:text-gray-400">{{ t('youtubeThumbnailDownloader.video_id_label') }}:</span>
                     <span class="font-mono ml-2">{{ videoInfo.id }}</span>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 
         <!-- Quality Selection -->
         <div v-if="videoInfo" class="space-y-4">
-            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Thumbnail Quality</h3>
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('youtubeThumbnailDownloader.thumbnail_quality') }}</h3>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <button 
@@ -80,8 +80,8 @@
                 :disabled="!selectedQuality || processing"
                 class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
             >
-                <span v-if="processing">Downloading...</span>
-                <span v-else>Download {{ selectedQuality.name }} Thumbnail</span>
+                <span v-if="processing">{{ t('youtubeThumbnailDownloader.downloading') }}</span>
+                <span v-else>Download {{ selectedQuality.name }} {{ t('youtubeThumbnailDownloader.download_image') }}</span>
             </button>
         </div>
 
@@ -89,19 +89,19 @@
         <div v-if="thumbnail" class="space-y-6">
             <div class="bg-blue-50 rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-blue-700">Thumbnail Preview</h3>
+                    <h3 class="text-lg font-semibold text-blue-700">{{ t('youtubeThumbnailDownloader.thumbnail_preview') }}</h3>
                     <div class="flex gap-2">
                         <button 
                             @click="copyUrl"
                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
                         >
-                            {{ copied ? 'Copied!' : 'Copy URL' }}
+                            {{ copied ? t('youtubeThumbnailDownloader.copied') : t('youtubeThumbnailDownloader.copy_url') }}
                         </button>
                         <button 
                             @click="clearAll"
                             class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm"
                         >
-                            Clear
+                            {{ t('youtubeThumbnailDownloader.clear') }}
                         </button>
                     </div>
                 </div>
@@ -134,12 +134,22 @@
             {{ error }}
         </div>
         <!-- SEO Content -->
-        <ToolSeoContent
-            title="YouTube Thumbnail Downloader"
-            description="Free online tool to download YouTube video thumbnails in multiple qualities. Preview, copy URLs, and download instantly."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
 
     </div>
@@ -147,69 +157,28 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Music Video Thumbnail",
-        description: "Download thumbnail from YouTube music video",
-        code: "Input: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        result: "Available qualities: Max (1280x720), High (640x480), Medium (320x180), Default (120x90)"
-    },
-    {
-        title: "Tutorial Video Thumbnail",
-        description: "Get thumbnail for educational content",
-        code: "Input: https://youtu.be/abcdef12345",
-        result: "Download high-quality thumbnail for course materials",
-        steps: [
-            "Copy YouTube video URL",
-            "Paste in thumbnail downloader",
-            "Select desired quality (Max for presentations)",
-            "Download for use in educational materials"
-        ]
-    },
-    {
-        title: "Gaming Video Thumbnail",
-        description: "Extract gaming video thumbnail",
-        code: "Input: https://youtube.com/watch?v=xyz789abc",
-        result: "Multiple thumbnail sizes available for different platforms"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Paste YouTube video URL in the input field',
-    'Select thumbnail quality from available options',
-    'Click "Get Thumbnail" to generate preview',
-    'Preview the thumbnail and copy URL if needed',
-    'Download the thumbnail image to your device'
-];
-
-const faqs = [
-    { 
-        question: 'What YouTube URLs are supported?', 
-        answer: 'We support all YouTube video formats including youtube.com, youtu.be, and embedded video URLs.' 
-    },
-    { 
-        question: 'What thumbnail qualities are available?', 
-        answer: 'We offer multiple qualities: Default (medium), High Definition (720p), Maximum Quality (1080p), and Original size.' 
-    },
-    { 
-        question: 'How are thumbnails generated?', 
-        answer: 'Thumbnails are extracted directly from YouTube\'s API, ensuring the highest quality available for each resolution.' 
-    },
-    { 
-        question: 'Can I download multiple thumbnails?', 
-        answer: 'Yes! You can generate different quality versions and download them individually as needed.' 
-    },
-    { 
-        question: 'Is this service free?', 
-        answer: 'Yes! Our YouTube thumbnail downloader is completely free with no registration or limits required.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All thumbnail generation happens directly in your browser. Your data is never stored on our servers.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('youtubeThumbnailDownloader.title'));
+const mainDescription = computed(() => t('youtubeThumbnailDownloader.mainDescription'));
+const extendedDescription = computed(() => t('youtubeThumbnailDownloader.extendedDescription'));
+const features = computed(() => t('youtubeThumbnailDownloader.features'));
+const steps = computed(() => t('youtubeThumbnailDownloader.steps'));
+const examples = computed(() => t('youtubeThumbnailDownloader.examples'));
+const useCases = computed(() => t('youtubeThumbnailDownloader.useCases'));
+const technicalDetails = computed(() => t('youtubeThumbnailDownloader.technicalDetails'));
+const bestPractices = computed(() => t('youtubeThumbnailDownloader.bestPractices'));
+const commonErrors = computed(() => t('youtubeThumbnailDownloader.commonErrors'));
+const alternatives = computed(() => t('youtubeThumbnailDownloader.alternatives'));
+const relatedTools = computed(() => t('youtubeThumbnailDownloader.relatedTools'));
+const faqs = computed(() => t('youtubeThumbnailDownloader.faqs'));
+const securityNote = computed(() => t('youtubeThumbnailDownloader.securityNote'));
+const additionalContent = computed(() => t('youtubeThumbnailDownloader.additionalContent'));
 
 const url = ref('');
 const videoInfo = ref(null);

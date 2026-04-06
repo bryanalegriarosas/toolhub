@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Image to PDF</h1>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ t('imageToPdf.title') }}</h1>
 
         <!-- Error Message -->
         <div v-if="error" class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -16,19 +16,19 @@
         <!-- File Input Area -->
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Select Image File
+                {{ t('imageToPdf.select_image_file') }}
             </label>
             <input type="file" accept="image/*" @change="generate"
                 class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
                 :disabled="isProcessing" />
             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                Supported formats: JPG, PNG, GIF, BMP, WebP. Max size: 10MB
+                {{ t('imageToPdf.supported_formats') }}
             </p>
         </div>
 
         <!-- Image Preview -->
         <div v-if="image && !error" class="mb-6">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Preview:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageToPdf.preview') }}</h3>
             <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                 <img :src="image" alt="Preview" class="max-w-full h-auto max-h-64 mx-auto rounded" />
                 <p class="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
@@ -39,45 +39,45 @@
 
         <!-- Configuration Options -->
         <div v-if="image && !error" class="mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">PDF Options:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ t('imageToPdf.pdf_options') }}</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Page Size:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('imageToPdf.page_size') }}</label>
                     <select v-model="pageSize"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        <option value="a4">A4</option>
-                        <option value="letter">Letter</option>
-                        <option value="legal">Legal</option>
+                        <option value="a4">{{ t('imageToPdf.a4') }}</option>
+                        <option value="letter">{{ t('imageToPdf.letter') }}</option>
+                        <option value="legal">{{ t('imageToPdf.legal') }}</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Orientation:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('imageToPdf.orientation') }}</label>
                     <select v-model="orientation"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        <option value="portrait">Portrait</option>
-                        <option value="landscape">Landscape</option>
+                        <option value="portrait">{{ t('imageToPdf.portrait') }}</option>
+                        <option value="landscape">{{ t('imageToPdf.landscape') }}</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image Fit:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('imageToPdf.image_fit') }}</label>
                     <select v-model="imageFit"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        <option value="contain">Contain (fit to page)</option>
-                        <option value="cover">Cover (fill page)</option>
-                        <option value="actual">Actual size</option>
+                        <option value="contain">{{ t('imageToPdf.contain') }}</option>
+                        <option value="cover">{{ t('imageToPdf.cover') }}</option>
+                        <option value="actual">{{ t('imageToPdf.actual') }}</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quality:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('imageToPdf.quality') }}</label>
                     <select v-model="quality"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
+                        <option value="high">{{ t('imageToPdf.high') }}</option>
+                        <option value="medium">{{ t('imageToPdf.medium') }}</option>
+                        <option value="low">{{ t('imageToPdf.low') }}</option>
                     </select>
                 </div>
             </div>
@@ -96,20 +96,34 @@
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                         </path>
                     </svg>
-                    Generating PDF...
+                    {{ t('imageToPdf.generating_pdf') }}
                 </span>
-                <span v-else>Download PDF</span>
+                <span v-else>{{ t('imageToPdf.download_pdf') }}</span>
             </button>
 
             <button @click="reset" class="bg-gray-50 dark:bg-gray-7000 text-white px-6 py-2 rounded hover:bg-gray-600 transition-colors">
-                Clear
+                {{ t('imageToPdf.clear') }}
             </button>
         </div>
 
         <!-- SEO Content -->
-        <ToolSeoContent title="Image to PDF Converter"
-            description="Free online tool to convert images to PDF. Supports JPG, PNG, GIF, BMP, WebP formats with custom page sizes, orientations, and quality settings. Fast, secure, and no registration required."
-            :steps="steps" :examples="examples" :faqs="faqs" />
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
 
     </div>
 
@@ -117,9 +131,13 @@
 
 <script setup>
 
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import { jsPDF } from "jspdf"
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue"
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue"
+import { useTranslations } from "@/languageManager.js"
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
 const image = ref(null);
 const error = ref(null);
@@ -134,68 +152,22 @@ const orientation = ref('portrait');
 const imageFit = ref('contain');
 const quality = ref('high');
 
-// SEO Content
-const examples = [
-    {
-        title: "Certificate Creation",
-        description: "Convert certificate image to PDF",
-        code: "Input: certificate.png (300dpi) | Page Size: A4 | Orientation: Landscape",
-        result: "Output: certificate.pdf (high-quality printable certificate)"
-    },
-    {
-        title: "Recipe Card PDF",
-        description: "Convert recipe image to shareable PDF",
-        code: "Input: recipe-card.jpg | Page Size: Letter | Quality: High",
-        result: "Output: recipe-card.pdf (perfect for printing and sharing)",
-        steps: [
-            "Upload recipe card image",
-            "Set letter size for standard printing",
-            "Choose high quality for text clarity",
-            "Download shareable recipe PDF"
-        ]
-    },
-    {
-        title: "Invoice Image to PDF",
-        description: "Convert invoice image to professional PDF",
-        code: "Input: invoice-scan.jpg | Page Size: A4 | Orientation: Portrait",
-        result: "Output: invoice.pdf (professional document format)"
-    }
-];
-
-const steps = [
-    'Select an image file using the file selector or drag and drop',
-    'Preview your image to confirm it\'s the correct file',
-    'Configure PDF options: page size, orientation, image fit, and quality',
-    'Click "Download PDF" to generate and download your converted file',
-    'Your PDF will be saved with the original filename plus "_converted.pdf"'
-];
-
-const faqs = [
-    {
-        question: 'What image formats are supported?',
-        answer: 'We support all major image formats including JPG, JPEG, PNG, GIF, BMP, and WebP. Files can be up to 10MB in size.'
-    },
-    {
-        question: 'What page sizes are available?',
-        answer: 'You can choose between A4 (210×297mm), Letter (216×279mm), and Legal (216×356mm) page sizes. Each can be oriented as portrait or landscape.'
-    },
-    {
-        question: 'What\'s the difference between image fit options?',
-        answer: '"Contain" fits the entire image within the page margins, "Cover" fills the entire page (may crop edges), and "Actual size" maintains the original image dimensions.'
-    },
-    {
-        question: 'How does quality affect the PDF?',
-        answer: 'High quality preserves maximum image detail but creates larger files. Medium and low settings reduce file size but may decrease image clarity. Choose based on your needs.'
-    },
-    {
-        question: 'Is my data secure?',
-        answer: 'Yes! All processing happens locally in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.'
-    },
-    {
-        question: 'Can I convert multiple images to one PDF?',
-        answer: 'Currently, this tool converts one image per PDF. For multiple images, you would need to use our PDF merge tool after converting each image individually.'
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('imageToPdf.title'));
+const mainDescription = computed(() => t('imageToPdf.mainDescription'));
+const extendedDescription = computed(() => t('imageToPdf.extendedDescription'));
+const features = computed(() => t('imageToPdf.features'));
+const steps = computed(() => t('imageToPdf.steps'));
+const examples = computed(() => t('imageToPdf.examples'));
+const useCases = computed(() => t('imageToPdf.useCases'));
+const technicalDetails = computed(() => t('imageToPdf.technicalDetails'));
+const bestPractices = computed(() => t('imageToPdf.bestPractices'));
+const commonErrors = computed(() => t('imageToPdf.commonErrors'));
+const alternatives = computed(() => t('imageToPdf.alternatives'));
+const relatedTools = computed(() => t('imageToPdf.relatedTools'));
+const faqs = computed(() => t('imageToPdf.faqs'));
+const securityNote = computed(() => t('imageToPdf.securityNote'));
+const additionalContent = computed(() => t('imageToPdf.additionalContent'));
 
 // Page dimensions in mm
 const pageSizes = {

@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image Cropper</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('imageCropper.title') }}</h2>
 
         <!-- Upload Area -->
         <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
@@ -8,7 +8,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
                 </svg>
-                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ t('imageCropper.drop_image') }}</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -20,7 +20,7 @@
                     for="file-upload" 
                     class="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block"
                 >
-                    Choose Image
+                    {{ t('imageCropper.choose_image') }}
                 </label>
             </div>
             
@@ -35,7 +35,7 @@
                         @click="resetImage" 
                         class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                     >
-                        Clear Image
+                        {{ t('imageCropper.clear_image') }}
                     </button>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <!-- Crop Controls -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Width (px)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCropper.width_px') }}</label>
                     <input 
                         v-model="cropWidth" 
                         type="number" 
@@ -58,7 +58,7 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Height (px)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCropper.height_px') }}</label>
                     <input 
                         v-model="cropHeight" 
                         type="number" 
@@ -70,7 +70,7 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">X Position</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCropper.x_position') }}</label>
                     <input 
                         v-model="cropX" 
                         type="number" 
@@ -82,7 +82,7 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Y Position</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCropper.y_position') }}</label>
                     <input 
                         v-model="cropY" 
                         type="number" 
@@ -97,27 +97,27 @@
             <!-- Aspect Ratio & Presets -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Aspect Ratio</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCropper.aspect_ratio') }}</label>
                     <select v-model="aspectRatio" @change="applyAspectRatio" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
-                        <option value="free">Free</option>
-                        <option value="1:1">Square (1:1)</option>
-                        <option value="16:9">Widescreen (16:9)</option>
-                        <option value="4:3">Standard (4:3)</option>
-                        <option value="3:2">Photo (3:2)</option>
-                        <option value="9:16">Portrait (9:16)</option>
+                        <option value="free">{{ t('imageCropper.free') }}</option>
+                        <option value="1:1">{{ t('imageCropper.square_1_1') }}</option>
+                        <option value="16:9">{{ t('imageCropper.widescreen_16_9') }}</option>
+                        <option value="4:3">{{ t('imageCropper.standard_4_3') }}</option>
+                        <option value="3:2">{{ t('imageCropper.photo_3_2') }}</option>
+                        <option value="9:16">{{ t('imageCropper.portrait_9_16') }}</option>
                     </select>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quick Presets</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageCropper.quick_presets') }}</label>
                     <select v-model="selectedPreset" @change="applyPreset" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
-                        <option value="">Custom</option>
-                        <option value="instagram">Instagram Square (1080×1080)</option>
-                        <option value="instagram-story">Instagram Story (1080×1920)</option>
-                        <option value="facebook">Facebook Cover (1200×630)</option>
-                        <option value="twitter">Twitter Header (1500×500)</option>
-                        <option value="youtube">YouTube Thumbnail (1280×720)</option>
-                        <option value="thumbnail">Thumbnail (300×300)</option>
+                        <option value="">{{ t('imageCropper.custom') }}</option>
+                        <option value="instagram">{{ t('imageCropper.instagram_square') }}</option>
+                        <option value="instagram-story">{{ t('imageCropper.instagram_story') }}</option>
+                        <option value="facebook">{{ t('imageCropper.facebook_cover') }}</option>
+                        <option value="twitter">{{ t('imageCropper.twitter_header') }}</option>
+                        <option value="youtube">{{ t('imageCropper.youtube_thumbnail') }}</option>
+                        <option value="thumbnail">{{ t('imageCropper.thumbnail') }}</option>
                     </select>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                     @click="centerCrop" 
                     class="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                    Center Crop
+                    {{ t('imageCropper.center_crop') }}
                 </button>
                 
                 <button 
@@ -136,8 +136,8 @@
                     :disabled="processing"
                     class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
                 >
-                    <span v-if="processing">Processing...</span>
-                    <span v-else>Crop Image</span>
+                    <span v-if="processing">{{ t('imageCropper.processing') }}</span>
+                    <span v-else>{{ t('imageCropper.crop_image') }}</span>
                 </button>
             </div>
         </div>
@@ -146,7 +146,7 @@
         <div v-if="image" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Original with Crop Overlay -->
             <div class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Original Image</h3>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('imageCropper.original_image') }}</h3>
                 <div class="relative border dark:border-gray-600 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
                     <canvas 
                         ref="canvas" 
@@ -171,12 +171,12 @@
             
             <!-- Cropped Result -->
             <div v-if="croppedImage" class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Cropped Result</h3>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('imageCropper.cropped_result') }}</h3>
                 <div class="border dark:border-gray-600 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
                     <img :src="croppedImage" class="max-w-full h-auto" />
                 </div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">
-                    Cropped: {{ cropWidth }} × {{ cropHeight }}
+                    {{ t('imageCropper.cropped') }}: {{ cropWidth }} × {{ cropHeight }}
                 </div>
                 
                 <!-- Download Button -->
@@ -185,7 +185,7 @@
                     :download="getCroppedImageName()"
                     class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                    Download Cropped Image
+                    {{ t('imageCropper.download_cropped_image') }}
                 </a>
             </div>
         </div>
@@ -195,12 +195,22 @@
             {{ error }}
         </div>
         <!-- SEO Content -->
-        <ToolSeoContent
-            title="Image Cropper"
-            description="Free online image cropping tool with interactive selection, aspect ratios, preset sizes, and download options. Perfect for social media and web optimization."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
 
     </div>
@@ -208,69 +218,28 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Profile Picture Cropping",
-        description: "Crop image to square profile picture",
-        code: "Input: full-body-photo.jpg | Aspect Ratio: 1:1 | Size: 400x400px",
-        result: "Output: profile-picture.jpg (perfect square for social media)"
-    },
-    {
-        title: "YouTube Thumbnail",
-        description: "Create YouTube thumbnail from larger image",
-        code: "Input: landscape-photo.jpg | Aspect Ratio: 16:9 | Size: 1280x720px",
-        result: "Output: youtube-thumbnail.jpg (perfect YouTube dimensions)",
-        steps: [
-            "Upload landscape photo",
-            "Select 16:9 aspect ratio",
-            "Crop to focus on main subject",
-            "Download optimized thumbnail"
-        ]
-    },
-    {
-        title: "Instagram Story",
-        description: "Crop image for Instagram story format",
-        code: "Input: vertical-photo.jpg | Aspect Ratio: 9:16 | Size: 1080x1920px",
-        result: "Output: instagram-story.jpg (full-screen story format)"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Upload your image using the file selector or drag and drop',
-    'Set crop dimensions manually or use aspect ratios and presets',
-    'Adjust position (X, Y) or use center crop for perfect alignment',
-    'Preview the crop area with visual overlay',
-    'Click "Crop Image" and download your cropped image'
-];
-
-const faqs = [
-    { 
-        question: 'What image formats are supported?', 
-        answer: 'We support all major image formats including JPEG, PNG, GIF, WebP, BMP, and SVG files for input.' 
-    },
-    { 
-        question: 'Can I crop to custom dimensions?', 
-        answer: 'Yes! You can set custom width and height, or choose from preset aspect ratios like 1:1, 16:9, 4:3, etc.' 
-    },
-    { 
-        question: 'What are the preset sizes for?', 
-        answer: 'Presets provide common dimensions for social media platforms like Instagram, Facebook, Twitter, YouTube, and more.' 
-    },
-    { 
-        question: 'How does the crop overlay work?', 
-        answer: 'The blue overlay shows exactly which part of the image will be cropped. You can adjust dimensions and position to see real-time preview.' 
-    },
-    { 
-        question: 'Can I download the cropped image?', 
-        answer: 'Yes! Once cropped, you can download the image in the same format as the original with just one click.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All cropping happens directly in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('imageCropper.title'));
+const mainDescription = computed(() => t('imageCropper.mainDescription'));
+const extendedDescription = computed(() => t('imageCropper.extendedDescription'));
+const features = computed(() => t('imageCropper.features'));
+const steps = computed(() => t('imageCropper.steps'));
+const examples = computed(() => t('imageCropper.examples'));
+const useCases = computed(() => t('imageCropper.useCases'));
+const technicalDetails = computed(() => t('imageCropper.technicalDetails'));
+const bestPractices = computed(() => t('imageCropper.bestPractices'));
+const commonErrors = computed(() => t('imageCropper.commonErrors'));
+const alternatives = computed(() => t('imageCropper.alternatives'));
+const relatedTools = computed(() => t('imageCropper.relatedTools'));
+const faqs = computed(() => t('imageCropper.faqs'));
+const securityNote = computed(() => t('imageCropper.securityNote'));
+const additionalContent = computed(() => t('imageCropper.additionalContent'));
 
 const image = ref(null);
 const canvas = ref(null);

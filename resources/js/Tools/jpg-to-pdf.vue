@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">JPG to PDF Converter</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('jpgToPdf.title') }}</h2>
 
         <!-- Upload Area -->
         <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
@@ -8,7 +8,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0013.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
-                <p class="text-gray-600 dark:text-gray-400">Drop images here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ t('jpgToPdf.drop_images') }}</p>
                 <input 
                     type="file" 
                     multiple 
@@ -21,13 +21,13 @@
                     for="file-upload" 
                     class="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block"
                 >
-                    Choose Images
+                    {{ t('jpgToPdf.choose_images') }}
                 </label>
             </div>
             
             <div v-else class="space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ images.length }} image(s) selected</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">{{ images.length }} {{ t('jpgToPdf.images_selected') }}</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400">{{ formatFileSize(totalSize) }}</span>
                 </div>
                 
@@ -62,13 +62,13 @@
                         @click="addMoreImages" 
                         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                     >
-                        Add More Images
+                        {{ t('jpgToPdf.add_more_images') }}
                     </button>
                     <button 
                         @click="clearAll" 
                         class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
                     >
-                        Clear All
+                        {{ t('jpgToPdf.clear_all') }}
                     </button>
                 </div>
             </div>
@@ -76,50 +76,50 @@
 
         <!-- PDF Options -->
         <div v-if="images.length > 0" class="space-y-4">
-            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">PDF Options</h3>
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('jpgToPdf.pdf_options') }}</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Page Size</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('jpgToPdf.page_size') }}</label>
                     <select v-model="pdfOptions.pageSize" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
-                        <option value="a4">A4 (210×297 mm)</option>
-                        <option value="a3">A3 (297×420 mm)</option>
-                        <option value="letter">Letter (216×279 mm)</option>
-                        <option value="legal">Legal (216×356 mm)</option>
+                        <option value="a4">{{ t('jpgToPdf.a4_size') }}</option>
+                        <option value="a3">{{ t('jpgToPdf.a3_size') }}</option>
+                        <option value="letter">{{ t('jpgToPdf.letter_size') }}</option>
+                        <option value="legal">{{ t('jpgToPdf.legal_size') }}</option>
                     </select>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Orientation</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('jpgToPdf.orientation') }}</label>
                     <select v-model="pdfOptions.orientation" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
-                        <option value="portrait">Portrait</option>
-                        <option value="landscape">Landscape</option>
+                        <option value="portrait">{{ t('jpgToPdf.portrait') }}</option>
+                        <option value="landscape">{{ t('jpgToPdf.landscape') }}</option>
                     </select>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Image Layout</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('jpgToPdf.image_layout') }}</label>
                     <select v-model="pdfOptions.layout" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
-                        <option value="fit">Fit to Page</option>
-                        <option value="center">Center on Page</option>
-                        <option value="stretch">Stretch to Page</option>
-                        <option value="original">Original Size</option>
+                        <option value="fit">{{ t('jpgToPdf.fit_to_page') }}</option>
+                        <option value="center">{{ t('jpgToPdf.center_on_page') }}</option>
+                        <option value="stretch">{{ t('jpgToPdf.stretch_to_page') }}</option>
+                        <option value="original">{{ t('jpgToPdf.original_size') }}</option>
                     </select>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Image Quality</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('jpgToPdf.image_quality') }}</label>
                     <select v-model="pdfOptions.quality" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
-                        <option value="high">High (300 DPI)</option>
-                        <option value="medium">Medium (200 DPI)</option>
-                        <option value="low">Low (150 DPI)</option>
+                        <option value="high">{{ t('jpgToPdf.high_quality') }}</option>
+                        <option value="medium">{{ t('jpgToPdf.medium_quality') }}</option>
+                        <option value="low">{{ t('jpgToPdf.low_quality') }}</option>
                     </select>
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Margin (mm)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('jpgToPdf.margin') }}</label>
                     <input 
                         v-model="pdfOptions.margin" 
                         type="number" 
@@ -130,7 +130,7 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filename</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('jpgToPdf.filename') }}</label>
                     <input 
                         v-model="pdfOptions.filename" 
                         type="text" 
@@ -148,8 +148,8 @@
                 :disabled="processing"
                 class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
             >
-                <span v-if="processing">Generating PDF...</span>
-                <span v-else>Generate PDF</span>
+                <span v-if="processing">{{ t('jpgToPdf.generating_pdf') }}</span>
+                <span v-else>{{ t('jpgToPdf.generate_pdf') }}</span>
             </button>
         </div>
 
@@ -158,14 +158,24 @@
             {{ error }}
         </div>
 
-        <!-- SEO Content -->
-        <ToolSeoContent
-            title="JPG to PDF Converter"
-            description="Free online tool to convert JPG and other images to PDF. Multiple images, custom layouts, page sizes, and quality settings."
-            :steps="steps"
-            :examples="examples"
-            :faqs="faqs"
-        />
+            <!-- SEO Content -->
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
 
     </div>
 </template>
@@ -173,69 +183,28 @@
 <script setup>
 import { ref, computed } from "vue";
 import jsPDF from "jspdf";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Photo Album to PDF",
-        description: "Convert multiple photos into PDF album",
-        code: "Input: vacation-1.jpg, vacation-2.jpg, vacation-3.jpg | Layout: One per page | Size: A4",
-        result: "Output: vacation-album.pdf (3 pages, one photo per page)"
-    },
-    {
-        title: "Document Scanning PDF",
-        description: "Convert scanned document images to PDF",
-        code: "Input: scan-page1.jpg, scan-page2.jpg | Layout: Original size | Quality: High",
-        result: "Output: document-scan.pdf (high-quality document PDF)",
-        steps: [
-            "Upload scanned document pages",
-            "Arrange pages in correct order",
-            "Set high quality for text clarity",
-            "Download professional document PDF"
-        ]
-    },
-    {
-        title: "Portfolio PDF Creation",
-        description: "Create portfolio PDF from artwork images",
-        code: "Input: artwork-1.jpg, artwork-2.jpg | Layout: Fit to page | Size: Letter",
-        result: "Output: artist-portfolio.pdf (professional portfolio)"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Upload multiple JPG or image files using drag & drop',
-    'Preview your images and arrange their order',
-    'Configure PDF options (page size, orientation, layout)',
-    'Set filename and quality preferences',
-    'Generate and download your PDF document'
-];
-
-const faqs = [
-    { 
-        question: 'What image formats are supported?', 
-        answer: 'We support all major image formats including JPG, JPEG, PNG, GIF, WebP, BMP, and SVG files for conversion to PDF.' 
-    },
-    { 
-        question: 'Can I convert multiple images at once?', 
-        answer: 'Yes! You can upload multiple images and they will be converted to a single PDF with each image on a separate page.' 
-    },
-    { 
-        question: 'What page sizes are available?', 
-        answer: 'We support standard page sizes including A4, A3, Letter, and Legal. You can also choose between portrait and landscape orientation.' 
-    },
-    { 
-        question: 'How does image layout work?', 
-        answer: 'Layout options include Fit to Page (scales to fit), Center on Page, Stretch to Page, and Original Size (maintains actual dimensions).' 
-    },
-    { 
-        question: 'What is image quality in PDF?', 
-        answer: 'Quality refers to DPI (dots per inch). High (300 DPI) for best quality, Medium (200 DPI) for balance, Low (150 DPI) for smaller file size.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All conversion happens directly in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('jpgToPdf.title'));
+const mainDescription = computed(() => t('jpgToPdf.mainDescription'));
+const extendedDescription = computed(() => t('jpgToPdf.extendedDescription'));
+const features = computed(() => t('jpgToPdf.features'));
+const steps = computed(() => t('jpgToPdf.steps'));
+const examples = computed(() => t('jpgToPdf.examples'));
+const useCases = computed(() => t('jpgToPdf.useCases'));
+const technicalDetails = computed(() => t('jpgToPdf.technicalDetails'));
+const bestPractices = computed(() => t('jpgToPdf.bestPractices'));
+const commonErrors = computed(() => t('jpgToPdf.commonErrors'));
+const alternatives = computed(() => t('jpgToPdf.alternatives'));
+const relatedTools = computed(() => t('jpgToPdf.relatedTools'));
+const faqs = computed(() => t('jpgToPdf.faqs'));
+const securityNote = computed(() => t('jpgToPdf.securityNote'));
+const additionalContent = computed(() => t('jpgToPdf.additionalContent'));
 
 const images = ref([]);
 const processing = ref(false);

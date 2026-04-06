@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image Resizer</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('imageResizer.title') }}</h2>
 
         <!-- Upload Area -->
         <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
@@ -8,7 +8,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ t('imageResizer.drop_image') }}</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -20,7 +20,7 @@
                     for="file-upload" 
                     class="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block"
                 >
-                    Choose Image
+                    {{ t('imageResizer.choose_image') }}
                 </label>
             </div>
             
@@ -32,9 +32,9 @@
                 
                 <!-- Original Dimensions Display -->
                 <div v-if="originalDimensions" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Original Dimensions</h3>
+                    <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ t('imageResizer.original_dimensions') }}</h3>
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-600 dark:text-gray-400">Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageResizer.size') }}</span>
                         <span class="font-mono">{{ originalDimensions.width }} × {{ originalDimensions.height }}</span>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                 <!-- Resize Controls -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Width (px)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageResizer.width_px') }}</label>
                         <input 
                             v-model="newWidth" 
                             type="number" 
@@ -53,7 +53,7 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Height (px)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageResizer.height_px') }}</label>
                         <input 
                             v-model="newHeight" 
                             type="number" 
@@ -64,7 +64,7 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Scale (%)</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageResizer.scale') }}</label>
                         <input 
                             v-model="scale" 
                             type="number" 
@@ -83,14 +83,14 @@
                                 v-model="lockAspectRatio"
                                 class="rounded"
                             />
-                            <span class="text-sm text-gray-700 dark:text-gray-300">Lock Aspect Ratio</span>
+                            <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('imageResizer.lock_aspect_ratio') }}</span>
                         </label>
                     </div>
                 </div>
                 
                 <!-- Preset Sizes -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Quick Presets</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ t('imageResizer.quick_presets') }}</label>
                     <div class="flex flex-wrap gap-2">
                         <button 
                             v-for="preset in presets" 
@@ -105,7 +105,7 @@
                 
                 <!-- Format Selection -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Output Format</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('imageResizer.output_format') }}</label>
                     <select v-model="outputFormat" class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg">
                         <option value="image/jpeg">JPEG</option>
                         <option value="image/png">PNG</option>
@@ -118,15 +118,15 @@
                     :disabled="processing"
                     class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
                 >
-                    <span v-if="processing">Processing...</span>
-                    <span v-else>Resize Image</span>
+                    <span v-if="processing">{{ t('imageResizer.processing') }}</span>
+                    <span v-else>{{ t('imageResizer.resize_image') }}</span>
                 </button>
                 
                 <button 
                     @click="resetImage" 
                     class="w-full bg-gray-600 text-white py-2 rounded-lg hover:bg-gray-700 transition-colors mt-2"
                 >
-                    Clear All
+                    {{ t('imageResizer.clear_all') }}
                 </button>
             </div>
         </div>
@@ -134,14 +134,14 @@
         <!-- Preview and Download -->
         <div v-if="resizedImageUrl" class="space-y-6">
             <div class="bg-blue-50 rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-4 text-blue-700">Resized Image</h3>
+                <h3 class="text-lg font-semibold mb-4 text-blue-700">{{ t('imageResizer.resized_image') }}</h3>
                 <div class="space-y-4">
                     <div class="flex justify-between">
-                        <span class="text-gray-600 dark:text-gray-400">New Dimensions:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageResizer.new_dimensions') }}</span>
                         <span class="font-mono">{{ newWidth }} × {{ newHeight }}</span>
                     </div>
                     <div v-if="resizedSize" class="flex justify-between">
-                        <span class="text-gray-600 dark:text-gray-400">File Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageResizer.file_size') }}</span>
                         <span class="font-mono">{{ formatFileSize(resizedSize) }}</span>
                     </div>
                     
@@ -156,7 +156,7 @@
                         :download="getDownloadName()"
                         class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700 transition-colors"
                     >
-                        Download Resized Image
+                        {{ t('imageResizer.download_resized_image') }}
                     </a>
                 </div>
             </div>
@@ -167,12 +167,22 @@
             {{ error }}
         </div>
         <!-- SEO Content -->
-        <ToolSeoContent
-            title="Image Resizer"
-            description="Free online image resizer tool. Resize images to custom dimensions, use presets, maintain aspect ratio, and convert between formats. Perfect for web optimization."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
 
     </div>
@@ -180,65 +190,28 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Social Media Image",
-        description: "Resize image for Instagram post",
-        code: "Original: 1920×1080px | Target: 1080×1080px",
-        result: "Perfect square format for Instagram feed with aspect ratio locked"
-    },
-    {
-        title: "Web Thumbnail",
-        description: "Create thumbnail for website",
-        code: "Original: 4000×3000px | Target: 400×300px",
-        result: "Optimized thumbnail maintaining quality and aspect ratio",
-        steps: [
-            "Upload high-resolution image",
-            "Set width to 400px",
-            "Enable 'Lock Aspect Ratio'",
-            "Download optimized thumbnail"
-        ]
-    },
-    {
-        title: "Header Banner",
-        description: "Resize for website header banner",
-        code: "Original: 1024×768px | Target: 1920×400px",
-        result: "Wide banner format for website header"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Upload your image using the file selector or drag and drop',
-    'Set new dimensions manually or use preset sizes',
-    'Enable aspect ratio lock to maintain proportions',
-    'Choose output format (JPEG, PNG, or WebP)',
-    'Click "Resize Image" and download your resized image'
-];
-
-const faqs = [
-    { 
-        question: 'What image formats are supported?', 
-        answer: 'We support all major image formats including JPEG, PNG, GIF, WebP, BMP, and SVG files for input.' 
-    },
-    { 
-        question: 'What does "Lock Aspect Ratio" do?', 
-        answer: 'When enabled, changing one dimension automatically adjusts the other to maintain the original image proportions.' 
-    },
-    { 
-        question: 'What are the preset sizes for?', 
-        answer: 'Presets provide common dimensions for social media, web headers, thumbnails, and other standard use cases.' 
-    },
-    { 
-        question: 'Can I resize multiple images at once?', 
-        answer: 'Currently, this tool processes one image at a time to ensure quality control and precise dimension settings.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All image processing happens directly in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('imageResizer.title'));
+const mainDescription = computed(() => t('imageResizer.mainDescription'));
+const extendedDescription = computed(() => t('imageResizer.extendedDescription'));
+const features = computed(() => t('imageResizer.features'));
+const steps = computed(() => t('imageResizer.steps'));
+const examples = computed(() => t('imageResizer.examples'));
+const useCases = computed(() => t('imageResizer.useCases'));
+const technicalDetails = computed(() => t('imageResizer.technicalDetails'));
+const bestPractices = computed(() => t('imageResizer.bestPractices'));
+const commonErrors = computed(() => t('imageResizer.commonErrors'));
+const alternatives = computed(() => t('imageResizer.alternatives'));
+const relatedTools = computed(() => t('imageResizer.relatedTools'));
+const faqs = computed(() => t('imageResizer.faqs'));
+const securityNote = computed(() => t('imageResizer.securityNote'));
+const additionalContent = computed(() => t('imageResizer.additionalContent'));
 
 const image = ref(null);
 const originalDimensions = ref(null);

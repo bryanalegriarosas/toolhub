@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">PNG to JPG Converter</h1>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ t('pngToJpg.title') }}</h1>
 
         <!-- Error Message -->
         <div v-if="error" class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -16,58 +16,58 @@
         <!-- File Input Area -->
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Select PNG File
+                {{ t('pngToJpg.select_png_file') }}
             </label>
             <input type="file" accept="image/png" @change="convert"
                 class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
                 :disabled="isProcessing" />
             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                Supported format: PNG. Max size: 10MB
+                {{ t('pngToJpg.supported_format') }}
             </p>
         </div>
 
         <!-- Configuration Options -->
         <div v-if="originalImage && !error" class="mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Conversion Options:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ t('pngToJpg.conversion_options') }}</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quality:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('pngToJpg.quality') }}:</label>
                     <select v-model="quality"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        <option value="1.0">Maximum (100%)</option>
-                        <option value="0.9">High (90%)</option>
-                        <option value="0.8">Good (80%)</option>
-                        <option value="0.7">Medium (70%)</option>
-                        <option value="0.6">Low (60%)</option>
-                        <option value="0.5">Minimum (50%)</option>
+                        <option value="1.0">{{ t('pngToJpg.maximum_100') }}</option>
+                        <option value="0.9">{{ t('pngToJpg.high_90') }}</option>
+                        <option value="0.8">{{ t('pngToJpg.good_80') }}</option>
+                        <option value="0.7">{{ t('pngToJpg.medium_70') }}</option>
+                        <option value="0.6">{{ t('pngToJpg.low_60') }}</option>
+                        <option value="0.5">{{ t('pngToJpg.minimum_50') }}</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Background Color:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('pngToJpg.background_color') }}:</label>
                     <select v-model="backgroundColor"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        <option value="#ffffff">White</option>
-                        <option value="#000000">Black</option>
-                        <option value="transparent">Transparent (as white)</option>
+                        <option value="#ffffff">{{ t('pngToJpg.white') }}</option>
+                        <option value="#000000">{{ t('pngToJpg.black') }}</option>
+                        <option value="transparent">{{ t('pngToJpg.transparent_as_white') }}</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Resize:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('pngToJpg.resize') }}:</label>
                     <select v-model="resizeOption"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                        <option value="original">Original size</option>
-                        <option value="50%">50% smaller</option>
-                        <option value="75%">75% of original</option>
-                        <option value="125%">125% of original</option>
-                        <option value="150%">150% of original</option>
+                        <option value="original">{{ t('pngToJpg.original_size') }}</option>
+                        <option value="50%">{{ t('pngToJpg.smaller_50') }}</option>
+                        <option value="75%">{{ t('pngToJpg.of_original_75') }}</option>
+                        <option value="125%">{{ t('pngToJpg.of_original_125') }}</option>
+                        <option value="150%">{{ t('pngToJpg.of_original_150') }}</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Output Name:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('pngToJpg.output_name') }}:</label>
                     <input v-model="outputName" type="text"
                         class="w-full p-2 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="converted.jpg" />
@@ -81,7 +81,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Original -->
                 <div>
-                    <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Original PNG</h4>
+                    <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">{{ t('pngToJpg.original_png') }}</h4>
                     <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                         <img :src="originalImage" alt="Original PNG"
                             class="w-full h-auto max-h-64 object-contain rounded" />
@@ -93,7 +93,7 @@
 
                 <!-- Converted -->
                 <div>
-                    <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Converted JPG</h4>
+                    <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">{{ t('pngToJpg.converted_jpg') }}</h4>
                     <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                         <img :src="convertedImage" alt="Converted JPG"
                             class="w-full h-auto max-h-64 object-contain rounded" />
@@ -118,28 +118,63 @@
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                         </path>
                     </svg>
-                    Converting...
+                    {{ t('pngToJpg.converting') }}
                 </span>
-                <span v-else>Download JPG</span>
+                <span v-else>{{ t('pngToJpg.download_jpg') }}</span>
             </button>
 
             <button @click="reset" class="bg-gray-50 dark:bg-gray-7000 text-white px-6 py-2 rounded hover:bg-gray-600 transition-colors">
-                Clear
+                {{ t('pngToJpg.clear') }}
             </button>
         </div>
 
         <!-- SEO Content -->
-        <ToolSeoContent title="PNG to JPG Converter"
-            description="Free online tool to convert PNG images to JPG format. Customize quality, background color, and size. Fast, secure conversion with instant download."
-            :steps="steps" :examples="examples" :faqs="faqs" />
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
 
     </div>
 
 </template>
 
 <script setup>
-import { ref, watch } from "vue"
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue"
+import { ref, watch, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
+
+// SEO Content Data - Now using translations
+const title = computed(() => t('pngToJpg.title'));
+const mainDescription = computed(() => t('pngToJpg.mainDescription'));
+const extendedDescription = computed(() => t('pngToJpg.extendedDescription'));
+const features = computed(() => t('pngToJpg.features'));
+const steps = computed(() => t('pngToJpg.steps'));
+const examples = computed(() => t('pngToJpg.examples'));
+const useCases = computed(() => t('pngToJpg.useCases'));
+const technicalDetails = computed(() => t('pngToJpg.technicalDetails'));
+const bestPractices = computed(() => t('pngToJpg.bestPractices'));
+const commonErrors = computed(() => t('pngToJpg.commonErrors'));
+const alternatives = computed(() => t('pngToJpg.alternatives'));
+const relatedTools = computed(() => t('pngToJpg.relatedTools'));
+const faqs = computed(() => t('pngToJpg.faqs'));
+const securityNote = computed(() => t('pngToJpg.securityNote'));
+const additionalContent = computed(() => t('pngToJpg.additionalContent'));
 
 const originalImage = ref(null)
 const convertedImage = ref(null)
@@ -155,69 +190,6 @@ const quality = ref('0.9')
 const backgroundColor = ref('#ffffff')
 const resizeOption = ref('original')
 const outputName = ref('')
-
-// SEO Content
-const examples = [
-    {
-        title: "Transparent PNG to JPG",
-        description: "Convert PNG with transparency to JPG",
-        code: "Input: logo-transparent.png (with alpha channel) | Background: White | Quality: 90%",
-        result: "Output: logo-white-bg.jpg (white background, no transparency)"
-    },
-    {
-        title: "High-Quality Photo Conversion",
-        description: "Convert PNG photo to JPG for web use",
-        code: "Input: photo-portrait.png (8MB) | Quality: 85% | Size: 1920x1080",
-        result: "Output: photo-portrait.jpg (1.2MB) - optimized for web",
-        steps: [
-            "Upload high-quality PNG photo",
-            "Set quality to 85% for good compression",
-            "Choose white background for consistency",
-            "Download optimized JPG for web"
-        ]
-    },
-    {
-        title: "Social Media Image",
-        description: "Convert PNG to JPG for social platforms",
-        code: "Input: social-post.png (2MB) | Quality: 75% | Background: Transparent (auto white)",
-        result: "Output: social-post.jpg (400KB) - perfect for Instagram/Facebook"
-    }
-];
-
-const steps = [
-    'Select a PNG file using the file selector',
-    'Configure conversion options: quality, background color, and size',
-    'Preview the original and converted images side by side',
-    'Click "Download JPG" to save your converted image',
-    'Your JPG file will be downloaded instantly'
-]
-
-const faqs = [
-    {
-        question: 'What is the difference between PNG and JPG?',
-        answer: 'PNG supports transparency and is lossless, while JPG is compressed and doesn\'t support transparency. JPG files are typically smaller, making them ideal for web use.'
-    },
-    {
-        question: 'What happens to transparent areas in PNG?',
-        answer: 'Since JPG doesn\'t support transparency, transparent areas are filled with the selected background color (white by default).'
-    },
-    {
-        question: 'How does quality affect the file size?',
-        answer: 'Higher quality settings (90-100%) produce larger files with better image detail. Lower settings (50-70%) create smaller files but may reduce image clarity.'
-    },
-    {
-        question: 'Can I resize the image during conversion?',
-        answer: 'Yes! You can resize the image to 50%, 75%, 125%, or 150% of the original size, or keep it at the original dimensions.'
-    },
-    {
-        question: 'Is my data secure?',
-        answer: 'Absolutely! All processing happens locally in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.'
-    },
-    {
-        question: 'What\'s the maximum file size I can convert?',
-        answer: 'You can convert PNG files up to 10MB in size. For larger files, consider optimizing them first or using a desktop application.'
-    }
-]
 
 const validateFile = (file) => {
     // Check file type
