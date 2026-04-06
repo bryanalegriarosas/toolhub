@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Regex Tester</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('regexTester.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('regexTester.load_file') }}</span>
                 <input ref="fileInput" type="file" accept=".txt" @change="loadFile" class="form-input" />
             </label>
             <button
@@ -12,14 +12,14 @@
                 :disabled="!text"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy Text
+                {{ t('regexTester.copy_text') }}
             </button>
             <button
                 @click="downloadText"
                 :disabled="!text"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Text
+                {{ t('regexTester.download_text') }}
             </button>
             <button
                 @click="clearAll"
@@ -32,13 +32,13 @@
                 :disabled="!pattern && !text"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save
+                {{ t('regexTester.save') }}
             </button>
         </div>
 
         <div class="space-y-6">
             <div>
-                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">Regex Pattern</label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">{{ t('regexTester.regex_pattern') }}</label>
 
                 <input
                     v-model="pattern"
@@ -48,22 +48,22 @@
             </div>
 
             <div>
-                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">Test Text</label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">{{ t('regexTester.test_text') }}</label>
 
                 <textarea
                     v-model="text"
                     rows="6"
-                    placeholder="Enter text to test..."
+                    :placeholder="t('regexTester.text_placeholder')"
                     class="w-full border dark:border-gray-600 rounded-lg p-3"
                 />
             </div>
 
             <div>
-                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">Matches</label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">{{ t('regexTester.matches') }}</label>
 
                 <div class="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
                     <div v-if="matches.length === 0" class="text-gray-400">
-                        No matches
+                        {{ t('regexTester.no_matches') }}
                     </div>
 
                     <ul v-else class="list-disc ml-6">
@@ -76,7 +76,7 @@
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('regexTester.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -91,7 +91,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('regexTester.restore') }}
                     </button>
                 </li>
             </ul>
@@ -101,90 +101,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('regexTester.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('regexTester.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="Regex Tester"
-            description="Evaluate regular expression patterns against text with instant match results and history."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Enter a regex pattern and sample text",
-    "See matches listed immediately",
-    "Use buttons to copy/download or save to history",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Email Validation",
-        description: "Test regex pattern for email validation",
-        code: "Pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/",
-        result: "✓ john@example.com | ✓ test.user@domain.co.uk | ✗ invalid-email | ✗ @missingdomain.com"
-    },
-    {
-        title: "Phone Number Validation",
-        description: "Validate international phone number formats",
-        code: "Pattern: /^\\+?[1-9]\\d{1,14}$/",
-        result: "✓ +1234567890 | ✓ 9876543210 | ✗ 123 | ✗ +0123456789",
-        steps: [
-            "Enter the phone number regex pattern",
-            "Test with sample numbers",
-            "Verify international format support",
-            "Adjust pattern as needed"
-        ]
-    },
-    {
-        title: "Extract URLs from Text",
-        description: "Find all URLs in a block of text",
-        code: "Pattern: /https?:\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?/",
-        result: "Found: https://example.com | https://test.org/page | http://site.net"
-    },
-    {
-        title: "Password Strength Validation",
-        description: "Validate password requirements",
-        code: "Pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/",
-        result: "✓ StrongPass123! | ✗ weak | ✗ NoNumber! | ✗ short1A!",
-        steps: [
-            "Test password with requirements",
-            "Must contain: uppercase, lowercase, number, special character",
-            "Minimum 8 characters",
-            "Adjust pattern for different requirements"
-        ]
-    }
-];
-
-const faqs = [
-    {
-        question: "What syntax is allowed?",
-        answer: "Standard JavaScript RegExp syntax; global flag is applied automatically.",
-    },
-    {
-        question: "What if the pattern is invalid?",
-        answer: "You'll see 'Invalid regex' in the matches area.",
-    },
-    {
-        question: "Is history persistent?",
-        answer: "No, it resets on page reload.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('regexTester.title'));
+const mainDescription = computed(() => t('regexTester.mainDescription'));
+const extendedDescription = computed(() => t('regexTester.extendedDescription'));
+const features = computed(() => t('regexTester.features'));
+const steps = computed(() => t('regexTester.steps'));
+const examples = computed(() => t('regexTester.examples'));
+const useCases = computed(() => t('regexTester.useCases'));
+const technicalDetails = computed(() => t('regexTester.technicalDetails'));
+const bestPractices = computed(() => t('regexTester.bestPractices'));
+const commonErrors = computed(() => t('regexTester.commonErrors'));
+const alternatives = computed(() => t('regexTester.alternatives'));
+const relatedTools = computed(() => t('regexTester.relatedTools'));
+const faqs = computed(() => t('regexTester.faqs'));
+const securityNote = computed(() => t('regexTester.securityNote'));
+const additionalContent = computed(() => t('regexTester.additionalContent'));
 
 const pattern = ref("");
 const text = ref("");

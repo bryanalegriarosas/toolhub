@@ -1,27 +1,27 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">SQL Formatter</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">{{ t('sqlFormatter.title') }}</h1>
 
             <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Format and beautify SQL queries with proper indentation.
+                {{ t('sqlFormatter.description') }}
             </p>
 
             <div class="flex flex-col gap-3 sm:gap-4 mb-4">
                 <label class="flex items-center gap-2">
                     <input type="checkbox" v-model="autoFormat" class="sm:mt-0" />
-                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Auto Format</span>
+                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">{{ t('sqlFormatter.auto_format') }}</span>
                 </label>
                 <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                     <label class="flex items-center gap-2">
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Indentation:</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('sqlFormatter.indentation') }}</span>
                         <select v-model="indentType" class="form-select text-sm sm:text-base min-w-[100px]">
-                            <option value="spaces">Spaces</option>
-                            <option value="tabs">Tabs</option>
+                            <option value="spaces">{{ t('sqlFormatter.spaces') }}</option>
+                            <option value="tabs">{{ t('sqlFormatter.tabs') }}</option>
                         </select>
                     </label>
                     <label class="flex items-center gap-2">
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Size:</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('sqlFormatter.size') }}</span>
                         <select v-model="indentSize" class="form-select text-sm sm:text-base min-w-[80px]">
                             <option value="2">2</option>
                             <option value="4">4</option>
@@ -29,7 +29,7 @@
                         </select>
                     </label>
                     <label class="flex items-center gap-2">
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Load file:</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('sqlFormatter.load_file') }}</span>
                         <input ref="fileInput" type="file" @change="loadFile" class="form-input text-sm sm:text-base"
                             accept=".sql,.txt" />
                     </label>
@@ -40,7 +40,7 @@
                 <!-- SQL Input -->
                 <div class="space-y-2">
                     <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
-                        SQL Input
+                        {{ t('sqlFormatter.sql_input') }}
                     </label>
                     <div class="flex flex-wrap gap-1 sm:gap-2 mb-2">
                         <button @click="insertSQL('SELECT')"
@@ -74,10 +74,10 @@
                             ORDER BY
                         </button>
                     </div>
-                    <textarea v-model="sqlInput" @input="handleInput" placeholder="Paste your SQL query here..."
+                    <textarea v-model="sqlInput" @input="handleInput" :placeholder="t('sqlFormatter.sql_input_placeholder')"
                         class="w-full h-48 sm:h-64 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200"></textarea>
                     <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                        Characters: {{ sqlInput.length }} | Lines: {{ lineCount }}
+                        {{ t('sqlFormatter.characters') }} {{ sqlInput.length }} | {{ t('sqlFormatter.lines') }} {{ lineCount }}
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
                         <pre v-if="formattedSql"
                             class="p-3 sm:p-4 text-green-400 text-xs sm:text-sm font-mono whitespace-pre-wrap">{{ formattedSql }}</pre>
                         <div v-else class="p-3 sm:p-4 text-gray-400 italic font-mono text-xs sm:text-sm">
-                            Formatted SQL will appear here...
+                            {{ t('sqlFormatter.formatted_sql_will_appear_here') }}
                         </div>
                     </div>
                     <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
@@ -103,27 +103,27 @@
             <div class="flex flex-wrap gap-2 sm:gap-3">
                 <button @click="formatSql" :disabled="!sqlInput"
                     class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Format SQL
+                    {{ t('sqlFormatter.format_sql') }}
                 </button>
 
                 <button @click="copyFormatted" :disabled="!formattedSql"
                     class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Copy Formatted
+                    {{ t('sqlFormatter.copy_formatted') }}
                 </button>
 
                 <button @click="minifySql" :disabled="!sqlInput"
                     class="px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Minify
+                    {{ t('sqlFormatter.minify') }}
                 </button>
 
                 <button @click="downloadFormatted" :disabled="!formattedSql"
                     class="px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Download SQL
+                    {{ t('sqlFormatter.download_sql') }}
                 </button>
 
                 <button @click="clearAll"
                     class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
-                    Clear All
+                    {{ t('sqlFormatter.clear_all') }}
                 </button>
             </div>
 
@@ -131,101 +131,93 @@
             <div v-if="stats" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-blue-600">{{ stats.keywords }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Keywords</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.keywords') }}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-green-600">{{ stats.tables }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Tables</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.tables') }}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-purple-600">{{ stats.columns }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Columns</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.columns') }}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-xl sm:text-2xl font-bold text-orange-600">{{ stats.functions }}</div>
-                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Functions</div>
+                    <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.functions') }}</div>
                 </div>
             </div>
 
             <!-- Sample SQL Queries -->
             <div class="border-t pt-4 sm:pt-6">
-                <h3 class="font-semibold mb-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Sample SQL Queries</h3>
+                <h3 class="font-semibold mb-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('sqlFormatter.sample_sql_queries') }}</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <button @click="loadSample('simple')"
                         class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">Simple SELECT</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Basic query with WHERE clause</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('sqlFormatter.simple_select') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.basic_query_with_where_clause') }}</div>
                     </button>
                     <button @click="loadSample('join')" class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">JOIN Query</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Multiple table joins</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('sqlFormatter.join_query') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.multiple_table_joins') }}</div>
                     </button>
                     <button @click="loadSample('complex')"
                         class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">Complex Query</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Subqueries and functions</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('sqlFormatter.complex_query') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.subqueries_and_functions') }}</div>
                     </button>
                     <button @click="loadSample('aggregate')"
                         class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">Aggregate Functions</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">GROUP BY with aggregates</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('sqlFormatter.aggregate_functions') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('sqlFormatter.group_by_with_aggregates') }}</div>
                     </button>
                 </div>
             </div>
 
-            <ToolSeoContent title="SQL Formatter - Query Beautifier"
-                description="Format and beautify SQL queries with proper indentation and syntax highlighting."
-                :steps="steps" :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Complex SELECT Query",
-        description: "Format a complex SELECT query with JOINs and WHERE clauses",
-        code: "SELECT u.name, u.email, p.title, p.created_at FROM users u JOIN posts p ON u.id = p.user_id WHERE u.status = 'active' AND p.published = true ORDER BY p.created_at DESC LIMIT 10",
-        result: "SELECT\n    u.name,\n    u.email,\n    p.title,\n    p.created_at\nFROM users u\nJOIN posts p ON u.id = p.user_id\nWHERE u.status = 'active'\n  AND p.published = true\nORDER BY p.created_at DESC\nLIMIT 10"
-    },
-    {
-        title: "Multi-Table Query with Aggregation",
-        description: "Format SQL query with GROUP BY and aggregate functions",
-        code: "SELECT c.name, COUNT(o.id) as order_count, SUM(o.total) as revenue FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE o.created_at >= '2024-01-01' GROUP BY c.id, c.name HAVING COUNT(o.id) > 5 ORDER BY revenue DESC",
-        result: "SELECT\n    c.name,\n    COUNT(o.id) as order_count,\n    SUM(o.total) as revenue\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nWHERE o.created_at >= '2024-01-01'\nGROUP BY c.id, c.name\nHAVING COUNT(o.id) > 5\nORDER BY revenue DESC",
-        steps: [
-            "Paste complex SQL query",
-            "Choose indentation style (4 spaces recommended)",
-            "Enable auto-format for real-time formatting",
-            "Copy formatted SQL for documentation"
-        ]
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    "Enter or paste your SQL query",
-    "Configure formatting options (indentation, size)",
-    "Click 'Format SQL' or use auto format",
-    "Copy or download the formatted result"
-];
-
-const faqs = [
-    {
-        question: "What SQL dialects are supported?",
-        answer: "The formatter supports standard SQL syntax including SELECT, INSERT, UPDATE, DELETE, JOIN, and common functions."
-    },
-    {
-        question: "Can I customize the indentation?",
-        answer: "Yes, you can choose between spaces or tabs and set the indentation size (2, 4, or 8)."
-    },
-    {
-        question: "Does it support complex queries?",
-        answer: "Yes, it handles complex queries with subqueries, joins, and aggregate functions."
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('sqlFormatter.title'));
+const mainDescription = computed(() => t('sqlFormatter.mainDescription'));
+const extendedDescription = computed(() => t('sqlFormatter.extendedDescription'));
+const features = computed(() => t('sqlFormatter.features'));
+const steps = computed(() => t('sqlFormatter.steps'));
+const examples = computed(() => t('sqlFormatter.examples'));
+const useCases = computed(() => t('sqlFormatter.useCases'));
+const technicalDetails = computed(() => t('sqlFormatter.technicalDetails'));
+const bestPractices = computed(() => t('sqlFormatter.bestPractices'));
+const commonErrors = computed(() => t('sqlFormatter.commonErrors'));
+const alternatives = computed(() => t('sqlFormatter.alternatives'));
+const relatedTools = computed(() => t('sqlFormatter.relatedTools'));
+const faqs = computed(() => t('sqlFormatter.faqs'));
+const securityNote = computed(() => t('sqlFormatter.securityNote'));
+const additionalContent = computed(() => t('sqlFormatter.additionalContent'));
 
 const sqlInput = ref("");
 const formattedSql = ref("");

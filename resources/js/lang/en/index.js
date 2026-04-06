@@ -17,6 +17,22 @@ import imageCropper from './imageCropper.js';
 import pngToJpg from './pngToJpg.js';
 import jpgToPng from './jpgToPng.js';
 import youtubeThumbnailDownloader from './youtubeThumbnailDownloader.js';
+import imageToBase64 from './imageToBase64.js';
+import base64ToImage from './base64ToImage.js';
+import jsonFormatter from './jsonFormatter.js';
+import sqlFormatter from './sqlFormatter.js';
+import regexTester from './regexTester.js';
+import jwtDecoder from './jwtDecoder.js';
+import httpHeaderChecker from './httpHeaderChecker.js';
+import httpStatusCodes from './httpStatusCodes.js';
+import urlParser from './urlParser.js';
+import htmlMinifier from './htmlMinifier.js';
+import cssMinifier from './cssMinifier.js';
+import javascriptMinifier from './javascriptMinifier.js';
+import wordCounter from './wordCounter.js';
+import textCaseConverter from './textCaseConverter.js';
+import loremIpsumGenerator from './loremIpsumGenerator.js';
+import diffChecker from './diffChecker.js';
 
 export default {
     ...menu,
@@ -38,4 +54,20 @@ export default {
     ...pngToJpg,
     ...jpgToPng,
     ...youtubeThumbnailDownloader,
+    ...imageToBase64,
+    ...base64ToImage,
+    ...jsonFormatter,
+    ...sqlFormatter,
+    ...regexTester,
+    ...jwtDecoder,
+    ...httpHeaderChecker,
+    ...httpStatusCodes,
+    ...urlParser,
+    ...htmlMinifier,
+    ...cssMinifier,
+    ...javascriptMinifier,
+    ...wordCounter,
+    ...textCaseConverter,
+    ...loremIpsumGenerator,
+    ...diffChecker,
 };

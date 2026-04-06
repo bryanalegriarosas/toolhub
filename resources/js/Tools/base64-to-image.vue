@@ -1,29 +1,29 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Base64 to Image Converter</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('base64ToImage.title') }}</h2>
 
         <!-- Input Section -->
         <div class="space-y-4">
             <div class="flex justify-between items-center">
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Base64 Input</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ t('base64ToImage.base64_input') }}</label>
                 <div class="flex gap-2">
                     <button 
                         @click="pasteFromClipboard" 
                         class="px-3 py-1 bg-gray-200 dark:bg-white-800 hover:bg-gray-200 rounded-lg text-sm transition-colors"
                     >
-                        Paste
+                        {{ t('base64ToImage.paste') }}
                     </button>
                     <button 
                         @click="clearInput" 
                         class="px-3 py-1 bg-gray-200 dark:bg-white-800 hover:bg-gray-200 rounded-lg text-sm transition-colors"
                     >
-                        Clear
+                        {{ t('base64ToImage.clear') }}
                     </button>
                     <button 
                         @click="loadSample" 
                         class="px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg text-sm transition-colors"
                     >
-                        Load Sample
+                        {{ t('base64ToImage.load_sample') }}
                     </button>
                 </div>
             </div>
@@ -32,12 +32,12 @@
                 <textarea 
                     v-model="base64" 
                     rows="8" 
-                    placeholder="Paste your Base64 string here..."
+                    :placeholder="t('base64ToImage.base64_input_placeholder')"
                     class="w-full px-3 py-2 border dark:border-gray-600 rounded-lg font-mono text-sm resize-none"
                     @input="validateBase64"
                 />
                 <div class="absolute top-2 right-2 text-xs text-gray-500 dark:text-gray-400">
-                    {{ base64.length }} characters
+                    {{ t('base64ToImage.characters') }}
                 </div>
             </div>
             
@@ -45,13 +45,13 @@
             <div v-if="detectedFormat" class="bg-blue-50 border border-blue-200 rounded-lg p-3">
                 <div class="flex justify-between items-center">
                     <span class="text-sm text-blue-700">
-                        <strong>Detected Format:</strong> {{ detectedFormat }}
+                        <strong>{{ t('base64ToImage.detected_format') }}</strong> {{ detectedFormat }}
                     </span>
                     <span v-if="isValidBase64" class="text-sm text-green-600">
-                        ✓ Valid Base64
+                        {{ t('base64ToImage.valid_base64') }}
                     </span>
                     <span v-else class="text-sm text-red-600">
-                        ✗ Invalid Base64
+                        {{ t('base64ToImage.invalid_base64') }}
                     </span>
                 </div>
             </div>
@@ -64,15 +64,15 @@
                 :disabled="!isValidBase64 || processing"
                 class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
             >
-                <span v-if="processing">Generating...</span>
-                <span v-else>Generate Image</span>
+                <span v-if="processing">{{ t('base64ToImage.generating') }}</span>
+                <span v-else>{{ t('base64ToImage.generate_image') }}</span>
             </button>
             
             <button 
                 @click="resetAll" 
                 class="px-6 bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors"
             >
-                Reset All
+                {{ t('base64ToImage.reset_all') }}
             </button>
         </div>
 
@@ -81,19 +81,19 @@
             <!-- Image Preview -->
             <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Generated Image</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">{{ t('base64ToImage.generated_image') }}</h3>
                     <div class="flex gap-2">
                         <button 
                             @click="copyImageUrl" 
                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
                         >
-                            {{ copied ? 'Copied!' : 'Copy URL' }}
+                            {{ copied ? t('base64ToImage.copied') : t('base64ToImage.copy_url') }}
                         </button>
                         <button 
                             @click="downloadImage" 
                             class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
                         >
-                            Download
+                            {{ t('base64ToImage.download') }}
                         </button>
                     </div>
                 </div>
@@ -111,19 +111,19 @@
                 <!-- Image Info -->
                 <div v-if="imageInfo" class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Format:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('base64ToImage.format') }}</span>
                         <span class="font-mono ml-2">{{ imageInfo.format }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Dimensions:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('base64ToImage.dimensions') }}</span>
                         <span class="font-mono ml-2">{{ imageInfo.width }} × {{ imageInfo.height }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Base64 Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('base64ToImage.base64_size') }}</span>
                         <span class="font-mono ml-2">{{ formatFileSize(base64.length) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Est. Image Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('base64ToImage.est_image_size') }}</span>
                         <span class="font-mono ml-2">{{ formatFileSize(imageInfo.size) }}</span>
                     </div>
                 </div>
@@ -135,12 +135,22 @@
             {{ error }}
         </div>
         <!-- SEO Content -->
-        <ToolSeoContent
-            title="Base64 to Image Converter"
-            description="Free online tool to convert Base64 strings back to images. Supports all image formats with validation, preview, and download options."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
 
     </div>
@@ -148,69 +158,28 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Restore Embedded Image",
-        description: "Convert Base64 image back to file format",
-        code: "Input: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==",
-        result: "Output: 1x1 pixel red square image (restored from Base64)"
-    },
-    {
-        title: "Database Image Recovery",
-        description: "Extract images stored as Base64 in database",
-        code: "Input: Base64 string from database blob field | Format: Auto-detect",
-        result: "Output: Original image file (JPEG/PNG/GIF format preserved)",
-        steps: [
-            "Copy Base64 string from database",
-            "Paste in converter tool",
-            "Verify image format detection",
-            "Download restored image file"
-        ]
-    },
-    {
-        title: "API Response Image",
-        description: "Convert API Base64 response to image",
-        code: "Input: Base64 from JSON API response | Format: JPEG",
-        result: "Output: Downloadable JPEG image from API data"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Paste your Base64 string or load a sample',
-    'The tool will automatically detect the image format',
-    'Click "Generate Image" to convert Base64 to image',
-    'Preview the generated image and download it',
-    'Copy the image URL or reset to start over'
-];
-
-const faqs = [
-    { 
-        question: 'What Base64 formats are supported?', 
-        answer: 'We support all Base64 image formats including data URLs (data:image/...;base64,) and clean Base64 strings for JPEG, PNG, GIF, WebP, BMP, and SVG.' 
-    },
-    { 
-        question: 'How do I know if my Base64 is valid?', 
-        answer: 'The tool automatically validates your Base64 input and shows the detected format. You\'ll see a green checkmark for valid Base64 and format information.' 
-    },
-    { 
-        question: 'What if my Base64 doesn\'t have a data prefix?', 
-        answer: 'The tool can handle both formats - with or without the data:image prefix. It will automatically detect the image type from the Base64 data.' 
-    },
-    { 
-        question: 'Can I download the generated image?', 
-        answer: 'Yes! Once the image is generated, you can download it in the detected format (JPEG, PNG, etc.) with just one click.' 
-    },
-    { 
-        question: 'Is there a size limit for Base64 input?', 
-        answer: 'While there\'s no strict limit, very large Base64 strings (over 50MB) may cause browser performance issues and are not recommended.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All conversion happens directly in your browser. Your Base64 strings are never uploaded to our servers, ensuring complete privacy and security.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('base64ToImage.title'));
+const mainDescription = computed(() => t('base64ToImage.mainDescription'));
+const extendedDescription = computed(() => t('base64ToImage.extendedDescription'));
+const features = computed(() => t('base64ToImage.features'));
+const steps = computed(() => t('base64ToImage.steps'));
+const examples = computed(() => t('base64ToImage.examples'));
+const useCases = computed(() => t('base64ToImage.useCases'));
+const technicalDetails = computed(() => t('base64ToImage.technicalDetails'));
+const bestPractices = computed(() => t('base64ToImage.bestPractices'));
+const commonErrors = computed(() => t('base64ToImage.commonErrors'));
+const alternatives = computed(() => t('base64ToImage.alternatives'));
+const relatedTools = computed(() => t('base64ToImage.relatedTools'));
+const faqs = computed(() => t('base64ToImage.faqs'));
+const securityNote = computed(() => t('base64ToImage.securityNote'));
+const additionalContent = computed(() => t('base64ToImage.additionalContent'));
 
 const base64 = ref('');
 const generatedImage = ref('');

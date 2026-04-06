@@ -1,19 +1,19 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">HTTP Header Checker</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('httpHeaderChecker.title') }}</h2>
 
         <!-- URL Input -->
         <div class="space-y-4">
             <div class="flex flex-col sm:flex-row gap-4">
                 <div class="flex-1">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        URL
+                        {{ t('httpHeaderChecker.url') }}
                     </label>
                     <div class="flex gap-2">
                         <input
                             v-model="url"
                             @keyup.enter="checkHeaders"
-                            placeholder="Enter URL (e.g., https://example.com)"
+                            :placeholder="t('httpHeaderChecker.enter_url_placeholder')"
                             class="flex-1 px-4 py-2 border dark:border-gray-600 rounded-lg focus:ring focus:ring-blue-200"
                         />
                         <button
@@ -21,8 +21,8 @@
                             :disabled="!url || loading"
                             class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
                         >
-                            <span v-if="loading">Loading...</span>
-                            <span v-else>Check Headers</span>
+                            <span v-if="loading">{{ t('httpHeaderChecker.loading') }}</span>
+                            <span v-else>{{ t('httpHeaderChecker.check_headers') }}</span>
                         </button>
                     </div>
                 </div>
@@ -32,14 +32,14 @@
                         class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition min-w-[100px]"
                         style="height: 40px;"
                     >
-                        Clear
+                        {{ t('httpHeaderChecker.clear') }}
                     </button>
                 </div>
             </div>
 
             <!-- Quick URLs -->
             <div class="flex flex-wrap gap-2">
-                <span class="text-sm text-gray-600 dark:text-gray-400">Quick URLs:</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.quick_urls') }}</span>
                 <button
                     v-for="quickUrl in quickUrls"
                     :key="quickUrl.url"
@@ -70,36 +70,36 @@
                     <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                     </svg>
-                    Response Information
+                    {{ t('httpHeaderChecker.response_information') }}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Status:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.status') }}</span>
                             <span class="font-semibold" :class="getStatusColor(headers.status)">
                                 {{ headers.status }} {{ headers.statusText }}
                             </span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">URL:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.url') }}:</span>
                             <span class="font-mono text-sm break-all">{{ headers.url }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Method:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.method') }}:</span>
                             <span class="font-semibold">{{ headers.method || 'GET' }}</span>
                         </div>
                     </div>
                     <div class="space-y-2">
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Protocol:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.protocol') }}:</span>
                             <span class="font-mono font-semibold">{{ headers.protocol }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Response Time:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.response_time') }}:</span>
                             <span class="font-semibold">{{ headers.responseTime }}ms</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Content Type:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.content_type') }}:</span>
                             <span class="font-mono text-sm">{{ headers.contentType }}</span>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                         <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                         <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2H6a2 2 0 100 4h2a2 2 0 100 4h-.5a1 1 0 000 2H8a2 2 0 002-2V5a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2V5z" clip-rule="evenodd" />
                     </svg>
-                    HTTP Headers
+                    {{ t('httpHeaderChecker.http_headers') }}
                 </h3>
                 <div class="space-y-3">
                     <div
@@ -135,34 +135,34 @@
                     <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                     </svg>
-                    Headers Analysis
+                    {{ t('httpHeaderChecker.headers_analysis') }}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Caching:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.caching') }}:</span>
                             <span class="font-semibold">{{ getCacheInfo() }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Security:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.security') }}:</span>
                             <span class="font-semibold">{{ getSecurityInfo() }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Compression:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.compression') }}:</span>
                             <span class="font-semibold">{{ getCompressionInfo() }}</span>
                         </div>
                     </div>
                     <div class="space-y-2">
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">CORS:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.cors') }}:</span>
                             <span class="font-semibold">{{ getCORSInfo() }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Content Size:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.content_size') }}:</span>
                             <span class="font-semibold">{{ getContentSize() }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Server:</span>
+                            <span class="text-gray-600 dark:text-gray-400">{{ t('httpHeaderChecker.server') }}:</span>
                             <span class="font-semibold text-sm">{{ getServerInfo() }}</span>
                         </div>
                     </div>
@@ -175,26 +175,26 @@
                     @click="copyHeaders"
                     class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                 >
-                    Copy Headers
+                    {{ t('httpHeaderChecker.copy_headers') }}
                 </button>
                 <button
                     @click="downloadHeaders"
                     class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
                 >
-                    Download Headers
+                    {{ t('httpHeaderChecker.download_headers') }}
                 </button>
                 <button
                     @click="checkHeaders"
                     class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
                 >
-                    Refresh
+                    {{ t('httpHeaderChecker.refresh') }}
                 </button>
             </div>
         </div>
 
         <!-- Recent Checks -->
         <div v-if="recentChecks.length" class="border-t pt-6">
-            <h3 class="font-semibold mb-3">Recent Checks</h3>
+            <h3 class="font-semibold mb-3">{{ t('httpHeaderChecker.recent_checks') }}</h3>
             <div class="space-y-2">
                 <div
                     v-for="check in recentChecks"
@@ -211,68 +211,50 @@
             </div>
         </div>
 
-        <ToolSeoContent
-            title="HTTP Header Checker - Web Debugging Tool"
-            description="Check and analyze HTTP headers of any URL for web development and debugging."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Website Security Headers",
-        description: "Check security headers of a website",
-        code: "URL: https://example.com",
-        result: "Headers: X-Frame-Options, X-Content-Type-Options, Strict-Transport-Security, Content-Security-Policy"
-    },
-    {
-        title: "API Response Headers",
-        description: "Analyze API endpoint headers",
-        code: "URL: https://api.example.com/users",
-        result: "Headers: Content-Type: application/json, Access-Control-Allow-Origin, Rate-Limit-Limit, Rate-Limit-Remaining",
-        steps: [
-            "Enter API endpoint URL",
-            "Review response headers",
-            "Check rate limiting information",
-            "Verify CORS configuration"
-        ]
-    },
-    {
-        title: "CDN Cache Headers",
-        description: "Check caching headers for performance",
-        code: "URL: https://cdn.example.com/assets/style.css",
-        result: "Headers: Cache-Control: max-age=31536000, ETag, Last-Modified, Content-Encoding: gzip"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    "Enter a URL to check its HTTP headers",
-    "Click 'Check Headers' to analyze the response",
-    "View response status, headers, and analysis",
-    "Copy or download the header information"
-];
-
-const faqs = [
-    { 
-        question: "What are HTTP headers?", 
-        answer: "HTTP headers are additional information sent between clients and servers, containing metadata about the request or response." 
-    },
-    { 
-        question: "Can I check any URL?", 
-        answer: "Yes, you can check any publicly accessible URL. Some sites may block automated requests." 
-    },
-    { 
-        question: "What information can I get from headers?", 
-        answer: "You can see server info, caching policies, security settings, content type, CORS policies, and more." 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('httpHeaderChecker.title'));
+const mainDescription = computed(() => t('httpHeaderChecker.mainDescription'));
+const extendedDescription = computed(() => t('httpHeaderChecker.extendedDescription'));
+const features = computed(() => t('httpHeaderChecker.features'));
+const steps = computed(() => t('httpHeaderChecker.steps'));
+const examples = computed(() => t('httpHeaderChecker.examples'));
+const useCases = computed(() => t('httpHeaderChecker.useCases'));
+const technicalDetails = computed(() => t('httpHeaderChecker.technicalDetails'));
+const bestPractices = computed(() => t('httpHeaderChecker.bestPractices'));
+const commonErrors = computed(() => t('httpHeaderChecker.commonErrors'));
+const alternatives = computed(() => t('httpHeaderChecker.alternatives'));
+const relatedTools = computed(() => t('httpHeaderChecker.relatedTools'));
+const faqs = computed(() => t('httpHeaderChecker.faqs'));
+const securityNote = computed(() => t('httpHeaderChecker.securityNote'));
+const additionalContent = computed(() => t('httpHeaderChecker.additionalContent'));
 
 const url = ref("");
 const headers = ref(null);

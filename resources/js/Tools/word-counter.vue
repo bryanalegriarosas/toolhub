@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Word Counter</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('wordCounter.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('wordCounter.load_file') }}</span>
                 <input ref="fileInput" type="file" accept=".txt" @change="loadFile" class="form-input" />
             </label>
             <button
@@ -12,76 +12,76 @@
                 :disabled="!text"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy Text
+                {{ t('wordCounter.copy_text') }}
             </button>
             <button
                 @click="downloadText"
                 :disabled="!text"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Text
+                {{ t('wordCounter.download_text') }}
             </button>
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('wordCounter.clear') }}
             </button>
             <button
                 @click="saveHistory"
                 :disabled="!text"
                 class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition disabled:opacity-50"
             >
-                Save
+                {{ t('wordCounter.save') }}
             </button>
         </div>
 
         <textarea
             v-model="text"
             rows="10"
-            placeholder="Paste your text here..."
+            :placeholder="t('wordCounter.paste_your_text_here')"
             class="w-full border dark:border-gray-600 rounded-xl p-4 mb-6 text-gray-900 dark:text-white"
         />
 
         <div class="grid grid-cols-2 md:grid-cols-7 gap-4 mb-4">
             <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500 dark:text-gray-400">Words</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('wordCounter.words') }}</p>
                 <p class="text-xl font-bold">{{ wordCount }}</p>
             </div>
 
             <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500 dark:text-gray-400">Characters</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('wordCounter.characters') }}</p>
                 <p class="text-xl font-bold">{{ charCount }}</p>
             </div>
 
             <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500 dark:text-gray-400">Characters (no spaces)</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('wordCounter.characters_no_spaces') }}</p>
                 <p class="text-xl font-bold">{{ charNoSpaces }}</p>
             </div>
 
             <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500 dark:text-gray-400">Lines</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('wordCounter.lines') }}</p>
                 <p class="text-xl font-bold">{{ lineCount }}</p>
             </div>
 
             <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500 dark:text-gray-400">Reading Time</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('wordCounter.reading_time') }}</p>
                 <p class="text-xl font-bold">{{ readingTime }} min</p>
             </div>
 
             <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500 dark:text-gray-400">Avg word length</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('wordCounter.avg_word_length') }}</p>
                 <p class="text-xl font-bold">{{ avgWordLength }}</p>
             </div>
 
             <div class="border dark:border-gray-600 rounded-lg p-4 text-center">
-                <p class="text-sm text-gray-500 dark:text-gray-400">Unique words</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ t('wordCounter.unique_words') }}</p>
                 <p class="text-xl font-bold">{{ uniqueWords }}</p>
             </div>
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('wordCounter.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -93,7 +93,7 @@
                         @click="restore(h)"
                         class="text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('wordCounter.restore') }}
                     </button>
                 </li>
             </ul>
@@ -101,56 +101,54 @@
                 @click="clearHistory"
                 class="mt-3 px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear History
+                {{ t('wordCounter.clear_history') }}
             </button>
         </div>
 
-        <ToolSeoContent
-            title="Word Counter"
-            description="Count words, characters, sentences, and paragraphs in your text instantly. Perfect for writers, students, and content creators."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Paste or load text",
-    "Review word, character and line counts",
-    "Use buttons to copy, download, clear or save to history",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Counting Words in Article",
-        description: "Analyze text content for word count and statistics",
-        code: "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet at least once. It's commonly used for testing typefaces and keyboards.",
-        result: "Words: 23 | Characters: 136 | Characters (no spaces): 113 | Sentences: 2 | Paragraphs: 1"
-    },
-    {
-        title: "Blog Post Analysis",
-        description: "Check blog post length and readability",
-        code: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-        result: "Words: 30 | Characters: 201 | Characters (no spaces): 168 | Sentences: 3 | Paragraphs: 1",
-        steps: [
-            "Paste your blog post content",
-            "Review word count for SEO optimization",
-            "Check character limits for social media",
-            "Analyze sentence structure for readability"
-        ]
-    }
-];
-
-const faqs = [
-    { question: "How are words counted?", answer: "Words are split by whitespace and trimmed; multiple spaces are ignored." },
-    { question: "What is a ‘unique word’?", answer: "It's the number of distinct words, case-insensitive." },
-    { question: "How is reading time calculated?", answer: "Assuming 200 words per minute." },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('wordCounter.title'));
+const mainDescription = computed(() => t('wordCounter.mainDescription'));
+const extendedDescription = computed(() => t('wordCounter.extendedDescription'));
+const features = computed(() => t('wordCounter.features'));
+const steps = computed(() => t('wordCounter.steps'));
+const examples = computed(() => t('wordCounter.examples'));
+const useCases = computed(() => t('wordCounter.useCases'));
+const technicalDetails = computed(() => t('wordCounter.technicalDetails'));
+const bestPractices = computed(() => t('wordCounter.bestPractices'));
+const commonErrors = computed(() => t('wordCounter.commonErrors'));
+const alternatives = computed(() => t('wordCounter.alternatives'));
+const relatedTools = computed(() => t('wordCounter.relatedTools'));
+const faqs = computed(() => t('wordCounter.faqs'));
+const securityNote = computed(() => t('wordCounter.securityNote'));
+const additionalContent = computed(() => t('wordCounter.additionalContent'));
 
 const text = ref("");
 const history = ref([]);

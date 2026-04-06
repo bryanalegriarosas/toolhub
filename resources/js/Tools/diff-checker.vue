@@ -1,12 +1,12 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Diff Checker</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('diffChecker.title') }}</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Text 1 -->
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Text 1 (Original)
+                    {{ t('diffChecker.text_1_original') }}
                 </label>
                 <div class="flex gap-2">
                     <button
@@ -19,12 +19,12 @@
                         @click="clearText(1)"
                         class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition text-sm"
                     >
-                        Clear
+                        {{ t('diffChecker.clear') }}
                     </button>
                 </div>
                 <textarea
                     v-model="text1"
-                    placeholder="Paste or type your first text here..."
+                    :placeholder="t('diffChecker.paste_or_type_your_first_text_here')"
                     class="w-full h-64 p-4 border dark:border-gray-600 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
                 ></textarea>
                 <input
@@ -39,7 +39,7 @@
             <!-- Text 2 -->
             <div class="space-y-2">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Text 2 (Modified)
+                    {{ t('diffChecker.text_2_modified') }}
                 </label>
                 <div class="flex gap-2">
                     <button
@@ -52,12 +52,12 @@
                         @click="clearText(2)"
                         class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition text-sm"
                     >
-                        Clear
+                        {{ t('diffChecker.clear') }}
                     </button>
                 </div>
                 <textarea
                     v-model="text2"
-                    placeholder="Paste or type your second text here..."
+                    :placeholder="t('diffChecker.paste_or_type_your_second_text_here')"
                     class="w-full h-64 p-4 border dark:border-gray-600 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
                 ></textarea>
                 <input
@@ -77,7 +77,7 @@
                 :disabled="!text1 || !text2"
                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
             >
-                Compare Texts
+                {{ t('diffChecker.compare_texts') }}
             </button>
 
             <button
@@ -85,7 +85,7 @@
                 :disabled="!text1 && !text2"
                 class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50"
             >
-                Swap Texts
+                {{ t('diffChecker.swap_texts') }}
             </button>
 
             <button
@@ -93,7 +93,7 @@
                 :disabled="!differences.length"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy Differences
+                {{ t('diffChecker.copy_differences') }}
             </button>
 
             <button
@@ -101,14 +101,14 @@
                 :disabled="!differences.length"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Diff
+                {{ t('diffChecker.download_diff') }}
             </button>
 
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear All
+                {{ t('diffChecker.clear_all') }}
             </button>
         </div>
 
@@ -116,25 +116,25 @@
         <div v-if="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <div class="text-center">
                 <div class="text-2xl font-bold text-blue-600">{{ stats.linesAdded }}</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Added</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">{{ t('diffChecker.lines_added') }}</div>
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-red-600">{{ stats.linesRemoved }}</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Removed</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">{{ t('diffChecker.lines_removed') }}</div>
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-yellow-600">{{ stats.linesModified }}</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Modified</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">{{ t('diffChecker.lines_modified') }}</div>
             </div>
             <div class="text-center">
                 <div class="text-2xl font-bold text-gray-600 dark:text-gray-400">{{ stats.linesUnchanged }}</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Lines Unchanged</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">{{ t('diffChecker.lines_unchanged') }}</div>
             </div>
         </div>
 
         <!-- Differences Display -->
         <div v-if="differences.length" class="space-y-4">
-            <h3 class="text-lg font-semibold">Differences</h3>
+            <h3 class="text-lg font-semibold">{{ t('diffChecker.differences') }}</h3>
             <div class="border dark:border-gray-600 rounded-lg overflow-auto max-h-96">
                 <div
                     v-for="(diff, index) in differences"
@@ -174,7 +174,7 @@
 
         <!-- Side-by-Side View -->
         <div v-if="showSideBySide && differences.length" class="space-y-4">
-            <h3 class="text-lg font-semibold">Side-by-Side View</h3>
+            <h3 class="text-lg font-semibold">{{ t('diffChecker.side_by_side_view') }}</h3>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div class="border dark:border-gray-600 rounded-lg p-4">
                     <h4 class="font-semibold mb-2 text-red-600">Text 1</h4>
@@ -221,72 +221,54 @@
                 @click="showSideBySide = !showSideBySide"
                 class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
             >
-                {{ showSideBySide ? 'Hide' : 'Show' }} Side-by-Side View
+                {{ showSideBySide ? t('diffChecker.hide') : t('diffChecker.show') }} {{ t('diffChecker.side_by_side_view') }}
             </button>
         </div>
 
-        <ToolSeoContent
-            title="Diff Checker - Text Comparison Tool"
-            description="Compare two texts and find differences with highlighted changes and statistics."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Code Review Comparison",
-        description: "Compare different versions of code",
-        code: "Text 1: function calculateTotal(price, tax) { return price * (1 + tax); } | Text 2: function calculateTotal(price, tax) { return price * (1 + tax) * 1.1; }",
-        result: "Highlights: Added '* 1.1' for service fee calculation"
-    },
-    {
-        title: "Document Revision Tracking",
-        description: "Track changes in document revisions",
-        code: "Text 1: The quick brown fox jumps over the lazy dog. | Text 2: The quick brown fox jumps over the sleeping dog.",
-        result: "Changes: 'lazy' → 'sleeping' - improved word choice",
-        steps: [
-            "Paste original document in left panel",
-            "Add revised version in right panel",
-            "Review highlighted differences",
-            "Accept or reject changes as needed"
-        ]
-    },
-    {
-        title: "Configuration File Changes",
-        description: "Compare configuration file modifications",
-        code: "Text 1: timeout: 30 | retries: 3 | debug: false | Text 2: timeout: 60 | retries: 5 | debug: true",
-        result: "Modified: timeout 30→60, retries 3→5, debug false→true"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    "Enter or load two texts to compare",
-    "Click 'Compare Texts' to find differences",
-    "View highlighted changes and statistics",
-    "Download or copy the results"
-];
-
-const faqs = [
-    { 
-        question: "What text formats are supported?", 
-        answer: "Plain text files (.txt) and any text content you paste directly." 
-    },
-    { 
-        question: "How are differences detected?", 
-        answer: "The tool compares texts line by line and identifies additions, removals, and modifications." 
-    },
-    { 
-        question: "Can I compare large texts?", 
-        answer: "Yes, the tool can handle large texts, but very large files may take longer to process." 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('diffChecker.title'));
+const mainDescription = computed(() => t('diffChecker.mainDescription'));
+const extendedDescription = computed(() => t('diffChecker.extendedDescription'));
+const features = computed(() => t('diffChecker.features'));
+const steps = computed(() => t('diffChecker.steps'));
+const examples = computed(() => t('diffChecker.examples'));
+const useCases = computed(() => t('diffChecker.useCases'));
+const technicalDetails = computed(() => t('diffChecker.technicalDetails'));
+const bestPractices = computed(() => t('diffChecker.bestPractices'));
+const commonErrors = computed(() => t('diffChecker.commonErrors'));
+const alternatives = computed(() => t('diffChecker.alternatives'));
+const relatedTools = computed(() => t('diffChecker.relatedTools'));
+const faqs = computed(() => t('diffChecker.faqs'));
+const securityNote = computed(() => t('diffChecker.securityNote'));
+const additionalContent = computed(() => t('diffChecker.additionalContent'));
 
 const text1 = ref("");
 const text2 = ref("");

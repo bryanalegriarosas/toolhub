@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">URL Parser</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('urlParser.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <button
@@ -8,65 +8,65 @@
                 :disabled="!inputUrl"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy
+                {{ t('urlParser.copy') }}
             </button>
             <button
                 @click="downloadUrl"
                 :disabled="!inputUrl"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download URL
+                {{ t('urlParser.download_url') }}
             </button>
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('urlParser.clear') }}
             </button>
             <button
                 @click="saveHistory"
                 :disabled="!inputUrl"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save
+                {{ t('urlParser.save') }}
             </button>
         </div>
 
         <input
             v-model="inputUrl"
-            placeholder="https://example.com:8080/path?name=john&id=1#top"
+            :placeholder="t('urlParser.url_placeholder')"
             class="w-full border dark:border-gray-600 rounded-lg p-3 mb-6"
         />
 
         <div v-if="parsed && !parsed.error" class="space-y-4">
             <div class="border rounded p-3">
-                <strong>Protocol:</strong> {{ parsed.protocol }}
+                <strong>{{ t('urlParser.protocol') }}</strong> {{ parsed.protocol }}
             </div>
 
             <div class="border rounded p-3">
-                <strong>Host:</strong> {{ parsed.host }}
+                <strong>{{ t('urlParser.host') }}</strong> {{ parsed.host }}
             </div>
 
             <div class="border rounded p-3">
-                <strong>Hostname:</strong> {{ parsed.hostname }}
+                <strong>{{ t('urlParser.hostname') }}</strong> {{ parsed.hostname }}
             </div>
 
             <div class="border rounded p-3">
-                <strong>Port:</strong> {{ parsed.port || "—" }}
+                <strong>{{ t('urlParser.port') }}</strong> {{ parsed.port || "—" }}
             </div>
 
             <div class="border rounded p-3">
-                <strong>Path:</strong> {{ parsed.pathname }}
+                <strong>{{ t('urlParser.path') }}</strong> {{ parsed.pathname }}
             </div>
 
             <div class="border rounded p-3">
-                <strong>Hash:</strong> {{ parsed.hash || "—" }}
+                <strong>{{ t('urlParser.hash') }}</strong> {{ parsed.hash || "—" }}
             </div>
 
             <div class="border rounded p-3">
-                <strong>Query Parameters:</strong>
+                <strong>{{ t('urlParser.query_parameters') }}</strong>
 
-                <div v-if="Object.keys(parsed.params).length === 0">None</div>
+                <div v-if="Object.keys(parsed.params).length === 0">{{ t('urlParser.none') }}</div>
 
                 <ul v-else class="list-disc ml-6">
                     <li v-for="(value, key) in parsed.params" :key="key">
@@ -77,11 +77,11 @@
         </div>
 
         <div v-if="parsed && parsed.error" class="text-red-500">
-            Invalid URL
+            {{ t('urlParser.invalid_url') }}
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('urlParser.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -96,7 +96,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('urlParser.restore') }}
                     </button>
                 </li>
             </ul>
@@ -106,30 +106,44 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('urlParser.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('urlParser.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="URL Parser"
-            description="Parse a URL into components and track lookups with history."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
 const inputUrl = ref("");
 const history = ref([]);
@@ -204,47 +218,20 @@ const clearHistory = () => {
     history.value = [];
 };
 
-const examples = [
-    {
-        title: "E-commerce Product URL",
-        description: "Parse complex product URL with parameters",
-        code: "Input: https://example.com/products/laptop?category=electronics&brand=dell&price=999&sort=rating",
-        result: "Protocol: https | Host: example.com | Path: /products/laptop | Query: category=electronics&brand=dell&price=999&sort=rating"
-    },
-    {
-        title: "API Endpoint URL",
-        description: "Parse API endpoint with path parameters",
-        code: "Input: https://api.example.com/v1/users/123/posts?limit=10&sort=created_at&order=desc",
-        result: "Protocol: https | Host: api.example.com | Path: /v1/users/123/posts | Query: limit=10&sort=created_at&order=desc",
-        steps: [
-            "Enter API endpoint URL",
-            "Extract path parameters (user ID: 123)",
-            "Parse query parameters for filtering",
-            "Use components for API requests"
-        ]
-    },
-    {
-        title: "Social Media Share URL",
-        description: "Parse social media sharing URL",
-        code: "Input: https://twitter.com/intent/tweet?text=Hello%20World&url=https://example.com&hashtags=web,development",
-        result: "Protocol: https | Host: twitter.com | Path: /intent/tweet | Query: text=Hello World&url=https://example.com&hashtags=web,development"
-    }
-];
-
-const steps = [
-    "Type or paste a full URL into the input field.",
-    "If the URL is valid it will be broken into protocol, host, path, etc.",
-    "Use buttons to copy or download the URL, and save it to history for later."
-];
-
-const faqs = [
-    {
-        question: "What happens if I type an invalid URL?",
-        answer: "You’ll see an \"Invalid URL\" message below the input."
-    },
-    {
-        question: "Can I reuse a previous URL?",
-        answer: "Yes, click Restore in the history section to refill the input."
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('urlParser.title'));
+const mainDescription = computed(() => t('urlParser.mainDescription'));
+const extendedDescription = computed(() => t('urlParser.extendedDescription'));
+const features = computed(() => t('urlParser.features'));
+const steps = computed(() => t('urlParser.steps'));
+const examples = computed(() => t('urlParser.examples'));
+const useCases = computed(() => t('urlParser.useCases'));
+const technicalDetails = computed(() => t('urlParser.technicalDetails'));
+const bestPractices = computed(() => t('urlParser.bestPractices'));
+const commonErrors = computed(() => t('urlParser.commonErrors'));
+const alternatives = computed(() => t('urlParser.alternatives'));
+const relatedTools = computed(() => t('urlParser.relatedTools'));
+const faqs = computed(() => t('urlParser.faqs'));
+const securityNote = computed(() => t('urlParser.securityNote'));
+const additionalContent = computed(() => t('urlParser.additionalContent'));
 </script>

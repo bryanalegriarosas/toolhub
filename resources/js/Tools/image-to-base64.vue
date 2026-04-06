@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Image to Base64 Converter</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('imageToBase64.title') }}</h2>
 
         <!-- Upload Area -->
         <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
@@ -8,7 +8,7 @@
                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
-                <p class="text-gray-600 dark:text-gray-400">Drop image here or click to upload</p>
+                <p class="text-gray-600 dark:text-gray-400">{{ t('imageToBase64.drop_image_here') }}</p>
                 <input 
                     type="file" 
                     @change="handleFileUpload" 
@@ -20,7 +20,7 @@
                     for="file-upload" 
                     class="cursor-pointer bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block"
                 >
-                    Choose Image
+                    {{ t('imageToBase64.choose_image') }}
                 </label>
             </div>
             
@@ -36,15 +36,15 @@
                         :disabled="processing"
                         class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
                     >
-                        <span v-if="processing">Converting...</span>
-                        <span v-else>Convert to Base64</span>
+                        <span v-if="processing">{{ t('imageToBase64.converting') }}</span>
+                        <span v-else>{{ t('imageToBase64.convert_to_base64') }}</span>
                     </button>
                     
                     <button 
                         @click="resetImage" 
                         class="px-6 bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors"
                     >
-                        Clear
+                        {{ t('imageToBase64.clear') }}
                     </button>
                 </div>
             </div>
@@ -54,25 +54,25 @@
         <div v-if="base64" class="space-y-6">
             <!-- Image Preview -->
             <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Image Preview</h3>
+                <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">{{ t('imageToBase64.image_preview') }}</h3>
                 <div class="border dark:border-gray-600 rounded-lg p-4 bg-white">
                     <img :src="base64" :alt="'Converted image'" class="max-w-full h-auto mx-auto max-h-96" />
                 </div>
                 <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Format:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageToBase64.format') }}</span>
                         <span class="font-mono ml-2">{{ imageFormat }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Original Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageToBase64.original_size') }}</span>
                         <span class="font-mono ml-2">{{ formatFileSize(image.size) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Base64 Size:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageToBase64.base64_size') }}</span>
                         <span class="font-mono ml-2">{{ formatFileSize(base64.length) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Size Increase:</span>
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('imageToBase64.size_increase') }}</span>
                         <span class="font-mono ml-2">{{ sizeIncrease }}%</span>
                     </div>
                 </div>
@@ -81,19 +81,19 @@
             <!-- Base64 Output -->
             <div class="bg-blue-50 rounded-lg p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold text-blue-700">Base64 Output</h3>
+                    <h3 class="text-lg font-semibold text-blue-700">{{ t('imageToBase64.base64_output') }}</h3>
                     <div class="flex gap-2">
                         <button 
                             @click="copyBase64" 
                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
                         >
-                            {{ copied ? 'Copied!' : 'Copy' }}
+                            {{ copied ? t('imageToBase64.copied') : t('imageToBase64.copy') }}
                         </button>
                         <button 
                             @click="downloadBase64" 
                             class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
                         >
-                            Download
+                            {{ t('imageToBase64.download') }}
                         </button>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                         class="w-full px-3 py-2 border border-blue-200 rounded-lg font-mono text-xs bg-white resize-none"
                     />
                     <div class="absolute top-2 right-2 text-xs text-gray-500 dark:text-gray-400">
-                        {{ base64.length }} characters
+                        {{ t('imageToBase64.characters') }}
                     </div>
                 </div>
                 
@@ -118,7 +118,7 @@
                             v-model="includeDataPrefix"
                             class="rounded"
                         />
-                        <span class="text-sm text-gray-700 dark:text-gray-300">Include data prefix</span>
+                        <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('imageToBase64.include_data_prefix') }}</span>
                     </label>
                     
                     <label class="flex items-center space-x-2">
@@ -127,7 +127,7 @@
                             v-model="useCleanBase64"
                             class="rounded"
                         />
-                        <span class="text-sm text-gray-700 dark:text-gray-300">Clean Base64 (no prefix)</span>
+                        <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('imageToBase64.clean_base64') }}</span>
                     </label>
                 </div>
             </div>
@@ -138,12 +138,22 @@
             {{ error }}
         </div>
         <!-- SEO Content -->
-        <ToolSeoContent
-            title="Image to Base64 Converter"
-            description="Free online tool to convert images to Base64 strings. Supports all image formats with preview, copy functionality, and download options."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
 
     </div>
@@ -151,69 +161,28 @@
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Logo for CSS Embedding",
-        description: "Convert logo to Base64 for CSS background",
-        code: "Input: company-logo.png (5KB) | Output: Base64 string starting with 'data:image/png;base64,iVBORw0KGgoAAAANS...'",
-        result: "CSS usage: background-image: url('data:image/png;base64,iVBORw0KGgoAAAANS...');"
-    },
-    {
-        title: "Icon for HTML Email",
-        description: "Convert icon to Base64 for email templates",
-        code: "Input: email-icon.jpg (2KB) | Output: Base64 string for email embedding",
-        result: "HTML usage: <img src='data:image/jpeg;base64,/9j/4AAQSkZJRgABA...' alt='Email Icon'>",
-        steps: [
-            "Upload small icon or logo",
-            "Copy generated Base64 string",
-            "Paste in HTML email template",
-            "Test email rendering across clients"
-        ]
-    },
-    {
-        title: "Profile Picture for API",
-        description: "Convert profile image to Base64 for API payload",
-        code: "Input: avatar.jpg (15KB) | Output: Base64 string for JSON API",
-        result: "JSON payload: { 'profile_image': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABA...' }"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    'Upload your image using the file selector or drag and drop',
-    'Click "Convert to Base64" to process your image',
-    'View the image preview and Base64 result',
-    'Copy to clipboard or download as a text file',
-    'Choose format options (with/without data prefix)'
-];
-
-const faqs = [
-    { 
-        question: 'What is Base64 encoding?', 
-        answer: 'Base64 is an encoding scheme that converts binary data into text format, making it safe to embed images directly in HTML, CSS, or JavaScript.' 
-    },
-    { 
-        question: 'Why would I use Base64 for images?', 
-        answer: 'Base64 eliminates the need for separate image files, reduces HTTP requests, and is useful for embedding small icons, logos, or images in emails.' 
-    },
-    { 
-        question: 'What image formats are supported?', 
-        answer: 'We support all major image formats including JPEG, PNG, GIF, WebP, BMP, and SVG files.' 
-    },
-    { 
-        question: 'Is there a size limit for Base64 conversion?', 
-        answer: 'While there\'s no strict limit, very large images (over 10MB) may cause browser performance issues and are not recommended for Base64 encoding.' 
-    },
-    { 
-        question: 'What\'s the difference between clean Base64 and with prefix?', 
-        answer: 'Clean Base64 contains only the encoded data, while with prefix includes "data:image/[format];base64," which is needed for direct use in HTML/CSS.' 
-    },
-    { 
-        question: 'Is my data secure?', 
-        answer: 'All conversion happens directly in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security.' 
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('imageToBase64.title'));
+const mainDescription = computed(() => t('imageToBase64.mainDescription'));
+const extendedDescription = computed(() => t('imageToBase64.extendedDescription'));
+const features = computed(() => t('imageToBase64.features'));
+const steps = computed(() => t('imageToBase64.steps'));
+const examples = computed(() => t('imageToBase64.examples'));
+const useCases = computed(() => t('imageToBase64.useCases'));
+const technicalDetails = computed(() => t('imageToBase64.technicalDetails'));
+const bestPractices = computed(() => t('imageToBase64.bestPractices'));
+const commonErrors = computed(() => t('imageToBase64.commonErrors'));
+const alternatives = computed(() => t('imageToBase64.alternatives'));
+const relatedTools = computed(() => t('imageToBase64.relatedTools'));
+const faqs = computed(() => t('imageToBase64.faqs'));
+const securityNote = computed(() => t('imageToBase64.securityNote'));
+const additionalContent = computed(() => t('imageToBase64.additionalContent'));
 
 const image = ref(null);
 const base64 = ref('');

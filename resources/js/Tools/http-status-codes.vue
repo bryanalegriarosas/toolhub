@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">HTTP Status Code Lookup</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('httpStatusCodes.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <button
@@ -8,34 +8,34 @@
                 :disabled="!code"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy
+                {{ t('httpStatusCodes.copy') }}
             </button>
             <button
                 @click="downloadCode"
                 :disabled="!code"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Code
+                {{ t('httpStatusCodes.download_code') }}
             </button>
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('httpStatusCodes.clear') }}
             </button>
             <button
                 @click="saveHistory"
                 :disabled="!code"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save
+                {{ t('httpStatusCodes.save') }}
             </button>
         </div>
 
         <input
             v-model="code"
             type="number"
-            placeholder="Enter status code (e.g. 404)"
+            :placeholder="t('httpStatusCodes.enter_status_code_placeholder')"
             class="w-full border dark:border-gray-600 rounded-lg p-3 mb-6"
         />
 
@@ -50,7 +50,7 @@
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('httpStatusCodes.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -65,7 +65,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('httpStatusCodes.restore') }}
                     </button>
                 </li>
             </ul>
@@ -75,30 +75,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('httpStatusCodes.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('httpStatusCodes.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="HTTP Status Code Lookup"
-            description="Lookup HTTP status code meanings with history support."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
+
+// SEO Content Data - Now using translations
+const title = computed(() => t('httpStatusCodes.title'));
+const mainDescription = computed(() => t('httpStatusCodes.mainDescription'));
+const extendedDescription = computed(() => t('httpStatusCodes.extendedDescription'));
+const features = computed(() => t('httpStatusCodes.features'));
+const steps = computed(() => t('httpStatusCodes.steps'));
+const examples = computed(() => t('httpStatusCodes.examples'));
+const useCases = computed(() => t('httpStatusCodes.useCases'));
+const technicalDetails = computed(() => t('httpStatusCodes.technicalDetails'));
+const bestPractices = computed(() => t('httpStatusCodes.bestPractices'));
+const commonErrors = computed(() => t('httpStatusCodes.commonErrors'));
+const alternatives = computed(() => t('httpStatusCodes.alternatives'));
+const relatedTools = computed(() => t('httpStatusCodes.relatedTools'));
+const faqs = computed(() => t('httpStatusCodes.faqs'));
+const securityNote = computed(() => t('httpStatusCodes.securityNote'));
+const additionalContent = computed(() => t('httpStatusCodes.additionalContent'));
 
 const code = ref("");
 const history = ref([]);
@@ -174,48 +205,4 @@ const downloadHistory = () => {
 const clearHistory = () => {
     history.value = [];
 };
-
-const examples = [
-    {
-        title: "Common Error Codes",
-        description: "Lookup frequently encountered HTTP error codes",
-        code: "404",
-        result: "404 - Not Found: The requested resource could not be found on this server."
-    },
-    {
-        title: "Success Response Codes",
-        description: "Check successful HTTP response codes",
-        code: "200",
-        result: "200 - OK: The request has succeeded. This is the most common HTTP response code.",
-        steps: [
-            "Enter HTTP status code number",
-            "View detailed description and meaning",
-            "Understand server response status",
-            "Use for debugging web applications"
-        ]
-    },
-    {
-        title: "Redirection Codes",
-        description: "Lookup HTTP redirection status codes",
-        code: "301",
-        result: "301 - Moved Permanently: The requested resource has been permanently moved to a new URL."
-    }
-];
-
-const steps = [
-    "Enter an HTTP status code in the input box.",
-    "If known, the corresponding description will appear below.",
-    "Use the buttons to copy, download, or save the code to history.",
-];
-
-const faqs = [
-    {
-        question: "What if I enter an unknown code?",
-        answer: "The tool will say \"Unknown status code\". Add to your own notes if needed.",
-    },
-    {
-        question: "Can I retrieve a past lookup?",
-        answer: "Yes, use the history section and click \"Restore\" on any entry.",
-    },
-];
 </script>

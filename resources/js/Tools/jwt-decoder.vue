@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">JWT Decoder</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('jwtDecoder.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('jwtDecoder.load_file') }}</span>
                 <input ref="fileInput" type="file" accept=".jwt,.txt" @change="loadFile" class="form-input" />
             </label>
             <button
@@ -12,14 +12,14 @@
                 :disabled="!token"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             >
-                Copy 
+                {{ t('jwtDecoder.copy') }} 
             </button>
             <button
                 @click="downloadToken"
                 :disabled="!token"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-                Download Token
+                {{ t('jwtDecoder.download_token') }}
             </button>
             <button
                 @click="clearAll"
@@ -32,7 +32,7 @@
                 :disabled="!token"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
             >
-                Save
+                {{ t('jwtDecoder.save') }}
             </button>
         </div>
 
@@ -40,29 +40,29 @@
             v-model="token"
             @input="decodeJWT"
             rows="4"
-            placeholder="Paste JWT token here..."
+            :placeholder="t('jwtDecoder.paste_jwt_token_here')"
             class="w-full border dark:border-gray-600 rounded-lg p-4 mb-6"
         />
 
         <div class="space-y-6">
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">Header</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('jwtDecoder.header') }}</label>
                 <pre class="bg-gray-200 dark:bg-gray-600 p-4 rounded overflow-auto">{{ header }}</pre>
             </div>
 
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">Payload</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('jwtDecoder.payload') }}</label>
                 <pre class="bg-gray-200 dark:bg-gray-600 p-4 rounded overflow-auto">{{ payload }}</pre>
             </div>
 
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">Signature</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('jwtDecoder.signature') }}</label>
                 <pre class="bg-gray-200 dark:bg-gray-600 p-4 rounded overflow-auto">{{ signature }}</pre>
             </div>
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('jwtDecoder.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -77,7 +77,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('jwtDecoder.restore') }}
                     </button>
                 </li>
             </ul>
@@ -87,78 +87,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                    Download History
+                    {{ t('jwtDecoder.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
                 >
-                    Clear History
+                    {{ t('jwtDecoder.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="JWT Decoder"
-            description="Decode JSON Web Tokens (JWT) to inspect header, payload, and signature with history support."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Authentication Token",
-        description: "Decode JWT authentication token",
-        code: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-        result: "Header: {alg: 'HS256', typ: 'JWT'} | Payload: {sub: '1234567890', name: 'John Doe', iat: 1516239022}"
-    },
-    {
-        title: "API Access Token",
-        description: "Decode API access JWT token",
-        code: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyMTIzIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl0sImV4cCI6MTY5NDEyMzQ1Nn0.signature_here",
-        result: "Header: {alg: 'RS256', typ: 'JWT'} | Payload: {userId: 'user123', roles: ['admin', 'user'], exp: 1694123456}",
-        steps: [
-            "Paste JWT token from API response",
-            "View decoded header and payload",
-            "Check expiration time (exp claim)",
-            "Verify user roles and permissions"
-        ]
-    },
-    {
-        title: "OAuth2 Token",
-        description: "Decode OAuth2 access token",
-        code: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJ3ZWJfYXBwIiwic2NvcGUiOiJyZWFkOndyaXRlIiwiYXVkIjoiaHR0cHM6Ly9hcGkuZXhhbXBsZS5jb20ifQ.signature",
-        result: "Header: {alg: 'RS256', typ: 'JWT'} | Payload: {client_id: 'web_app', scope: 'read:write', aud: 'https://api.example.com'}"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    "Paste a JWT or load a file",
-    "Header, payload and signature will appear below",
-    "Copy or download parts or save tokens to history",
-];
-
-const faqs = [
-    {
-        question: "What is a JWT?",
-        answer: "A JSON Web Token consists of three base64url-encoded parts: header, payload and signature.",
-    },
-    {
-        question: "Can I decode any token?",
-        answer: "Only properly formatted JWTs (three segments separated by dots) are decoded.",
-    },
-    {
-        question: "Where does history go?",
-        answer: "History is stored in memory and cleared on reload.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('jwtDecoder.title'));
+const mainDescription = computed(() => t('jwtDecoder.mainDescription'));
+const extendedDescription = computed(() => t('jwtDecoder.extendedDescription'));
+const features = computed(() => t('jwtDecoder.features'));
+const steps = computed(() => t('jwtDecoder.steps'));
+const examples = computed(() => t('jwtDecoder.examples'));
+const useCases = computed(() => t('jwtDecoder.useCases'));
+const technicalDetails = computed(() => t('jwtDecoder.technicalDetails'));
+const bestPractices = computed(() => t('jwtDecoder.bestPractices'));
+const commonErrors = computed(() => t('jwtDecoder.commonErrors'));
+const alternatives = computed(() => t('jwtDecoder.alternatives'));
+const relatedTools = computed(() => t('jwtDecoder.relatedTools'));
+const faqs = computed(() => t('jwtDecoder.faqs'));
+const securityNote = computed(() => t('jwtDecoder.securityNote'));
+const additionalContent = computed(() => t('jwtDecoder.additionalContent'));
 
 const token = ref("");
 const header = ref("");

@@ -1,17 +1,17 @@
 <template>
     <div class="max-w-6xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">HTML Minifier</h1>
+        <h1 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{{ t('htmlMinifier.title') }}</h1>
 
         <div class="space-y-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Input HTML</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('htmlMinifier.input_html') }}</label>
                 <textarea 
                     v-model="input" 
                     @input="onInputChange"
                     class="w-full border p-3 rounded font-mono text-sm" 
                     rows="8" 
-                    placeholder="Paste your HTML code here..."
+                    :placeholder="t('htmlMinifier.input_html_placeholder')"
                 />
             </div>
 
@@ -21,20 +21,20 @@
                     :disabled="!input.trim()"
                     class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                 >
-                    Minify
+                    {{ t('htmlMinifier.minify') }}
                 </button>
                 <button 
                     @click="copyToClipboard" 
                     :disabled="!output"
                     class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                 >
-                    Copy Output
+                    {{ t('htmlMinifier.copy_output') }}
                 </button>
                 <button 
                     @click="clearAll" 
                     class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition-colors"
                 >
-                    Clear All
+                    {{ t('htmlMinifier.clear_all') }}
                 </button>
             </div>
 
@@ -46,7 +46,7 @@
                         id="removeComments"
                         class="rounded"
                     />
-                    <label for="removeComments" class="text-gray-700 dark:text-gray-300">Remove comments</label>
+                    <label for="removeComments" class="text-gray-700 dark:text-gray-300">{{ t('htmlMinifier.remove_comments') }}</label>
                 </div>
                 <div class="flex items-center gap-2">
                     <input 
@@ -55,7 +55,7 @@
                         id="removeWhitespace"
                         class="rounded"
                     />
-                    <label for="removeWhitespace" class="text-gray-700 dark:text-gray-300">Remove extra whitespace</label>
+                    <label for="removeWhitespace" class="text-gray-700 dark:text-gray-300">{{ t('htmlMinifier.remove_extra_whitespace') }}</label>
                 </div>
                 <div class="flex items-center gap-2">
                     <input 
@@ -64,50 +64,60 @@
                         id="preserveLineBreaks"
                         class="rounded"
                     />
-                    <label for="preserveLineBreaks" class="text-gray-700 dark:text-gray-300">Preserve line breaks</label>
+                    <label for="preserveLineBreaks" class="text-gray-700 dark:text-gray-300">{{ t('htmlMinifier.preserve_line_breaks') }}</label>
                 </div>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Minified Output</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('htmlMinifier.minified_output') }}</label>
                 <textarea 
                     v-model="output" 
                     class="w-full border p-3 rounded font-mono text-sm" 
                     rows="8" 
                     readonly
-                    placeholder="Minified HTML will appear here..."
+                    :placeholder="t('htmlMinifier.minified_html_will_appear_here')"
                 />
             </div>
 
             <div v-if="stats.originalSize > 0" class="bg-gray-50 dark:bg-gray-700 p-4 rounded">
-                <h3 class="font-semibold mb-2">Statistics</h3>
+                <h3 class="font-semibold mb-2">{{ t('htmlMinifier.statistics') }}</h3>
                 <div class="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Original size:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('htmlMinifier.original_size') }}</span> 
                         <span class="font-mono">{{ formatBytes(stats.originalSize) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Minified size:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('htmlMinifier.minified_size') }}</span> 
                         <span class="font-mono">{{ formatBytes(stats.minifiedSize) }}</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Savings:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('htmlMinifier.savings') }}</span> 
                         <span class="font-mono text-green-600">{{ formatBytes(stats.savings) }} ({{ stats.percentageSaved.toFixed(1) }}%)</span>
                     </div>
                     <div>
-                        <span class="text-gray-600 dark:text-gray-400">Compression ratio:</span> 
+                        <span class="text-gray-600 dark:text-gray-400">{{ t('htmlMinifier.compression_ratio') }}</span> 
                         <span class="font-mono">{{ (stats.compressionRatio).toFixed(2) }}:1</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="HTML Minifier"
-            description="Compress HTML code by removing unnecessary whitespace, comments, and formatting to reduce file size and improve page load speed."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
 
     </div>
@@ -115,7 +125,28 @@
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
+
+// SEO Content Data - Now using translations
+const title = computed(() => t('htmlMinifier.title'));
+const mainDescription = computed(() => t('htmlMinifier.mainDescription'));
+const extendedDescription = computed(() => t('htmlMinifier.extendedDescription'));
+const features = computed(() => t('htmlMinifier.features'));
+const steps = computed(() => t('htmlMinifier.steps'));
+const examples = computed(() => t('htmlMinifier.examples'));
+const useCases = computed(() => t('htmlMinifier.useCases'));
+const technicalDetails = computed(() => t('htmlMinifier.technicalDetails'));
+const bestPractices = computed(() => t('htmlMinifier.bestPractices'));
+const commonErrors = computed(() => t('htmlMinifier.commonErrors'));
+const alternatives = computed(() => t('htmlMinifier.alternatives'));
+const relatedTools = computed(() => t('htmlMinifier.relatedTools'));
+const faqs = computed(() => t('htmlMinifier.faqs'));
+const securityNote = computed(() => t('htmlMinifier.securityNote'));
+const additionalContent = computed(() => t('htmlMinifier.additionalContent'));
 
 const input = ref("");
 const output = ref("");
@@ -126,88 +157,6 @@ const options = ref({
     removeWhitespace: true,
     preserveLineBreaks: false
 });
-
-const examples = [
-    {
-        title: "Minifying HTML Document",
-        description: "Compress HTML code by removing whitespace and comments",
-        code: `<!DOCTYPE html>
-<html>
-<head>
-    <title>My Page</title>
-    <!-- This is a comment -->
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome</h1>
-        <p>Hello World!</p>
-    </div>
-</body>
-</html>`,
-        result: "<!DOCTYPE html><html><head><title>My Page</title></head><body><div class=\"container\"><h1>Welcome</h1><p>Hello World!</p></div></body></html>"
-    },
-    {
-        title: "Production HTML Optimization",
-        description: "Optimize HTML for production deployment",
-        code: `<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimized Page</title>
-    <!-- Main stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </nav>
-    </header>
-</body>
-</html>`,
-        result: "<html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Optimized Page</title><link rel=\"stylesheet\" href=\"styles.css\"></head><body><header><nav><ul><li><a href=\"#home\">Home</a></li><li><a href=\"#about\">About</a></li></ul></nav></header></body></html>",
-        steps: [
-            "Paste your HTML code",
-            "Enable 'Remove comments' and 'Remove whitespace'",
-            "Click 'Minify'",
-            "Copy optimized HTML for production"
-        ]
-    }
-];
-
-const steps = [
-    "Paste your HTML code into the input textarea",
-    "Configure minification options (remove comments, whitespace, etc.)",
-    "Click the 'Minify' button or let it auto-minify as you type",
-    "Copy the minified HTML using the 'Copy Output' button",
-    "View statistics to see the compression achieved"
-];
-
-const faqs = [
-    {
-        question: "What does HTML minification do?",
-        answer: "HTML minification removes unnecessary characters from your HTML code, including whitespace, comments, and formatting, without changing its functionality. This reduces file size and improves page load speed."
-    },
-    {
-        question: "Is minified HTML still valid?",
-        answer: "Yes, minified HTML remains completely valid and functional. The minification process only removes non-essential characters like spaces, line breaks, and comments."
-    },
-    {
-        question: "Should I preserve line breaks?",
-        answer: "Preserving line breaks is useful if you need to maintain some readability in the minified code for debugging purposes. However, removing them will result in smaller file sizes."
-    },
-    {
-        question: "How much compression can I expect?",
-        answer: "Compression varies depending on your HTML structure, but typically you can achieve 10-30% size reduction. Well-formatted HTML with lots of whitespace and comments will compress more."
-    },
-    {
-        question: "Can I customize the minification process?",
-        answer: "Yes, you can choose to remove comments, extra whitespace, and preserve line breaks independently using the checkboxes above the input area."
-    }
-];
 
 const stats = computed(() => {
     const originalSize = new Blob([input.value]).size;

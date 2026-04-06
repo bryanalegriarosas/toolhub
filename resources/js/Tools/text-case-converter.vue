@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Text Case Converter</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('textCaseConverter.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('textCaseConverter.load_file') }}</span>
                 <input ref="fileInput" type="file" accept=".txt" @change="loadFile" class="form-input" />
             </label>
             <button
@@ -12,40 +12,40 @@
                 :disabled="!text"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy Text
+                {{ t('textCaseConverter.copy_text') }}
             </button>
             <button
                 @click="downloadText"
                 :disabled="!text"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Text
+                {{ t('textCaseConverter.download_text') }}
             </button>
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('textCaseConverter.clear') }}
             </button>
             <button
                 @click="saveHistory"
                 :disabled="!text"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save
+                {{ t('textCaseConverter.save') }}
             </button>
         </div>
 
         <textarea
             v-model="text"
             rows="5"
-            placeholder="Enter your text..."
+            :placeholder="t('textCaseConverter.enter_your_text')"
             class="w-full border dark:border-gray-600 rounded-lg p-4 mb-6"
         />
 
         <div class="space-y-4">
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">UPPERCASE</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('textCaseConverter.uppercase') }}</label>
                 <input
                     :value="upper"
                     readonly
@@ -54,7 +54,7 @@
             </div>
 
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">lowercase</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('textCaseConverter.lowercase') }}</label>
                 <input
                     :value="lower"
                     readonly
@@ -63,7 +63,7 @@
             </div>
 
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">camelCase</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('textCaseConverter.camelcase') }}</label>
                 <input
                     :value="camel"
                     readonly
@@ -72,7 +72,7 @@
             </div>
 
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">snake_case</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('textCaseConverter.snake_case') }}</label>
                 <input
                     :value="snake"
                     readonly
@@ -81,7 +81,7 @@
             </div>
 
             <div>
-                <label class="text-sm text-gray-500 dark:text-gray-400">kebab-case</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('textCaseConverter.kebab_case') }}</label>
                 <input
                     :value="kebab"
                     readonly
@@ -91,7 +91,7 @@
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('textCaseConverter.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -106,7 +106,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('textCaseConverter.restore') }}
                     </button>
                 </li>
             </ul>
@@ -116,78 +116,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('textCaseConverter.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('textCaseConverter.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="Text Case Converter"
-            description="Convert text into various cases with history and file support."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Programming Variables",
-        description: "Convert text to different programming case formats",
-        code: "Input: User Profile Management System",
-        result: "UPPERCASE: USER PROFILE MANAGEMENT SYSTEM | lowercase: user profile management system | camelCase: userProfileManagementSystem | snake_case: user_profile_management_system | kebab-case: user-profile-management-system"
-    },
-    {
-        title: "CSS Class Names",
-        description: "Convert text to CSS-friendly kebab-case",
-        code: "Input: Main Navigation Header",
-        result: "kebab-case: main-navigation-header (perfect for CSS classes)",
-        steps: [
-            "Enter descriptive text for CSS class",
-            "Copy kebab-case result",
-            "Use in HTML class attributes",
-            "Maintain consistent naming convention"
-        ]
-    },
-    {
-        title: "JavaScript Variables",
-        description: "Convert to camelCase for JavaScript variables",
-        code: "Input: Shopping Cart Total Price",
-        result: "camelCase: shoppingCartTotalPrice (ideal for JS variables)"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    "Paste or load text",
-    "View conversions immediately",
-    "Copy, download or save original text",
-];
-
-const faqs = [
-    {
-        question: "Does conversion modify punctuation?",
-        answer: "Non-alphanumeric characters are removed in camel, snake and kebab cases.",
-    },
-    {
-        question: "Can I use a file?",
-        answer: "Yes, drop a .txt file using the load panel above.",
-    },
-    {
-        question: "Is history permanent?",
-        answer: "No, history is kept only in the current session.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('textCaseConverter.title'));
+const mainDescription = computed(() => t('textCaseConverter.mainDescription'));
+const extendedDescription = computed(() => t('textCaseConverter.extendedDescription'));
+const features = computed(() => t('textCaseConverter.features'));
+const steps = computed(() => t('textCaseConverter.steps'));
+const examples = computed(() => t('textCaseConverter.examples'));
+const useCases = computed(() => t('textCaseConverter.useCases'));
+const technicalDetails = computed(() => t('textCaseConverter.technicalDetails'));
+const bestPractices = computed(() => t('textCaseConverter.bestPractices'));
+const commonErrors = computed(() => t('textCaseConverter.commonErrors'));
+const alternatives = computed(() => t('textCaseConverter.alternatives'));
+const relatedTools = computed(() => t('textCaseConverter.relatedTools'));
+const faqs = computed(() => t('textCaseConverter.faqs'));
+const securityNote = computed(() => t('textCaseConverter.securityNote'));
+const additionalContent = computed(() => t('textCaseConverter.additionalContent'));
 
 const text = ref("");
 const history = ref([]);
