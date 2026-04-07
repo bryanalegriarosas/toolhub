@@ -1,21 +1,21 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Base64 Encoder</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('base64Encoder.title') }}</h2>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <input type="checkbox" v-model="autoProcess" />
-                <span>Auto</span>
+                <span>{{ t('base64Encoder.auto') }}</span>
             </label>
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('base64Encoder.load_file') }}</span>
                 <input ref="fileInput" type="file" @change="loadFile" class="form-input" />
             </label>
         </div>
 
         <textarea
             v-model="input"
-            placeholder="Paste text here..."
+            :placeholder="t('base64Encoder.paste_text_here')"
             class="w-full h-40 p-4 border dark:border-gray-600 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
         ></textarea>
 
@@ -25,7 +25,7 @@
                 :disabled="!input"
                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
             >
-                Encode
+                {{ t('base64Encoder.encode') }}
             </button>
 
             <button
@@ -33,7 +33,7 @@
                 :disabled="!output"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy
+                {{ t('base64Encoder.copy') }}
             </button>
 
             <button
@@ -41,14 +41,14 @@
                 :disabled="!output"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download
+                {{ t('base64Encoder.download') }}
             </button>
 
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('base64Encoder.clear') }}
             </button>
         </div>
 
@@ -61,7 +61,7 @@
         >{{ output }}</pre>
 
         <div v-if="history.length" class="mt-4">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('base64Encoder.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -73,7 +73,7 @@
                         @click="copyOne(h)"
                         class="text-xs text-blue-600 hover:underline"
                     >
-                        Copy
+                        {{ t('base64Encoder.copy') }}
                     </button>
                 </li>
             </ul>
@@ -82,67 +82,61 @@
                     @click="downloadHistory"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
                 >
-                    Download All
+                    {{ t('base64Encoder.download_all') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('base64Encoder.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="Base64 Encoder"
-            description="Convert text to Base64 encoding quickly."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, watch, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Enter or load text",
-    "Click encode (or use auto)",
-    "Copy or download the result",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Encoding Text to Base64",
-        description: "Convert plain text to Base64 for safe transmission",
-        code: "Hello World!",
-        result: "SGVsbG8gV29ybGQh"
-    },
-    {
-        title: "Encoding JSON for API",
-        description: "Encode JSON data for API requests",
-        code: `{"user":"john","status":"active"}`,
-        result: "eyJ1c2VyIjoiSm9obiIsInN0YXR1cyI6ImFjdGl2ZSJ9"
-    },
-    {
-        title: "Encoding Special Characters",
-        description: "Handle special characters and international text",
-        code: "Café ☕ & Crème brûlée",
-        result: "Q2Fmw6kg4pCUICYgQ3LDqG1lIGJyw7Juw6ls",
-        steps: [
-            "Paste text with special characters",
-            "Click 'Encode' button",
-            "Copy the Base64 result",
-            "Use in URLs or data transmission"
-        ]
-    }
-];
-
-const faqs = [
-    { question: "What is Base64?", answer: "A way to encode binary data as ASCII text, often used for embedding images or transmitting data." },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('base64Encoder.title'));
+const mainDescription = computed(() => t('base64Encoder.mainDescription'));
+const extendedDescription = computed(() => t('base64Encoder.extendedDescription'));
+const features = computed(() => t('base64Encoder.features'));
+const steps = computed(() => t('base64Encoder.steps'));
+const examples = computed(() => t('base64Encoder.examples'));
+const useCases = computed(() => t('base64Encoder.useCases'));
+const technicalDetails = computed(() => t('base64Encoder.technicalDetails'));
+const bestPractices = computed(() => t('base64Encoder.bestPractices'));
+const commonErrors = computed(() => t('base64Encoder.commonErrors'));
+const alternatives = computed(() => t('base64Encoder.alternatives'));
+const relatedTools = computed(() => t('base64Encoder.relatedTools'));
+const faqs = computed(() => t('base64Encoder.faqs'));
+const securityNote = computed(() => t('base64Encoder.securityNote'));
+const additionalContent = computed(() => t('base64Encoder.additionalContent'));
 
 const input = ref("");
 const output = ref("");

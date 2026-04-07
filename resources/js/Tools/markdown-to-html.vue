@@ -1,19 +1,19 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Markdown to HTML</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">{{ t('markdownToHtml.title') }}</h1>
 
             <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Convert Markdown text to HTML with live preview and formatting tools.
+                {{ t('markdownToHtml.description') }}
             </p>
 
             <div class="flex flex-col gap-3 sm:gap-4 mb-4">
                 <label class="flex items-center gap-2">
                     <input type="checkbox" v-model="livePreview" class="sm:mt-0" />
-                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Live Preview</span>
+                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">{{ t('markdownToHtml.live_preview') }}</span>
                 </label>
                 <label class="flex items-center gap-2">
-                    <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Load file:</span>
+                    <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('markdownToHtml.load_file') }}</span>
                     <input ref="fileInput" type="file" @change="loadFile" class="form-input text-sm sm:text-base"
                         accept=".md,.txt" />
                 </label>
@@ -23,71 +23,71 @@
                 <!-- Markdown Input -->
                 <div class="space-y-2">
                     <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
-                        Markdown Input
+                        {{ t('markdownToHtml.markdown_input') }}
                     </label>
                     <div class="flex flex-wrap gap-1 sm:gap-2 mb-2">
                         <button @click="insertMarkdown('# ', 'heading')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="Heading">
+                            :title="t('markdownToHtml.markdown_button_h1')">
                             H1
                         </button>
                         <button @click="insertMarkdown('**', 'bold')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="Bold">
+                            :title="t('markdownToHtml.markdown_button_bold')">
                             <strong>B</strong>
                         </button>
                         <button @click="insertMarkdown('*', 'italic')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="Italic">
+                            :title="t('markdownToHtml.markdown_button_italic')">
                             <em>I</em>
                         </button>
                         <button @click="insertMarkdown('`', 'code')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="Inline Code">
+                            :title="t('markdownToHtml.markdown_button_code')">
                             &lt;/&gt;
                         </button>
                         <button @click="insertMarkdown('[', 'link')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="Link">
+                            :title="t('markdownToHtml.markdown_button_link')">
                             🔗
                         </button>
                         <button @click="insertMarkdown('- ', 'list')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="List">
+                            :title="t('markdownToHtml.markdown_button_list')">
                             ≡
                         </button>
                         <button @click="insertMarkdown('> ', 'quote')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="Quote">
+                            :title="t('markdownToHtml.markdown_button_quote')">
                             "
                         </button>
                         <button @click="insertMarkdown('```\n', 'codeblock')"
                             class="px-2 sm:px-3 py-1 sm:py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition text-xs sm:text-sm"
-                            title="Code Block">
+                            :title="t('markdownToHtml.markdown_button_codeblock')">
                             &lt;/&gt;
                         </button>
                     </div>
-                    <textarea v-model="markdown" @input="handleInput" placeholder="Enter your Markdown here..."
+                    <textarea v-model="markdown" :placeholder="t('markdownToHtml.enter_your_markdown_here')"
                         class="w-full h-48 sm:h-64 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm focus:ring focus:ring-blue-200"></textarea>
                     <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                        Characters: {{ markdown.length }} | Lines: {{ lineCount }}
+                        {{ t('markdownToHtml.characters') }}: {{ markdown.length }} | {{ t('markdownToHtml.lines') }}: {{ lineCount }}
                     </div>
                 </div>
 
                 <!-- HTML Output -->
                 <div class="space-y-2">
                     <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
-                        HTML Output
+                        {{ t('markdownToHtml.html_output') }}
                     </label>
                     <div class="border dark:border-gray-600 rounded-lg h-48 sm:h-64 overflow-auto bg-gray-50 dark:bg-gray-700">
                         <div v-if="html" class="p-3 sm:p-4 prose prose-sm max-w-none text-xs sm:text-sm" v-html="html">
                         </div>
                         <div v-else class="p-3 sm:p-4 text-gray-400 italic text-xs sm:text-sm">
-                            HTML output will appear here...
+                            {{ t('markdownToHtml.html_output_will_appear_here') }}
                         </div>
                     </div>
                     <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                        HTML Characters: {{ html.length }}
+                        {{ t('markdownToHtml.html_characters') }}: {{ html.length }}
                     </div>
                 </div>
             </div>
@@ -96,11 +96,11 @@
             <div v-if="html" class="space-y-2">
                 <div class="flex items-center justify-between">
                     <label class="block text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
-                        Raw HTML Code
+                        {{ t('markdownToHtml.raw_html_code') }}
                     </label>
                     <button @click="copyHtml"
                         class="px-2 sm:px-3 py-1 sm:py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-xs sm:text-sm">
-                        Copy HTML
+                        {{ t('markdownToHtml.copy_html') }}
                     </button>
                 </div>
                 <pre
@@ -111,110 +111,102 @@
             <div class="flex flex-wrap gap-2 sm:gap-3">
                 <button @click="convert" :disabled="!markdown"
                     class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Convert to HTML
+                    {{ t('markdownToHtml.convert_to_html') }}
                 </button>
 
                 <button @click="copyHtml" :disabled="!html"
                     class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Copy HTML
+                    {{ t('markdownToHtml.copy_html') }}
                 </button>
 
                 <button @click="downloadHtml" :disabled="!html"
                     class="px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Download HTML
+                    {{ t('markdownToHtml.download_html') }}
                 </button>
 
                 <button @click="downloadMarkdown" :disabled="!markdown"
                     class="px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Download Markdown
+                    {{ t('markdownToHtml.download_markdown') }}
                 </button>
 
                 <button @click="clearAll"
                     class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
-                    Clear All
+                    {{ t('markdownToHtml.clear_all') }}
                 </button>
             </div>
 
             <!-- Sample Markdown -->
             <div class="border-t pt-4 sm:pt-6">
-                <h3 class="font-semibold mb-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Sample Markdown</h3>
+                <h3 class="font-semibold mb-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('markdownToHtml.sample_markdown') }}</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <button @click="loadSample('basic')"
                         class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">Basic Example</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Headings, lists, links</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('markdownToHtml.basic_example') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('markdownToHtml.headings_lists_links') }}</div>
                     </button>
                     <button @click="loadSample('advanced')"
                         class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">Advanced Example</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Code blocks, tables, images</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('markdownToHtml.advanced_example') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('markdownToHtml.code_blocks_tables_images') }}</div>
                     </button>
                     <button @click="loadSample('documentation')"
                         class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">Documentation Style</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">API documentation format</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('markdownToHtml.documentation_style') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('markdownToHtml.api_documentation_format') }}</div>
                     </button>
                     <button @click="loadSample('readme')"
                         class="p-3 sm:p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:bg-gray-700 text-left">
-                        <div class="font-medium text-sm sm:text-base">README Style</div>
-                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Project README format</div>
+                        <div class="font-medium text-sm sm:text-base">{{ t('markdownToHtml.readme_style') }}</div>
+                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ t('markdownToHtml.project_readme_format') }}</div>
                     </button>
                 </div>
             </div>
 
-            <ToolSeoContent title="Markdown to HTML Converter"
-                description="Convert Markdown text to HTML with live preview and syntax highlighting." :steps="steps"
-                :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "Blog Post Markdown",
-        description: "Convert blog post from Markdown to HTML",
-        code: "# My Blog Post\n\n## Introduction\nThis is a **blog post** with *italic* text and `code`.\n\n- Item 1\n- Item 2\n- Item 3\n\n> This is a quote from someone important.",
-        result: "<h1>My Blog Post</h1>\n<h2>Introduction</h2>\n<p>This is a <strong>blog post</strong> with <em>italic</em> text and <code>code</code>.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n<li>Item 3</li>\n</ul>\n<blockquote>\n<p>This is a quote from someone important.</p>\n</blockquote>"
-    },
-    {
-        title: "Technical Documentation",
-        description: "Convert technical documentation with code blocks",
-        code: "# API Documentation\n\n## Installation\n```bash\nnpm install my-package\n```\n\n## Usage\n```javascript\nconst package = require('my-package');\npackage.init();\n```",
-        result: "<h1>API Documentation</h1>\n<h2>Installation</h2>\n<pre><code class=\"language-bash\">npm install my-package</code></pre>\n<h2>Usage</h2>\n<pre><code class=\"language-javascript\">const package = require('my-package');\npackage.init();</code></pre>",
-        steps: [
-            "Write technical documentation in Markdown",
-            "Use code blocks with language specification",
-            "Convert to clean HTML for web display",
-            "Copy HTML for documentation sites"
-        ]
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    "Enter or paste your Markdown text",
-    "Convert to HTML instantly or use live preview",
-    "Copy or download the HTML output",
-    "Use toolbar buttons for quick formatting"
-];
-
-const faqs = [
-    {
-        question: "What Markdown syntax is supported?",
-        answer: "Common syntax including headings, bold, italic, links, lists, code blocks, tables, and images."
-    },
-    {
-        question: "Can I use live preview?",
-        answer: "Yes, enable live preview to see HTML output as you type."
-    },
-    {
-        question: "Can I download the converted HTML?",
-        answer: "Yes, you can download both the original Markdown and converted HTML files."
-    }
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('markdownToHtml.title'));
+const mainDescription = computed(() => t('markdownToHtml.mainDescription'));
+const extendedDescription = computed(() => t('markdownToHtml.extendedDescription'));
+const features = computed(() => t('markdownToHtml.features'));
+const steps = computed(() => t('markdownToHtml.steps'));
+const examples = computed(() => t('markdownToHtml.examples'));
+const useCases = computed(() => t('markdownToHtml.useCases'));
+const technicalDetails = computed(() => t('markdownToHtml.technicalDetails'));
+const bestPractices = computed(() => t('markdownToHtml.bestPractices'));
+const commonErrors = computed(() => t('markdownToHtml.commonErrors'));
+const alternatives = computed(() => t('markdownToHtml.alternatives'));
+const relatedTools = computed(() => t('markdownToHtml.relatedTools'));
+const faqs = computed(() => t('markdownToHtml.faqs'));
+const securityNote = computed(() => t('markdownToHtml.securityNote'));
+const additionalContent = computed(() => t('markdownToHtml.additionalContent'));
 
 const markdown = ref("");
 const html = ref("");

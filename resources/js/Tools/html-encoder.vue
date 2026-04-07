@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">HTML Encoder</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('htmlEncoder.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('htmlEncoder.load_file') }}</span>
                 <input ref="fileInput" type="file" accept=".html,.txt" @change="loadFile" class="form-input" />
             </label>
             <button
@@ -12,39 +12,39 @@
                 :disabled="!text"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy 
+                {{ t('htmlEncoder.copy') }}
             </button>
             <button
                 @click="downloadText"
                 :disabled="!text"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Input
+                {{ t('htmlEncoder.download_input') }}
             </button>
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('htmlEncoder.clear') }}
             </button>
             <button
                 @click="saveHistory"
                 :disabled="!text"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save
+                {{ t('htmlEncoder.save') }}
             </button>
         </div>
 
         <textarea
             v-model="text"
             rows="6"
-            placeholder="Paste HTML here..."
+            :placeholder="t('htmlEncoder.paste_html_here')"
             class="w-full border dark:border-gray-600 rounded-lg p-4 mb-6"
         />
 
         <div>
-            <label class="text-sm text-gray-500 dark:text-gray-400">Encoded HTML</label>
+            <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('htmlEncoder.encoded_html') }}</label>
 
             <textarea
                 :value="encoded"
@@ -55,7 +55,7 @@
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('htmlEncoder.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -70,7 +70,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('htmlEncoder.restore') }}
                     </button>
                 </li>
             </ul>
@@ -80,78 +80,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('htmlEncoder.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('htmlEncoder.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="HTML Encoder"
-            description="Encode HTML characters to entities with history and file input."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Paste or load your HTML/text",
-    "Encoded output appears below",
-    "Copy, download or save to history",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Encoding Special Characters",
-        description: "Convert HTML special characters to safe entities",
-        code: "<div class='container'>Hello & Welcome!</div>",
-        result: "&lt;div class=&#39;container&#39;&gt;Hello &amp; Welcome!&lt;/div&gt;"
-    },
-    {
-        title: "Encoding User Input",
-        description: "Encode user input to prevent XSS attacks",
-        code: "&lt;script&gt;alert(&#39;XSS attack&#39;)&lt;/script&gt;",
-        result: "<scr" + "ipt>alert('XSS attack')</scr" + "ipt>",
-        steps: [
-            "Get user input from form",
-            "Encode using HTML entities",
-            "Display safely in HTML",
-            "Prevent script execution"
-        ]
-    },
-    {
-        title: "Encoding Code Examples",
-        description: "Display code snippets safely in HTML",
-        code: "<p>Use &lt;strong&gt; for bold text</p>",
-        result: "&lt;p&gt;Use &amp;lt;strong&amp;gt; for bold text&lt;/p&gt;"
-    }
-];
-
-const faqs = [
-    {
-        question: "Which characters are encoded?",
-        answer: "&, <, >, \" and ' are converted into HTML entities.",
-    },
-    {
-        question: "Can I encode a file?",
-        answer: "Yes, load any .html or .txt file; its contents will be encoded.",
-    },
-    {
-        question: "Does history persist?",
-        answer: "No, history is cleared on reload.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('htmlEncoder.title'));
+const mainDescription = computed(() => t('htmlEncoder.mainDescription'));
+const extendedDescription = computed(() => t('htmlEncoder.extendedDescription'));
+const features = computed(() => t('htmlEncoder.features'));
+const steps = computed(() => t('htmlEncoder.steps'));
+const examples = computed(() => t('htmlEncoder.examples'));
+const useCases = computed(() => t('htmlEncoder.useCases'));
+const technicalDetails = computed(() => t('htmlEncoder.technicalDetails'));
+const bestPractices = computed(() => t('htmlEncoder.bestPractices'));
+const commonErrors = computed(() => t('htmlEncoder.commonErrors'));
+const alternatives = computed(() => t('htmlEncoder.alternatives'));
+const relatedTools = computed(() => t('htmlEncoder.relatedTools'));
+const faqs = computed(() => t('htmlEncoder.faqs'));
+const securityNote = computed(() => t('htmlEncoder.securityNote'));
+const additionalContent = computed(() => t('htmlEncoder.additionalContent'));
 
 const text = ref("");
 const history = ref([]);

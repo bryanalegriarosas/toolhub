@@ -11,7 +11,7 @@
 
             <div class="flex flex-col md:flex-row md:items-center gap-3 mb-4">
                 <label class="flex items-center gap-2">
-                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">Load JSON file</span>
+                    <span class="text-sm sm:text-base text-gray-700 dark:text-gray-300">{{ t('jsonToCsv.load_json_file') }}</span>
                     <input ref="fileInput" type="file" accept=".json,application/json" @change="loadFile"
                         class="form-input text-sm sm:text-base" />
                 </label>
@@ -21,7 +21,7 @@
                 </button>
                 <button @click="saveHistory" :disabled="!input || !output"
                     class="px-3 sm:px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50 text-sm sm:text-base">
-                    Save
+                    {{ t('jsonToCsv.save') }}
                 </button>
             </div>
 
@@ -29,15 +29,15 @@
 
                 <!-- INPUT -->
                 <div>
-                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">Input JSON</h2>
+                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('jsonToCsv.input_json') }}</h2>
                     <textarea v-model="input" @input="autoConvert"
                         class="w-full h-64 sm:h-80 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm resize-none dark:bg-gray-700 dark:text-white"
-                        placeholder='[{"name":"John","age":30}]'></textarea>
+                        :placeholder="t('jsonToCsv.placeholder_json')"></textarea>
                 </div>
 
                 <!-- OUTPUT -->
                 <div>
-                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">CSV Output</h2>
+                    <h2 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('jsonToCsv.csv_output') }}</h2>
                     <textarea readonly :value="output"
                         class="w-full h-64 sm:h-80 p-3 sm:p-4 border dark:border-gray-600 rounded-lg font-mono text-xs sm:text-sm bg-gray-50 dark:bg-gray-700 dark:text-white resize-none"></textarea>
                 </div>
@@ -51,23 +51,23 @@
             <div class="flex flex-wrap gap-2 sm:gap-3 mt-4 sm:mt-6">
                 <button @click="convertToCSV"
                     class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm sm:text-base">
-                    Convert
+                    {{ t('jsonToCsv.convert') }}
                 </button>
 
                 <button @click="copyResult"
                     class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base"
                     :disabled="!output">
-                    Copy
+                    {{ t('jsonToCsv.copy') }}
                 </button>
 
                 <button @click="clearAll"
                     class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-sm sm:text-base">
-                    Clear
+                    {{ t('jsonToCsv.clear') }}
                 </button>
             </div>
 
             <div v-if="history.length" class="mt-4 sm:mt-6">
-                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">History</h3>
+                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('jsonToCsv.history') }}</h3>
                 <div class="max-h-48 sm:max-h-64 overflow-y-auto border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
                     <ul class="space-y-2">
                         <li v-for="(item, idx) in history" :key="idx"
@@ -80,9 +80,9 @@
                             </div>
                             <div class="flex gap-1 self-start sm:self-auto">
                                 <button @click="restore(item)"
-                                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900">Restore</button>
+                                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900">{{ t('jsonToCsv.restore') }}</button>
                                 <button @click="copyHistoryItem(item.output)"
-                                    class="text-xs text-green-600 dark:text-green-400 hover:underline px-2 py-1 rounded hover:bg-green-50 dark:hover:bg-green-900">Copy</button>
+                                    class="text-xs text-green-600 dark:text-green-400 hover:underline px-2 py-1 rounded hover:bg-green-50 dark:hover:bg-green-900">{{ t('jsonToCsv.copy') }}</button>
                             </div>
                         </li>
                     </ul>
@@ -90,88 +90,61 @@
                 <div class="flex gap-2 sm:gap-3 mt-3">
                     <button @click="downloadHistory" :disabled="!history.length"
                         class="px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 text-xs sm:text-sm">
-                        Download All
+                        {{ t('jsonToCsv.download_all') }}
                     </button>
                     <button @click="clearHistory"
                         class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition text-xs sm:text-sm">
-                        Clear History
+                        {{ t('jsonToCsv.clear_history') }}
                     </button>
                 </div>
             </div>
 
-            <ToolSeoContent title="JSON to CSV Converter"
-                description="Convert JSON arrays to CSV format with automatic delimiter detection, history tracking, and batch processing capabilities."
-                :steps="steps" :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
 
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Enter JSON array data or upload a JSON file",
-    "Click Convert to transform to CSV format",
-    "Copy or download the CSV result",
-    "Save to history for later reference",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Simple User Data",
-        description: "Convert user information from JSON to CSV",
-        code: '[{"name":"John","age":30,"city":"New York"},{"name":"Jane","age":25,"city":"Los Angeles"}]',
-        result: "name,age,city\nJohn,30,New York\nJane,25,Los Angeles",
-        steps: [
-            "Enter the JSON array in the input field",
-            "Click 'Convert' to transform to CSV",
-            "Copy the CSV result for use in spreadsheets"
-        ]
-    },
-    {
-        title: "Product Catalog",
-        description: "Convert product data for e-commerce platforms",
-        code: '[{"id":1,"product":"Laptop","price":999.99,"stock":50},{"id":2,"product":"Mouse","price":29.99,"stock":200}]',
-        result: "id,product,price,stock\n1,Laptop,999.99,50\n2,Mouse,29.99,200",
-        steps: [
-            "Paste product JSON data",
-            "Convert to CSV for inventory management",
-            "Download as CSV file for Excel import"
-        ]
-    },
-    {
-        title: "API Response Data",
-        description: "Convert API responses to spreadsheet format",
-        code: '[{"status":"success","code":200,"message":"Data retrieved"}]',
-        result: "status,code,message\nsuccess,200,Data retrieved",
-        steps: [
-            "Copy API response JSON",
-            "Convert to CSV for analysis",
-            "Use in data analysis tools"
-        ]
-    }
-];
-
-const faqs = [
-    {
-        question: "What JSON format is supported?",
-        answer: "The tool accepts JSON arrays of objects. Each object should have consistent keys that will become CSV headers.",
-    },
-    {
-        question: "How are special characters handled?",
-        answer: "Special characters including commas, quotes, and newlines are properly escaped according to CSV standards.",
-    },
-    {
-        question: "Can I process large JSON files?",
-        answer: "Yes, you can upload JSON files. The tool handles files of reasonable size for browser processing.",
-    },
-    {
-        question: "What happens with missing values?",
-        answer: "Missing or null values are converted to empty strings in the CSV output.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('jsonToCsv.title'));
+const mainDescription = computed(() => t('jsonToCsv.mainDescription'));
+const extendedDescription = computed(() => t('jsonToCsv.extendedDescription'));
+const features = computed(() => t('jsonToCsv.features'));
+const steps = computed(() => t('jsonToCsv.steps'));
+const examples = computed(() => t('jsonToCsv.examples'));
+const useCases = computed(() => t('jsonToCsv.useCases'));
+const technicalDetails = computed(() => t('jsonToCsv.technicalDetails'));
+const bestPractices = computed(() => t('jsonToCsv.bestPractices'));
+const commonErrors = computed(() => t('jsonToCsv.commonErrors'));
+const alternatives = computed(() => t('jsonToCsv.alternatives'));
+const relatedTools = computed(() => t('jsonToCsv.relatedTools'));
+const faqs = computed(() => t('jsonToCsv.faqs'));
+const securityNote = computed(() => t('jsonToCsv.securityNote'));
+const additionalContent = computed(() => t('jsonToCsv.additionalContent'));
 
 const input = ref("");
 const output = ref("");

@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Random String Generator</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('randomStringGenerator.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('randomStringGenerator.load_file') }}</span>
                 <input ref="fileInput" type="file" accept="*" @change="loadFile" class="form-input" />
             </label>
             <button
@@ -12,14 +12,14 @@
                 :disabled="!result"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy
+                {{ t('randomStringGenerator.copy') }}
             </button>
             <button
                 @click="downloadResult"
                 :disabled="!result"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Result
+                {{ t('randomStringGenerator.download_result') }}
             </button>
             <button
                 @click="clearAll"
@@ -32,13 +32,13 @@
                 :disabled="!result"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save
+                {{ t('randomStringGenerator.save') }}
             </button>
         </div>
 
         <div class="space-y-6">
             <div>
-                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">Length</label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">{{ t('randomStringGenerator.length') }}</label>
 
                 <input
                     v-model="length"
@@ -52,17 +52,17 @@
             <div class="flex gap-6">
                 <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="checkbox" v-model="includeLetters" />
-                    Letters
+                    {{ t('randomStringGenerator.letters') }}
                 </label>
 
                 <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="checkbox" v-model="includeNumbers" />
-                    Numbers
+                    {{ t('randomStringGenerator.numbers') }}
                 </label>
 
                 <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="checkbox" v-model="includeSymbols" />
-                    Symbols
+                    {{ t('randomStringGenerator.symbols') }}
                 </label>
             </div>
 
@@ -70,11 +70,11 @@
                 @click="generate"
                 class="bg-blue-600 text-white px-4 py-2 rounded-lg"
             >
-                Generate
+                {{ t('randomStringGenerator.generate') }}
             </button>
 
             <div v-if="result">
-                <label class="block text-sm mb-2 mt-4">Result</label>
+                <label class="block text-sm mb-2 mt-4">{{ t('randomStringGenerator.result') }}</label>
 
                 <input
                     :value="result"
@@ -85,7 +85,7 @@
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('randomStringGenerator.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -100,7 +100,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('randomStringGenerator.restore') }}
                     </button>
                 </li>
             </ul>
@@ -110,78 +110,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('randomStringGenerator.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('randomStringGenerator.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="Random String Generator"
-            description="Create secure random strings with custom length and charset. Includes history, copy/download and file support."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const examples = [
-    {
-        title: "API Key Generator",
-        description: "Generate secure API key for authentication",
-        code: "Length: 32 | Characters: Letters + Numbers | Symbols: No",
-        result: "Generated: a7b3K9m2X5p8Q1r4T6y9U2w5Z8c1F (secure API key)"
-    },
-    {
-        title: "Session Token",
-        description: "Create random session token for web applications",
-        code: "Length: 64 | Characters: Letters + Numbers + Symbols | Symbols: Yes",
-        result: "Generated: K9$m2X5#p8Q1r4!T6y9U2@w5Z8c1F*a7b3K9m2X5p8Q1r4T6y9U2w5Z8c1F",
-        steps: [
-            "Set length to 64 characters for security",
-            "Include all character types",
-            "Generate and store in secure database",
-            "Use for user session authentication"
-        ]
-    },
-    {
-        title: "Random Password",
-        description: "Generate strong random password",
-        code: "Length: 16 | Characters: Letters + Numbers + Symbols | Symbols: Yes",
-        result: "Generated: Q1r4!T6y9U2@w5Z8 (strong password)"
-    }
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const steps = [
-    "Choose length and character sets",
-    "Click generate to produce a string",
-    "Copy, download or save to history",
-];
-
-const faqs = [
-    {
-        question: "How long can the string be?",
-        answer: "Between 4 and 128 characters, configurable by the length field.",
-    },
-    {
-        question: "What characters are included?",
-        answer: "You can toggle letters, numbers and symbols independently.",
-    },
-    {
-        question: "Does history persist?",
-        answer: "No, history exists only during the current session.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('randomStringGenerator.title'));
+const mainDescription = computed(() => t('randomStringGenerator.mainDescription'));
+const extendedDescription = computed(() => t('randomStringGenerator.extendedDescription'));
+const features = computed(() => t('randomStringGenerator.features'));
+const steps = computed(() => t('randomStringGenerator.steps'));
+const examples = computed(() => t('randomStringGenerator.examples'));
+const useCases = computed(() => t('randomStringGenerator.useCases'));
+const technicalDetails = computed(() => t('randomStringGenerator.technicalDetails'));
+const bestPractices = computed(() => t('randomStringGenerator.bestPractices'));
+const commonErrors = computed(() => t('randomStringGenerator.commonErrors'));
+const alternatives = computed(() => t('randomStringGenerator.alternatives'));
+const relatedTools = computed(() => t('randomStringGenerator.relatedTools'));
+const faqs = computed(() => t('randomStringGenerator.faqs'));
+const securityNote = computed(() => t('randomStringGenerator.securityNote'));
+const additionalContent = computed(() => t('randomStringGenerator.additionalContent'));
 
 const length = ref(16);
 const includeLetters = ref(true);

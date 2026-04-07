@@ -1,10 +1,10 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Hash Generator</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('hashGenerator.title') }}</h1>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file</span>
+                <span>{{ t('hashGenerator.load_file') }}</span>
                 <input ref="fileInput" type="file" accept="*" @change="loadFile" class="form-input" />
             </label>
             <button
@@ -12,14 +12,14 @@
                 :disabled="!text"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy Text
+                {{ t('hashGenerator.copy_text') }}
             </button>
             <button
                 @click="downloadText"
                 :disabled="!text"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download Text
+                {{ t('hashGenerator.download_text') }}
             </button>
             <button
                 @click="clearAll"
@@ -32,7 +32,7 @@
                 :disabled="!text"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save
+                {{ t('hashGenerator.save') }}
             </button>
         </div>
 
@@ -40,53 +40,53 @@
             v-model="text"
             @input="generateHashes"
             rows="4"
-            placeholder="Enter text..."
+            :placeholder="t('hashGenerator.enter_text')"
             class="w-full border dark:border-gray-600 rounded-lg p-4 mb-6"
         />
 
         <div class="space-y-4">
             <div class="relative">
-                <label class="text-sm text-gray-500 dark:text-gray-400">SHA-1</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('hashGenerator.sha1') }}</label>
                 <input
                     :value="sha1"
                     readonly
                     class="w-full border rounded p-2 pr-24"
                 />
                 <div class="absolute top-[1.7rem] right-2 flex gap-1">
-                    <button @click="copyHash('sha1')" class="text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700">Copy</button>
-                    <button @click="downloadHash('sha1')" class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Download</button>
+                    <button @click="copyHash('sha1')" class="text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700">{{ t('hashGenerator.copy') }}</button>
+                    <button @click="downloadHash('sha1')" class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">{{ t('hashGenerator.download') }}</button>
                 </div>
             </div>
 
             <div class="relative">
-                <label class="text-sm text-gray-500 dark:text-gray-400">SHA-256</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('hashGenerator.sha256') }}</label>
                 <input
                     :value="sha256"
                     readonly
                     class="w-full border rounded p-2 pr-24"
                 />
                 <div class="absolute top-[1.7rem] right-2 flex gap-1">
-                    <button @click="copyHash('sha256')" class="text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700">Copy</button>
-                    <button @click="downloadHash('sha256')" class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Download</button>
+                    <button @click="copyHash('sha256')" class="text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700">{{ t('hashGenerator.copy') }}</button>
+                    <button @click="downloadHash('sha256')" class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">{{ t('hashGenerator.download') }}</button>
                 </div>
             </div>
 
             <div class="relative">
-                <label class="text-sm text-gray-500 dark:text-gray-400">SHA-512</label>
+                <label class="text-sm text-gray-500 dark:text-gray-400">{{ t('hashGenerator.sha512') }}</label>
                 <input
                     :value="sha512"
                     readonly
                     class="w-full border rounded p-2 pr-24"
                 />
                 <div class="absolute top-[1.7rem] right-2 flex gap-1">
-                    <button @click="copyHash('sha512')" class="text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700">Copy</button>
-                    <button @click="downloadHash('sha512')" class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Download</button>
+                    <button @click="copyHash('sha512')" class="text-xs px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700">{{ t('hashGenerator.copy') }}</button>
+                    <button @click="downloadHash('sha512')" class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">{{ t('hashGenerator.download') }}</button>
                 </div>
             </div>
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('hashGenerator.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -101,7 +101,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('hashGenerator.restore') }}
                     </button>
                 </li>
             </ul>
@@ -111,85 +111,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('hashGenerator.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('hashGenerator.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="Hash Generator"
-            description="Produce SHA‑1, SHA‑256 and SHA‑512 hashes from text or files. Manage results with copy, download and history features."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Type or paste text or load a file",
-    "Hashes are generated automatically",
-    "Copy or download individual hashes",
-    "Save to history and restore later",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Hashing Passwords",
-        description: "Generate secure SHA-256 hash for password storage",
-        code: "mypassword123",
-        result: "SHA-256: 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd5f7b9e1e00fce",
-        steps: [
-            "Enter your password",
-            "Copy the SHA-256 hash",
-            "Store in database (never store plain passwords)",
-            "Use for verification during login"
-        ]
-    },
-    {
-        title: "Hashing File Content",
-        description: "Generate hash for data integrity verification",
-        code: "Important document content that should not be modified",
-        result: "SHA-256: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
-        steps: [
-            "Paste or load file content",
-            "Generate SHA-256 hash",
-            "Store hash for verification",
-            "Compare later to detect changes"
-        ]
-    },
-    {
-        title: "API Key Generation",
-        description: "Create unique identifiers for API keys",
-        code: "user123_api_secret_2024",
-        result: "SHA-1: 8d6e8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c"
-    }
-];
-
-const faqs = [
-    {
-        question: "Which algorithms are supported?",
-        answer: "SHA-1, SHA-256 and SHA-512 are calculated in the browser using Web Crypto API.",
-    },
-    {
-        question: "Can I hash a file?",
-        answer: "Yes – load any file and its content will be hashed automatically.",
-    },
-    {
-        question: "Is history saved between sessions?",
-        answer: "No, history only lives in-memory during the current visit.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('hashGenerator.title'));
+const mainDescription = computed(() => t('hashGenerator.mainDescription'));
+const extendedDescription = computed(() => t('hashGenerator.extendedDescription'));
+const features = computed(() => t('hashGenerator.features'));
+const steps = computed(() => t('hashGenerator.steps'));
+const examples = computed(() => t('hashGenerator.examples'));
+const useCases = computed(() => t('hashGenerator.useCases'));
+const technicalDetails = computed(() => t('hashGenerator.technicalDetails'));
+const bestPractices = computed(() => t('hashGenerator.bestPractices'));
+const commonErrors = computed(() => t('hashGenerator.commonErrors'));
+const alternatives = computed(() => t('hashGenerator.alternatives'));
+const relatedTools = computed(() => t('hashGenerator.relatedTools'));
+const faqs = computed(() => t('hashGenerator.faqs'));
+const securityNote = computed(() => t('hashGenerator.securityNote'));
+const additionalContent = computed(() => t('hashGenerator.additionalContent'));
 
 const text = ref("");
 const sha1 = ref("");

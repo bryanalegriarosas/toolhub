@@ -1,21 +1,21 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">URL Encoder</h2>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('urlEncoder.title') }}</h2>
 
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <input type="checkbox" v-model="autoProcess" />
-                <span>Auto</span>
+                <span>{{ t('urlEncoder.auto') }}</span>
             </label>
             <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                <span>Load file:</span>
+                <span>{{ t('urlEncoder.load_file') }}</span>
                 <input ref="fileInput" type="file" @change="loadFile" class="form-input" />
             </label>
         </div>
 
         <textarea
             v-model="input"
-            placeholder="Paste text here..."
+            :placeholder="t('urlEncoder.paste_text_here')"
             class="w-full h-40 p-4 border dark:border-gray-600 rounded-lg font-mono text-sm focus:ring focus:ring-blue-200"
         ></textarea>
 
@@ -25,7 +25,7 @@
                 :disabled="!input"
                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
             >
-                Encode
+                {{ t('urlEncoder.encode') }}
             </button>
 
             <button
@@ -33,7 +33,7 @@
                 :disabled="!output"
                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
             >
-                Copy
+                {{ t('urlEncoder.copy') }}
             </button>
 
             <button
@@ -41,14 +41,14 @@
                 :disabled="!output"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
             >
-                Download
+                {{ t('urlEncoder.download') }}
             </button>
 
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('urlEncoder.clear') }}
             </button>
         </div>
 
@@ -61,7 +61,7 @@
         >{{ output }}</pre>
 
         <div v-if="history.length" class="mt-4">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('urlEncoder.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -73,7 +73,7 @@
                         @click="copyOne(h)"
                         class="text-xs text-blue-600 hover:underline"
                     >
-                        Copy
+                        {{ t('urlEncoder.copy') }}
                     </button>
                 </li>
             </ul>
@@ -82,67 +82,61 @@
                     @click="downloadHistory"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
                 >
-                    Download All
+                    {{ t('urlEncoder.download_all') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('urlEncoder.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="URL Encoder"
-            description="Encode text for use in URLs quickly."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, watch, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Enter or load text",
-    "Click encode (or use auto)",
-    "Copy or download the result",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Encoding URL Parameters",
-        description: "Encode special characters in URL query parameters",
-        code: "search?q=hello world & page=1&category=web development",
-        result: "search%3Fq%3Dhello%20world%20%26%20page%3D1%26category%3Dweb%20development"
-    },
-    {
-        title: "Encoding File Paths",
-        description: "Encode file paths with special characters for URLs",
-        code: "C:/Users/John Doe/Documents/file name.txt",
-        result: "C%3A%2FUsers%2FJohn%20Doe%2FDocuments%2Ffile%20name.txt"
-    },
-    {
-        title: "Encoding Special Characters",
-        description: "Handle spaces, symbols and international characters",
-        code: "Café & Restaurant (Main St)",
-        result: "Caf%C3%A9%20%26%20Restaurant%20%28Main%20St%29",
-        steps: [
-            "Paste text with special characters",
-            "Click 'Encode' button",
-            "Copy the URL-safe result",
-            "Use in links or API requests"
-        ]
-    }
-];
-
-const faqs = [
-    { question: "What is URL encoding?", answer: "It converts characters into a format that can be transmitted over the Internet by replacing unsafe ASCII characters with a '%' followed by two hexadecimal digits." },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('urlEncoder.title'));
+const mainDescription = computed(() => t('urlEncoder.mainDescription'));
+const extendedDescription = computed(() => t('urlEncoder.extendedDescription'));
+const features = computed(() => t('urlEncoder.features'));
+const steps = computed(() => t('urlEncoder.steps'));
+const examples = computed(() => t('urlEncoder.examples'));
+const useCases = computed(() => t('urlEncoder.useCases'));
+const technicalDetails = computed(() => t('urlEncoder.technicalDetails'));
+const bestPractices = computed(() => t('urlEncoder.bestPractices'));
+const commonErrors = computed(() => t('urlEncoder.commonErrors'));
+const alternatives = computed(() => t('urlEncoder.alternatives'));
+const relatedTools = computed(() => t('urlEncoder.relatedTools'));
+const faqs = computed(() => t('urlEncoder.faqs'));
+const securityNote = computed(() => t('urlEncoder.securityNote'));
+const additionalContent = computed(() => t('urlEncoder.additionalContent'));
 
 const input = ref("");
 const output = ref("");

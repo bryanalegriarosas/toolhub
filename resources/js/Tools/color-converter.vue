@@ -1,37 +1,37 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Color Converter</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('colorConverter.title') }}</h1>
 
         <div class="flex flex-wrap gap-4 mb-8">
             <button
                 @click="randomColor"
                 class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
             >
-                Random Color
+                {{ t('colorConverter.random_color') }}
             </button>
             <button
                 @click="clearAll"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
             >
-                Clear
+                {{ t('colorConverter.clear') }}
             </button>
             <button
                 @click="saveHistory"
                 :disabled="!hex"
                 class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
             >
-                Save to History
+                {{ t('colorConverter.save_to_history') }}
             </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">HEX</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('colorConverter.hex') }}</label>
                     <div class="flex gap-2">
                         <input
                             v-model="hex"
-                            placeholder="#000000"
+                            :placeholder="t('colorConverter.placeholder_hex')"
                             class="w-full border dark:border-gray-600 rounded-lg p-3 font-mono uppercase"
                             maxlength="7"
                         />
@@ -42,7 +42,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">RGB</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('colorConverter.rgb') }}</label>
                     <div class="flex gap-2">
                         <input
                             :value="rgbResult"
@@ -56,7 +56,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">HSL</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('colorConverter.hsl') }}</label>
                     <div class="flex gap-2">
                         <input
                             :value="hslResult"
@@ -79,13 +79,13 @@
                     {{ hex.toUpperCase() }}
                 </p>
                 <p class="text-sm text-red-400" v-else-if="hex.length > 0">
-                    Formato HEX inválido
+                    {{ t('colorConverter.invalid_hex_format') }}
                 </p>
             </div>
         </div>
 
         <div v-if="history.length" class="mt-12 border-t pt-6">
-            <h3 class="font-semibold mb-4 text-lg">Colores Recientes</h3>
+            <h3 class="font-semibold mb-4 text-lg">{{ t('colorConverter.recent_colors') }}</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
                 <div
                     v-for="(item, idx) in history"
@@ -101,23 +101,54 @@
                 </div>
             </div>
             <button @click="history = []" class="px-4 py-2 bg-red-400 text-white rounded-lg hover:bg-red-600 transition">
-                Clear history
+                {{ t('colorConverter.clear_history') }}
             </button>
         </div>
 
-        <ToolSeoContent
-            title="HEX to RGB/HSL Color Converter"
-            description="Convert colors between HEX, RGB, and HSL formats instantly with visual preview."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
+
+// SEO Content Data - Now using translations
+const title = computed(() => t('colorConverter.title'));
+const mainDescription = computed(() => t('colorConverter.mainDescription'));
+const extendedDescription = computed(() => t('colorConverter.extendedDescription'));
+const features = computed(() => t('colorConverter.features'));
+const steps = computed(() => t('colorConverter.steps'));
+const examples = computed(() => t('colorConverter.examples'));
+const useCases = computed(() => t('colorConverter.useCases'));
+const technicalDetails = computed(() => t('colorConverter.technicalDetails'));
+const bestPractices = computed(() => t('colorConverter.bestPractices'));
+const commonErrors = computed(() => t('colorConverter.commonErrors'));
+const alternatives = computed(() => t('colorConverter.alternatives'));
+const relatedTools = computed(() => t('colorConverter.relatedTools'));
+const faqs = computed(() => t('colorConverter.faqs'));
+const securityNote = computed(() => t('colorConverter.securityNote'));
+const additionalContent = computed(() => t('colorConverter.additionalContent'));
 
 const hex = ref("#4F46E5");
 const history = ref([]);
@@ -199,49 +230,4 @@ const saveHistory = () => {
 const restore = (item) => {
     hex.value = item.hex;
 };
-
-// Datos para SEO
-const steps = [
-    "Enter a color code in HEX format (e.g., #ff5733).",
-    "See the automatic preview and conversions to RGB and HSL.",
-    "Copy the format you need or save the color to your local history."
-];
-
-const examples = [
-    {
-        title: "Convert Brand Color",
-        description: "Convert brand color from HEX to RGB and HSL for web development",
-        code: "Input HEX: #3498db",
-        result: "RGB: rgb(52, 152, 219) | HSL: hsl(204, 70%, 53%)"
-    },
-    {
-        title: "Material Design Colors",
-        description: "Convert Material Design color palette",
-        code: "Input HEX: #f44336",
-        result: "RGB: rgb(244, 67, 54) | HSL: hsl(4, 90%, 58%)",
-        steps: [
-            "Enter HEX color code",
-            "View RGB for CSS opacity",
-            "Use HSL for color variations",
-            "Copy desired format for your project"
-        ]
-    },
-    {
-        title: "CSS Custom Properties",
-        description: "Convert colors for CSS variables",
-        code: "Input HEX: #2ecc71",
-        result: "RGB: rgb(46, 204, 113) | HSL: hsl(145, 63%, 49%)"
-    }
-];
-
-const faqs = [
-    {
-        question: "What formats does this tool support?",
-        answer: "Currently it allows input of HEX codes and converts them to RGB and HSL."
-    },
-    {
-        question: "Is the history saved permanently?",
-        answer: "The history is maintained during the current browsing session."
-    }
-];
 </script>

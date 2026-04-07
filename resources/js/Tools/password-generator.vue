@@ -4,35 +4,35 @@
             <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Password Generator</h1>
 
             <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Generate secure passwords with custom length and character sets.
+                {{ t('passwordGenerator.description') }}
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
                 <div>
-                    <label class="block text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-2">Password length</label>
+                    <label class="block text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-2">{{ t('passwordGenerator.password_length') }}</label>
                     <input type="number" v-model.number="length" min="1"
                         class="form-input w-24 sm:w-32 text-sm sm:text-base" />
                 </div>
                 <div class="flex flex-wrap gap-2 sm:gap-4">
                     <label class="flex items-center gap-2">
                         <input type="checkbox" v-model="includeUppercase" class="sm:mt-0" />
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Uppercase</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('passwordGenerator.uppercase') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="checkbox" v-model="includeLowercase" class="sm:mt-0" />
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Lowercase</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('passwordGenerator.lowercase') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="checkbox" v-model="includeNumbers" class="sm:mt-0" />
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Numbers</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('passwordGenerator.numbers') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="checkbox" v-model="includeSymbols" class="sm:mt-0" />
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Symbols</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('passwordGenerator.symbols') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="checkbox" v-model="excludeSimilar" class="sm:mt-0" />
-                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">Exclude similar (iIlLoO0)</span>
+                        <span class="text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('passwordGenerator.exclude_similar') }}</span>
                     </label>
                 </div>
             </div>
@@ -42,24 +42,24 @@
 
                 <button @click="generatePassword" :disabled="!isPoolValid"
                     class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Generate
+                    {{ t('passwordGenerator.generate') }}
                 </button>
 
                 <button @click="copyPassword" :disabled="!password"
                     class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
-                    Copy
+                    {{ t('passwordGenerator.copy') }}
                 </button>
 
                 <button @click="clearAll"
                     class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
-                    Clear
+                    {{ t('passwordGenerator.clear') }}
                 </button>
             </div>
 
             <div v-if="error" class="text-red-500 text-xs sm:text-sm mb-4">{{ error }}</div>
 
             <div v-if="history.length" class="mt-4">
-                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">History</h3>
+                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('passwordGenerator.history') }}</h3>
                 <div class="max-h-48 sm:max-h-64 overflow-y-auto border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
                     <ul class="space-y-2">
                         <li v-for="(p, idx) in history" :key="idx"
@@ -73,15 +73,29 @@
                 <div class="flex gap-2 sm:gap-3 mt-3">
                     <button @click="downloadHistory"
                         class="px-3 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-xs sm:text-sm">Download
-                        All</button>
+                        {{ t('passwordGenerator.download_all') }}</button>
                     <button @click="clearHistory"
                         class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-xs sm:text-sm">Clear
-                        History</button>
+                        {{ t('passwordGenerator.clear_history') }}</button>
                 </div>
             </div>
-            <ToolSeoContent title="Password Generator"
-                description="Create strong passwords by customizing length and character sets." :steps="steps"
-                :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
 
         </div>
     </div>
@@ -89,59 +103,28 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Choose desired length and character sets",
-    "Click generate to create a password",
-    "Copy or download passwords, and review history",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Strong Password for Website",
-        description: "Generate a secure password for user registration",
-        code: "Length: 16, Include: Uppercase, Lowercase, Numbers, Symbols",
-        result: "Kj8#mP2$nL9@xQ5!",
-        steps: [
-            "Set length to 16 characters",
-            "Enable all character types (uppercase, lowercase, numbers, symbols)",
-            "Click 'Generate'",
-            "Copy the generated password"
-        ]
-    },
-    {
-        title: "Simple PIN Code",
-        description: "Generate a numeric PIN for mobile devices",
-        code: "Length: 6, Include: Numbers only",
-        result: "274936",
-        steps: [
-            "Set length to 6",
-            "Enable only 'Numbers' option",
-            "Disable other character types",
-            "Click 'Generate'"
-        ]
-    },
-    {
-        title: "Passphrase-Style Password",
-        description: "Create a readable but secure password without symbols",
-        code: "Length: 20, Include: Uppercase, Lowercase, Numbers, Exclude similar characters",
-        result: "TrustedBlueSky48",
-        steps: [
-            "Set length to 20",
-            "Enable uppercase, lowercase, numbers",
-            "Disable symbols",
-            "Enable 'Exclude similar characters'",
-            "Generate multiple options until you find one memorable"
-        ]
-    }
-];
-
-const faqs = [
-    { question: "What makes a password strong?", answer: "Longer length and a mix of character types (uppercase, lowercase, numbers, symbols) improve strength." },
-    { question: "What are similar characters?", answer: "Characters like i, l, 1, L, o, O, 0 can look alike; excluding them reduces confusion." },
-    { question: "Can I generate multiple passwords?", answer: "The tool currently generates one at a time but keeps a history for later use." },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('passwordGenerator.title'));
+const mainDescription = computed(() => t('passwordGenerator.mainDescription'));
+const extendedDescription = computed(() => t('passwordGenerator.extendedDescription'));
+const features = computed(() => t('passwordGenerator.features'));
+const steps = computed(() => t('passwordGenerator.steps'));
+const examples = computed(() => t('passwordGenerator.examples'));
+const useCases = computed(() => t('passwordGenerator.useCases'));
+const technicalDetails = computed(() => t('passwordGenerator.technicalDetails'));
+const bestPractices = computed(() => t('passwordGenerator.bestPractices'));
+const commonErrors = computed(() => t('passwordGenerator.commonErrors'));
+const alternatives = computed(() => t('passwordGenerator.alternatives'));
+const relatedTools = computed(() => t('passwordGenerator.relatedTools'));
+const faqs = computed(() => t('passwordGenerator.faqs'));
+const securityNote = computed(() => t('passwordGenerator.securityNote'));
+const additionalContent = computed(() => t('passwordGenerator.additionalContent'));
 
 const length = ref(16);
 const password = ref("");

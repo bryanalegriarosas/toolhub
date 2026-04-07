@@ -33,6 +33,20 @@ import wordCounter from './wordCounter.js';
 import textCaseConverter from './textCaseConverter.js';
 import loremIpsumGenerator from './loremIpsumGenerator.js';
 import diffChecker from './diffChecker.js';
+import base64Encoder from './base64Encoder.js';
+import urlEncoder from './urlEncoder.js';
+import urlDecoder from './urlDecoder.js';
+import htmlEncoder from './htmlEncoder.js';
+import htmlDecoder from './htmlDecoder.js';
+import timestampConverter from './timestampConverter.js';
+import markdownToHtml from './markdownToHtml.js';
+import colorConverter from './colorConverter.js';
+import jsonToCsv from './jsonToCsv.js';
+import textToBase64 from './textToBase64.js';
+import passwordGenerator from './passwordGenerator.js';
+import hashGenerator from './hashGenerator.js';
+import uuidGenerator from './uuidGenerator.js';
+import randomStringGenerator from './randomStringGenerator.js';
 
 export default {
     ...menu,
@@ -70,4 +84,18 @@ export default {
     ...textCaseConverter,
     ...loremIpsumGenerator,
     ...diffChecker,
+    ...base64Encoder,
+    ...urlEncoder,
+    ...urlDecoder,
+    ...htmlEncoder,
+    ...htmlDecoder,
+    ...timestampConverter,
+    ...markdownToHtml,
+    ...colorConverter,
+    ...jsonToCsv,
+    ...textToBase64,
+    ...passwordGenerator,
+    ...hashGenerator,
+    ...uuidGenerator,
+    ...randomStringGenerator,
 };

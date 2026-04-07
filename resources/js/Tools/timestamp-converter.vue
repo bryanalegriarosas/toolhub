@@ -1,21 +1,21 @@
 <template>
     <div class="max-w-6xl mx-auto p-0">
         <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 sm:p-6">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">Unix Timestamp Converter</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800 dark:text-white">{{ t('timestampConverter.title') }}</h1>
 
             <p class="text-gray-500 dark:text-gray-400 mb-4 sm:mb-6 text-sm sm:text-base">
-                Convert between UNIX timestamps and human-readable dates instantly.
+                {{ t('timestampConverter.description') }}
             </p>
 
             <div class="space-y-4 sm:space-y-6">
                 <div>
-                    <label class="block text-sm sm:text-base mb-2 text-gray-700 dark:text-gray-300">Unix Timestamp</label>
+                    <label class="block text-sm sm:text-base mb-2 text-gray-700 dark:text-gray-300">{{ t('timestampConverter.unix_timestamp') }}</label>
                     <input v-model="timestamp" type="number" placeholder="1710000000"
                         class="w-full border dark:border-gray-600 rounded-lg p-3 sm:p-4 text-sm sm:text-base" />
                 </div>
 
                 <div>
-                    <label class="block text-sm sm:text-base mb-2 text-gray-700 dark:text-gray-300">Date</label>
+                    <label class="block text-sm sm:text-base mb-2 text-gray-700 dark:text-gray-300">{{ t('timestampConverter.date') }}</label>
                     <input v-model="date" :type="dateOnly ? 'date' : 'datetime-local'"
                         class="w-full border dark:border-gray-600 rounded-lg p-3 sm:p-4 text-sm sm:text-base" />
                 </div>
@@ -23,124 +23,104 @@
                 <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                     <label class="flex items-center gap-2">
                         <input type="radio" value="seconds" v-model="unit" class="sm:mt-0" />
-                        <span class="text-sm sm:text-base">Seconds</span>
+                        <span class="text-sm sm:text-base">{{ t('timestampConverter.seconds') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="radio" value="milliseconds" v-model="unit" class="sm:mt-0" />
-                        <span class="text-sm sm:text-base">Milliseconds</span>
+                        <span class="text-sm sm:text-base">{{ t('timestampConverter.milliseconds') }}</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="checkbox" v-model="dateOnly" class="sm:mt-0" />
-                        <span class="text-sm sm:text-base">Use date-only input</span>
+                        <span class="text-sm sm:text-base">{{ t('timestampConverter.use_date_only_input') }}</span>
                     </label>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
                     <button @click="convert"
                         class="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm sm:text-base">
-                        Convert
+                        {{ t('timestampConverter.convert') }}
                     </button>
 
                     <button @click="copyTimestamp" :disabled="!timestamp"
                         class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
-                        Copy Timestamp
+                        {{ t('timestampConverter.copy_timestamp') }}
                     </button>
 
                     <button @click="copyDate" :disabled="!date"
                         class="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm sm:text-base">
-                        Copy Date
+                        {{ t('timestampConverter.copy_date') }}
                     </button>
 
                     <button @click="clearAll"
                         class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">
-                        Clear
+                        {{ t('timestampConverter.clear') }}
                     </button>
                 </div>
             </div>
 
             <div v-if="history.length" class="mt-4 sm:mt-6">
-                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">History</h3>
+                <h3 class="font-semibold mb-2 text-gray-700 dark:text-gray-300 text-sm sm:text-base">{{ t('timestampConverter.history') }}</h3>
                 <div class="max-h-48 sm:max-h-64 overflow-y-auto border dark:border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-50 dark:bg-gray-700">
                     <ul class="space-y-2">
                         <li v-for="(h, idx) in history" :key="idx"
                             class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 bg-white rounded border">
                             <span class="font-mono text-xs sm:text-sm break-all">{{ h }}</span>
                             <button @click="copyOne(h)"
-                                class="text-xs text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900 self-start sm:self-auto">Copy</button>
+                                class="text-xs text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900 self-start sm:self-auto">{{ t('timestampConverter.copy') }}</button>
                         </li>
                     </ul>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-3">
                     <button @click="clearHistory"
-                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">Clear
-                        History</button>
+                        class="px-3 sm:px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition text-sm sm:text-base">{{ t('timestampConverter.clear_history') }}</button>
                 </div>
             </div>
 
-            <ToolSeoContent title="Unix Timestamp Converter"
-                description="A simple converter to switch between UNIX timestamps and human-readable dates. Supports seconds and milliseconds."
-                :steps="steps" :examples="examples" :faqs="faqs" />
+            <ToolSeoContentExpanded
+                :title="title"
+                :description="mainDescription"
+                :extended-description="extendedDescription"
+                :features="features"
+                :steps="steps"
+                :examples="examples"
+                :use-cases="useCases"
+                :technical-details="technicalDetails"
+                :best-practices="bestPractices"
+                :common-errors="commonErrors"
+                :alternatives="alternatives"
+                :related-tools="relatedTools"
+                :faqs="faqs"
+                :security-note="securityNote"
+                :additional-content="additionalContent"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Enter or generate a timestamp (seconds or milliseconds) or select a date",
-    "Toggle 'Use date-only input' to switch between date and date+time",
-    "Choose seconds or milliseconds",
-    "Click Convert to update the other field",
-    "Copy values or clear using the buttons",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Convert Current Time",
-        description: "Convert current timestamp to human-readable date",
-        code: "Timestamp: 1710000000 (seconds)",
-        result: "Date: 2024-03-09 10:00:00"
-    },
-    {
-        title: "JavaScript Date Conversion",
-        description: "Convert JavaScript milliseconds timestamp",
-        code: "Timestamp: 1710000000000 (milliseconds)",
-        result: "Date: 2024-03-09 10:00:00",
-        steps: [
-            "Get timestamp from JavaScript: Date.now()",
-            "Select 'Milliseconds' unit",
-            "Enter timestamp",
-            "Convert to readable date"
-        ]
-    },
-    {
-        title: "API Response Timestamp",
-        description: "Convert timestamp from API response",
-        code: "Timestamp: 1672531200 (seconds)",
-        result: "Date: 2023-01-01 00:00:00"
-    }
-];
-
-const faqs = [
-    {
-        question: "What is a UNIX timestamp?",
-        answer: "It represents the number of seconds (or milliseconds) that have elapsed since January 1, 1970 UTC.",
-    },
-    {
-        question: "Can I use different time zones?",
-        answer: "Conversion is performed in UTC; the date field will display the local time based on your browser's timezone.",
-    },
-    {
-        question: "Does the date field include time?",
-        answer: "Yes, you can specify both date and time. The converter uses your local time when calculating the timestamp.",
-    },
-    {
-        question: "What does the date-only toggle do?",
-        answer: "When 'Use date-only input' is enabled, the right-hand input switches to a simple date picker and the converter treats time as 00:00; when disabled it accepts both date and time.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('timestampConverter.title'));
+const mainDescription = computed(() => t('timestampConverter.mainDescription'));
+const extendedDescription = computed(() => t('timestampConverter.extendedDescription'));
+const features = computed(() => t('timestampConverter.features'));
+const steps = computed(() => t('timestampConverter.steps'));
+const examples = computed(() => t('timestampConverter.examples'));
+const useCases = computed(() => t('timestampConverter.useCases'));
+const technicalDetails = computed(() => t('timestampConverter.technicalDetails'));
+const bestPractices = computed(() => t('timestampConverter.bestPractices'));
+const commonErrors = computed(() => t('timestampConverter.commonErrors'));
+const alternatives = computed(() => t('timestampConverter.alternatives'));
+const relatedTools = computed(() => t('timestampConverter.relatedTools'));
+const faqs = computed(() => t('timestampConverter.faqs'));
+const securityNote = computed(() => t('timestampConverter.securityNote'));
+const additionalContent = computed(() => t('timestampConverter.additionalContent'));
 
 const timestamp = ref("");
 const date = ref("");
