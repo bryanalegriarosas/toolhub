@@ -1,33 +1,33 @@
 <template>
     <div class="max-w-6xl mx-auto p-4 sm:p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
 
-        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Text to Speech Converter</h1>
+        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">{{ t('textToSpeech.title') }}</h1>
         <!-- Text Input Area -->
         <div class="mb-4 sm:mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Enter Text to Convert
+                {{ t('textToSpeech.enter_text') }}
             </label>
             <textarea v-model="text"
                 class="w-full p-3 sm:p-4 border dark:border-gray-600 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm sm:text-base"
-                rows="6" placeholder="Type or paste your text here..." maxlength="5000" />
+                :placeholder="t('textToSpeech.type_paste_text')" maxlength="5000" />
             <div class="mt-2 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                 <p class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ text.length }}/5000 characters
+                    {{ text.length }}/5000 {{ t('textToSpeech.characters') }}
                 </p>
                 <button @click="clearText"
                     class="text-xs bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors self-start">
-                    Clear text
+                    {{ t('textToSpeech.clear_text') }}
                 </button>
             </div>
         </div>
 
         <!-- Voice Settings -->
         <div class="mb-4 sm:mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Voice Settings:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ t('textToSpeech.voice_settings') }}</h3>
 
             <div class="grid grid-cols-1 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Language:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('textToSpeech.language') }}</label>
                     <select v-model="selectedLanguage" @change="updateVoices"
                         class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
                         <option v-for="lang in languages" :key="lang.code" :value="lang.code">
@@ -37,7 +37,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Voice:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('textToSpeech.voice') }}</label>
                     <select v-model="selectedVoice"
                         class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm"
                         :disabled="!voices.length">
@@ -49,11 +49,11 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Speed: {{ rate }}x
+                        {{ t('textToSpeech.speed') }} {{ rate }}x
                     </label>
                     <input type="range" v-model="rate" min="0.5" max="2" step="0.1" class="w-full h-2" />
                     <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        <span>0.5x</span>
+                        <span>{{ t('textToSpeech.low') }}</span>
                         <span>1x</span>
                         <span>2x</span>
                     </div>
@@ -61,19 +61,19 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Pitch: {{ pitch }}
+                        {{ t('textToSpeech.pitch') }} {{ pitch }}
                     </label>
                     <input type="range" v-model="pitch" min="0" max="2" step="0.1" class="w-full h-2" />
                     <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        <span>Low</span>
-                        <span>Normal</span>
-                        <span>High</span>
+                        <span>{{ t('textToSpeech.low') }}</span>
+                        <span>{{ t('textToSpeech.normal') }}</span>
+                        <span>{{ t('textToSpeech.high') }}</span>
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Volume: {{ Math.round(volume * 100) }}%
+                        {{ t('textToSpeech.volume') }} {{ Math.round(volume * 100) }}%
                     </label>
                     <input type="range" v-model="volume" min="0" max="1" step="0.1" class="w-full h-2" />
                     <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -87,7 +87,7 @@
 
         <!-- Playback Controls -->
         <div class="mb-4 sm:mb-6">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Playback Controls:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{{ t('textToSpeech.playback_controls') }}</h3>
             <div class="flex flex-col sm:flex-row gap-3">
                 <button @click="speak" :disabled="!text.trim() || isSpeaking"
                     class="bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm sm:text-base">
@@ -98,7 +98,7 @@
                                 d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Speak
+                        {{ t('textToSpeech.speak') }}
                     </span>
                 </button>
 
@@ -110,7 +110,7 @@
                                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Pause
+                        {{ t('textToSpeech.pause') }}
                     </span>
                 </button>
 
@@ -122,7 +122,7 @@
                                 d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Stop
+                        {{ t('textToSpeech.stop') }}
                     </span>
                 </button>
 
@@ -134,7 +134,7 @@
                                 d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Download
+                        {{ t('textToSpeech.download') }}
                     </span>
                 </button>
             </div>
@@ -153,15 +153,29 @@
                     </div>
                 </div>
                 <span class="text-sm sm:text-base text-blue-700">
-                    {{ isPaused ? 'Speech paused' : 'Speaking...' }}
+                    {{ isPaused ? t('textToSpeech.speech_paused') : t('textToSpeech.speaking') }}
                 </span>
             </div>
         </div>
 
         <!-- SEO Content -->
-        <ToolSeoContent title="Text to Speech Converter"
-            description="Free online text-to-speech converter with natural voices. Support for multiple languages, customizable speed, pitch, and volume. Convert text to audio instantly."
-            :steps="steps" :examples="examples" :faqs="faqs" />
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
 
     </div>
 
@@ -169,8 +183,29 @@
 
 <script setup>
 
-import { ref, onMounted, inject } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, onMounted, inject, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
+
+// SEO Content Data - Now using translations
+const title = computed(() => t('textToSpeech.title'));
+const mainDescription = computed(() => t('textToSpeech.mainDescription'));
+const extendedDescription = computed(() => t('textToSpeech.extendedDescription'));
+const features = computed(() => t('textToSpeech.features'));
+const steps = computed(() => t('textToSpeech.steps'));
+const examples = computed(() => t('textToSpeech.examples'));
+const useCases = computed(() => t('textToSpeech.useCases'));
+const technicalDetails = computed(() => t('textToSpeech.technicalDetails'));
+const bestPractices = computed(() => t('textToSpeech.bestPractices'));
+const commonErrors = computed(() => t('textToSpeech.commonErrors'));
+const alternatives = computed(() => t('textToSpeech.alternatives'));
+const relatedTools = computed(() => t('textToSpeech.relatedTools'));
+const faqs = computed(() => t('textToSpeech.faqs'));
+const securityNote = computed(() => t('textToSpeech.securityNote'));
+const additionalContent = computed(() => t('textToSpeech.additionalContent'));
 
 const text = ref("");
 const isSpeaking = ref(false);
@@ -204,69 +239,7 @@ const languages = ref([
     { code: "hi-IN", name: "Hindi (India)" }
 ]);
 
-// SEO Content
-const examples = [
-    {
-        title: "Educational Content Narration",
-        description: "Convert educational text to audio for learning",
-        code: "Text: 'The solar system consists of eight planets orbiting around the Sun. Mercury is the closest planet to the Sun, while Neptune is the farthest.'",
-        result: "Natural voice narration with clear pronunciation for educational materials"
-    },
-    {
-        title: "Accessibility Audio",
-        description: "Create audio versions for visually impaired users",
-        code: "Text: 'Welcome to our website. Use the tab key to navigate through menu items. Press enter to select links and buttons.'",
-        result: "Clear audio instructions with moderate speed for accessibility",
-        steps: [
-            "Write accessibility text content",
-            "Select appropriate voice and speed",
-            "Test audio quality and clarity",
-            "Download for website integration"
-        ]
-    },
-    {
-        title: "Podcast Script Audio",
-        description: "Convert podcast script to audio narration",
-        code: "Text: 'In today episode, we explore the fascinating world of artificial intelligence and its impact on modern technology.'",
-        result: "Professional narration suitable for podcast production"
-    }
-];
-
-const steps = [
-    'Enter or paste your text in the text area (up to 5000 characters)',
-    'Select your preferred language and voice from the dropdown menus',
-    'Adjust voice settings: speed, pitch, and volume to your preference',
-    'Click "Speak" to convert text to speech instantly',
-    'Use playback controls to pause, resume, or stop the speech',
-    'Download the audio file if needed for offline use'
-];
-
-const faqs = [
-    {
-        question: 'What is text-to-speech?',
-        answer: 'Text-to-speech (TTS) is technology that converts written text into spoken audio. It uses synthetic voices to read text aloud, making content accessible to people with visual impairments or those who prefer audio.'
-    },
-    {
-        question: 'How many languages and voices are supported?',
-        answer: 'We support over 14 languages including English, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Japanese, Korean, Arabic, and Hindi. Each language has multiple natural-sounding voices to choose from.'
-    },
-    {
-        question: 'Can I customize the voice settings?',
-        answer: 'Yes! You can adjust the speech speed (0.5x to 2x), pitch (low to high), and volume (0% to 100%) to create the perfect voice for your needs.'
-    },
-    {
-        question: 'Is there a limit on text length?',
-        answer: 'Yes, the maximum text length is 5000 characters per conversion. This ensures optimal performance and quick processing. For longer texts, break them into smaller sections.'
-    },
-    {
-        question: 'Can I download the audio?',
-        answer: 'Yes! You can download the generated speech as an audio file for offline use, presentations, or sharing with others.'
-    },
-    {
-        question: 'Is this service free?',
-        answer: 'Yes, our text-to-speech converter is completely free to use. There are no hidden charges or subscription fees for basic text-to-speech conversion.'
-    }
-];
+// SEO Content - Remove hardcoded content as it's now handled by translations
 
 // Load voices on component mount
 onMounted(() => {

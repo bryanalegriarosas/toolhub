@@ -4,19 +4,19 @@
     <MainLayout>
 
         <!-- 🔥 TOP AD -->
-        <div class="mb-6 text-center">
+        <!--<div class="mb-6 text-center">
             <AdBanner />
-        </div>
+        </div>-->
 
         <!-- TOOL -->
         <component :is="component" />
 
         <!-- 🔥 MIDDLE AD -->
-        <div class="mt-8 text-center">
+        <!--<div class="mt-8 text-center">
             <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
                 <AdBanner />
             </div>
-        </div>
+        </div>-->
 
         <!-- 🔥 RELATED TOOLS -->
         <div class="mt-10">
@@ -32,11 +32,11 @@
         </div>
 
         <!-- 🔥 BOTTOM AD -->
-        <div class="mt-10 text-center">
+        <!--<div class="mt-10 text-center">
             <div class="bg-gray-100 border rounded-xl p-4 text-gray-400">
                 <AdBanner />
             </div>
-        </div>
+        </div>-->
 
     </MainLayout>
 </template>

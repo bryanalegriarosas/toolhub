@@ -1,17 +1,17 @@
 <template>
     <div class="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Slug Generator</h1>
+        <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{{ t('slugGenerator.title') }}</h1>
 
         <div class="space-y-6">
             <div class="flex items-center gap-2">
                 <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                    <span>Load file:</span>
+                    <span>{{ t('slugGenerator.load_file') }}</span>
                     <input ref="fileInput" type="file" accept=".txt" @change="loadFile" class="form-input" />
                 </label>
             </div>
 
             <div>
-                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300"> Enter text </label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">{{ t('slugGenerator.enter_text') }}</label>
 
                 <input
                     v-model="text"
@@ -24,27 +24,27 @@
             <div class="flex flex-col md:flex-row md:items-center gap-4">
                 <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="radio" value="-" v-model="separator" />
-                    <span>Hyphen (-)</span>
+                    <span>{{ t('slugGenerator.hyphen') }}</span>
                 </label>
                 <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="radio" value="_" v-model="separator" />
-                    <span>Underscore (_)</span>
+                    <span>{{ t('slugGenerator.underscore') }}</span>
                 </label>
                 <label class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                     <input type="checkbox" v-model="removeStopWords" />
-                    <span>Remove common words</span>
+                    <span>{{ t('slugGenerator.remove_common_words') }}</span>
                 </label>
             </div>
 
             <div>
-                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300"> Slug </label>
+                <label class="block text-sm mb-2 text-gray-700 dark:text-gray-300">{{ t('slugGenerator.slug') }}</label>
 
                 <input
                     :value="slug"
                     readonly
                     class="w-full border dark:border-gray-600 rounded-lg p-3 bg-gray-100 dark:bg-gray-800"
                 />
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Length: {{ slug.length }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ t('slugGenerator.length') }} {{ slug.length }}</p>
             </div>
 
             <div class="flex flex-wrap gap-2">
@@ -53,33 +53,33 @@
                     :disabled="!slug"
                     class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
                 >
-                    Copy Slug
+                    {{ t('slugGenerator.copy') }}
                 </button>
                 <button
                     @click="downloadSlug"
                     :disabled="!slug"
                     class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download Slug
+                    {{ t('slugGenerator.download_result') }}
                 </button>
                 <button
                     @click="clearAll"
                     class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear
+                    {{ t('slugGenerator.clear') }}
                 </button>
                 <button
                     @click="saveHistory"
                     :disabled="!slug"
                     class="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition disabled:opacity-50"
                 >
-                    Save
+                    {{ t('slugGenerator.save') }}
                 </button>
             </div>
         </div>
 
         <div v-if="history.length" class="mt-6">
-            <h3 class="font-semibold mb-2">History</h3>
+            <h3 class="font-semibold mb-2">{{ t('slugGenerator.history') }}</h3>
             <ul class="list-disc pl-5 space-y-1 font-mono text-sm">
                 <li
                     v-for="(h, idx) in history"
@@ -94,7 +94,7 @@
                         @click="restore(h)"
                         class="mt-1 sm:mt-0 text-xs text-blue-600 hover:underline"
                     >
-                        Restore
+                        {{ t('slugGenerator.restore') }}
                     </button>
                 </li>
             </ul>
@@ -104,79 +104,61 @@
                     :disabled="!history.length"
                     class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 >
-                    Download History
+                    {{ t('slugGenerator.download_history') }}
                 </button>
                 <button
                     @click="clearHistory"
                     class="px-3 py-1 bg-gray-400 text-white rounded-lg hover:bg-gray-50 dark:bg-gray-7000 transition"
                 >
-                    Clear History
+                    {{ t('slugGenerator.clear_history') }}
                 </button>
             </div>
         </div>
 
-        <ToolSeoContent
-            title="Slug Generator"
-            description="Create URL-friendly slugs from any text with customizable separators and stop-word removal."
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
             :steps="steps"
             :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
             :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
         />
     </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
 
-const steps = [
-    "Type or paste text",
-    "Choose a separator and whether to strip common words",
-    "Copy, download or save the resulting slug",
-    "View or download your slug history",
-];
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
-const examples = [
-    {
-        title: "Blog Post URL",
-        description: "Create SEO-friendly URL for blog posts",
-        code: "Input: How to Learn JavaScript Programming in 2024",
-        result: "Slug: how-to-learn-javascript-programming-in-2024"
-    },
-    {
-        title: "Product Page URL",
-        description: "Generate clean product URLs for e-commerce",
-        code: "Input: Apple iPhone 15 Pro Max - 256GB - Blue Titanium",
-        result: "Slug: apple-iphone-15-pro-max-256gb-blue-titanium",
-        steps: [
-            "Enter product title with details",
-            "Use hyphen separator for readability",
-            "Enable 'Remove common words' option",
-            "Copy the SEO-friendly slug"
-        ]
-    },
-    {
-        title: "Article Title with Special Characters",
-        description: "Handle special characters and symbols",
-        code: "Input: C++ Programming: The Complete Guide (2024 Edition)",
-        result: "Slug: c-programming-complete-guide-2024-edition"
-    }
-];
-
-const faqs = [
-    {
-        question: "Why remove common words?",
-        answer: "Stripping words like 'the' or 'and' can make shorter, cleaner slugs.",
-    },
-    {
-        question: "Can I change the separator?",
-        answer: "Yes. You can switch between hyphens and underscores.",
-    },
-    {
-        question: "How is the slug generated?",
-        answer: "Text is lowercased, non-word characters removed, and spaces replaced with the selected separator.",
-    },
-];
+// SEO Content Data - Now using translations
+const title = computed(() => t('slugGenerator.title'));
+const mainDescription = computed(() => t('slugGenerator.mainDescription'));
+const extendedDescription = computed(() => t('slugGenerator.extendedDescription'));
+const features = computed(() => t('slugGenerator.features'));
+const steps = computed(() => t('slugGenerator.steps'));
+const examples = computed(() => t('slugGenerator.examples'));
+const useCases = computed(() => t('slugGenerator.useCases'));
+const technicalDetails = computed(() => t('slugGenerator.technicalDetails'));
+const bestPractices = computed(() => t('slugGenerator.bestPractices'));
+const commonErrors = computed(() => t('slugGenerator.commonErrors'));
+const alternatives = computed(() => t('slugGenerator.alternatives'));
+const relatedTools = computed(() => t('slugGenerator.relatedTools'));
+const faqs = computed(() => t('slugGenerator.faqs'));
+const securityNote = computed(() => t('slugGenerator.securityNote'));
+const additionalContent = computed(() => t('slugGenerator.additionalContent'));
 
 const text = ref("");
 const separator = ref("-");

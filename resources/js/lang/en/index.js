@@ -47,6 +47,17 @@ import passwordGenerator from './passwordGenerator.js';
 import hashGenerator from './hashGenerator.js';
 import uuidGenerator from './uuidGenerator.js';
 import randomStringGenerator from './randomStringGenerator.js';
+import slugGenerator from './slugGenerator.js';
+import textToSpeech from './textToSpeech.js';
+import speechToText from './speechToText.js';
+import home from './home.js';
+import toolsIndex from './toolsIndex.js';
+import about from './about.js';
+import contact from './contact.js';
+import privacyPolicy from './privacyPolicy.js';
+import termsOfService from './termsOfService.js';
+import disclaimer from './disclaimer.js';
+import footer from './footer.js';
 
 export default {
     ...menu,
@@ -98,4 +109,15 @@ export default {
     ...hashGenerator,
     ...uuidGenerator,
     ...randomStringGenerator,
+    ...slugGenerator,
+    ...textToSpeech,
+    ...speechToText,
+    ...home,
+    ...toolsIndex,
+    ...about,
+    ...contact,
+    ...privacyPolicy,
+    ...termsOfService,
+    ...disclaimer,
+    ...footer,
 };

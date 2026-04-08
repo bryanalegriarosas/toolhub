@@ -131,7 +131,7 @@ import { useTranslations } from "@/languageManager.js";
 const page = usePage();
 
 // Usar sistema de traducciones global
-const { t, currentLanguage } = useTranslations();
+const { t } = useTranslations();
 
 const search = ref("");
 const mobileMenuOpen = ref(false);

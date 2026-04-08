@@ -1,77 +1,106 @@
 <template>
+    <Head>
+        <title>{{ t('disclaimer.title') }}</title>
+        <meta name="description" content="{{ t('disclaimer.description') }}" />
+        <meta property="og:title" content="{{ t('disclaimer.meta_title') }}" />
+        <meta property="og:description" content="{{ t('disclaimer.meta_description') }}" />
+    </Head>
     <MainLayout>
         <template #sidebar>
             <!-- Empty sidebar to hide it -->
         </template>
-        <div class="max-w-8 mt-4 px-6 py-12 bg-white dark:bg-gray-800 rounded-xl shadow text-gray-800 dark:text-gray-300">
-    
+
+        <div class="max-w-8xl mt-4 mx-auto px-6 py-12 bg-white dark:bg-gray-800 rounded-xl shadow text-gray-800 dark:text-gray-300">
+
+            <!-- 🧠 Title -->
             <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-                Disclaimer
+                {{ t('disclaimer.page_title') }}
             </h1>
-    
+
+            <!-- 📘 Intro -->
             <p class="mb-4">
-                The information and tools provided on this website ("ToolHub" / "WebToolStack")
-                are for general informational and educational purposes only.
+                {{ t('disclaimer.intro') }}
             </p>
-    
+
+            <!-- ⚠️ No guarantees -->
             <h2 class="text-xl font-semibold mt-8 mb-3 text-gray-900 dark:text-white">
-                No Guarantees
+                {{ t('disclaimer.guarantees_title') }}
             </h2>
-    
+
             <p class="mb-4">
-                While we strive to provide accurate and up-to-date tools, we make no warranties
-                or guarantees of any kind, express or implied, about the completeness, accuracy,
-                reliability, or availability of any tools or information on this website.
+                {{ t('disclaimer.guarantees_description') }}
             </p>
-    
+
+            <!-- ⚠️ Professional disclaimer -->
             <h2 class="text-xl font-semibold mt-8 mb-3 text-gray-900 dark:text-white">
-                Use at Your Own Risk
+                {{ t('disclaimer.professional_title') }}
             </h2>
-    
+
             <p class="mb-4">
-                Any use of the tools provided on this website is strictly at your own risk.
-                You are responsible for verifying any output before relying on it.
+                {{ t('disclaimer.professional_description') }}
             </p>
-    
+
+            <!-- ⚠️ Risk -->
             <h2 class="text-xl font-semibold mt-8 mb-3 text-gray-900 dark:text-white">
-                Limitation of Liability
+                {{ t('disclaimer.risk_title') }}
             </h2>
-    
+
             <p class="mb-4">
-                Under no circumstances shall we be liable for any loss or damage, including
-                without limitation indirect or consequential loss or damage, arising from
-                the use of this website or its tools.
+                {{ t('disclaimer.risk_description') }}
             </p>
-    
+
+            <!-- ⚖️ Liability -->
             <h2 class="text-xl font-semibold mt-8 mb-3 text-gray-900 dark:text-white">
-                External Links
+                {{ t('disclaimer.liability_title') }}
             </h2>
-    
+
             <p class="mb-4">
-                This website may contain links to external websites that are not provided or
-                maintained by us. We do not guarantee the accuracy or reliability of any
-                external content.
+                {{ t('disclaimer.liability_description') }}
             </p>
-    
+
+            <!-- 📢 Ads -->
             <h2 class="text-xl font-semibold mt-8 mb-3 text-gray-900 dark:text-white">
-                Changes
+                {{ t('disclaimer.ads_title') }}
             </h2>
-    
+
             <p class="mb-4">
-                We may update this Disclaimer at any time without prior notice. By using this
-                website, you agree to this Disclaimer and any future modifications.
+                {{ t('disclaimer.ads_description') }}
             </p>
-    
+
+            <!-- 🔗 External -->
+            <h2 class="text-xl font-semibold mt-8 mb-3 text-gray-900 dark:text-white">
+                {{ t('disclaimer.external_title') }}
+            </h2>
+
+            <p class="mb-4">
+                {{ t('disclaimer.external_description') }}
+            </p>
+
+            <!-- 🔄 Changes -->
+            <h2 class="text-xl font-semibold mt-8 mb-3 text-gray-900 dark:text-white">
+                {{ t('disclaimer.changes_title') }}
+            </h2>
+
+            <p class="mb-4">
+                {{ t('disclaimer.changes_description') }}
+            </p>
+
+            <!-- 📅 Date -->
             <p class="mt-8 text-sm text-gray-500">
-                Last updated: {{ date }}
+                {{ t('disclaimer.last_updated', { date: date }) }}
             </p>
-    
+
         </div>
     </MainLayout>
 </template>
 
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue';
+import { Head } from '@inertiajs/vue3';
+import { useTranslations } from "@/languageManager.js";
 
-const date = new Date().toLocaleDateString()
+// Usar sistema de traducciones
+const { t } = useTranslations();
+
+const date = new Date().toISOString().split('T')[0];
 </script>

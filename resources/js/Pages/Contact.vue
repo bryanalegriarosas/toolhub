@@ -1,20 +1,29 @@
 <template>
     <Head>
-        <title>Contact - WebToolStack</title>
+        <title>{{ t('contact.title') }}</title>
+        <meta name="description" content="{{ t('contact.description') }}" />
+        <meta property="og:title" content="{{ t('contact.meta_title') }}" />
+        <meta property="og:description" content="{{ t('contact.meta_description') }}" />
     </Head>
     <MainLayout>
         <template #sidebar>
             <!-- Empty sidebar to hide it -->
         </template>
-        <div class="mx-auto mt-4 min-h-screen py-16 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <div class="mx-auto max-w-8xl mt-4 min-h-screen py-16 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
             <div class="max-w-3xl mx-auto px-6">
                 <!-- Title -->
                 <div class="text-center mb-10">
                     <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
-                        Contact Us
+                        {{ t('contact.page_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-400 mt-2">
-                        Have a question or suggestion? Send us a message.
+                        {{ t('contact.page_description') }}
+                    </p>
+
+                    <!-- 👇 EXTRA IMPORTANTE -->
+                    <p class="text-sm text-gray-500 mt-3">
+                        {{ t('contact.direct_email_text') }}
+                        <span class="font-medium">{{ t('contact.email_address') }}</span>
                     </p>
                 </div>
 
@@ -29,9 +38,9 @@
                     <!-- Name -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Name
+                            {{ t('contact.name_label') }}
                         </label>
-                        <input v-model="form.name" type="text"
+                        <input v-model="form.name" required type="text"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                         <p v-if="form.errors.name" class="text-red-500 text-sm mt-1">
                             {{ form.errors.name }}
@@ -41,9 +50,9 @@
                     <!-- Email -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Email
+                            {{ t('contact.email_label') }}
                         </label>
-                        <input v-model="form.email" type="email"
+                        <input v-model="form.email" required type="email"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                         <p v-if="form.errors.email" class="text-red-500 text-sm mt-1">
                             {{ form.errors.email }}
@@ -53,7 +62,7 @@
                     <!-- Subject -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Subject
+                            {{ t('contact.subject_label') }}
                         </label>
                         <input v-model="form.subject" type="text"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
@@ -62,9 +71,9 @@
                     <!-- Message -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Message
+                            {{ t('contact.message_label') }}
                         </label>
-                        <textarea v-model="form.message" rows="5"
+                        <textarea v-model="form.message" required rows="5"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
 
                         <p v-if="form.errors.message" class="text-red-500 text-sm mt-1">
@@ -77,13 +86,18 @@
                     </div>
 
                     <!-- Button -->
-                    <div class="pt-2">
-                        <button type="submit" :disabled="form.processing"
-                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
-                            Send Message
-                        </button>
-                    </div>
+                    <button
+                        type="submit"
+                        :disabled="form.processing"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition flex items-center justify-center gap-2"
+                    >
+                        <span v-if="!form.processing">{{ t('contact.send_button') }}</span>
 
+                        <span v-else class="flex items-center gap-2">
+                            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24"></svg>
+                            {{ t('contact.sending_button') }}
+                        </span>
+                    </button>
                 </form>
             </div>
         </div>
@@ -95,6 +109,10 @@ import { inject } from "vue";
 import { useForm, usePage } from '@inertiajs/vue3';
 import { Head } from "@inertiajs/vue3";
 import MainLayout from '@/Layouts/MainLayout.vue';
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
 
 const Swal = inject('Swal');
 const { props } = usePage();
@@ -113,8 +131,8 @@ const submit = () => {
             form.reset();
             Swal.fire({
                 icon: 'success',
-                title: 'Message Sent!',
-                text: 'Your message has been sent successfully. We will get back to you soon.',
+                title: t('contact.success_title'),
+                text: t('contact.success_message'),
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,

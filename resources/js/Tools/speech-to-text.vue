@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto p-4 sm:p-6 bg-white dark:bg-gray-800 shadow rounded-xl">
-        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Speech to Text Converter</h1>
+        <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">{{ t('speechToText.title') }}</h1>
         <!-- Recording Controls -->
         <div class="mb-4 sm:mb-6">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Recording Controls:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{{ t('speechToText.recording_controls') }}</h3>
             <div class="flex flex-col sm:flex-row gap-3">
                 <button @click="startRecording" :disabled="isRecording"
                     class="bg-green-600 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm sm:text-base">
@@ -13,7 +13,7 @@
                                 d="M7 4a3 3 0 00-3 3v10a3 3 0 003 3h3a3 3 0 003-3V7zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Start Recording
+                        {{ t('speechToText.start_recording') }}
                     </span>
                 </button>
 
@@ -25,7 +25,7 @@
                                 d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Stop Recording
+                        {{ t('speechToText.stop_recording') }}
                     </span>
                 </button>
 
@@ -36,7 +36,7 @@
                             stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 6L18 18M6 18L18 6" />
                         </svg>
-                        Clear Text
+                        {{ t('speechToText.clear_text') }}
                     </span>
                 </button>
 
@@ -48,7 +48,7 @@
                                 d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Download Text
+                        {{ t('speechToText.download_text') }}
                     </span>
                 </button>
             </div>
@@ -56,11 +56,11 @@
 
         <!-- Voice Settings -->
         <div class="mb-4 sm:mb-6 space-y-4">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Voice Settings:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ t('speechToText.voice_settings') }}</h3>
 
             <div class="grid grid-cols-1 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Language:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('speechToText.language') }}</label>
                     <select v-model="selectedLanguage" @change="updateLanguage"
                         class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
                         <option value="en-US">English (US)</option>
@@ -80,24 +80,24 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confidence Threshold:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('speechToText.confidence_threshold') }}</label>
                     <input type="range" v-model="confidenceThreshold" min="0" max="1" step="0.1" class="w-full h-2" />
                     <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        <span>Low (0)</span>
-                        <span>Medium (0.5)</span>
-                        <span>High (1)</span>
+                        <span>{{ t('speechToSpeech.low') }} (0)</span>
+                        <span>{{ t('speechToSpeech.medium') }} (0.5)</span>
+                        <span>{{ t('speechToSpeech.high') }} (1)</span>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Max Recording Time:</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('speechToText.max_recording_time') }}</label>
                     <select v-model="maxRecordingTime"
                         class="w-full p-2 sm:p-3 border dark:border-gray-600 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
-                        <option value="30">30 seconds</option>
-                        <option value="60">1 minute</option>
-                        <option value="120">2 minutes</option>
-                        <option value="300">5 minutes</option>
-                        <option value="0">Unlimited</option>
+                        <option value="30">30 {{ t('speechToText.seconds') }}</option>
+                        <option value="60">{{ t('speechToText.minute') }}</option>
+                        <option value="120">{{ t('speechToText.minutes_2') }}</option>
+                        <option value="300">{{ t('speechToText.minutes_5') }}</option>
+                        <option value="0">{{ t('speechToText.unlimited') }}</option>
                     </select>
                 </div>
             </div>
@@ -105,28 +105,28 @@
 
         <!-- Text Output Area -->
         <div class="mb-4 sm:mb-6">
-            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Transcribed Text:</h3>
+            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">{{ t('speechToText.transcribed_text') }}</h3>
             <div class="relative">
                 <textarea v-model="text"
                     class="w-full p-3 sm:p-4 border dark:border-gray-600 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm sm:text-base"
-                    rows="8" placeholder="Transcribed text will appear here..." readonly />
+                    :placeholder="t('speechToText.transcribed_text_placeholder')" readonly />
                 <div class="absolute top-2 right-2 flex gap-2">
                     <button @click="copyText" :disabled="!text.trim()"
                         class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors">
-                        Copy
+                        {{ t('speechToText.copy') }}
                     </button>
                     <button @click="downloadText" :disabled="!text.trim()"
                         class="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors">
-                        Download
+                        {{ t('speechToText.download') }}
                     </button>
                 </div>
             </div>
             <div class="mt-2 flex justify-between items-center">
                 <p class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ text.length }} characters
+                    {{ text.length }} {{ t('speechToText.characters') }}
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ isRecording ? 'Recording...' : 'Not recording' }}
+                    {{ isRecording ? t('speechToText.recording') : t('speechToText.not_recording') }}
                 </p>
             </div>
         </div>
@@ -144,23 +144,56 @@
                     </div>
                 </div>
                 <span class="text-sm sm:text-base text-red-700">
-                    Recording in progress...
+                    {{ t('speechToText.recording_in_progress') }}
                 </span>
             </div>
         </div>
 
         <!-- SEO Content -->
-        <ToolSeoContent title="Speech to Text Converter"
-            description="Free online speech-to-text converter with real-time voice recognition. Support for multiple languages, confidence levels, and customizable recording settings. Convert speech to text instantly."
-            :steps="steps" :examples="examples" :faqs="faqs" />
-
+        <ToolSeoContentExpanded
+            :title="title"
+            :description="mainDescription"
+            :extended-description="extendedDescription"
+            :features="features"
+            :steps="steps"
+            :examples="examples"
+            :use-cases="useCases"
+            :technical-details="technicalDetails"
+            :best-practices="bestPractices"
+            :common-errors="commonErrors"
+            :alternatives="alternatives"
+            :related-tools="relatedTools"
+            :faqs="faqs"
+            :security-note="securityNote"
+            :additional-content="additionalContent"
+        />
     </div>
-
 </template>
 
 <script setup>
-import { ref, onMounted, inject } from "vue";
-import ToolSeoContent from "@/Components/tools/ToolSeoContent.vue";
+import { ref, onMounted, inject, computed } from "vue";
+import ToolSeoContentExpanded from "@/Components/tools/ToolSeoContent.vue";
+import { useTranslations } from "@/languageManager.js";
+
+// Usar sistema de traducciones
+const { t } = useTranslations();
+
+// SEO Content Data - Now using translations
+const title = computed(() => t('speechToText.title'));
+const mainDescription = computed(() => t('speechToText.mainDescription'));
+const extendedDescription = computed(() => t('speechToText.extendedDescription'));
+const features = computed(() => t('speechToText.features'));
+const steps = computed(() => t('speechToText.steps'));
+const examples = computed(() => t('speechToText.examples'));
+const useCases = computed(() => t('speechToText.useCases'));
+const technicalDetails = computed(() => t('speechToText.technicalDetails'));
+const bestPractices = computed(() => t('speechToText.bestPractices'));
+const commonErrors = computed(() => t('speechToText.commonErrors'));
+const alternatives = computed(() => t('speechToText.alternatives'));
+const relatedTools = computed(() => t('speechToText.relatedTools'));
+const faqs = computed(() => t('speechToText.faqs'));
+const securityNote = computed(() => t('speechToText.securityNote'));
+const additionalContent = computed(() => t('speechToText.additionalContent'));
 
 const text = ref("");
 const error = ref(null);
@@ -173,70 +206,6 @@ const maxRecordingTime = ref(60);
 const recordingTimer = ref(null);
 const recordingStartTime = ref(null);
 const Swal = inject('Swal');
-
-// SEO Content
-const examples = [
-    {
-        title: "Meeting Notes Transcription",
-        description: "Convert meeting speech to text notes",
-        code: "Speech: 'In today meeting we discussed the quarterly results and decided to launch the new product next month.'",
-        result: "Text: In today meeting we discussed the quarterly results and decided to launch the new product next month."
-    },
-    {
-        title: "Lecture Recording",
-        description: "Transcribe educational lecture content",
-        code: "Speech: 'The mitochondria is the powerhouse of the cell. It generates most of the cell\'s supply of adenosine triphosphate.'",
-        result: "Text: The mitochondria is the powerhouse of the cell. It generates most of the cell's supply of adenosine triphosphate.",
-        steps: [
-            "Start recording during lecture",
-            "Speak clearly and consistently",
-            "Monitor confidence levels",
-            "Download transcription for notes"
-        ]
-    },
-    {
-        title: "Voice Memo to Text",
-        description: "Convert voice memos to searchable text",
-        code: "Speech: 'Remember to buy milk, eggs, and bread from the grocery store on the way home.'",
-        result: "Text: Remember to buy milk, eggs, and bread from the grocery store on the way home."
-    }
-];
-
-const steps = [
-    'Click "Start Recording" to begin voice recognition',
-    'Allow microphone access when prompted by your browser',
-    'Speak clearly into your microphone',
-    'View real-time transcription as you speak',
-    'Use "Copy" to copy text to clipboard',
-    'Download transcribed text as a file'
-];
-
-const faqs = [
-    {
-        question: 'How does speech-to-text work?',
-        answer: 'Speech-to-text uses the Web Speech API to capture audio from your microphone and convert it to text using advanced voice recognition algorithms.'
-    },
-    {
-        question: 'What languages are supported?',
-        answer: 'We support multiple languages including English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, and Hindi. Select your preferred language in the settings.'
-    },
-    {
-        question: 'Is my data private?',
-        answer: 'Yes! All speech processing happens locally in your browser. No audio data is sent to external servers, ensuring complete privacy.'
-    },
-    {
-        question: 'What is confidence threshold?',
-        answer: 'Confidence threshold determines how confident the system must be before accepting a transcription. Higher values mean more accurate results but may miss some words.'
-    },
-    {
-        question: 'Can I use this on mobile?',
-        answer: 'Absolutely! The interface is fully responsive and optimized for mobile devices. Works with both built-in microphones and external accessories.'
-    },
-    {
-        question: 'How accurate is the transcription?',
-        answer: 'Accuracy depends on audio quality, background noise, and speaker clarity. For best results, speak clearly in a quiet environment with good microphone quality.'
-    }
-];
 
 // Initialize speech recognition
 onMounted(() => {
