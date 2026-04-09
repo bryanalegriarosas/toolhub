@@ -9,7 +9,7 @@
         </div>-->
 
         <!-- TOOL -->
-        <component :is="component" />
+        <component :is="component" class="mt-8" />
 
         <!-- 🔥 MIDDLE AD -->
         <!--<div class="mt-8 text-center">

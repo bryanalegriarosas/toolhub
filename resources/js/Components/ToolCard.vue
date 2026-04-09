@@ -14,6 +14,12 @@
         <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-3">
             {{ tool.description }}
         </p>
+
+        <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+            <span class="text-xs text-gray-400 dark:text-gray-500">
+                👁️ {{ formatVisitCount(tool.visit_counter || 0) }}
+            </span>
+        </div>
     </Link>
 </template>
 
@@ -24,4 +30,13 @@ import ToolIcon from "@/Components/ToolIcon.vue";
 const props = defineProps({
     tool: Object,
 });
+
+const formatVisitCount = (count) => {
+    if (count >= 1000000) {
+        return (count / 1000000).toFixed(1) + 'M';
+    } else if (count >= 1000) {
+        return (count / 1000).toFixed(1) + 'K';
+    }
+    return count.toString();
+};
 </script>

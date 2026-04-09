@@ -1,27 +1,16 @@
 <?php
 
 //use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ToolsController;
 use Illuminate\Support\Facades\Route;
 
-/*
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 require __DIR__.'/auth.php';
-*/
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy']);
 Route::get('/terms-of-service', [HomeController::class, 'termsOfService']);
 Route::get('/cookie-policy', [HomeController::class, 'cookiePolicy']);
@@ -37,10 +26,14 @@ Route::prefix('/tools')->group(function () {
     Route::get('', [ToolsController::class, 'index']);
 
     Route::prefix('{slug}')->group(function () {
-        Route::get('', [ToolsController::class, 'show']);
+        Route::get('', [ToolsController::class, 'show'])->middleware('track.tool.visit');
     });
 });
 
 Route::prefix('/category')->group(function () {
     Route::get('{slug}', [CategoriesController::class, 'show']);
+});
+
+Route::prefix('/admin')->middleware('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });

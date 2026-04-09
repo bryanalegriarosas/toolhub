@@ -16,6 +16,7 @@ class Tool extends Model
         'category_id',
         'seo_title',
         'seo_description',
+        'visit_counter',
     ];
 
     public function category(): BelongsTo
