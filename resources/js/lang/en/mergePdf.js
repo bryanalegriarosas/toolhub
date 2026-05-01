@@ -1,5 +1,5 @@
 export default {
-    'mergePdf.title': 'PDF Merger - Free Online PDF Combine Tool',
+    'mergePdf.title': 'Merge PDF',
     'mergePdf.description': 'Merge multiple PDF files into one document with page reordering, preview, and batch processing for better document management.',
     'mergePdf.choose_files': 'Choose PDF Files',
     'mergePdf.clear_all': 'Clear All',

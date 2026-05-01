@@ -1,5 +1,5 @@
 export default {
-    'mergePdf.title': 'Combinador de PDF - Herramienta Online Gratuita para Unir PDF',
+    'mergePdf.title': 'Combinador de PDF',
     'mergePdf.description': 'Combina múltiples archivos PDF en un solo documento con reordenamiento de páginas, vista previa y procesamiento por lotes para mejor gestión de documentos.',
     'mergePdf.choose_files': 'Elegir Archivos PDF',
     'mergePdf.clear_all': 'Limpiar Todo',

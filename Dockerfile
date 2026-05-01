@@ -25,6 +25,7 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 
 EXPOSE 80
 
-CMD php artisan migrate --force && apache2-foreground
-
-CMD php artisan sitemap:generate && apache2-foreground
+CMD php artisan migrate --force \
+ && php artisan db:seed --force \
+ && php artisan sitemap:generate \
+ && apache2-foreground
