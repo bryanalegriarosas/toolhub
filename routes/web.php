@@ -37,3 +37,5 @@ Route::prefix('/category')->group(function () {
 Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
+
+Route::get('/ping', fn() => response('ok', 200));

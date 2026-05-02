@@ -25,7 +25,16 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 
 EXPOSE 80
 
-CMD php artisan migrate:fresh --force \
- && php artisan db:seed --force \
+#Limpiar db y seeds
+#CMD php artisan migrate:fresh --force \
+# && php artisan db:seed --force \
+# && php artisan sitemap:generate \
+# && apache2-foreground
+
+CMD php artisan config:clear \
+ && php artisan route:clear \
+ && php artisan view:clear \
+ && php artisan migrate --force \
  && php artisan sitemap:generate \
  && apache2-foreground
+
