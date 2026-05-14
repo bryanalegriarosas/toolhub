@@ -94,7 +94,7 @@
             <!-- CATEGORIES -->
             <div v-for="category in sortedCategories"
                 :key="category.id"
-                class="mb-10 mt-6">
+                class="mb-10 mt-6 text-gray-600 dark:text-white">
 
                 <Link :href="'/category/' + category.slug"
                     class="text-2xl font-bold mb-4 flex items-center gap-2 hover:text-blue-600">
